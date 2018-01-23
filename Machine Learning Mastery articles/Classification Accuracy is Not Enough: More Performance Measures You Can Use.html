@@ -1,0 +1,1471 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>Classification Accuracy is Not Enough: More Performance Measures You Can Use - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="Classification Accuracy is Not Enough: More Performance Measures You Can Use - Machine Learning Mastery" property="og:title"/>
+<meta content="When you build a model for a classification problem you almost always want to look at the accuracy of that model as the number of correct predictions from all predictions made. This is the classification accuracy. In a previous post, we have looked at evaluating the robustness of a model for making predictions on unseen …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Machine Learning Process" property="article:section"/>
+<meta content="2014-03-21T05:00:04+11:00" property="article:published_time"/>
+<meta content="2017-12-13T05:43:08+11:00" property="article:modified_time"/>
+<meta content="2017-12-13T05:43:08+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/classification-accuracy.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/classification-accuracy.jpg" property="og:image:secure_url"/>
+<meta content="1024" property="og:image:width"/>
+<meta content="683" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/classification-accuracy-is-not-enough-more-performance-measures-you-can-use\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/feed/" rel="alternate" title="Machine Learning Mastery » Classification Accuracy is Not Enough: More Performance Measures You Can Use Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=861" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fclassification-accuracy-is-not-enough-more-performance-measures-you-can-use%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fclassification-accuracy-is-not-enough-more-performance-measures-you-can-use%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-861 single-format-standard ie9 ie alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-18"> <div class="textwidget"><p>Need help with machine learning? <a href="https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/">Take the FREE Crash-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-861 post type-post status-publish format-standard has-post-thumbnail hentry category-machine-learning-process">
+<header>
+<h1 class="title entry-title">Classification Accuracy is Not Enough: More Performance Measures You Can Use</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2014-03-21T05:00:04+1100">March 21, 2014</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/machine-learning-process/" title="View all items in Machine Learning Process">Machine Learning Process</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Classification%20Accuracy%20is%20Not%20Enough%3A%20More%20Performance%20Measures%20You%20Can%20Use&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fclassification-accuracy-is-not-enough-more-performance-measures-you-can-use%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Classification%20Accuracy%20is%20Not%20Enough%3A%20More%20Performance%20Measures%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/&amp;summary=When+you+build+a+model+for+a+classification+problem+you+almost+always+want+to+look+at+the+accuracy+o..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Classification%20Accuracy%20is%20Not%20Enough%3A%20More%20Performance%20Measures%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/&amp;summary=When+you+build+a+model+for+a+classification+problem+you+almost+always+want+to+look+at+the+accuracy+o...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>When you build a model for a classification problem you almost always want to look at the accuracy of that model as the number of correct predictions from all predictions made. This is the classification accuracy.</p>
+<p>In a previous post, we have looked at <a href="http://machinelearningmastery.com/how-to-choose-the-right-test-options-when-evaluating-machine-learning-algorithms/" title="How To Choose The Right Test Options When Evaluating Machine Learning Algorithms">evaluating the robustness of a model</a> for making predictions on unseen data using cross-validation and multiple cross-validation where we used classification accuracy and average classification accuracy.</p>
+<p>Once you have a model that you believe can make robust predictions you need to decide whether it is a good enough model to solve your problem. Classification accuracy alone is typically not enough information to make this decision.</p>
+<div class="wp-caption aligncenter" id="attachment_870" style="max-width: 310px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/classification-accuracy.jpg"><img alt="Classification Accuracy" class="size-medium wp-image-870" height="200" sizes="(max-width: 300px) 100vw, 300px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/classification-accuracy-300x200.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/classification-accuracy-300x200.jpg 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/classification-accuracy.jpg 1024w" width="300"/></a><p class="wp-caption-text">Classification Accuracy<br/>Photo by Nina Matthews Photography, some rights reserved</p></div>
+<p>In this post, we will look at Precision and Recall performance measures you can use to evaluate your model for a binary classification problem.</p>
+<h2>Recurrence of Breast Cancer</h2>
+<p>The <a href="http://archive.ics.uci.edu/ml/datasets/Breast+Cancer">breast cancer dataset</a> is a standard machine learning dataset. It contains 9 attributes describing 286 women that have suffered and survived breast cancer and whether or not breast cancer recurred within 5 years.</p>
+<p>It is a binary classification problem. Of the 286 women, 201 did not suffer a recurrence of breast cancer, leaving the remaining 85 that did.</p>
+<p>I think that False Negatives are probably worse than False Positives for this problem. Do you agree? More detailed screening can clear the False Positives, but False Negatives are sent home and lost to follow-up evaluation.</p>
+<h2>Classification Accuracy</h2>
+<p><a href="http://en.wikipedia.org/wiki/Accuracy_and_precision">Classification accuracy</a> is our starting point. It is the number of correct predictions made divided by the total number of predictions made, multiplied by 100 to turn it into a percentage.</p>
+<h3>All No Recurrence</h3>
+<p>A model that only predicted no recurrence of breast cancer would achieve an accuracy of (201/286)*100 or 70.28%. We’ll call this our “All No Recurrence”. This is a high accuracy, but a terrible model. If it was used alone for decision support to inform doctors (impossible, but play along), it would send home 85 women with incorrectly thinking their breast cancer was not going to reoccur (high False Negatives).</p>
+<h3>All Recurrence</h3>
+<p>A model that only predicted the recurrence of breast cancer would achieve an accuracy of (75/286)*100 or 29.72%. We’ll call this our “All Recurrence”. This model has terrible accuracy and would send home 201 women thinking that had a recurrence of breast cancer but really didn’t (high False Positives).</p>
+<h3>CART</h3>
+<p>CART or <a href="http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees">Classification And Regression Trees</a> is a powerful yet simple decision tree algorithm. On this problem, CART can achieve an accuracy of 69.23%. This is lower than our “All No Recurrence” model, but is this model more valuable?</p>
+<p>We can see that classification accuracy alone is not sufficient to select a model for this problem.</p>
+<h2>Confusion Matrix</h2>
+<p>A clean and unambiguous way to present the prediction results of a classifier is to use a <a href="http://en.wikipedia.org/wiki/Table_of_confusion#Table_of_confusion">confusion matrix</a> (also called a <a href="http://en.wikipedia.org/wiki/Contingency_table">contingency table</a>).</p>
+<p>For a binary classification problem the table has 2 rows and 2 columns. Across the top is the observed class labels and down the side are the predicted class labels. Each cell contains the number of predictions made by the classifier that fall into that cell.</p>
+<div class="wp-caption aligncenter" id="attachment_865" style="max-width: 331px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/truth_table.png"><img alt="Truth Table Confusion Matrix" class="size-full wp-image-865" height="54" sizes="(max-width: 321px) 100vw, 321px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/truth_table.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/truth_table.png 321w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/truth_table-300x50.png 300w" width="321"/></a><p class="wp-caption-text">Truth Table Confusion Matrix</p></div>
+<p>In this case, a perfect classifier would correctly predict 201 no recurrence and 85 recurrence which would be entered into the top left cell no recurrence/no recurrence (True Negatives) and bottom right cell recurrence/recurrence (True Positives).</p>
+<p>Incorrect predictions are clearly broken down into the two other cells. False Negatives which are recurrence that the classifier has marked as no recurrence. We do not have any of those. False Positives are no recurrence that the classifier has marked as recurrence.</p>
+<p>This is a useful table that presents both the class distribution in the data and the classifiers predicted class distribution with a breakdown of error types.</p>
+<h3>All No Recurrence Confusion Matrix</h3>
+<p>The confusion matrix highlights the large number (85) of False Negatives.</p>
+<div class="wp-caption aligncenter" id="attachment_866" style="max-width: 330px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/no_recurrence_confusion_matrix.png"><img alt="All No Recurrence Confusion Matrix" class="size-full wp-image-866" height="68" sizes="(max-width: 320px) 100vw, 320px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/no_recurrence_confusion_matrix.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/no_recurrence_confusion_matrix.png 320w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/no_recurrence_confusion_matrix-300x63.png 300w" width="320"/></a><p class="wp-caption-text">All No Recurrence Confusion Matrix</p></div>
+<h3>All Recurrence Confusion Matrix</h3>
+<p>The confusion matrix highlights the large number (201) of False Positives.</p>
+<div class="wp-caption aligncenter" id="attachment_867" style="max-width: 330px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/recurrence_confusion_matrix.png"><img alt="All Recurrence Confusion Matrix" class="size-full wp-image-867" height="70" sizes="(max-width: 320px) 100vw, 320px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/recurrence_confusion_matrix.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/recurrence_confusion_matrix.png 320w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/recurrence_confusion_matrix-300x65.png 300w" width="320"/></a><p class="wp-caption-text">All Recurrence Confusion Matrix</p></div>
+<h3>CART Confusion Matrix</h3>
+<p>This looks like a more valuable classifier because it correctly predicted 10 recurrence events as well as 188 no recurrence events. The model also shows a modest number of False Negatives (75) and False Positives (13).</p>
+<div class="wp-caption aligncenter" id="attachment_868" style="max-width: 330px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/cart_confusion_matrix.png"><img alt="CART Confusion Matrix" class="size-full wp-image-868" height="68" sizes="(max-width: 320px) 100vw, 320px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/cart_confusion_matrix.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/cart_confusion_matrix.png 320w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/cart_confusion_matrix-300x63.png 300w" width="320"/></a><p class="wp-caption-text">CART Confusion Matrix</p></div>
+<h2><span style="font-size: 14px; line-height: 1.5em;">Accuracy Paradox</span></h2>
+<p>As we can see in this example, accuracy can be misleading. Sometimes it may be desirable to select a model with a lower accuracy because it has a greater predictive power on the problem.</p>
+<p>For example, in a problem where there is a large class imbalance, a model can predict the value of the majority class for all predictions and achieve a high classification accuracy, the problem is that this model is not useful in the problem domain. As we saw in our breast cancer example.</p>
+<p>This is called the <a href="http://en.wikipedia.org/wiki/Accuracy_paradox">Accuracy Paradox</a>. For problems like, this additional measures are required to evaluate a classifier.</p>
+<h2>Precision</h2>
+<p><a href="http://en.wikipedia.org/wiki/Information_retrieval#Precision">Precision</a> is the number of True Positives divided by the number of True Positives and False Positives. Put another way, it is the number of positive predictions divided by the total number of positive class values predicted. It is also called the <a href="http://en.wikipedia.org/wiki/Positive_predictive_value">Positive Predictive Value</a> (PPV).</p>
+<p>Precision can be thought of as a measure of a classifiers exactness. A low precision can also indicate a large number of False Positives.</p>
+<ul>
+<li>The precision of the All No Recurrence model is 0/(0+0) or not a number, or 0.</li>
+<li>The precision of the All Recurrence model is 85/(85+201) or 0.30.</li>
+<li>The precision of the CART model is 10/(10+13) or 0.43.</li>
+</ul>
+<p>The precision suggests CART is a better model and that the All Recurrence is more useful than the All No Recurrence model even though it has a lower accuracy. The difference in precision between the All Recurrence model and the CART can be explained by the large number of False Positives predicted by the All Recurrence model.</p>
+<h2>Recall</h2>
+<p><a href="http://en.wikipedia.org/wiki/Information_retrieval#Recall" style="font-size: 14px; line-height: 1.5em;">Recall</a><span style="font-size: 14px; line-height: 1.5em;"> is the number of True Positives divided by the number of True Positives and the number of False Negatives. Put another way it is the number of positive predictions divided by the number of positive class values in the test data. It is also called Sensitivity or the True Positive Rate.</span></p>
+<p>Recall can be thought of as a measure of a classifiers completeness. A low recall indicates many False Negatives.</p>
+<ul>
+<li>The recall of the All No Recurrence model is 0/(0+85) or 0.</li>
+<li>The recall of the All Recurrence model is 85/(85+0) or 1.</li>
+<li>The recall of CART is 10/(10+75) or 0.12.</li>
+</ul>
+<p>As you would expect, the All Recurrence model has a perfect recall because it predicts “recurrence” for all instances. The recall for CART is lower than that of the All Recurrence model. This can be explained by the large number (75) of False Negatives predicted by the CART model.</p>
+<h2>F1 Score</h2>
+<p>The <a href="http://en.wikipedia.org/wiki/F1_score">F1 Score</a> is the 2*((precision*recall)/(precision+recall)). It is also called the F Score or the F Measure. Put another way, the F1 score conveys the balance between the precision and the recall.</p>
+<ul>
+<li>The F1 for the All No Recurrence model is 2*((0*0)/0+0) or 0.</li>
+<li>The F1 for the All Recurrence model is 2*((0.3*1)/0.3+1) or 0.46.</li>
+<li>The F1 for the CART model is 2*((0.43*12)/0.43+12) or 0.19.</li>
+</ul>
+<p>If we were looking to select a model based on a balance between precision and recall, the F1 measure suggests that All Recurrence model is the one to beat and that CART model is not yet sufficiently competitive.</p>
+<h2>Summary</h2>
+<p>In this post, you learned about the Accuracy Paradox and problems with a class imbalance when Classification Accuracy alone cannot be trusted to select a well-performing model.</p>
+<p>Through example, you learned about the Confusion Matrix as a way of describing the breakdown of errors in predictions for an unseen dataset. You learned about measures that summarize the precision (exactness) and recall (completeness) of a model and a description of the balance between the two in the F1 Score.</p>
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Classification%20Accuracy%20is%20Not%20Enough%3A%20More%20Performance%20Measures%20You%20Can%20Use&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fclassification-accuracy-is-not-enough-more-performance-measures-you-can-use%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Classification%20Accuracy%20is%20Not%20Enough%3A%20More%20Performance%20Measures%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/&amp;summary=When+you+build+a+model+for+a+classification+problem+you+almost+always+want+to+look+at+the+accuracy+o..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Classification%20Accuracy%20is%20Not%20Enough%3A%20More%20Performance%20Measures%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/&amp;summary=When+you+build+a+model+for+a+classification+problem+you+almost+always+want+to+look+at+the+accuracy+o...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/project-spotlight-with-artem-yankov/" rel="prev"><i class="fa fa-angle-left"></i> Project Spotlight: Event Recommendation in Python with Artem Yankov</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/machine-learning-tips-from-a-world-class-practitioner-phil-brierley/" rel="next">Machine Learning Tips from a World Class Practitioner: Phil Brierley <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">52 Responses to <em>Classification Accuracy is Not Enough: More Performance Measures You Can Use</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-320428">
+<div class="comment-container" id="li-comment-320428">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/724a29f166aa2780df74addd8504b610?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/724a29f166aa2780df74addd8504b610?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://github.com/yonglin" rel="external nofollow">Yonglin</a></span>
+<span class="date">October 5, 2015 at 7:03 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-320428" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey Jason,</p>
+<p>There is a spelling mistake in the first paragraph of  “Confusion Matrix” section where you wrote “A clean and unambiguous way to present the prediction results of a classifier is to use a use a confusion matrix (also called a contingency table).”.</p>
+<p>You see two “use a”. 🙂</p>
+<p>Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to Yonglin" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=320428#respond" onclick='return addComment.moveForm( "comment-320428", "320428", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-422931">
+<div class="comment-container" id="li-comment-422931">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f59a4dbca0e101a4cb062b081df605be?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f59a4dbca0e101a4cb062b081df605be?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">mubarak</span>
+<span class="date">December 13, 2017 at 3:30 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422931" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>you also made a typo by repeating “use a”</p>
+<div class="reply">
+<a aria-label="Reply to mubarak" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422931#respond" onclick='return addComment.moveForm( "comment-422931", "422931", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-3" id="comment-422955">
+<div class="comment-container" id="li-comment-422955">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 13, 2017 at 5:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422955" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks, fixed.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422955#respond" onclick='return addComment.moveForm( "comment-422955", "422955", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-329987">
+<div class="comment-container" id="li-comment-329987">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/267d8c454fbb6b902046ea1fd837196d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/267d8c454fbb6b902046ea1fd837196d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">vedika</span>
+<span class="date">November 12, 2015 at 10:02 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-329987" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>In the last point that you made, </p>
+<p>If we were looking to select a model based on a balance between precision and recall, the F1 measure suggests that All Recurrence model is the one to beat and that CART model is not yet sufficiently competitive.</p>
+<p>here do we then select the all recurrence model because it is giving a better balance of precision and recall? or do we try to get a model which performs at least better than cart?</p>
+<div class="reply">
+<a aria-label="Reply to vedika" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=329987#respond" onclick='return addComment.moveForm( "comment-329987", "329987", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-330269">
+<div class="comment-container" id="li-comment-330269">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a0dbd006ca8da047d64b4e4d236c6de5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a0dbd006ca8da047d64b4e4d236c6de5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.asimihsan.com" rel="external nofollow">Asim</a></span>
+<span class="date">November 15, 2015 at 12:28 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-330269" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The F1 metric is not a suitable method of combining precision and recall if there is a class imbalance, as there is here. More appropriate would be to use the Matthew’s Correlation Coefficient (<a href="https://en.wikipedia.org/wiki/Matthews_correlation_coefficient" rel="nofollow">https://en.wikipedia.org/wiki/Matthews_correlation_coefficient</a>). By my calculations the results are:</p>
+<p>All No Recurrence = 0<br/>
+All Recurrence = 0<br/>
+CART = 0.089</p>
+<p>Meaning the “All No Recurrence” and “All Recurrence” models are no better than randomly guessing, and CART is only marginally better. Unfortunately no useful models were presented in this article, but using MCC it’s possible to catch this. Here’s how to interpret MCC:</p>
+<p><a href="http://stats.stackexchange.com/questions/118219/how-to-interpret-matthews-correlation-coefficient-mcc" rel="nofollow">http://stats.stackexchange.com/questions/118219/how-to-interpret-matthews-correlation-coefficient-mcc</a></p>
+<div class="reply">
+<a aria-label="Reply to Asim" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=330269#respond" onclick='return addComment.moveForm( "comment-330269", "330269", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-331081">
+<div class="comment-container" id="li-comment-331081">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5d8188c0d4fa4b9b68b3f178dd1bf8e2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5d8188c0d4fa4b9b68b3f178dd1bf8e2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Moloy</span>
+<span class="date">November 20, 2015 at 5:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-331081" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>We know 0 is the worst value and 1 is the best value for F1 Score while choosing among the models. Is there any standard value of F1 Score (like p-value) above which we accept the model and below which we reject the model?</p>
+<div class="reply">
+<a aria-label="Reply to Moloy" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=331081#respond" onclick='return addComment.moveForm( "comment-331081", "331081", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-344477">
+<div class="comment-container" id="li-comment-344477">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/851d1d0c7f1bce57259b56c72ff6ff59?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/851d1d0c7f1bce57259b56c72ff6ff59?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">ashish</span>
+<span class="date">March 20, 2016 at 8:54 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-344477" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>what is the R Code for calculating accuracy of decision tree of cancer data</p>
+<div class="reply">
+<a aria-label="Reply to ashish" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=344477#respond" onclick='return addComment.moveForm( "comment-344477", "344477", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-351600">
+<div class="comment-container" id="li-comment-351600">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/cbef3746dbd468984be0fcb97d9115c7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/cbef3746dbd468984be0fcb97d9115c7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://github.com/HichameMoriceau" rel="external nofollow">Hichame Moriceau</a></span>
+<span class="date">May 21, 2016 at 12:55 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-351600" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>[Reporting mistake in article]</p>
+<p>If we look at the examples of F1 score calculations we can see that there are missing parentheses at the denominator. Just reporting, you might want to update this according to the correct formula you previously stated! 🙂</p>
+<p><a href="https://en.wikipedia.org/wiki/F1_score" rel="nofollow">https://en.wikipedia.org/wiki/F1_score</a></p>
+<p>Best,<br/>
+Hichame</p>
+<div class="reply">
+<a aria-label="Reply to Hichame Moriceau" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=351600#respond" onclick='return addComment.moveForm( "comment-351600", "351600", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-366525">
+<div class="comment-container" id="li-comment-366525">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/253cc93da0f1d86997d4f655b51a208d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/253cc93da0f1d86997d4f655b51a208d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mrinal</span>
+<span class="date">October 7, 2016 at 2:03 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-366525" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I found, the precision and recall value given by the caret package in R are different from the actual definition of them in <a href="https://en.wikipedia.org/wiki/Precision_and_recall" rel="nofollow">https://en.wikipedia.org/wiki/Precision_and_recall</a>. Could you tell me why it is? In fact , I got an online confusion matrix where both results are showing. <a href="http://www.marcovanetti.com/pages/cfmatrix/" rel="nofollow">http://www.marcovanetti.com/pages/cfmatrix/</a> . I can’t understand which one I should use.</p>
+<div class="reply">
+<a aria-label="Reply to Mrinal" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=366525#respond" onclick='return addComment.moveForm( "comment-366525", "366525", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-372211">
+<div class="comment-container" id="li-comment-372211">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/162f7454f2e940a8902ff65435bcf984?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/162f7454f2e940a8902ff65435bcf984?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">seggs</span>
+<span class="date">November 25, 2016 at 11:55 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-372211" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Balanced accuracy can be used as a better metrics than accuracy for a multi class imbalanced dataset classification task. have you tried to review that to affirm if that is correct or not. If yes, can you drop your implementation on your blog</p>
+<div class="reply">
+<a aria-label="Reply to seggs" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=372211#respond" onclick='return addComment.moveForm( "comment-372211", "372211", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-380237">
+<div class="comment-container" id="li-comment-380237">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1b37687cf74b76cdd0d9ac2cb89f32f9?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1b37687cf74b76cdd0d9ac2cb89f32f9?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.SocietyofDataScientists.com" rel="external nofollow">Society of Data Scientists</a></span>
+<span class="date">January 5, 2017 at 8:24 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-380237" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It is helpful to know that the F1/F Score is a measure of how accurate a model is by using Precision and Recall following the formula of:</p>
+<p>F1_Score = 2 * ((Precision * Recall) / (Precision + Recall))</p>
+<p>Precision is commonly called positive predictive value. It is also interesting to note that the PPV can be derived using Bayes’ theorem as well.</p>
+<p>Precision = True Positives / (True Positives + False Positives)</p>
+<p>Recall is also known as the True Positive Rate and is defined as the following:</p>
+<p>Recall = True Positives / (True Positives + False Negatives)</p>
+<div class="reply">
+<a aria-label="Reply to Society of Data Scientists" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=380237#respond" onclick='return addComment.moveForm( "comment-380237", "380237", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-380269">
+<div class="comment-container" id="li-comment-380269">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 5, 2017 at 9:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-380269" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for sharing.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=380269#respond" onclick='return addComment.moveForm( "comment-380269", "380269", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-385580">
+<div class="comment-container" id="li-comment-385580">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ce4e3b6b0905eda620c84ec083f1aa6e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ce4e3b6b0905eda620c84ec083f1aa6e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">kara larson</span>
+<span class="date">February 2, 2017 at 5:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-385580" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>is auc better?</p>
+<div class="reply">
+<a aria-label="Reply to kara larson" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=385580#respond" onclick='return addComment.moveForm( "comment-385580", "385580", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-385641">
+<div class="comment-container" id="li-comment-385641">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 2, 2017 at 2:00 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-385641" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>AUC is a very useful metric also.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=385641#respond" onclick='return addComment.moveForm( "comment-385641", "385641", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-391034">
+<div class="comment-container" id="li-comment-391034">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a5f96c9f1bc2ce6b344b0c6f014a699c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a5f96c9f1bc2ce6b344b0c6f014a699c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ankur J</span>
+<span class="date">March 3, 2017 at 11:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-391034" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>A very good explanation to a very common analytics scenario!</p>
+<div class="reply">
+<a aria-label="Reply to Ankur J" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=391034#respond" onclick='return addComment.moveForm( "comment-391034", "391034", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-391446">
+<div class="comment-container" id="li-comment-391446">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 6, 2017 at 10:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-391446" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Ankur.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=391446#respond" onclick='return addComment.moveForm( "comment-391446", "391446", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-395442">
+<div class="comment-container" id="li-comment-395442">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c43182f47373d52f0dba1d186c9b7a44?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c43182f47373d52f0dba1d186c9b7a44?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">MTHead</span>
+<span class="date">April 5, 2017 at 7:46 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-395442" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It would be useful to see how the F-beta (specifically the F2) measure would perform in your scenario, particularly as we are seeking to minimise false negatives … and how that would compare with AUC</p>
+<div class="reply">
+<a aria-label="Reply to MTHead" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=395442#respond" onclick='return addComment.moveForm( "comment-395442", "395442", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-395784">
+<div class="comment-container" id="li-comment-395784">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:34 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-395784" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great suggestion, thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=395784#respond" onclick='return addComment.moveForm( "comment-395784", "395784", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-397055">
+<div class="comment-container" id="li-comment-397055">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/84e03b8e89c63ba2d83eb1ca8bd4fcac?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/84e03b8e89c63ba2d83eb1ca8bd4fcac?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Zhenghong Lai</span>
+<span class="date">April 21, 2017 at 1:08 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-397055" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello, I am a beginner for ML. Recently, I’m doing a project about Feature Selection. I have fineshed the most part of it. And writing the code with the help of the matlab toolboxs is OK. Now I haved learned that we can build a decision tree with the class classregtree in matlab. And we can get the Cost of Misclassification with the method test of classregtree. BUT what should I do next to get the classification accuracy? Is there any methods can get the classification accuracy? or we can calculate it by the Cost of Misclassification? Any help that you can give it to me will be appreciated.</p>
+<div class="reply">
+<a aria-label="Reply to Zhenghong Lai" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=397055#respond" onclick='return addComment.moveForm( "comment-397055", "397055", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-397096">
+<div class="comment-container" id="li-comment-397096">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 21, 2017 at 8:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-397096" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can make predictions on unsee data (data not used to fit the model). This will give you an estimate of the skill of the model when making predictions on new data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=397096#respond" onclick='return addComment.moveForm( "comment-397096", "397096", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-397114">
+<div class="comment-container" id="li-comment-397114">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/84e03b8e89c63ba2d83eb1ca8bd4fcac?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/84e03b8e89c63ba2d83eb1ca8bd4fcac?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Zhenghong Lai</span>
+<span class="date">April 21, 2017 at 11:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-397114" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks a lot</p>
+<div class="reply">
+<a aria-label="Reply to Zhenghong Lai" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=397114#respond" onclick='return addComment.moveForm( "comment-397114", "397114", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-397949">
+<div class="comment-container" id="li-comment-397949">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/66f4f14aa5c36c7f4c0b0f57228f7ad0?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/66f4f14aa5c36c7f4c0b0f57228f7ad0?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kaleb</span>
+<span class="date">April 29, 2017 at 4:36 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-397949" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This article should describe Balanced Accuracy = (Recall + Specificity)/2, which addresses the data set imbalance problem. Using the 3 models above:</p>
+<p>    The balanced accuracy of the All No Recurrence model is  ((0/85)+(201/201))/2 or 0.5.<br/>
+    The balanced accuracy of the All Recurrence model is ((85/85)+(0/201))/2 or 0.5.<br/>
+    The precision of the CART model is ((10/85)+(188/201))/2 or 0.53</p>
+<p>Making the CART the one to choose if there are no preferences for minimizing the false positive or false negative rates</p>
+<div class="reply">
+<a aria-label="Reply to Kaleb" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=397949#respond" onclick='return addComment.moveForm( "comment-397949", "397949", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-397969">
+<div class="comment-container" id="li-comment-397969">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 29, 2017 at 7:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-397969" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for sharing Kaleb.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=397969#respond" onclick='return addComment.moveForm( "comment-397969", "397969", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-397987">
+<div class="comment-container" id="li-comment-397987">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/07524319a6f2b7c52cbfa4ee8d211741?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/07524319a6f2b7c52cbfa4ee8d211741?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Aryo Pradipta Gema</span>
+<span class="date">April 29, 2017 at 3:48 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-397987" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi, i’m considerably a beginner at ML especially when dealing with measuring its performance. I’ve recently tried to measure the performance of a deep learning architecture in doing a classification task. The dataset used on that task is highly imbalanced. In proportion, the first class only take 33% of the entire data in terms of amount. I tried to use Accuracy, F1, and Area Under ROC Curve. I also used StratifiedKFold for the cross validation algorithm. But, the F1 value is higher than the accuracy with 3-5% margin. The Area Under ROC Curve value is still under the accuracy. Me, and my research supervisor never saw something like this. But, i, personally, believe that it is possible. One of my hypothesis is because of the imbalance dataset that gives a smaller true negative value in the accuracy calculation. Is it possible? Is there any explanation for it?</p>
+<div class="reply">
+<a aria-label="Reply to Aryo Pradipta Gema" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=397987#respond" onclick='return addComment.moveForm( "comment-397987", "397987", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-398002">
+<div class="comment-container" id="li-comment-398002">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/07524319a6f2b7c52cbfa4ee8d211741?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/07524319a6f2b7c52cbfa4ee8d211741?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Aryo Pradipta Gema</span>
+<span class="date">April 29, 2017 at 8:42 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-398002" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is it possible to have a lower f measure value than the accuracy if the data is imbalanced (divided into 2 classes, 33% for first class, and 67% for the second class)? I assume it’s because of the low true negative value, is it correct?</p>
+<div class="reply">
+<a aria-label="Reply to Aryo Pradipta Gema" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=398002#respond" onclick='return addComment.moveForm( "comment-398002", "398002", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-399318">
+<div class="comment-container" id="li-comment-399318">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/03519bb9c83234d526f7349626b653d7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/03519bb9c83234d526f7349626b653d7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Eduardo</span>
+<span class="date">May 11, 2017 at 3:17 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-399318" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi,</p>
+<p>I think it would be nice including those informations in your ebook “Machine Learning Mastery with R”</p>
+<p>I am afraid there is a lot missing there about this subject,</p>
+<p>Thanks,</p>
+<div class="reply">
+<a aria-label="Reply to Eduardo" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=399318#respond" onclick='return addComment.moveForm( "comment-399318", "399318", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-399360">
+<div class="comment-container" id="li-comment-399360">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 11, 2017 at 8:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-399360" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the suggestion Eduardo.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=399360#respond" onclick='return addComment.moveForm( "comment-399360", "399360", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-400125">
+<div class="comment-container" id="li-comment-400125">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6480cb5d0e6d727aee31fe77bbc004f0?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6480cb5d0e6d727aee31fe77bbc004f0?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ali</span>
+<span class="date">May 20, 2017 at 5:48 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-400125" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I would love to see the same explanation for multi-class problems.Defining confusion matrix for binary classes is old now.</p>
+<div class="reply">
+<a aria-label="Reply to Ali" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=400125#respond" onclick='return addComment.moveForm( "comment-400125", "400125", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-400161">
+<div class="comment-container" id="li-comment-400161">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 21, 2017 at 5:57 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-400161" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the suggestion.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=400161#respond" onclick='return addComment.moveForm( "comment-400161", "400161", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-402514">
+<div class="comment-container" id="li-comment-402514">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/150c47a2c5b3ac087b423e73d70fcec2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/150c47a2c5b3ac087b423e73d70fcec2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Wojtek</span>
+<span class="date">June 14, 2017 at 6:09 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-402514" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>When training a classifier (e.g. DNN based) with a continuous output p is it possible to specifically optimize for e.g. high recall? I am not talking about just making a cut on p at a point where recall is high but for instance setting a high recall goal e.g. 95% and minimizing the false positive rate obtainable at that recall goal.</p>
+<div class="reply">
+<a aria-label="Reply to Wojtek" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=402514#respond" onclick='return addComment.moveForm( "comment-402514", "402514", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-402576">
+<div class="comment-container" id="li-comment-402576">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 15, 2017 at 8:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-402576" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>A real-valued outcome makes your prediction problem regression not classification.</p>
+<p>Recall and precision cannot be measured on regression problems.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=402576#respond" onclick='return addComment.moveForm( "comment-402576", "402576", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-403396">
+<div class="comment-container" id="li-comment-403396">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/913e1339d45149788b8f12a4325de0aa?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/913e1339d45149788b8f12a4325de0aa?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Richard</span>
+<span class="date">June 22, 2017 at 10:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-403396" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The confusion matrix you presented shows predictions as rows and observed classes as columns. Isn’t this the wrong way round?</p>
+<div class="reply">
+<a aria-label="Reply to Richard" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=403396#respond" onclick='return addComment.moveForm( "comment-403396", "403396", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-403489">
+<div class="comment-container" id="li-comment-403489">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 23, 2017 at 6:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-403489" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Compared to what Richard?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=403489#respond" onclick='return addComment.moveForm( "comment-403489", "403489", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-405459">
+<div class="comment-container" id="li-comment-405459">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/bb35303b1d245d217051a8dc2b14a791?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/bb35303b1d245d217051a8dc2b14a791?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vic</span>
+<span class="date">July 11, 2017 at 9:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-405459" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>When we examine how well the classifier is, do we care about True Negatives? Also, how to apply these measures on a multi-class problem? To me it feels like the Positive and Negative are two classes. But if we extend this to, say a 3 classes problem. Wouldn’t we need to extend this idea of Precision and Recall to all three classes to find the best classifier?</p>
+<div class="reply">
+<a aria-label="Reply to Vic" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=405459#respond" onclick='return addComment.moveForm( "comment-405459", "405459", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-405491">
+<div class="comment-container" id="li-comment-405491">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 11, 2017 at 10:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-405491" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It really depends on your specific problem and on the area of your predictions that are most important to you.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=405491#respond" onclick='return addComment.moveForm( "comment-405491", "405491", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-406250">
+<div class="comment-container" id="li-comment-406250">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2991448b8a5069bee542a046ded07324?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2991448b8a5069bee542a046ded07324?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.github.com/marcosmarxm" rel="external nofollow">Marcos Marx</a></span>
+<span class="date">July 17, 2017 at 8:52 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-406250" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great article Jason!</p>
+<p>I didn’t know the difference of accuracy and f1-score. And here presenting the paradox of accuracy, it was explicitly clear the importance of validation models.</p>
+<div class="reply">
+<a aria-label="Reply to Marcos Marx" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=406250#respond" onclick='return addComment.moveForm( "comment-406250", "406250", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-406300">
+<div class="comment-container" id="li-comment-406300">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 18, 2017 at 8:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-406300" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad the post helped.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=406300#respond" onclick='return addComment.moveForm( "comment-406300", "406300", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-411106">
+<div class="comment-container" id="li-comment-411106">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/51984467da9295288e37038d3664079b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/51984467da9295288e37038d3664079b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">NAGARAJA M S</span>
+<span class="date">August 25, 2017 at 9:40 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-411106" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason Brownlee<br/>
+Great explaination!!<br/>
+Please could you me on how to calculate model classification and predication ability in case of multiclass respones variable. help me in provide relavent infornation on this topic.</p>
+<p>Thank you</p>
+<div class="reply">
+<a aria-label="Reply to NAGARAJA M S" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=411106#respond" onclick='return addComment.moveForm( "comment-411106", "411106", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-411166">
+<div class="comment-container" id="li-comment-411166">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 26, 2017 at 6:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-411166" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps start with a confusion matrix to help understand the model output:<br/>
+<a href="https://machinelearningmastery.com/confusion-matrix-machine-learning/" rel="nofollow">https://machinelearningmastery.com/confusion-matrix-machine-learning/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=411166#respond" onclick='return addComment.moveForm( "comment-411166", "411166", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-411491">
+<div class="comment-container" id="li-comment-411491">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">aquaq</span>
+<span class="date">August 28, 2017 at 7:27 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-411491" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, thanks for this article. May I ask if you could reflect to the problem I asked in this question regarding MCC?<br/>
+<a href="https://stats.stackexchange.com/questions/299333/question-about-imbalanced-training-and-test-sets" rel="nofollow">https://stats.stackexchange.com/questions/299333/question-about-imbalanced-training-and-test-sets</a></p>
+<p>Also, do you have any opinion about using G-mean as a performance metric for imbalanced datasets?</p>
+<p>Thanks for all your help!</p>
+<div class="reply">
+<a aria-label="Reply to aquaq" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=411491#respond" onclick='return addComment.moveForm( "comment-411491", "411491", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-419838">
+<div class="comment-container" id="li-comment-419838">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f8707ae6192aa9f5fe8bdb5d5a0c0290?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f8707ae6192aa9f5fe8bdb5d5a0c0290?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Efendi</span>
+<span class="date">November 13, 2017 at 1:10 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-419838" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>In that case, what will be the good Precision and Recall values to determine that our model prediction is good?<br/>
+Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Efendi" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=419838#respond" onclick='return addComment.moveForm( "comment-419838", "419838", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-419876">
+<div class="comment-container" id="li-comment-419876">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 13, 2017 at 10:17 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-419876" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question.</p>
+<p>You want results that are better relative to a baseline model, such as the Zero Rule algorithm.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=419876#respond" onclick='return addComment.moveForm( "comment-419876", "419876", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-421513">
+<div class="comment-container" id="li-comment-421513">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6fcf4acb9cde9fb2d5fd7801caa433b1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6fcf4acb9cde9fb2d5fd7801caa433b1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Maciej</span>
+<span class="date">November 29, 2017 at 2:26 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-421513" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is ‘Confusion matrix’ useful in detection of incorrect value in timeseries data ? If yes, how to classify output of neural network as true positive, true negative etc.<br/>
+For example, when I put value ‘x’ to an input of NN it says ‘y’, but I can see that in my test data the value is ‘z’ (let’s say that ‘z’ is the incorrect value and value ‘y’ is the correct one). Should I consider it as a true positive ( assuming that incorrect values are represented by ‘positives’).</p>
+<div class="reply">
+<a aria-label="Reply to Maciej" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=421513#respond" onclick='return addComment.moveForm( "comment-421513", "421513", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-421550">
+<div class="comment-container" id="li-comment-421550">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 29, 2017 at 8:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-421550" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No, it is for classification problems, and time series are often regression problems.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=421550#respond" onclick='return addComment.moveForm( "comment-421550", "421550", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-422218">
+<div class="comment-container" id="li-comment-422218">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0ecdcf3a2b81dbcb50c5de15d37e6a15?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0ecdcf3a2b81dbcb50c5de15d37e6a15?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Abdul</span>
+<span class="date">December 5, 2017 at 9:42 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422218" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jason,<br/>
+great article.<br/>
+Is it possible to compare different binary based classification models (using imbalanced data set) in terms of 7 different performance measures (recall, specificity, balanced accuracy, precision, F-score, MCC and AUC) and how can we decide which model is the best?</p>
+<p>Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Abdul" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422218#respond" onclick='return addComment.moveForm( "comment-422218", "422218", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422246">
+<div class="comment-container" id="li-comment-422246">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 6, 2017 at 9:01 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422246" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes. Model selection will be specific your project goals.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422246#respond" onclick='return addComment.moveForm( "comment-422246", "422246", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-422447">
+<div class="comment-container" id="li-comment-422447">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0ecdcf3a2b81dbcb50c5de15d37e6a15?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0ecdcf3a2b81dbcb50c5de15d37e6a15?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Abdul</span>
+<span class="date">December 8, 2017 at 2:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422447" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I have a question about decision making.</p>
+<p>How can we interpret the following results when there is a conflict between different measures and what decision can we make?</p>
+<p>For example, in terms of high balanced accuracy, the Kernel-SVM was the best model  with 98.09%, followed by RBF-NN with 97.74% and CART DT with 95.26%.  For the F-score,  MCC and AUC measures , the RBF-NN model achieved the highest results (99.21 %, 92.82 and 0.98) followed  by the CART DT (98.43%, 85.34% and 0.91) and the Kernel-SVM model (98.05%, 81.32% and 0.97).</p>
+<p>Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Abdul" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422447#respond" onclick='return addComment.moveForm( "comment-422447", "422447", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422464">
+<div class="comment-container" id="li-comment-422464">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 8, 2017 at 5:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422464" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It comes down to the measure that best reflects your goals and the simplest-skillful model on that measure.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422464#respond" onclick='return addComment.moveForm( "comment-422464", "422464", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-422516">
+<div class="comment-container" id="li-comment-422516">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0ecdcf3a2b81dbcb50c5de15d37e6a15?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0ecdcf3a2b81dbcb50c5de15d37e6a15?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Abdul</span>
+<span class="date">December 8, 2017 at 10:04 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422516" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jason,</p>
+<p>Is it possible to compare different classification models based on the overall mean of different  performance measures?</p>
+<div class="reply">
+<a aria-label="Reply to Abdul" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422516#respond" onclick='return addComment.moveForm( "comment-422516", "422516", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422539">
+<div class="comment-container" id="li-comment-422539">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 9, 2017 at 5:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-422539" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sure, you can compare algorithms anyway you wish for your specific requirements.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=422539#respond" onclick='return addComment.moveForm( "comment-422539", "422539", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-425024">
+<div class="comment-container" id="li-comment-425024">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c4cbd54d1ad66c492a62a8c06fd961e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c4cbd54d1ad66c492a62a8c06fd961e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://budgetnow.ca" rel="external nofollow">Rizwan Mian</a></span>
+<span class="date">December 28, 2017 at 12:39 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-425024" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Jason, thanks.</p>
+<p>I see a string of useful evaluation metrics. Take classification for example, we see accuracy, F-measure, area under ROC etc.</p>
+<p>dumb question: is there a utility score metric that combines many (all?) of them and give us a universal score? probably not, why not?</p>
+<p>For example, F-measure combines precision and recall.</p>
+<p>ps. How can I get email notifications when somebody replies to my questions or comments.</p>
+<div class="reply">
+<a aria-label="Reply to Rizwan Mian" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=425024#respond" onclick='return addComment.moveForm( "comment-425024", "425024", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-425031">
+<div class="comment-container" id="li-comment-425031">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 28, 2017 at 2:11 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#comment-425031" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Model skill is really a balance of trade-offs. You must find the right trade-off for your specific problem (e.g. by talking to stakeholders).</p>
+<p>Sorry, I don’t have notifications yet, I hope to add them in the future. Thanks for the prompt!</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/?replytocom=425031#respond" onclick='return addComment.moveForm( "comment-425031", "425031", "respond", "861" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="861"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="12cbb6b634"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="184"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-5"> <div class="textwidget"><p></p><center>
+<h3>You’re a Professional (and you need results)!</h3>
+<p><em>The field moves quickly…</em><br/>
+<strong>How Long Can You Afford To Wait?</strong></p>
+<p>Take Action Now!</p>
+<p><a class="woo-sc-button teal" href="/products/"><span class="woo-">Get The Training You Need</span></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

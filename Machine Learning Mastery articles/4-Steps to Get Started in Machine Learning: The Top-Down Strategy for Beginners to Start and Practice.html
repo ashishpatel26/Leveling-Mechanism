@@ -1,0 +1,991 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>4-Steps to Get Started in Machine Learning: The Top-Down Strategy for Beginners to Start and Practice - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="4-Steps to Get Started in Machine Learning: The Top-Down Strategy for Beginners to Start and Practice - Machine Learning Mastery" property="og:title"/>
+<meta content="Getting started is much easier than you think. In this post I show you the top-down approach for getting started in applied machine learning. You will discover the four steps to this approach. They should feel familiar because it’s probably the same top-down approach that you used to learn how to program. Namely, get the …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Start Machine Learning" property="article:section"/>
+<meta content="2014-03-03T05:00:05+11:00" property="article:published_time"/>
+<meta content="2016-06-07T12:31:55+11:00" property="article:modified_time"/>
+<meta content="2016-06-07T12:31:55+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/beginners-are-different.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/beginners-are-different.jpg" property="og:image:secure_url"/>
+<meta content="1024" property="og:image:width"/>
+<meta content="683" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/4-steps-to-get-started-in-machine-learning\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/feed/" rel="alternate" title="Machine Learning Mastery » 4-Steps to Get Started in Machine Learning: The Top-Down Strategy for Beginners to Start and Practice Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=779" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2F4-steps-to-get-started-in-machine-learning%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2F4-steps-to-get-started-in-machine-learning%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-779 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-18"> <div class="textwidget"><p>Need help with machine learning? <a href="https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/">Take the FREE Crash-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-779 post type-post status-publish format-standard has-post-thumbnail hentry category-start-machine-learning">
+<header>
+<h1 class="title entry-title">4-Steps to Get Started in Machine Learning: The Top-Down Strategy for Beginners to Start and Practice</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2014-03-03T05:00:05+1100">March 3, 2014</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/start-machine-learning/" title="View all items in Start Machine Learning">Start Machine Learning</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=4-Steps%20to%20Get%20Started%20in%20Machine%20Learning%3A%20The%20Top-Down%20Strategy%20for%20Beginners%20to%20Start%20and%20Practice&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2F4-steps-to-get-started-in-machine-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=4-Steps%20to%20Get%20Started%20in%20Machine%20Learning%3A%20The%20Top-Down%20Strategy%20for%20Beginners%20to%20Start%20and%20Practice&amp;url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/&amp;summary=Getting+started+is+much+easier+than+you+think.%0D%0A%0D%0AIn+this+post+I+show+you+the+top-down+approach+for+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=4-Steps%20to%20Get%20Started%20in%20Machine%20Learning%3A%20The%20Top-Down%20Strategy%20for%20Beginners%20to%20Start%20and%20Practice&amp;url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/&amp;summary=Getting+started+is+much+easier+than+you+think.%0D%0A%0D%0AIn+this+post+I+show+you+the+top-down+approach+for+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>Getting started is much easier than you think.</p>
+<p>In this post I show you the top-down approach for getting started in applied machine learning. You will discover the four steps to this approach. They should feel familiar because it’s probably the same top-down approach that you used to learn how to program. Namely, get the basics, practice a lot and dive into the details later after you’re hooked.</p>
+<p>At the end of the post, I link to my mini-course that can shortcut the path and give you step-by-step instructions to follow to start and practice applied machine learning.</p>
+<h2>Beginners are Different</h2>
+<p>Beginners have an interest in machine learning but are not sure how to take that first step. They are confused because the material on blogs and in courses is almost always pitched at an intermediate level.</p>
+<div class="wp-caption aligncenter" id="attachment_784" style="max-width: 255px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/machine-learning.jpg"><img alt="machine learning" class="size-medium wp-image-784" height="300" sizes="(max-width: 245px) 100vw, 245px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/machine-learning-245x300.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/machine-learning-245x300.jpg 245w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/machine-learning.jpg 837w" width="245"/></a><p class="wp-caption-text">Machine Learning<br/>Photo by <a href="http://www.flickr.com/photos/erikcharlton/2955613283/sizes/l/">Erik Charlton</a>, some rights reserved.</p></div>
+<p>Typical books and university-level courses are bottom-up. They teach or require the mathematics before grinding through a few key algorithms and theories before finishing up. This can be a good approach if you have the time, patience and appropriate background. Not everyone has so much free time or the desire to move through so much low-level material before getting to the meat and potatoes of applied machine learning.</p>
+<p>I get a lot of emails from beginners asking for advice on how to get started in machine learning. It’s a tough problem, because there are so many possibilities and so many things I could recommend. I tell them <a href="http://machinelearningmastery.com/what-if-im-not-good-at-mathematics/" title="What if I’m Not Good at Mathematics">not to dive into the math</a> and <a href="http://machinelearningmastery.com/what-if-i-dont-have-a-degree/" title="What if I Don’t Have a Degree">not to go straight back to school</a>.</p>
+<p>The students and professionals I advise are almost always programmers or have an engineering background, and I tell them that there is a much more efficient path into machine learning for them.</p>
+<h2>Solution is Top-Down</h2>
+<p>My advice for beginners in machine learning is to take a top-down approach.</p>
+<div class="wp-caption aligncenter" id="attachment_783" style="max-width: 310px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/beginners-are-different.jpg"><img alt="Beginners are Different" class="size-medium wp-image-783" height="200" sizes="(max-width: 300px) 100vw, 300px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/beginners-are-different-300x200.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/beginners-are-different-300x200.jpg 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/beginners-are-different.jpg 1024w" width="300"/></a><p class="wp-caption-text">Beginners are Different<br/>Photo by <a href="http://www.flickr.com/photos/mikebaird/2128093018/sizes/l/">mikebaird</a>, some rights reserved.</p></div>
+<p>I advise beginners to take a faster route to discover what applied machine learning is all about before dedicating huge time resources into studying the theory. It makes sense and it is familiar because it’s the way you get excited about programming first, before diving in and making it a focus of study and career.</p>
+<p>The top down approach is to quickly learn the high-level step-by-step process of working through a machine learning problem end-to-end using a software tool. With modern platforms, it is possible to work through small problems in minutes to hours using complex state-of-the-art algorithms and rigorous validation and statistical hypothesis testing, all performed automatically within the tools.</p>
+<p>It is after you are familiar and confident with the process that I advise you start looking deeper into the algorithms and theory side of machine learning. How first, why later.</p>
+<p>We can summarize this top-down approach as follows:</p>
+<ol>
+<li>Learn the high-level process of applied machine learning.</li>
+<li>Learn how to use a tool enough to be able to work through problems.</li>
+<li>Practice on datasets, a lot.</li>
+<li>Transition into the details and theory of machine learning algorithms.</li>
+</ol>
+<h2>Applied Machine Learning Process</h2>
+<p>I have written a lot about the <a href="http://machinelearningmastery.com/process-for-working-through-machine-learning-problems/" title="5-Part Process for working through Machine Learning Problems">process of applied machine learning</a>. I advocate a 6-step process for classification and regression type problems, the common problem types at the heart of most machine learning problems. The process is as follows:</p>
+<ol>
+<li><a href="http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/" title="How to Define Your Machine Learning Problem">Problem Definition</a>: Understand and clearly describe the problem that is being solved.</li>
+<li><a href="http://machinelearningmastery.com/quick-and-dirty-data-analysis-for-your-machine-learning-problem/" title="Quick and Dirty Data Analysis for your Machine Learning Problem">Analyze Data</a>: Understand the information available that will be used to develop a model.</li>
+<li><a href="http://machinelearningmastery.com/how-to-prepare-data-for-machine-learning/" title="How to Prepare Data For Machine Learning">Prepare Data</a>: Discover and expose the structure in the dataset.</li>
+<li><a href="http://machinelearningmastery.com/how-to-evaluate-machine-learning-algorithms/" title="How to Evaluate Machine Learning Algorithms">Evaluate Algorithms</a>: Develop a <a href="http://machinelearningmastery.com/how-to-choose-the-right-test-options-when-evaluating-machine-learning-algorithms/" title="How To Choose The Right Test Options When Evaluating Machine Learning Algorithms">robust test harness</a> and baseline accuracy from which to improve and <a href="http://machinelearningmastery.com/why-you-should-be-spot-checking-algorithms-on-your-machine-learning-problems/" title="Why you should be Spot-Checking Algorithms on your Machine Learning Problems">spot check algorithms</a>.</li>
+<li><a href="http://machinelearningmastery.com/how-to-improve-machine-learning-results/" title="How to Improve Machine Learning Results">Improve Results</a>: Leverage results to develop more accurate models.</li>
+<li><a href="http://machinelearningmastery.com/how-to-use-machine-learning-results/" title="How to Use Machine Learning Results">Present Results</a>: Describe the problem and solution so that it can be understood by third parties.</li>
+</ol>
+<div class="wp-caption aligncenter" id="attachment_788" style="max-width: 524px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/Process-Overview.png"><img alt="Applied Machine Learning Process Overview" class=" wp-image-788 " height="614" sizes="(max-width: 514px) 100vw, 514px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/Process-Overview.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/Process-Overview.png 643w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/03/Process-Overview-251x300.png 251w" width="514"/></a><p class="wp-caption-text">Applied Machine Learning Process Overview</p></div>
+<p>By following this structured process on each problem you work through, you enforce a minimum level of rigour and dramatically increase the likelihood of getting good (or more likely excellent) results.</p>
+<h2>Use the Weka Machine Learning Workbench</h2>
+<p>The software platform for beginners to learn when getting started is the Weka Machine Learning Workbench.</p>
+<p>I think the decision to use <a href="http://machinelearningmastery.com/what-is-the-weka-machine-learning-workbench/" title="What is the Weka Machine Learning Workbench">Weka</a> when getting started is a complete no-brainer because:</p>
+<ul>
+<li>It provides a simple graphical user interface that encapsulates the process of applied machine learning outlined above.</li>
+<li>It facilitates algorithm and dataset exploration as well as rigours experiment design and analysis.</li>
+<li>It is free and open source, licensed under the GNU GPL.</li>
+<li>It is cross-platform and runs on Windows, Mac OS X and Linux (requires a Java virtual machine).</li>
+<li>It contains state-of-the-art algorithms with an impressive abundance of Decision Trees, Rule Based Algorithms and Ensemble methods, as well as others.</li>
+</ul>
+<div class="wp-caption aligncenter" id="attachment_612" style="max-width: 310px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/02/weka-explorer.png"><img alt="Weka Explorer Interface with the Iris dataset loaded" class="size-medium wp-image-612" height="234" sizes="(max-width: 300px) 100vw, 300px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/02/weka-explorer-300x234.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/02/weka-explorer-300x234.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/02/weka-explorer.png 914w" width="300"/></a><p class="wp-caption-text">Weka Explorer Interface with the Iris dataset loaded</p></div>
+<p>You can see for yourself how easy the platform is to use, I have written a number of 5-minute Weka tutorials, such as:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/how-to-run-your-first-classifier-in-weka/" title="How to Run Your First Classifier in Weka">How to run your first classifier</a></li>
+<li><a href="http://machinelearningmastery.com/design-and-run-your-first-experiment-in-weka/" title="Design and Run your First Experiment in Weka">How to design and run your first experiment</a></li>
+<li><a href="http://machinelearningmastery.com/how-to-tune-a-machine-learning-algorithm-in-weka/" title="How to Tune a Machine Learning Algorithm in Weka">How to tune an algorithm rigorously in a designed experiment</a></li>
+<li><a href="http://machinelearningmastery.com/improve-machine-learning-results-with-boosting-bagging-and-blending-ensemble-methods-in-weka/" title="Improve Machine Learning Results with Boosting, Bagging and Blending Ensemble Methods in Weka">How to use ensemble methods in Weka</a></li>
+</ul>
+<p>Additionally, if you get right into Weka, you can run algorithms from the command line and integrate algorithms into your application via the application programming interface. It is an extensible platform and you can quickly and easily implement your own algorithms to the interface and use them in the GUI.</p>
+<h2>Practice, Practice, Practice, on Datasets</h2>
+<p>Once you are up and running with Weka, you need to practice the 6-step process of applied machine learning.</p>
+<p>The Weka installation includes a data directory with many standard machine learning datasets, most taken from actual scientific problem domains. There is also a wealth of excellent datasets to trial and learn from on the <a href="http://archive.ics.uci.edu/ml/">UCI Machine Learning Repository</a>. These datasets are an excellent place for you to get started learning and practicing.</p>
+<ul>
+<li>The datasets are small and easily fit into memory.</li>
+<li>The small size of the datasets also means that algorithms and experiments are quick to run.</li>
+<li>The problems and data are real, including noise, biases in sampling and data collection that you need to consider.</li>
+<li>The data is well understood so that you can leverage what is known and openly discuss the data with peers.</li>
+<li>There are known “good results” for you to compare to and recreate.</li>
+</ul>
+<p>You can choose your own level of detail on each step of the structured process. I recommend spending no more than one-hour on each step when getting started. You can do and learn a lot about a problem in one hour with Weka, especially when designing and running experiments. This will keep your motivation and project velocity high.</p>
+<div class="wp-caption aligncenter" id="attachment_229" style="max-width: 310px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/12/lots-of-data.jpg"><img alt="lots of data" class="size-medium wp-image-229" height="199" sizes="(max-width: 300px) 100vw, 300px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/12/lots-of-data-300x199.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/12/lots-of-data-300x199.jpg 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/12/lots-of-data.jpg 1024w" width="300"/></a><p class="wp-caption-text">Lots of Data<br/>Photo attributed to cibomahto, some rights reserved</p></div>
+<p>The structured process encourages you to make observations and record results and findings as you work through a given problem. It is wise to keep these observations and findings together, perhaps in a project directory or Github project.</p>
+<p>I recommend blogging about each of your projects, even each step of a project as you complete it. You can do this on your own blog (if you have one) or as Facebook or Google+ updates (that now support images and text formatting). I like the honesty that publicly blogging projects encourages. It also provides an indicator to your peers and colleagues that you are interested, serious about and developing some chops in applied machine learning.</p>
+<h2>Transitioning Deeper</h2>
+<p>Because the projects are small and the process is structured, you can quickly learn a lot about a problem and move through a number of projects. You can also collect data on problems of your own and use the same process to deliver useful and meaningful results on projects at work or for your own benefit.</p>
+<p>The next step is to dive deeper into the algorithms and learn why they work and how to get more out of them. I recommend transitioning deeper into the subject by picking up the book <a class="easyazon-link" href="http://www.amazon.com/dp/0123748569?tag=inspiredalgor-20">Data Mining: Practical Machine Learning Tools and Techniques</a>. It is written by the original authors of the Weka platform and provides a treatment of how and why the algorithms used in Weka work and other deeper concerns of machine learning.</p>
+<p>The deeper knowledge will allow you to get more from the platform on your own custom problems. It will also allow you to better appreciate the methods in Weka and you will start to build an intuition as to the mapping between problem and algorithm types</p>
+<h2>Summary</h2>
+<p>In this post you discovered the top-down approach to getting started in machine learning that advocates learning the specific structured process, a powerful tool that supports this process and to practice applied machine learning in a series of focused projects.</p>
+<p>You learned that this is the exact opposite of the traditional bottom-up approach that expects you to perform the heavy lifting in the field first, (before you even know if the field is right for you) and leaves you to figure out how to apply algorithms in practice all by yourself.</p>
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=4-Steps%20to%20Get%20Started%20in%20Machine%20Learning%3A%20The%20Top-Down%20Strategy%20for%20Beginners%20to%20Start%20and%20Practice&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2F4-steps-to-get-started-in-machine-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=4-Steps%20to%20Get%20Started%20in%20Machine%20Learning%3A%20The%20Top-Down%20Strategy%20for%20Beginners%20to%20Start%20and%20Practice&amp;url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/&amp;summary=Getting+started+is+much+easier+than+you+think.%0D%0A%0D%0AIn+this+post+I+show+you+the+top-down+approach+for+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=4-Steps%20to%20Get%20Started%20in%20Machine%20Learning%3A%20The%20Top-Down%20Strategy%20for%20Beginners%20to%20Start%20and%20Practice&amp;url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/&amp;summary=Getting+started+is+much+easier+than+you+think.%0D%0A%0D%0AIn+this+post+I+show+you+the+top-down+approach+for+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/improve-machine-learning-results-with-boosting-bagging-and-blending-ensemble-methods-in-weka/" rel="prev"><i class="fa fa-angle-left"></i> Improve Machine Learning Results with Boosting, Bagging and Blending Ensemble Methods in Weka</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/a-simple-intuition-for-overfitting/" rel="next">A Simple Intuition for Overfitting, or Why Testing on Training Data is a Bad Idea <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">25 Responses to <em>4-Steps to Get Started in Machine Learning: The Top-Down Strategy for Beginners to Start and Practice</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-404">
+<div class="comment-container" id="li-comment-404">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1a4819e5c7e1d97377525c5b274373ce?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1a4819e5c7e1d97377525c5b274373ce?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Steven Vass</span>
+<span class="date">March 4, 2014 at 8:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-404" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey Jason, I’m interested in the course. I’m very familiar with Python, and as I was looking to practice ML, I figured using scikit-learn would be the natural path for me. So I was turning a blind eye to your Weka posts. However, reading the section in this post “Use the Weka Machine Learning Workbench”, with the image of the GUI, really sparked my interest. The fact that it comes with datasets and has a focus on visual output are compelling features for me. It invites playfulness and exploration.</p>
+<p>I’ve found in other areas of programming that it’s important for me to stop being snobbish about the tools I use, and just dive and work with whatever tool allows me to get things done. I’m looking forward to loading up Weka and playing with the data and algorithms.</p>
+<div class="reply">
+<a aria-label="Reply to Steven Vass" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=404#respond" onclick='return addComment.moveForm( "comment-404", "404", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-405">
+<div class="comment-container" id="li-comment-405">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">jasonb</a></span>
+<span class="date">March 4, 2014 at 9:03 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-405" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Steven, I have sent you an email with the coupon to get 20% off.</p>
+<p>I reckon you’ll get a lot out of the course. It’s very hands on and the “applied machine learning” skills are very transferable to other platforms like scikit-learn, after you’ve picked them up. </p>
+<p>The tools are the easy part, getting process down pat is key. And Weka is a total joy to use.</p>
+<div class="reply">
+<a aria-label="Reply to jasonb" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=405#respond" onclick='return addComment.moveForm( "comment-405", "405", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-46849">
+<div class="comment-container" id="li-comment-46849">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/409a5f32aefd2f89fe4bf994d99890ab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/409a5f32aefd2f89fe4bf994d99890ab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">WallisTD</span>
+<span class="date">October 20, 2014 at 5:20 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-46849" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi – have just been exposed to machine learning in an informatics course.  Instructor used Weka as part of the introduction and now I am trying to learn more. I’m particularly interested in the application to medicine (e.g. diabetes and breast cancer examples).  I look forward to trying out your guide.</p>
+<p>Thanks for making an introductory resource that isn’t intimidating.</p>
+<div class="reply">
+<a aria-label="Reply to WallisTD" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=46849#respond" onclick='return addComment.moveForm( "comment-46849", "46849", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-132889">
+<div class="comment-container" id="li-comment-132889">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/abff912ee8aaa9be8665f1f3b8555e2e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/abff912ee8aaa9be8665f1f3b8555e2e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.kristophersage.com" rel="external nofollow">Kris Sage</a></span>
+<span class="date">November 24, 2014 at 7:09 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-132889" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey Jason, I am very interested in the course. I was looking through some machine learning books on amazon talking about Sci-kit before I stumbled onto your post that described Weka and its GUI – I was instantly hooked! </p>
+<p>I just took the initial tumble down the rabbit hole of programming – read a few things and watched some videos so very familiar with terminology and concept – the bits and pieces are all there just now need to get a ton of practice.  I have a deep background in statistics and regression, etc. – the majority of my background is financial services but I have begun some consulting work where one of my biggest projects is a client who is very successful in machine learning – so your blog is nothing less than a godsend!</p>
+<p>Very excited to dive into the course and begin this journey of machine learning!</p>
+<div class="reply">
+<a aria-label="Reply to Kris Sage" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=132889#respond" onclick='return addComment.moveForm( "comment-132889", "132889", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-132952">
+<div class="comment-container" id="li-comment-132952">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 24, 2014 at 7:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-132952" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Kris!</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=132952#respond" onclick='return addComment.moveForm( "comment-132952", "132952", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-247768">
+<div class="comment-container" id="li-comment-247768">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/8191cd8a36ade4d1ce3bee7a24e89750?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/8191cd8a36ade4d1ce3bee7a24e89750?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kurren</span>
+<span class="date">February 19, 2015 at 3:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-247768" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Just what I was looking for, thank you</p>
+<div class="reply">
+<a aria-label="Reply to Kurren" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=247768#respond" onclick='return addComment.moveForm( "comment-247768", "247768", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-247823">
+<div class="comment-container" id="li-comment-247823">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 19, 2015 at 8:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-247823" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Glad to hear that Kurren!</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=247823#respond" onclick='return addComment.moveForm( "comment-247823", "247823", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-311364">
+<div class="comment-container" id="li-comment-311364">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d872e80db0c9caeaa705d08e7c546645?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d872e80db0c9caeaa705d08e7c546645?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.idwanita.com/" rel="external nofollow">Ranap Sianturi</a></span>
+<span class="date">August 13, 2015 at 7:18 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-311364" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This is what i looking for, thanks for sharing</p>
+<div class="reply">
+<a aria-label="Reply to Ranap Sianturi" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=311364#respond" onclick='return addComment.moveForm( "comment-311364", "311364", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-331947">
+<div class="comment-container" id="li-comment-331947">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/82b097a01cb3b2f3ba349470a4eee481?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/82b097a01cb3b2f3ba349470a4eee481?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Boskay</span>
+<span class="date">November 25, 2015 at 1:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-331947" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I am a new starter in machine learning, going through your introductory message I know definately I will get something better out of your modules. I have not known how much it cost yet but I will definately participate. I am into text classification ( filtering of offensive langiage in online social networks using natural language processing). I know it would be of a great assistance to me. Hope to mail you as am going on through the modulels.<br/>
+Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to Boskay" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=331947#respond" onclick='return addComment.moveForm( "comment-331947", "331947", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-337721">
+<div class="comment-container" id="li-comment-337721">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/4ac3fe8f81db55fc884007dce41e44a6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/4ac3fe8f81db55fc884007dce41e44a6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">ben</span>
+<span class="date">January 7, 2016 at 11:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-337721" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason</p>
+<p>i am a java developer looking to transition into the field of analytics. How would this course help in my goal ? I really liked your approach on machine learning.</p>
+<div class="reply">
+<a aria-label="Reply to ben" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=337721#respond" onclick='return addComment.moveForm( "comment-337721", "337721", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-341421">
+<div class="comment-container" id="li-comment-341421">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/11a64fae16d877f78a514b15b26043de?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/11a64fae16d877f78a514b15b26043de?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">J George</span>
+<span class="date">February 13, 2016 at 1:41 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-341421" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>HI Jason,</p>
+<p>Would you recommend this course to (senior) high school students who have some knowledge of algorithms and have moved beyond the basics of a programming language such as Python?</p>
+<div class="reply">
+<a aria-label="Reply to J George" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=341421#respond" onclick='return addComment.moveForm( "comment-341421", "341421", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-344830">
+<div class="comment-container" id="li-comment-344830">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ec2abedf7d3824601c352760d5dce602?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ec2abedf7d3824601c352760d5dce602?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Joga Singh</span>
+<span class="date">March 22, 2016 at 9:50 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-344830" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+I would like to start with your course. Do you have any current discount offers?</p>
+<p>Regards,</p>
+<p>Joga</p>
+<div class="reply">
+<a aria-label="Reply to Joga Singh" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=344830#respond" onclick='return addComment.moveForm( "comment-344830", "344830", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-348578">
+<div class="comment-container" id="li-comment-348578">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/68e02a180dbf359859ae5f1b9ad36605?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/68e02a180dbf359859ae5f1b9ad36605?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.caremotto.com" rel="external nofollow">Ravuri Niranjan</a></span>
+<span class="date">April 17, 2016 at 7:54 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-348578" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason , Thanks for a good article .I am a practicing surgeon at a charitable hospital in South India ( Hyderabad ) . I have an intense desire to develop a device which can assess, tabulate and analyse several vitals and other important parameters of an individual ,which could prevent several debilitating chronic disorders  . I have started a portal called healthisall.in earlier and have failed in implementing it properly but the blog is been a huge hit .I have moved on and now  I am planning on starting an integrated application with a device useful for every individual in a family aiming at prevention  . I am looking for a course which can educate me with the basics of healthcare related IOT( Real basics ) .Kindly let me know how to proceed further .I am willing to approach any teams who could be interested in working in the same field or related stuff. Thank you so much .</p>
+<div class="reply">
+<a aria-label="Reply to Ravuri Niranjan" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=348578#respond" onclick='return addComment.moveForm( "comment-348578", "348578", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-388295">
+<div class="comment-container" id="li-comment-388295">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5a072b9595199a5119056ae39acecd89?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5a072b9595199a5119056ae39acecd89?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Frank</span>
+<span class="date">February 16, 2017 at 5:31 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-388295" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I am just getting started in machine learning. Although I am not a programmer I do work in a network carrier (voip, data, iptv) field and use a lot of scripting languages to get the job done. ML is being mentioned more and more in my field for various project manager, customer service, and performance analytics needs so I need to be at least familiar with it. I look forward to your course and thank you for putting within my reach to comprehend.</p>
+<div class="reply">
+<a aria-label="Reply to Frank" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=388295#respond" onclick='return addComment.moveForm( "comment-388295", "388295", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-388338">
+<div class="comment-container" id="li-comment-388338">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 16, 2017 at 11:10 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-388338" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Frank, it’s great to have you here.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=388338#respond" onclick='return addComment.moveForm( "comment-388338", "388338", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-390600">
+<div class="comment-container" id="li-comment-390600">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/05e24c11e92272fcf8fdbe8ab7cca877?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/05e24c11e92272fcf8fdbe8ab7cca877?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">S Ahmad</span>
+<span class="date">February 28, 2017 at 7:03 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-390600" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+I have extensive experience in database management systems and HLL programming. I would like to switch to ML and I do not know where to start from. I need your help to move forward in ML. What are basic prerequisites to opt for this course.</p>
+<p>Regards<br/>
+S Ahmad</p>
+<div class="reply">
+<a aria-label="Reply to S Ahmad" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=390600#respond" onclick='return addComment.moveForm( "comment-390600", "390600", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-390707">
+<div class="comment-container" id="li-comment-390707">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 1, 2017 at 8:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-390707" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi, my best advice for getting started is here:<br/>
+<a href="http://machinelearningmastery.com/start-here/#getstarted" rel="nofollow">http://machinelearningmastery.com/start-here/#getstarted</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=390707#respond" onclick='return addComment.moveForm( "comment-390707", "390707", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-408034">
+<div class="comment-container" id="li-comment-408034">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7dac827c074f2e38e299f5a0238318b6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7dac827c074f2e38e299f5a0238318b6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">abhi</span>
+<span class="date">July 31, 2017 at 9:27 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-408034" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>By Far Best Tutorial I found online for Beginners. I would love to read most of articles on this site and join your course.</p>
+<div class="reply">
+<a aria-label="Reply to abhi" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=408034#respond" onclick='return addComment.moveForm( "comment-408034", "408034", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-408088">
+<div class="comment-container" id="li-comment-408088">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 1, 2017 at 7:59 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-408088" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=408088#respond" onclick='return addComment.moveForm( "comment-408088", "408088", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-419844">
+<div class="comment-container" id="li-comment-419844">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/13c480c88f7c595577e84be4a8e83fb3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/13c480c88f7c595577e84be4a8e83fb3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Basanta</span>
+<span class="date">November 13, 2017 at 2:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-419844" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason… Inspired by your posts and want to learn. But, want to ask a little more. Is there some concessions to students for the courses?</p>
+<div class="reply">
+<a aria-label="Reply to Basanta" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=419844#respond" onclick='return addComment.moveForm( "comment-419844", "419844", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-419878">
+<div class="comment-container" id="li-comment-419878">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 13, 2017 at 10:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-419878" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, send me an email or message and I will send you a student discount.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=419878#respond" onclick='return addComment.moveForm( "comment-419878", "419878", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-421616">
+<div class="comment-container" id="li-comment-421616">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9fbe9229fa8ba8d24cd54e74a672ed6f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9fbe9229fa8ba8d24cd54e74a672ed6f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Namrata Saxena</span>
+<span class="date">November 29, 2017 at 10:25 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-421616" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, looking forward to join you course. My email id is – <a href="mailto:namsaxena95@gmail.com">namsaxena95@gmail.com</a>.</p>
+<div class="reply">
+<a aria-label="Reply to Namrata Saxena" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=421616#respond" onclick='return addComment.moveForm( "comment-421616", "421616", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-421665">
+<div class="comment-container" id="li-comment-421665">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 30, 2017 at 8:17 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-421665" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can join here:<br/>
+<a href="https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/" rel="nofollow">https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=421665#respond" onclick='return addComment.moveForm( "comment-421665", "421665", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-422622">
+<div class="comment-container" id="li-comment-422622">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/69ab97cf0efe390c46be159ba46f2587?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/69ab97cf0efe390c46be159ba46f2587?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sanchit Sharma</span>
+<span class="date">December 10, 2017 at 5:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-422622" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for valuable information . I am a Java Developer and interested in ML . Should i learn python first before starting learning ML ?</p>
+<div class="reply">
+<a aria-label="Reply to Sanchit Sharma" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=422622#respond" onclick='return addComment.moveForm( "comment-422622", "422622", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-422631">
+<div class="comment-container" id="li-comment-422631">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 10, 2017 at 5:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/#comment-422631" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I don’t think language matters, I expect there are many good java libraries for ML.</p>
+<p>I do see great demand for skills in Python for ML:<br/>
+<a href="http://machinelearningmastery.com/python-growing-platform-applied-machine-learning/" rel="nofollow">http://machinelearningmastery.com/python-growing-platform-applied-machine-learning/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/4-steps-to-get-started-in-machine-learning/?replytocom=422631#respond" onclick='return addComment.moveForm( "comment-422631", "422631", "respond", "779" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/4-steps-to-get-started-in-machine-learning/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="779"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="5bf4486f43"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="24"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-5"> <div class="textwidget"><p></p><center>
+<h3>You’re a Professional (and you need results)!</h3>
+<p><em>The field moves quickly…</em><br/>
+<strong>How Long Can You Afford To Wait?</strong></p>
+<p>Take Action Now!</p>
+<p><a class="woo-sc-button teal" href="/products/"><span class="woo-">Get The Training You Need</span></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

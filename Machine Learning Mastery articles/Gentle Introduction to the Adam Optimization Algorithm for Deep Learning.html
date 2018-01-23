@@ -1,0 +1,1102 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>Gentle Introduction to the Adam Optimization Algorithm for Deep Learning - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="Gentle Introduction to the Adam Optimization Algorithm for Deep Learning - Machine Learning Mastery" property="og:title"/>
+<meta content="The choice of optimization algorithm for your deep learning model can mean the difference between good results in minutes, hours, and days. The Adam optimization algorithm is an extension to stochastic gradient descent that has recently seen broader adoption for deep learning applications in computer vision and natural language processing. In this post, you will …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Deep Learning" property="article:section"/>
+<meta content="2017-07-03T05:00:37+11:00" property="article:published_time"/>
+<meta content="2017-07-06T07:59:36+11:00" property="article:modified_time"/>
+<meta content="2017-07-06T07:59:36+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Comparison-of-Adam-to-Other-Optimization-Algorithms-Training-a-Multilayer-Perceptron.png" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Comparison-of-Adam-to-Other-Optimization-Algorithms-Training-a-Multilayer-Perceptron.png" property="og:image:secure_url"/>
+<meta content="335" property="og:image:width"/>
+<meta content="325" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/adam-optimization-algorithm-for-deep-learning\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/feed/" rel="alternate" title="Machine Learning Mastery » Gentle Introduction to the Adam Optimization Algorithm for Deep Learning Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=4109" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fadam-optimization-algorithm-for-deep-learning%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fadam-optimization-algorithm-for-deep-learning%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-4109 single-format-standard safari alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-32"> <div class="textwidget"><p>Need help with Deep Learning? <a href="https://machinelearningmastery.lpages.co/deep-learning-with-python-mini-course/">Take the FREE Mini-Course</a></p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-4109 post type-post status-publish format-standard has-post-thumbnail hentry category-deep-learning">
+<header>
+<h1 class="title entry-title">Gentle Introduction to the Adam Optimization Algorithm for Deep Learning</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2017-07-03T05:00:37+1100">July 3, 2017</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/deep-learning/" title="View all items in Deep Learning">Deep Learning</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Gentle%20Introduction%20to%20the%20Adam%20Optimization%20Algorithm%20for%20Deep%20Learning&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fadam-optimization-algorithm-for-deep-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Gentle%20Introduction%20to%20the%20Adam%20Optimization%20Algorithm%20for%20Deep%20Learning&amp;url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/&amp;summary=The+choice+of+optimization+algorithm+for+your+deep+learning+model+can+mean+the+difference+between+go..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Gentle%20Introduction%20to%20the%20Adam%20Optimization%20Algorithm%20for%20Deep%20Learning&amp;url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/&amp;summary=The+choice+of+optimization+algorithm+for+your+deep+learning+model+can+mean+the+difference+between+go...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>The choice of optimization algorithm for your deep learning model can mean the difference between good results in minutes, hours, and days.</p>
+<p>The Adam optimization algorithm is an extension to stochastic gradient descent that has recently seen broader adoption for deep learning applications in computer vision and natural language processing.</p>
+<p>In this post, you will get a gentle introduction to the Adam optimization algorithm for use in deep learning.</p>
+<p>After reading this post, you will know:</p>
+<ul>
+<li>What the Adam algorithm is and some benefits of using the method to optimize your models.</li>
+<li>How the Adam algorithm works and how it is different from the related methods of AdaGrad and RMSProp.</li>
+<li>How the Adam algorithm can be configured and commonly used configuration parameters.</li>
+</ul>
+<p>Let’s get started.</p>
+<h2>What is the Adam optimization algorithm?</h2>
+<p>Adam is an optimization algorithm that can used instead of the classical stochastic gradient descent procedure to update network weights iterative based in training data.</p>
+<p>Adam was presented by <a href="http://dpkingma.com/">Diederik Kingma</a> from OpenAI and <a href="https://jimmylba.github.io/">Jimmy Ba</a> from the University of Toronto in their 2015 <a href="http://www.iclr.cc/doku.php?id=iclr2015:main">ICLR</a> paper (poster) titled “<a href="https://arxiv.org/abs/1412.6980">Adam: A Method for Stochastic Optimization</a>“. I will quote liberally from their paper in this post, unless stated otherwise.</p>
+<p>The algorithm is called Adam. It is not an acronym and is not written as “ADAM”.</p>
+<blockquote><p>… the name Adam is derived from adaptive moment estimation.</p></blockquote>
+<p>When introducing the algorithm, the authors list the attractive benefits of using Adam on non-convex optimization problems, as follows:</p>
+<ul>
+<li>Straightforward to implement.</li>
+<li>Computationally efficient.</li>
+<li>Little memory requirements.</li>
+<li>Invariant to diagonal rescale of the gradients.</li>
+<li>Well suited for problems that are large in terms of data and/or parameters.</li>
+<li>Appropriate for non-stationary objectives.</li>
+<li>Appropriate for problems with very noisy/or sparse gradients.</li>
+<li>Hyper-parameters have intuitive interpretation and typically require little tuning.</li>
+</ul>
+<h2>How Does Adam Work?</h2>
+<p>Adam is different to classical stochastic gradient descent.</p>
+<p>Stochastic gradient descent maintains a single learning rate (termed alpha) for all weight updates and the learning rate does not change during training.</p>
+<p>A learning rate is maintained for each network weight (parameter) and separately adapted as learning unfolds.</p>
+<blockquote><p>The method computes individual adaptive learning rates for different parameters from estimates of first and second moments of the gradients.</p></blockquote>
+<p>The authors describe Adam as combining the advantages of two other extensions of stochastic gradient descent. Specifically:</p>
+<ul>
+<li><strong>Adaptive Gradient Algorithm</strong> (AdaGrad) that maintains a per-parameter learning rate that improves performance on problems with sparse gradients (e.g. natural language and computer vision problems).</li>
+<li><strong>Root Mean Square Propagation</strong> (RMSProp) that also maintains per-parameter learning rates that are adapted based on the average of recent magnitudes of the gradients for the weight (e.g. how quickly it is changing). This means the algorithm does well on online and non-stationary problems (e.g. noisy).</li>
+</ul>
+<p>Adam realizes the benefits of both AdaGrad and RMSProp.</p>
+<p>Instead of adapting the parameter learning rates based on the average first moment (the mean) as in RMSProp, Adam also makes use of the average of the second moments of the gradients (the uncentered variance).</p>
+<p>Specifically, the algorithm calculates an exponential moving average of the gradient and the squared gradient, and the parameters beta1 and beta2 control the decay rates of these moving averages.</p>
+<p>The initial value of the moving averages and beta1 and beta2 values close to 1.0 (recommended) result in a bias of moment estimates towards zero. This bias is overcome by first calculating the biased estimates before then calculating bias-corrected estimates.</p>
+<p>The paper is quite readable and I would encourage you to read it if you are interested in the specific implementation details.</p>
+<h2>Adam is Effective</h2>
+<p>Adam is a popular algorithm in the field of deep learning because it achieves good results fast.</p>
+<blockquote><p>Empirical results demonstrate that Adam works well in practice and compares favorably to other stochastic optimization methods.</p></blockquote>
+<p>In the original paper, Adam was demonstrated empirically to show that convergence meets the expectations of the theoretical analysis. Adam was applied to the logistic regression algorithm on the MNIST character recognition and IMDB sentiment analysis datasets, a Multilayer Perceptron algorithm on the MNIST dataset and Convolutional Neural Networks on the CIFAR-10 image recognition dataset. They conclude:</p>
+<blockquote><p>Using large models and datasets, we demonstrate Adam can efficiently solve practical deep learning problems.</p></blockquote>
+<div class="wp-caption aligncenter" id="attachment_4110" style="max-width: 345px"><img alt="Comparison of Adam to Other Optimization Algorithms Training a Multilayer Perceptron" class="size-full wp-image-4110" height="325" sizes="(max-width: 335px) 100vw, 335px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Comparison-of-Adam-to-Other-Optimization-Algorithms-Training-a-Multilayer-Perceptron.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Comparison-of-Adam-to-Other-Optimization-Algorithms-Training-a-Multilayer-Perceptron.png 335w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Comparison-of-Adam-to-Other-Optimization-Algorithms-Training-a-Multilayer-Perceptron-300x291.png 300w" width="335"/><p class="wp-caption-text">Comparison of Adam to Other Optimization Algorithms Training a Multilayer Perceptron<br/>Taken from Adam: A Method for Stochastic Optimization, 2015.</p></div>
+<p><a href="http://sebastianruder.com/">Sebastian Ruder</a> developed a comprehensive review of modern gradient descent optimization algorithms titled “<a href="https://arxiv.org/abs/1609.04747">An overview of gradient descent optimization algorithms</a>” published first as a <a href="http://sebastianruder.com/optimizing-gradient-descent/index.html">blog post</a>, then a technical report in 2016.</p>
+<p>The paper is basically a tour of modern methods. In his section titled “<em>Which optimizer to use?</em>“, he recommends using Adam.</p>
+<blockquote><p>Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. […] its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.</p></blockquote>
+<p>In the Stanford course on deep learning for computer vision titled “<a href="http://cs231n.github.io/">CS231n: Convolutional Neural Networks for Visual Recognition</a>” developed by Andrej Karpathy, et al., the Adam algorithm is again <a href="http://cs231n.github.io/neural-networks-3/">suggested as the default optimization method for deep learning applications</a>.</p>
+<blockquote><p>In practice Adam is currently recommended as the default algorithm to use, and often works slightly better than RMSProp. However, it is often also worth trying SGD+Nesterov Momentum as an alternative.</p></blockquote>
+<p>And later stated more plainly:</p>
+<blockquote><p>The two recommended updates to use are either SGD+Nesterov Momentum or Adam.</p></blockquote>
+<p>Adam is being adapted for benchmarks in deep learning papers.</p>
+<p>For example, it was used in the paper “<a href="https://arxiv.org/abs/1502.03044">Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a>” on attention in image captioning and “<a href="https://arxiv.org/abs/1502.04623">DRAW: A Recurrent Neural Network For Image Generation</a>” on image generation.</p>
+<p>Do you know of any other examples of Adam? Let me know in the comments.</p>
+<h2>Adam Configuration Parameters</h2>
+<ul>
+<li><strong>alpha</strong>. Also referred to as the learning rate or step size. The proportion that weights are updated (e.g. 0.001). Larger values (e.g. 0.3) results in faster initial learning before the rate is updated. Smaller values (e.g. 1.0E-5) slow learning right down during training</li>
+<li><strong>beta1</strong>. The exponential decay rate for the first moment estimates (e.g. 0.9).</li>
+<li><strong>beta2</strong>. The exponential decay rate for the second-moment estimates (e.g. 0.999). This value should be set close to 1.0 on problems with a sparse gradient (e.g. NLP and computer vision problems).</li>
+<li><strong>epsilon</strong>. Is a very small number to prevent any division by zero in the implementation (e.g. 10E-8).</li>
+</ul>
+<p>Further, learning rate decay can also be used with Adam. The paper uses a decay rate alpha = alpha/sqrt(t) updted each epoch (t) for the logistic regression demonstration.</p>
+<p>The Adam paper suggests:</p>
+<blockquote><p>Good default settings for the tested machine learning problems are alpha=0.001, beta1=0.9, beta2=0.999 and epsilon=10−8</p></blockquote>
+<p>The TensorFlow documentation suggests some tuning of epsilon:</p>
+<blockquote><p>The default value of 1e-8 for epsilon might not be a good default in general. For example, when training an Inception network on ImageNet a current good choice is 1.0 or 0.1.</p></blockquote>
+<p>We can see that the popular deep learning libraries generally use the default parameters recommended by the paper.</p>
+<ul>
+<li><a href="https://www.tensorflow.org/api_docs/python/tf/train/AdamOptimizer">TensorFlow</a>: learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-08.<br/>
+<a href="https://keras.io/optimizers/#adam">Keras</a>: lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0.</li>
+<li><a href="http://blocks.readthedocs.io/en/latest/api/algorithms.html">Blocks</a>: learning_rate=0.002, beta1=0.9, beta2=0.999, epsilon=1e-08, decay_factor=1.</li>
+<li><a href="http://lasagne.readthedocs.io/en/latest/modules/updates.html">Lasagne</a>: learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-08</li>
+<li><a href="http://caffe.berkeleyvision.org/tutorial/solver.html">Caffe</a>: learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-08</li>
+<li><a href="http://mxnet.io/api/python/optimization.html">MxNet</a>: learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8</li>
+<li><a href="https://github.com/torch/optim/blob/master/adam.lua">Torch</a>: learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8</li>
+</ul>
+<p>Do you know of any other standard configurations for Adam? Let me know in the comments.</p>
+<h2>Further Reading</h2>
+<p>This section lists resources to learn more about the Adam optimization algorithm.</p>
+<ul>
+<li><a href="https://arxiv.org/abs/1412.6980">Adam: A Method for Stochastic Optimization</a>, 2015</li>
+<li><a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic gradient descent</a> on Wikipedia</li>
+<li><a href="https://arxiv.org/abs/1609.04747">An overview of gradient descent optimization algorithms</a>, 2016</li>
+<li><a href="https://theberkeleyview.wordpress.com/2015/11/19/berkeleyview-for-adam-a-method-for-stochastic-optimization/">ADAM: A Method for Stochastic Optimization</a> (a review)</li>
+<li><a href="http://www.cs.cmu.edu/~imisra/data/Optimization_2015_11_11.pdf">Optimization for Deep Networks</a> (slides)</li>
+<li><a href="https://moodle2.cs.huji.ac.il/nu15/pluginfile.php/316969/mod_resource/content/1/adam_pres.pdf">Adam: A Method for Stochastic Optimization</a> (slides)</li>
+</ul>
+<p>Do you know of any other good resources on Adam? Let me know in the comments.</p>
+<h2>Summary</h2>
+<p>In this post, you discovered the Adam optimization algorithm for deep learning.</p>
+<p>Specifically, you learned:</p>
+<ul>
+<li>Adam is a replacement optimization algorithm for stochastic gradient descent for training deep learning models.</li>
+<li>Adam combines the best properties of the AdaGrad and RMSProp algorithms to provide an optimization algorithm that can handle sparse gradients on noisy problems.</li>
+<li>Adam is relatively easy to configure where the default configuration parameters do well on most problems.</li>
+</ul>
+<p>Do you have any questions?<br/>
+Ask your questions in the comments below and I will do my best to answer.</p>
+<div class="awac-wrapper"><div class="awac widget text-35"> <div class="textwidget"><div class="woo-sc-hr"></div>
+<h2 style="text-align: center;">Frustrated With Your Progress In Deep Learning?</h2>
+<p><a href="/deep-learning-with-python/"><img align="left" alt="Deep Learning with Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/DeepLearningWithPython-220.png" style="border: 0;"/></a></p>
+<h4 style="text-align: center;"> What If You Could Develop A Network in Minutes</h4>
+<p style="text-align: center;">…with just a few lines of Python</p>
+<p style="text-align: center;">Discover how in my new Ebook: <a href="https://machinelearningmastery.com/deep-learning-with-python/">Deep Learning With Python</a></p>
+<p style="text-align: center;">It covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> on topics like:<br/>
+<em>Multilayer Perceptrons</em>, <em>Convolutional Nets</em> and <em>Recurrent Neural Nets</em>, and more…</p>
+<h4 style="text-align: center;">Finally Bring Deep Learning To<br/>
+Your Own Projects</h4>
+<p style="text-align: center;">Skip the Academics. Just Results.</p>
+<p style="text-align: center;"><a href="https://machinelearningmastery.com/deep-learning-with-python/">Click to learn more</a>.</p>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Gentle%20Introduction%20to%20the%20Adam%20Optimization%20Algorithm%20for%20Deep%20Learning&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fadam-optimization-algorithm-for-deep-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Gentle%20Introduction%20to%20the%20Adam%20Optimization%20Algorithm%20for%20Deep%20Learning&amp;url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/&amp;summary=The+choice+of+optimization+algorithm+for+your+deep+learning+model+can+mean+the+difference+between+go..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Gentle%20Introduction%20to%20the%20Adam%20Optimization%20Algorithm%20for%20Deep%20Learning&amp;url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/&amp;summary=The+choice+of+optimization+algorithm+for+your+deep+learning+model+can+mean+the+difference+between+go...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/attention-long-short-term-memory-recurrent-neural-networks/" rel="prev"><i class="fa fa-angle-left"></i> Attention in Long Short-Term Memory Recurrent Neural Networks</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/recurrent-neural-network-algorithms-for-deep-learning/" rel="next">A Tour of Recurrent Neural Network Algorithms for Deep Learning <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">27 Responses to <em>Gentle Introduction to the Adam Optimization Algorithm for Deep Learning</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-404620">
+<div class="comment-container" id="li-comment-404620">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a74e2e41b9d792e1c0c20cb10c524886?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a74e2e41b9d792e1c0c20cb10c524886?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Adam</span>
+<span class="date">July 3, 2017 at 3:57 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404620" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The name thing is a little strange. What was so wrong with AdaMomE? The abbreviated name is only useful if it encapsulates the name, adaptive moment estimation. I think part of the process of writing useful papers is coming up with an abbreviation that will not irritate others in the field, such as anyone named Adam.</p>
+<div class="reply">
+<a aria-label="Reply to Adam" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404620#respond" onclick='return addComment.moveForm( "comment-404620", "404620", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-404863">
+<div class="comment-container" id="li-comment-404863">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 6, 2017 at 9:58 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404863" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Adam is catchy.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404863#respond" onclick='return addComment.moveForm( "comment-404863", "404863", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-404632">
+<div class="comment-container" id="li-comment-404632">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d6c9c132a8e164b6b2f5eb12dc4c859b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d6c9c132a8e164b6b2f5eb12dc4c859b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Gerrit Govaerts</span>
+<span class="date">July 3, 2017 at 6:23 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404632" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Using it already for a year , don’t see any reason to use anything different . My main issue with deep learning remains the fact that a lot of efficiency is lost due to the fact that neural nets have  a lot of redundant symmetry built in that leads to multiple equivalent local optima . There must be a way to address this mathematically . It puzzles me that nobody had done anything about . If you did this in combinatorics (Traveling Salesman Problems type of problems ), this would qualify as a horrendous model formulation .</p>
+<div class="reply">
+<a aria-label="Reply to Gerrit Govaerts" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404632#respond" onclick='return addComment.moveForm( "comment-404632", "404632", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-404866">
+<div class="comment-container" id="li-comment-404866">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 6, 2017 at 10:00 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404866" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It would be great to see what you can dig up on the topic. Neural nets have been studied for a long time by some really bright people.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404866#respond" onclick='return addComment.moveForm( "comment-404866", "404866", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-404933">
+<div class="comment-container" id="li-comment-404933">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d6c9c132a8e164b6b2f5eb12dc4c859b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d6c9c132a8e164b6b2f5eb12dc4c859b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Gerrit Govaerts</span>
+<span class="date">July 6, 2017 at 5:29 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404933" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Those bright people may excel in statistics , but non linear non convex optimization is a very specialized field where other very bright people excel . The same applies to Integer and Combinatorial optimization : very specialized field .The days of “homo universalis” are long gone . By the way , although I am impressed by recent results in deep learning , I am not so deeply impressed by the technology . It’s just an unconstrained very big non linear optimization problem , so what ? And the thing is , you should not even try to find the true optimum , because that is 100% sure to overfit . So , in the end , we have to conclude that true learning aka generalization is not the same as optimizing some objective function , Basically , we still don’t know what “learning is” , but we know that iit s not “deep learning” . I have a hunch that this (deep learning) approach to “general AI” will fail .</p>
+<div class="reply">
+<a aria-label="Reply to Gerrit Govaerts" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404933#respond" onclick='return addComment.moveForm( "comment-404933", "404933", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-405224">
+<div class="comment-container" id="li-comment-405224">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 9, 2017 at 10:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-405224" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I would argue deep learning methods only address the perception part of AI.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=405224#respond" onclick='return addComment.moveForm( "comment-405224", "405224", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even depth-4" id="comment-406633">
+<div class="comment-container" id="li-comment-406633">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/08f13918a3d83df1b4327dc1fea587eb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/08f13918a3d83df1b4327dc1fea587eb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Peter Boos</span>
+<span class="date">July 20, 2017 at 8:30 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-406633" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>But what you describe is a result of using to many nodes, you fear over-fitting.<br/>
+With the proper amount of nodes they dont become ‘beasts’ of redundant logic.<br/>
+But i guess a lot of people are missing the point about what to train, with what data, and with the best neural network for that task. </p>
+<p>I just red an article in which someone improved natural language to text, because he thought about those thinks, and as a result he didnt require deep nets , he was also able to train easily for any language (as in contrast to the most common 5). With a better speech to text score.</p>
+<p>I think with the advancement in hardware people forget often about the ‘beauty’ of properly efficient coding, the same counts for neural network designs</p>
+<div class="reply">
+<a aria-label="Reply to Peter Boos" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=406633#respond" onclick='return addComment.moveForm( "comment-406633", "406633", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-5" id="comment-406716">
+<div class="comment-container" id="li-comment-406716">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 21, 2017 at 9:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-406716" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I often say that the points of biggest leverage are in the framing of the problem.</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-404684">
+<div class="comment-container" id="li-comment-404684">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1e5ef0378f67a65993d4047d8d02f1a2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1e5ef0378f67a65993d4047d8d02f1a2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Danilo</span>
+<span class="date">July 4, 2017 at 1:36 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404684" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. Thanks for you amazing tutorials. I have already read some, and already putting some into practice as well. As many other blogs on the net, I found yours by searching on google “how to predict data after training a model”, since I am trying to work on a personal project using LSTM. Surely enough I ran into your great informational blog.</p>
+<p>One thing I wanted to comment on, is the fact that you mention about not being necessary to get a phd to become a master in machine learning, which I find to be a biased proposition all depending on the goal of the reader. However, most phd graduates I have found online – to mention some, yourself, Sebastian as you recommended in this post, Andrew Ng, Matt Mazur, Michael Nielsen, Adrian Rosebrock, some of the people I follow and write amazing content all have phd’s. Excluding Siraj, a current youtube blogger that makes amazing videos on machine learning – one of the few I have seen thus far that does not hold a phd, not even a bachelors. My point and question to you is.. Without a phd, would you have had the skills to make all this content found in your website? And I’m not referring to just being adept in the topic of AI, but also writing amazing in depth topics, creating amazing design for the site, book for others to read, and even clean codes in python?</p>
+<p>As a different note, about me, for the past ten years, my profession has been in Information technology. I currently work as a systems administrator for a medium size enterprise, but for the past three years since I started college, I grew this passion toward programming, which eventually grew into machine learning. I became obsessed with Neural Networks and its back prop, and currently are now obsessed with learning more about LSTM’s. I have been testing with one of your codes. Although I still struggle with knowing how to predict data. Without being able to predict data, I feel lost. For example, most articles I find, including yours (Sorry if I haven’t found my answer yet in your site), only show how to train data, and test data. So for example, this is what I find;</p>
+<p>x= 0001 y= 0010<br/>
+x= 0010 y= 0011<br/>
+x[m1,,,,,,m]<br/>
+y[m1,,,,,,m]<br/>
+—Usually the output I get printer—</p>
+<p>But to this day, I haven’t learned how to feed unknown data to a network and it to predict the next unknown output such as;</p>
+<p>if x== 0100, then, what will ‘y’ be? that is, without feeding the network the next possible, rather its suppose to tell me based on the pattern learned before.</p>
+<p>If a training set == m, and test set also == m, then I should be able to ask for a result == n. Maybe you can guide towards the right direction?</p>
+<p>I am currently in the first semester of a bachelor in Computer Science, and always have in the back of my head in pursuing all the way towards a phd, this is, to become an amazing writer of my own content in the field of machine learning – not Just become a “so so” data scientist, although I am still very far from getting to that level. Frankly, what really calls my attention in pursuing a higher degree, is the fact that the math learned in school, is harder to pick up as a hobby. Which is my case; this is my every day hobby. </p>
+<p>Thanks for everything Jason, its now time to continue reading through your blog… :-p.</p>
+<div class="reply">
+<a aria-label="Reply to Danilo" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404684#respond" onclick='return addComment.moveForm( "comment-404684", "404684", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-404877">
+<div class="comment-container" id="li-comment-404877">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 6, 2017 at 10:09 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404877" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Making a site and educational material like this is not the same as delivering results with ML at work.</p>
+<p>The same as the difference from a dev and a college professor teaching development. Very different skill sets.</p>
+<p>Consider this post on finalizing a model in order to make predictions:<br/>
+<a href="http://machinelearningmastery.com/train-final-machine-learning-model/" rel="nofollow">http://machinelearningmastery.com/train-final-machine-learning-model/</a></p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404877#respond" onclick='return addComment.moveForm( "comment-404877", "404877", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-404729">
+<div class="comment-container" id="li-comment-404729">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/45ce7b01a138309f339de67a480ca4ce?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/45ce7b01a138309f339de67a480ca4ce?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sophie</span>
+<span class="date">July 4, 2017 at 10:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404729" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey Jason! What about Nadam vs Adam?<br/>
+Nadam si a Keras optimizer which is essentially ‘Adam’+ Nesterov momentum.</p>
+<p>Also what is Nesterov momentum?<br/>
+And how can we figure out a good epsilon for a particular problem?</p>
+<p>Thanks a lot!</p>
+<div class="reply">
+<a aria-label="Reply to Sophie" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404729#respond" onclick='return addComment.moveForm( "comment-404729", "404729", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-404887">
+<div class="comment-container" id="li-comment-404887">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 6, 2017 at 10:16 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404887" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question. I don’t know much about it sorry.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404887#respond" onclick='return addComment.moveForm( "comment-404887", "404887", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-404984">
+<div class="comment-container" id="li-comment-404984">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3a251e68562e1dfb865e8855477754dc?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3a251e68562e1dfb865e8855477754dc?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Enzo Maritati</span>
+<span class="date">July 7, 2017 at 8:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404984" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p><a href="https://i.stack.imgur.com/wBIpz.png" rel="nofollow">https://i.stack.imgur.com/wBIpz.png</a></p>
+<p>hope this helps 🙂</p>
+<p>here <a href="http://cs229.stanford.edu/proj2015/054_report.pdf" rel="nofollow">http://cs229.stanford.edu/proj2015/054_report.pdf</a> you can find the paper</p>
+<div class="reply">
+<a aria-label="Reply to Enzo Maritati" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404984#respond" onclick='return addComment.moveForm( "comment-404984", "404984", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-405237">
+<div class="comment-container" id="li-comment-405237">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 9, 2017 at 10:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-405237" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for sharing.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=405237#respond" onclick='return addComment.moveForm( "comment-405237", "405237", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-404986">
+<div class="comment-container" id="li-comment-404986">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a1cca40452c95dca2c7446715db4ca7f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a1cca40452c95dca2c7446715db4ca7f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Xu Zhang</span>
+<span class="date">July 7, 2017 at 8:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-404986" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for your great article. If I use Adam as an optimizer, do I still need to do learning rate scheduleing during the training? </p>
+<p>Thanks a lot</p>
+<div class="reply">
+<a aria-label="Reply to Xu Zhang" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=404986#respond" onclick='return addComment.moveForm( "comment-404986", "404986", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-405238">
+<div class="comment-container" id="li-comment-405238">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 9, 2017 at 10:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-405238" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No. I don’t believe so. </p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=405238#respond" onclick='return addComment.moveForm( "comment-405238", "405238", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-410432">
+<div class="comment-container" id="li-comment-410432">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d215aaaf394adeab5f4746a0464f7569?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d215aaaf394adeab5f4746a0464f7569?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">James Salsman</span>
+<span class="date">August 21, 2017 at 5:21 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-410432" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>As a prospective author who very likely will suggest a gentleman named Adam as a possible reviewer, I reject the author’s spelling of “Adam” and am using ADAM, which I call an optimization, “Algorithm to Decay by Average Moments” which uses the original authors’ term “decay” for what Tensorflow calls “loss.”</p>
+<div class="reply">
+<a aria-label="Reply to James Salsman" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=410432#respond" onclick='return addComment.moveForm( "comment-410432", "410432", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-413958">
+<div class="comment-container" id="li-comment-413958">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/02f009c2d7cd15f772afb221b4d3df8a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/02f009c2d7cd15f772afb221b4d3df8a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Tyler</span>
+<span class="date">September 16, 2017 at 2:00 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-413958" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The variance here seems incorrect.  I don’t mean incorrect as in different from the paper; I mean that it doesn’t truly seem to resemble variance; shouldn’t variance take into account the mean as well?  </p>
+<p>Here it appears the variance will continue to grow throughout the entire process of training.  Wouldn’t we want the variance to shrink when we encounter hyper-surfaces with little change and growing variance on hyper-surfaces that are volatile?</p>
+<div class="reply">
+<a aria-label="Reply to Tyler" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=413958#respond" onclick='return addComment.moveForm( "comment-413958", "413958", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-418986">
+<div class="comment-container" id="li-comment-418986">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3fff5d760a0a47edd535180ed82430c8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3fff5d760a0a47edd535180ed82430c8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">SG</span>
+<span class="date">November 4, 2017 at 1:14 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-418986" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>H2o deep learning package use ADADELTA as the default adaptive rate.</p>
+<p>It has rho, epsilon and rate parameters.</p>
+<p>rho: Specifies the adaptive learning rate time decay factor. This parameter<br/>
+is similar to momentum and relates to the memory for prior weight updates.<br/>
+Typical values are between 0.9 and 0.999. The default value is 0.99. Refer to<br/>
+Adaptive Learning for more details.<br/>
+ epsilon: When enabled, specifies the second of two hyperparameters for the<br/>
+adaptive learning rate. This parameter is similar to learning rate annealing<br/>
+during initial training and momentum at later stages where it assists progress.<br/>
+Typical values are between 1e-10 and 1e-4. This parameter is only active if<br/>
+adaptive rate is enabled. The default is 1e-8. Refer to Adaptive Learning<br/>
+for more details.<br/>
+rate: Specifies the learning rate. Higher values lead to less stable models,<br/>
+while lower values result in slower convergence. The default is 0.005.</p>
+<p>Can we map the rho to beta2, rate to alpha?<br/>
+How do these parameters affects the adaptive rate? (proportional or inversely proportional)</p>
+<div class="reply">
+<a aria-label="Reply to SG" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=418986#respond" onclick='return addComment.moveForm( "comment-418986", "418986", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-419031">
+<div class="comment-container" id="li-comment-419031">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 5, 2017 at 5:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-419031" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Good question, I’m not sure off the cuff, perhaps experiment a little?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=419031#respond" onclick='return addComment.moveForm( "comment-419031", "419031", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-420923">
+<div class="comment-container" id="li-comment-420923">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f5444dba935963a5033751f9d25fd614?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f5444dba935963a5033751f9d25fd614?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Daniel</span>
+<span class="date">November 23, 2017 at 7:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-420923" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Every time I’m glad I find this blog whenever I’m trying to understand some machine learning topic. The fact that I have access to this concise and useful information restores my faith in humanity. Thank you!</p>
+<div class="reply">
+<a aria-label="Reply to Daniel" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=420923#respond" onclick='return addComment.moveForm( "comment-420923", "420923", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-420955">
+<div class="comment-container" id="li-comment-420955">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 23, 2017 at 10:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-420955" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Daniel, I’m happy to help.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=420955#respond" onclick='return addComment.moveForm( "comment-420955", "420955", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-426628">
+<div class="comment-container" id="li-comment-426628">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/4e3f2ce8688757df67390f03cb7b5bf2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/4e3f2ce8688757df67390f03cb7b5bf2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nadavb</span>
+<span class="date">January 16, 2018 at 1:24 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-426628" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You wrote: “should be set close to 1.0 on problems with a sparse gradient”. What’s the definition of “sparse gradient”?</p>
+<div class="reply">
+<a aria-label="Reply to Nadavb" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=426628#respond" onclick='return addComment.moveForm( "comment-426628", "426628", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-426657">
+<div class="comment-container" id="li-comment-426657">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 16, 2018 at 7:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-426657" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>A gradient that has lots of zero values, e.g. flat spots.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=426657#respond" onclick='return addComment.moveForm( "comment-426657", "426657", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-426936">
+<div class="comment-container" id="li-comment-426936">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a05e590b9e16ca34b494cebbec6e7d7f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a05e590b9e16ca34b494cebbec6e7d7f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mitja</span>
+<span class="date">January 19, 2018 at 10:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-426936" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>“Instead of adapting the parameter learning rates based on the average first moment (the mean) as in RMSProp, Adam also makes use of the average of the second moments of the gradients (the uncentered variance).” </p>
+<p>shouldn’t this be:</p>
+<p>“Instead of adapting the parameter learning rates based on the average second moment (the uncentered variance) as in RMSProp, Adam also makes use of the average of the first moments of the gradients (the mean).” </p>
+<p>I think that RMSprop is using second moment, or am I mixing things up?</p>
+<div class="reply">
+<a aria-label="Reply to Mitja" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=426936#respond" onclick='return addComment.moveForm( "comment-426936", "426936", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-426988">
+<div class="comment-container" id="li-comment-426988">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 20, 2018 at 8:20 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-426988" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Why do you say that exactly?</p>
+<p>I don’t recall the specifics.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=426988#respond" onclick='return addComment.moveForm( "comment-426988", "426988", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-427027">
+<div class="comment-container" id="li-comment-427027">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a05e590b9e16ca34b494cebbec6e7d7f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a05e590b9e16ca34b494cebbec6e7d7f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mitja</span>
+<span class="date">January 20, 2018 at 11:21 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/#comment-427027" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Since RMSprop is using the SQUARED gradient to update the learning rate, this relates to the second moment, as far as I understand.<br/>
+(see equations for example at <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent#RMSProp" rel="nofollow">https://en.wikipedia.org/wiki/Stochastic_gradient_descent#RMSProp</a>)</p>
+<div class="reply">
+<a aria-label="Reply to Mitja" class="comment-reply-link" href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/?replytocom=427027#respond" onclick='return addComment.moveForm( "comment-427027", "427027", "respond", "4109" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/adam-optimization-algorithm-for-deep-learning/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="4109"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="e69abce80e"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="31"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-6"> <div class="textwidget"><p></p><center>
+<h3>Finally Get Started With Deep Learning</h3>
+<p>Sick of the fancy math and need for super computers?<br/>
+Looking for step-by-step tutorials?<br/>
+Want end-to-end projects?</p>
+<p><a href="https://machinelearningmastery.com/deep-learning-with-python/">Get Started With Deep Learning in Python Today!</a><br/>
+<a href="https://machinelearningmastery.com/deep-learning-with-python/"><img src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/DeepLearningWithPython-220.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

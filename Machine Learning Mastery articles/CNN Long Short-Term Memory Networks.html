@@ -1,0 +1,1415 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>CNN Long Short-Term Memory Networks - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="CNN Long Short-Term Memory Networks - Machine Learning Mastery" property="og:title"/>
+<meta content="Gentle introduction to CNN LSTM recurrent neural networks with example Python code. Input with spatial structure, like images, cannot be modeled easily with the standard Vanilla LSTM. The CNN Long Short-Term Memory Network or CNN LSTM for short is an LSTM architecture specifically designed for sequence prediction problems with spatial inputs, like images or videos. …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Long Short-Term Memory Networks" property="article:section"/>
+<meta content="2017-08-21T05:00:05+11:00" property="article:published_time"/>
+<meta content="2017-07-20T08:46:02+11:00" property="article:modified_time"/>
+<meta content="2017-07-20T08:46:02+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/Convolutional-Neural-Network-Long-Short-Term-Memory-Networks.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/Convolutional-Neural-Network-Long-Short-Term-Memory-Networks.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="426" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/cnn-long-short-term-memory-networks\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/feed/" rel="alternate" title="Machine Learning Mastery » CNN Long Short-Term Memory Networks Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=4231" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fcnn-long-short-term-memory-networks%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fcnn-long-short-term-memory-networks%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-4231 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-31"> <div class="textwidget"><p>Need help with LSTMs in Python? <a href="https://machinelearningmastery.lpages.co/lnwp-mini-course/">Take the FREE Mini-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-4231 post type-post status-publish format-standard has-post-thumbnail hentry category-lstm">
+<header>
+<h1 class="title entry-title">CNN Long Short-Term Memory Networks</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2017-08-21T05:00:05+1100">August 21, 2017</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/lstm/" title="View all items in Long Short-Term Memory Networks">Long Short-Term Memory Networks</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=CNN%20Long%20Short-Term%20Memory%20Networks&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fcnn-long-short-term-memory-networks%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=CNN%20Long%20Short-Term%20Memory%20Networks&amp;url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/&amp;summary=Gentle+introduction+to+CNN+LSTM+recurrent+neural+networks%0D%0Awith+example+Python+code.%0D%0AInput+with+spa..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=CNN%20Long%20Short-Term%20Memory%20Networks&amp;url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/&amp;summary=Gentle+introduction+to+CNN+LSTM+recurrent+neural+networks%0D%0Awith+example+Python+code.%0D%0AInput+with+spa...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><h3 style="text-align: center;">Gentle introduction to CNN LSTM recurrent neural networks<br/>
+with example Python code.</h3>
+<p>Input with spatial structure, like images, cannot be modeled easily with the standard Vanilla LSTM.</p>
+<p>The CNN Long Short-Term Memory Network or CNN LSTM for short is an LSTM architecture specifically designed for sequence prediction problems with spatial inputs, like images or videos.</p>
+<p>In this post, you will discover the CNN LSTM architecture for sequence prediction.</p>
+<p>After completing this post, you will know:</p>
+<ul>
+<li>About the development of the CNN LSTM model architecture for sequence prediction.</li>
+<li>Examples of the types of problems to which the CNN LSTM model is suited.</li>
+<li>How to implement the CNN LSTM architecture in Python with Keras.</li>
+</ul>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_4233" style="max-width: 650px"><img alt="Convolutional Neural Network Long Short-Term Memory Networks" class="size-full wp-image-4233" height="426" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/Convolutional-Neural-Network-Long-Short-Term-Memory-Networks.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/Convolutional-Neural-Network-Long-Short-Term-Memory-Networks.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/Convolutional-Neural-Network-Long-Short-Term-Memory-Networks-300x200.jpg 300w" width="640"/><p class="wp-caption-text">Convolutional Neural Network Long Short-Term Memory Networks<br/>Photo by <a href="https://www.flickr.com/photos/yairar/34484734116/">Yair Aronshtam</a>, some righs reserved.</p></div>
+<h2>CNN LSTM Architecture</h2>
+<p>The CNN LSTM architecture involves using Convolutional Neural Network (CNN) layers for feature extraction on input data combined with LSTMs to support sequence prediction.</p>
+<p>CNN LSTMs were developed for visual time series prediction problems and the application of generating textual descriptions from sequences of images (e.g. videos). Specifically, the problems of:</p>
+<ul>
+<li><strong>Activity Recognition</strong>: Generating a textual description of an activity demonstrated in a sequence of images.</li>
+<li><strong>Image Description</strong>: Generating a textual description of a single image.</li>
+<li><strong>Video Description</strong>: Generating a textual description of a sequence of images.</li>
+</ul>
+<blockquote><p>[CNN LSTMs are] a class of models that is both spatially and temporally deep, and has the flexibility to be applied to a variety of vision tasks involving sequential inputs and outputs</p></blockquote>
+<p>— <a href="https://arxiv.org/abs/1411.4389">Long-term Recurrent Convolutional Networks for Visual Recognition and Description</a>, 2015.</p>
+<p>This architecture was originally referred to as a Long-term Recurrent Convolutional Network or LRCN model, although we will use the more generic name “CNN LSTM” to refer to LSTMs that use a CNN as a front end in this lesson.</p>
+<p>This architecture is used for the task of generating textual descriptions of images. Key is the use of a CNN that is pre-trained on a challenging image classification task that is re-purposed as a feature extractor for the caption generating problem.</p>
+<blockquote><p>… it is natural to use a CNN as an image “encoder”, by first pre-training it for an image classification task and using the last hidden layer as an input to the RNN decoder that generates sentences</p></blockquote>
+<p>— <a href="https://arxiv.org/abs/1411.4555">Show and Tell: A Neural Image Caption Generator</a>, 2015.</p>
+<p>This architecture has also been used on speech recognition and natural language processing problems where CNNs are used as feature extractors for the LSTMs on audio and textual input data.</p>
+<p>This architecture is appropriate for problems that:</p>
+<ul>
+<li>Have spatial structure in their input such as the 2D structure or pixels in an image or the 1D structure of words in a sentence, paragraph, or document.</li>
+<li>Have a temporal structure in their input such as the order of images in a video or words in text, or require the generation of output with temporal structure such as words in a textual description.</li>
+</ul>
+<div class="wp-caption aligncenter" id="attachment_4232" style="max-width: 126px"><img alt="Convolutional Neural Network Long Short-Term Memory Network Architecture" class="size-full wp-image-4232" height="366" sizes="(max-width: 116px) 100vw, 116px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Convolutional-Neural-Network-Long-Short-Term-Memory-Network-Archiecture.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Convolutional-Neural-Network-Long-Short-Term-Memory-Network-Archiecture.png 116w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Convolutional-Neural-Network-Long-Short-Term-Memory-Network-Archiecture-95x300.png 95w" width="116"/><p class="wp-caption-text">Convolutional Neural Network Long Short-Term Memory Network Architecture</p></div>
+<!-- Start shortcoder --><div class="woo-sc-hr"></div>
+<center>
+<h3>Need help with LSTMs for Sequence Prediction?</h3>
+<p>Take my free 7-day email course and discover 6 different LSTM architectures (with sample code).</p>
+<p>Click to sign-up and also get a free PDF Ebook version of the course.</p>
+<p><a href="https://machinelearningmastery.lpages.co/leadbox/1403a9373f72a2%3A164f8be4f346dc/5754903989321728/" rel="noopener" style="background: #ffce0a; color: #ffffff; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.25) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.5) 0px 1px 3px inset, rgba(0, 0, 0, 0.5) 0px 1px 3px;" target="_blank">Start Your FREE Mini-Course Now!</a><script data-config="%7B%7D" data-leadbox="1403a9373f72a2:164f8be4f346dc" data-url="https://machinelearningmastery.lpages.co/leadbox/1403a9373f72a2%3A164f8be4f346dc/5754903989321728/" src="https://machinelearningmastery.lpages.co/leadbox-1500400021.js" type="text/javascript"></script></p>
+</center>
+<div class="woo-sc-hr"></div><!-- End shortcoder v4.1.5-->
+<h2>Implement CNN LSTM in Keras</h2>
+<p>We can define a CNN LSTM model to be trained jointly in Keras.</p>
+<p>A CNN LSTM can be defined by adding CNN layers on the front end followed by LSTM layers with a Dense layer on the output.</p>
+<p>It is helpful to think of this architecture as defining two sub-models: the CNN Model for feature extraction and the LSTM Model for interpreting the features across time steps.</p>
+<p>Let’s take a look at both of these sub models in the context of a sequence of 2D inputs which we will assume are images.</p>
+<h3>CNN Model</h3>
+<p>As a refresher, we can define a 2D convolutional network as comprised of Conv2D and MaxPooling2D layers ordered into a stack of the required depth.</p>
+<p>The Conv2D will interpret snapshots of the image (e.g. small squares) and the polling layers will consolidate or abstract the interpretation.</p>
+<p>For example, the snippet below expects to read in 10×10 pixel images with 1 channel (e.g. black and white). The Conv2D will read the image in 2×2 snapshots and output one new 10×10 interpretation of the image. The MaxPooling2D will pool the interpretation into 2×2 blocks reducing the output to a 5×5 consolidation. The Flatten layer will take the single 5×5 map and transform it into a 25-element vector ready for some other layer to deal with, such as a Dense for outputting a prediction.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592a77eb29867499899" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+cnn = Sequential()
+cnn.add(Conv2D(1, (2,2), activation='relu', padding='same', input_shape=(10,10,1)))
+cnn.add(MaxPooling2D(pool_size=(2, 2)))
+cnn.add(Flatten())</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592a77eb29867499899-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb29867499899-2">2</div><div class="crayon-num" data-line="crayon-5a6592a77eb29867499899-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb29867499899-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592a77eb29867499899-1"><span class="crayon-v">cnn</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Sequential</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb29867499899-2"><span class="crayon-v">cnn</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Conv2D</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-cn">2</span><span class="crayon-sy">,</span><span class="crayon-cn">2</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">activation</span><span class="crayon-o">=</span><span class="crayon-s">'relu'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">padding</span><span class="crayon-o">=</span><span class="crayon-s">'same'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">input_shape</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592a77eb29867499899-3"><span class="crayon-v">cnn</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">MaxPooling2D</span><span class="crayon-sy">(</span><span class="crayon-v">pool_size</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb29867499899-4"><span class="crayon-v">cnn</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Flatten</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>This makes sense for image classification and other computer vision tasks.</p>
+<h3>LSTM Model</h3>
+<p>The CNN model above is only capable of handling a single image, transforming it from input pixels into an internal matrix or vector representation.</p>
+<p>We need to repeat this operation across multiple images and allow the LSTM to build up internal state and update weights using BPTT across a sequence of the internal vector representations of input images.</p>
+<p>The CNN could be fixed in the case of using an existing pre-trained model like VGG for feature extraction from images. The CNN may not be trained, and we may wish to train it by backpropagating error from the LSTM across multiple input images to the CNN model.</p>
+<p>In both of these cases, conceptually there is a single CNN model and a sequence of LSTM models, one for each time step. We want to apply the CNN model to each input image and pass on the output of each input image to the LSTM as a single time step.</p>
+<p>We can achieve this by wrapping the entire CNN input model (one layer or more) in a TimeDistributed layer. This layer achieves the desired outcome of applying the same layer or layers multiple times. In this case, applying it multiple times to multiple input time steps and in turn providing a sequence of “image interpretations” or “image features” to the LSTM model to work on.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592a77eb35662956944" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+model.add(TimeDistributed(...))
+model.add(LSTM(...))
+model.add(Dense(...))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592a77eb35662956944-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb35662956944-2">2</div><div class="crayon-num" data-line="crayon-5a6592a77eb35662956944-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592a77eb35662956944-1"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">TimeDistributed</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb35662956944-2"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592a77eb35662956944-3"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Dense</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>We now have the two elements of the model; let’s put them together.</p>
+<h3>CNN LSTM Model</h3>
+<p>We can define a CNN LSTM model in Keras by first defining the CNN layer or layers, wrapping them in a TimeDistributed layer and then defining the LSTM and output layers.</p>
+<p>We have two ways to define the model that are equivalent and only differ as a matter of taste.</p>
+<p>You can define the CNN model first, then add it to the LSTM model by wrapping the entire sequence of CNN layers in a TimeDistributed layer, as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592a77eb38567218961" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# define CNN model
+cnn = Sequential()
+cnn.add(Conv2D(...))
+cnn.add(MaxPooling2D(...))
+cnn.add(Flatten())
+# define LSTM model
+model = Sequential()
+model.add(TimeDistributed(cnn, ...))
+model.add(LSTM(..))
+model.add(Dense(...))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592a77eb38567218961-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb38567218961-2">2</div><div class="crayon-num" data-line="crayon-5a6592a77eb38567218961-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb38567218961-4">4</div><div class="crayon-num" data-line="crayon-5a6592a77eb38567218961-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb38567218961-6">6</div><div class="crayon-num" data-line="crayon-5a6592a77eb38567218961-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb38567218961-8">8</div><div class="crayon-num" data-line="crayon-5a6592a77eb38567218961-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb38567218961-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592a77eb38567218961-1"><span class="crayon-p"># define CNN model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb38567218961-2"><span class="crayon-v">cnn</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Sequential</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592a77eb38567218961-3"><span class="crayon-v">cnn</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Conv2D</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb38567218961-4"><span class="crayon-v">cnn</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">MaxPooling2D</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592a77eb38567218961-5"><span class="crayon-v">cnn</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Flatten</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb38567218961-6"><span class="crayon-p"># define LSTM model</span></div><div class="crayon-line" id="crayon-5a6592a77eb38567218961-7"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Sequential</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb38567218961-8"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">TimeDistributed</span><span class="crayon-sy">(</span><span class="crayon-v">cnn</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592a77eb38567218961-9"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb38567218961-10"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Dense</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>An alternate, and perhaps easier to read, approach is to wrap each layer in the CNN model in a TimeDistributed layer when adding it to the main model.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592a77eb3b056034866" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+model = Sequential()
+# define CNN model
+model.add(TimeDistributed(Conv2D(...))
+model.add(TimeDistributed(MaxPooling2D(...)))
+model.add(TimeDistributed(Flatten()))
+# define LSTM model
+model.add(LSTM(...))
+model.add(Dense(...))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592a77eb3b056034866-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb3b056034866-2">2</div><div class="crayon-num" data-line="crayon-5a6592a77eb3b056034866-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb3b056034866-4">4</div><div class="crayon-num" data-line="crayon-5a6592a77eb3b056034866-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb3b056034866-6">6</div><div class="crayon-num" data-line="crayon-5a6592a77eb3b056034866-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592a77eb3b056034866-8">8</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592a77eb3b056034866-1"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Sequential</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb3b056034866-2"><span class="crayon-p"># define CNN model</span></div><div class="crayon-line" id="crayon-5a6592a77eb3b056034866-3"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">TimeDistributed</span><span class="crayon-sy">(</span><span class="crayon-e">Conv2D</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb3b056034866-4"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">TimeDistributed</span><span class="crayon-sy">(</span><span class="crayon-e">MaxPooling2D</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592a77eb3b056034866-5"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">TimeDistributed</span><span class="crayon-sy">(</span><span class="crayon-e">Flatten</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb3b056034866-6"><span class="crayon-p"># define LSTM model</span></div><div class="crayon-line" id="crayon-5a6592a77eb3b056034866-7"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592a77eb3b056034866-8"><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-e">Dense</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>The benefit of this second approach is that all of the layers appear in the model summary and as such is preferred for now.</p>
+<p>You can choose the method that you prefer.</p>
+<h2>Further Reading</h2>
+<p>This section provides more resources on the topic if you are looking go deeper.</p>
+<h3>Papers on CNN LSTM</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/1411.4389">Long-term Recurrent Convolutional Networks for Visual Recognition and Description</a>, 2015.</li>
+<li><a href="https://arxiv.org/abs/1411.4555">Show and Tell: A Neural Image Caption Generator</a>, 2015.</li>
+<li><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43455.pdf">Convolutional, Long Short-Term Memory, fully connected Deep Neural Networks</a>, 2015.</li>
+<li><a href="https://arxiv.org/abs/1508.06615">Character-Aware Neural Language Models</a>, 2015.</li>
+<li><a href="https://arxiv.org/abs/1506.04214">Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting</a>, 2015.</li>
+</ul>
+<h3>Keras API</h3>
+<ul>
+<li><a href="https://keras.io/layers/convolutional/#conv2d">Conv2D Keras API</a>.</li>
+<li><a href="https://keras.io/layers/pooling/#maxpooling2d">MaxPooling2D Keras API</a>.</li>
+<li><a href="https://keras.io/layers/core/#flatten">Flatten Keras API</a>.</li>
+<li><a href="https://keras.io/layers/wrappers/#timedistributed">TimeDistributed Keras API</a>.</li>
+</ul>
+<h3>Posts</h3>
+<ul>
+<li><a href="http://machinelearningmastery.com/crash-course-convolutional-neural-networks/">Crash Course in Convolutional Neural Networks for Machine Learning</a></li>
+<li><a href="http://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a></li>
+</ul>
+<h2>Summary</h2>
+<p>In this post, you discovered the CNN LSTN model architecture.</p>
+<p>Specifically, you learned:</p>
+<ul>
+<li>About the development of the CNN LSTM model architecture for sequence prediction.</li>
+<li>Examples of the types of problems to which the CNN LSTM model is suited.</li>
+<li>How to implement the CNN LSTM architecture in Python with Keras.</li>
+</ul>
+<p>Do you have any questions?<br/>
+Ask your questions in the comments below and I will do my best to answer.</p>
+<div class="awac-wrapper"><div class="awac widget text-30"> <div class="textwidget"><div class="woo-sc-hr"></div>
+<p></p><center>
+<h2>Develop LSTMs for Sequence Prediction Today!</h2>
+<p><a href="/lstms-with-python/"><img align="left" alt="Long Short-Term Memory Networks with Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Cover-220.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own LSTM models in Minutes</h4>
+<p>…with just a few lines of python code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/lstms-with-python/">Long Short-Term Memory Networks with Python</a></p>
+<p>It provides <strong>self-study tutorials</strong> on topics like:<br/>
+<em>CNN LSTMs, Encoder-Decoder LSTMs, generative models, data preparation, making predictions</em> and much more…</p>
+<h4>Finally Bring LSTM Recurrent Neural Networks to<br/>
+Your Sequence Predictions Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/lstms-with-python/">Click to learn more</a>.<br/>
+</p></center><br/>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=CNN%20Long%20Short-Term%20Memory%20Networks&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fcnn-long-short-term-memory-networks%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=CNN%20Long%20Short-Term%20Memory%20Networks&amp;url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/&amp;summary=Gentle+introduction+to+CNN+LSTM+recurrent+neural+networks%0D%0Awith+example+Python+code.%0D%0AInput+with+spa..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=CNN%20Long%20Short-Term%20Memory%20Networks&amp;url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/&amp;summary=Gentle+introduction+to+CNN+LSTM+recurrent+neural+networks%0D%0Awith+example+Python+code.%0D%0AInput+with+spa...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/cnn-long-short-term-memory-networks/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/stacked-long-short-term-memory-networks/" rel="prev"><i class="fa fa-angle-left"></i> Stacked Long Short-Term Memory Networks</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/encoder-decoder-long-short-term-memory-networks/" rel="next">Encoder-Decoder Long Short-Term Memory Networks <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">36 Responses to <em>CNN Long Short-Term Memory Networks</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-410435">
+<div class="comment-container" id="li-comment-410435">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/545679afe2c00d3de7866e7ebf8b0d0b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/545679afe2c00d3de7866e7ebf8b0d0b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.customerpulse.nl" rel="external nofollow">Erick</a></span>
+<span class="date">August 21, 2017 at 6:07 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-410435" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Would this architecture, with some adaptations, also be suitable to do speech recognition, speaker separation, language detection and other natural language processing tasks?</p>
+<div class="reply">
+<a aria-label="Reply to Erick" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=410435#respond" onclick='return addComment.moveForm( "comment-410435", "410435", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-410501">
+<div class="comment-container" id="li-comment-410501">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 22, 2017 at 6:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-410501" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps.</p>
+<p>I have seen it most used for document classification / sentiment analysis in NLP.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=410501#respond" onclick='return addComment.moveForm( "comment-410501", "410501", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even depth-2" id="comment-411053">
+<div class="comment-container" id="li-comment-411053">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d0c1e4e34d5846424ac572c421930fe9?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d0c1e4e34d5846424ac572c421930fe9?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Dan Lim</span>
+<span class="date">August 25, 2017 at 2:45 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411053" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>cnn + lstm architecture used  for speech recognition<br/>
+– <a href="https://arxiv.org/pdf/1610.03022.pdf" rel="nofollow">https://arxiv.org/pdf/1610.03022.pdf</a></p>
+<div class="reply">
+<a aria-label="Reply to Dan Lim" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411053#respond" onclick='return addComment.moveForm( "comment-411053", "411053", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-3" id="comment-411067">
+<div class="comment-container" id="li-comment-411067">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 25, 2017 at 3:58 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411067" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for sharing Dan.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411067#respond" onclick='return addComment.moveForm( "comment-411067", "411067", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-410577">
+<div class="comment-container" id="li-comment-410577">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6be096a4c979a8ff84ebbe8110de934d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6be096a4c979a8ff84ebbe8110de934d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://derindelimavi.blogspot.com.tr/" rel="external nofollow">birol</a></span>
+<span class="date">August 22, 2017 at 6:27 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-410577" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>what is difference with ConvLSTM2D layer ?<br/>
+<a href="https://github.com/fchollet/keras/blob/master/examples/conv_lstm.py" rel="nofollow">https://github.com/fchollet/keras/blob/master/examples/conv_lstm.py</a></p>
+<div class="reply">
+<a aria-label="Reply to birol" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=410577#respond" onclick='return addComment.moveForm( "comment-410577", "410577", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-410650">
+<div class="comment-container" id="li-comment-410650">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 23, 2017 at 6:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-410650" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>As far as I know, that layer is not yet supported. I have tried to stay away from it until all the bugs are worked out of it.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=410650#respond" onclick='return addComment.moveForm( "comment-410650", "410650", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even depth-2" id="comment-411054">
+<div class="comment-container" id="li-comment-411054">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d0c1e4e34d5846424ac572c421930fe9?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d0c1e4e34d5846424ac572c421930fe9?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Dan Lim</span>
+<span class="date">August 25, 2017 at 2:59 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411054" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>ConvLSTM is variant of LSTM which use convolution to replace inner procut within LSTM unit<br/>
+while CNN LSTM is just stack of layer; CNN followed by LSTM.</p>
+<div class="reply">
+<a aria-label="Reply to Dan Lim" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411054#respond" onclick='return addComment.moveForm( "comment-411054", "411054", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-3" id="comment-411068">
+<div class="comment-container" id="li-comment-411068">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 25, 2017 at 3:58 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411068" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Have you used it on a project Dan?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411068#respond" onclick='return addComment.moveForm( "comment-411068", "411068", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-4" id="comment-411746">
+<div class="comment-container" id="li-comment-411746">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d0c1e4e34d5846424ac572c421930fe9?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d0c1e4e34d5846424ac572c421930fe9?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Dan Lim</span>
+<span class="date">August 30, 2017 at 2:09 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411746" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Not yet, I’m just waiting next tensorflow release since it seems that convlstm would be provided as tf.contrib.rnn.ConvLSTMCell, instead I’ve used cnn + lstm on simple speech recognition experiments and it gives better results than stack of lstm. It really works!</p>
+<div class="reply">
+<a aria-label="Reply to Dan Lim" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411746#respond" onclick='return addComment.moveForm( "comment-411746", "411746", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-5" id="comment-411761">
+<div class="comment-container" id="li-comment-411761">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 30, 2017 at 4:18 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411761" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Dan.</p>
+<p>I hope to try some examples myself for the blog soon.</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-411001">
+<div class="comment-container" id="li-comment-411001">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e5cddf7b4f2eea21c26f50c6ce4e71c7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e5cddf7b4f2eea21c26f50c6ce4e71c7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Miles</span>
+<span class="date">August 25, 2017 at 7:13 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411001" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi, Jason.<br/>
+Do you think the CNNLSTM can solve the regression problem, whose inputs are some time series data and some properties/exogenous data (spatial), not image data? If yes, how to deal with the properties/exogenous data (2D) in CNN. Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to Miles" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411001#respond" onclick='return addComment.moveForm( "comment-411001", "411001", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-411052">
+<div class="comment-container" id="li-comment-411052">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/89b5fb7ae0ee6cc8d714677cfb95aba2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/89b5fb7ae0ee6cc8d714677cfb95aba2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Tahir</span>
+<span class="date">August 25, 2017 at 2:24 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411052" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I m having the same question</p>
+<div class="reply">
+<a aria-label="Reply to Tahir" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411052#respond" onclick='return addComment.moveForm( "comment-411052", "411052", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-411062">
+<div class="comment-container" id="li-comment-411062">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 25, 2017 at 3:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-411062" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps, I have not tried using CNN LSTMs for time series.</p>
+<p>Perhaps each series could be processed by a 1D-CNN.</p>
+<p>It might not make sense given that the LSTM is already interpreting the long term relationships in the data. </p>
+<p>It might be interesting if the CNN can pick out structure that is new/different from the LSTM. Perhaps you could have both a CNN and LSTM interpretation of the series and use another model to integrate and interpret the results.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=411062#respond" onclick='return addComment.moveForm( "comment-411062", "411062", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-414991">
+<div class="comment-container" id="li-comment-414991">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f361adc31b0231c3ae784989dd0d229b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f361adc31b0231c3ae784989dd0d229b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Shamane Siriwardana</span>
+<span class="date">September 28, 2017 at 1:27 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-414991" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi do you have a github implementation ?</p>
+<div class="reply">
+<a aria-label="Reply to Shamane Siriwardana" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=414991#respond" onclick='return addComment.moveForm( "comment-414991", "414991", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-415004">
+<div class="comment-container" id="li-comment-415004">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 28, 2017 at 4:45 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-415004" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I have a full code example in my book on LSTMs.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=415004#respond" onclick='return addComment.moveForm( "comment-415004", "415004", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-415820">
+<div class="comment-container" id="li-comment-415820">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/4082fcd9575137fcd8293d133e048123?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/4082fcd9575137fcd8293d133e048123?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Elisa</span>
+<span class="date">October 6, 2017 at 1:10 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-415820" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+Thank you for the great work and posts.</p>
+<p>I’m starting my studies with deep learning, python and keras.<br/>
+I would like knowing how to implement the CNN with ELM (extreme learning machine) architecture in Python with Keras for classification task. Do you have a github implementation?</p>
+<div class="reply">
+<a aria-label="Reply to Elisa" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=415820#respond" onclick='return addComment.moveForm( "comment-415820", "415820", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-415879">
+<div class="comment-container" id="li-comment-415879">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 7, 2017 at 5:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-415879" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I do not.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=415879#respond" onclick='return addComment.moveForm( "comment-415879", "415879", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-416411">
+<div class="comment-container" id="li-comment-416411">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/740cace112999287d056d47e5ec406e4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/740cace112999287d056d47e5ec406e4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">gana</span>
+<span class="date">October 12, 2017 at 4:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416411" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for your great examples…</p>
+<p>May i ask you full code of the CNN LSTM you explained above?<br/>
+Because,..i am having errors related to dimensions of CNN and LSTM.</p>
+<p>I have followed your previous examples and trying to build VGG-16Net stacked with LSTM.</p>
+<p>My database is just 10 different human motion (10 classes) such as walking and running etc…</p>
+<p>My code is as below:</p>
+<p># dimensions of our images.<br/>
+img_width, img_height = 224, 224</p>
+<p>train_data_dir = ‘db/train’<br/>
+validation_data_dir = ‘db/test’<br/>
+nb_train_samples = 400<br/>
+nb_validation_samples = 200<br/>
+num_timesteps = 10 # length of sequence<br/>
+num_class = 10<br/>
+epochs = 10<br/>
+batch_size = 8</p>
+<p>lstm_input_len = 224 * 224<br/>
+input_shape=(224,224,3)<br/>
+num_chan = 3</p>
+<p># VGG16 as CNN<br/>
+cnn = Sequential()<br/>
+cnn.add(ZeroPadding2D((1,1),input_shape=input_shape))<br/>
+cnn.add(Conv2D(64, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(64, 3, 3, activation=’relu’))<br/>
+cnn.add(MaxPooling2D((2,2), strides=(2,2),dim_ordering=”th”))</p>
+<p>cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(128, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(128, 3, 3, activation=’relu’))<br/>
+cnn.add(MaxPooling2D((2,2), strides=(2,2),dim_ordering=”th”))</p>
+<p>cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(256, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(256, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(256, 3, 3, activation=’relu’))<br/>
+cnn.add(MaxPooling2D((2,2), strides=(2,2),dim_ordering=”th”))</p>
+<p>cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(512, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(512, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(512, 3, 3, activation=’relu’))<br/>
+cnn.add(MaxPooling2D((2,2), strides=(2,2),dim_ordering=”th”))</p>
+<p>cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(512, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(512, 3, 3, activation=’relu’))<br/>
+cnn.add(ZeroPadding2D((1,1)))<br/>
+cnn.add(Conv2D(512, 3, 3, activation=’relu’))<br/>
+cnn.add(MaxPooling2D((2,2), strides=(2,2),dim_ordering=”th”))</p>
+<p>cnn.add(Flatten())<br/>
+cnn.add(Dense(4096, activation=’relu’))<br/>
+cnn.add(Dropout(0.5))<br/>
+cnn.add(Dense(4096, activation=’relu’))</p>
+<p>#LSTM<br/>
+model = Sequential()<br/>
+model.add(TimeDistributed(cnn, input_shape=(num_timesteps, 224, 224,num_chan)))<br/>
+model.add(LSTM(num_timesteps))<br/>
+model.add(Dropout(.2)) #added<br/>
+model.add(Dense(num_class, activation=’softmax’))</p>
+<p>model.compile(loss=’binary_crossentropy’, optimizer=’adam’, metrics=[‘accuracy’])</p>
+<p># this is the augmentation configuration we will use for training<br/>
+train_datagen = ImageDataGenerator(rescale=1. / 255)</p>
+<p># this is the augmentation configuration we will use for testing:<br/>
+# only rescaling<br/>
+test_datagen = ImageDataGenerator(rescale=1. / 255)</p>
+<p>train_generator = train_datagen.flow_from_directory(<br/>
+    train_data_dir,<br/>
+    target_size=(224, 224),<br/>
+    batch_size=batch_size,<br/>
+    class_mode=’binary’)</p>
+<p>validation_generator = test_datagen.flow_from_directory(<br/>
+    validation_data_dir,<br/>
+    target_size=(224, 224),<br/>
+    batch_size=batch_size,<br/>
+    class_mode=’binary’)</p>
+<p>model.fit_generator(<br/>
+    train_generator,<br/>
+    steps_per_epoch=nb_train_samples // batch_size,<br/>
+    epochs=epochs,<br/>
+    validation_data=validation_generator,<br/>
+    validation_steps=nb_validation_samples // batch_size)</p>
+<div class="reply">
+<a aria-label="Reply to gana" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416411#respond" onclick='return addComment.moveForm( "comment-416411", "416411", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-2" id="comment-416412">
+<div class="comment-container" id="li-comment-416412">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/740cace112999287d056d47e5ec406e4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/740cace112999287d056d47e5ec406e4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">gana</span>
+<span class="date">October 12, 2017 at 4:18 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416412" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I forgot to put error which is :</p>
+<p>ValueError: Error when checking input: expected time_distributed_9_input to have 5 dimensions, but got array with shape (8, 224, 224, 3)</p>
+<div class="reply">
+<a aria-label="Reply to gana" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416412#respond" onclick='return addComment.moveForm( "comment-416412", "416412", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-421112">
+<div class="comment-container" id="li-comment-421112">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1e8ced31df9006f997fd7004189bb1af?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1e8ced31df9006f997fd7004189bb1af?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">N1k31t4</span>
+<span class="date">November 25, 2017 at 2:13 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-421112" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You aso need to specify a batch size in the input dimensions to that layer I guess, to get the fifth dimension. Try using:  <code>model.add(TimeDistributed(cnn, input_shape=(None, num_timesteps, 224, 224,num_chan)))</code>. The <code>None</code> will then allow variable batch size.</p>
+<div class="reply">
+<a aria-label="Reply to N1k31t4" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=421112#respond" onclick='return addComment.moveForm( "comment-421112", "421112", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-4" id="comment-421113">
+<div class="comment-container" id="li-comment-421113">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/608b545373cce46dcce4bcdfc0631c60?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/608b545373cce46dcce4bcdfc0631c60?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mohamed</span>
+<span class="date">November 25, 2017 at 2:15 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-421113" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>yes that worked for me. Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Mohamed" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=421113#respond" onclick='return addComment.moveForm( "comment-421113", "421113", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-416478">
+<div class="comment-container" id="li-comment-416478">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 13, 2017 at 5:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416478" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I cannot debug your code. I list some places to get help with code here:<br/>
+<a href="https://machinelearningmastery.com/get-help-with-keras/" rel="nofollow">https://machinelearningmastery.com/get-help-with-keras/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416478#respond" onclick='return addComment.moveForm( "comment-416478", "416478", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-416755">
+<div class="comment-container" id="li-comment-416755">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e5cddf7b4f2eea21c26f50c6ce4e71c7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e5cddf7b4f2eea21c26f50c6ce4e71c7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Long</span>
+<span class="date">October 15, 2017 at 12:33 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416755" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Assuming there are a data set with time series data (e.g temperature, rainfall) and geographic data(e.g. elevation, slope) for many grid positions, I need to use the data set to predict(regression) future weathers. </p>
+<p>I think of a method with LSTM (for time series data) + auxiliary (geographic data) to be a solution. But the results of forecast is not very good. Do you have other better methods? Or do you have a related lessons?</p>
+<p>Thank you very much.</p>
+<div class="reply">
+<a aria-label="Reply to Long" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416755#respond" onclick='return addComment.moveForm( "comment-416755", "416755", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-416831">
+<div class="comment-container" id="li-comment-416831">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 16, 2017 at 5:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416831" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps a deep MLP with a window over lag obs.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416831#respond" onclick='return addComment.moveForm( "comment-416831", "416831", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-416913">
+<div class="comment-container" id="li-comment-416913">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e5cddf7b4f2eea21c26f50c6ce4e71c7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e5cddf7b4f2eea21c26f50c6ce4e71c7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Long</span>
+<span class="date">October 16, 2017 at 8:30 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416913" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Could you please explain it in detail? Thank you very much.</p>
+<div class="reply">
+<a aria-label="Reply to Long" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416913#respond" onclick='return addComment.moveForm( "comment-416913", "416913", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-416976">
+<div class="comment-container" id="li-comment-416976">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 17, 2017 at 5:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-416976" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This function will help you reshape your time series data to be a supervised learning problem:<br/>
+<a href="https://machinelearningmastery.com/convert-time-series-supervised-learning-problem-python/" rel="nofollow">https://machinelearningmastery.com/convert-time-series-supervised-learning-problem-python/</a></p>
+<p>You can then use a neural network model.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=416976#respond" onclick='return addComment.moveForm( "comment-416976", "416976", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-422424">
+<div class="comment-container" id="li-comment-422424">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ef4e4fa39bd21cfbf11cac0ce0e83234?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ef4e4fa39bd21cfbf11cac0ce0e83234?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ravindra</span>
+<span class="date">December 7, 2017 at 8:58 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-422424" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, Thanks a lot for this. I am having trouble implementing the same architecture of TimeDistributed CNN with LSTM using functional API. It is throwing an error when I pass the TImeDistributed layer to maxpooling step saying the input is not a tensor. Could you please put few lines of code for the Timedistributed CNN output into LSTM using functional API?</p>
+<div class="reply">
+<a aria-label="Reply to Ravindra" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=422424#respond" onclick='return addComment.moveForm( "comment-422424", "422424", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422456">
+<div class="comment-container" id="li-comment-422456">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 8, 2017 at 5:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-422456" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps try posting your code to stackoverflow?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=422456#respond" onclick='return addComment.moveForm( "comment-422456", "422456", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-426953">
+<div class="comment-container" id="li-comment-426953">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/010249e486a98af6cb39510465b3315b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/010249e486a98af6cb39510465b3315b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Abishkar</span>
+<span class="date">January 20, 2018 at 4:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-426953" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Having the same problem, help would be appreciated!</p>
+<div class="reply">
+<a aria-label="Reply to Abishkar" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=426953#respond" onclick='return addComment.moveForm( "comment-426953", "426953", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-426992">
+<div class="comment-container" id="li-comment-426992">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 20, 2018 at 8:24 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-426992" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps try using the Sequential API instead?</p>
+<p>Perhaps try posting to one of these locations:<br/>
+<a href="https://machinelearningmastery.com/get-help-with-keras/" rel="nofollow">https://machinelearningmastery.com/get-help-with-keras/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=426992#respond" onclick='return addComment.moveForm( "comment-426992", "426992", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-422531">
+<div class="comment-container" id="li-comment-422531">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6450c53d94f5796797321d34cb571707?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6450c53d94f5796797321d34cb571707?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Alex</span>
+<span class="date">December 9, 2017 at 5:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-422531" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, </p>
+<p>How would I implement a CNN-LSTM classification problem with variable input lengths?</p>
+<div class="reply">
+<a aria-label="Reply to Alex" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=422531#respond" onclick='return addComment.moveForm( "comment-422531", "422531", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422546">
+<div class="comment-container" id="li-comment-422546">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 9, 2017 at 5:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-422546" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Use padding or truncating to make the inputs the same length:<br/>
+<a href="https://machinelearningmastery.com/handle-long-sequences-long-short-term-memory-recurrent-neural-networks/" rel="nofollow">https://machinelearningmastery.com/handle-long-sequences-long-short-term-memory-recurrent-neural-networks/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=422546#respond" onclick='return addComment.moveForm( "comment-422546", "422546", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-422547">
+<div class="comment-container" id="li-comment-422547">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6450c53d94f5796797321d34cb571707?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6450c53d94f5796797321d34cb571707?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Alex</span>
+<span class="date">December 9, 2017 at 5:57 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-422547" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>With the padding approach, I am worried the LSTM might learn a dependency between sequence length and classification. </p>
+<p>My data is structured such that sequences with more inputs are MUCH more likely to be a certain class than sequences with less inputs. However, I don’t want my model to learn this dependency. </p>
+<p>Is my intuition correct? I remember reading in your earlier article that the LSTM will learn to ignore the padded sequences, but I wasn’t sure to what extent.</p>
+<div class="reply">
+<a aria-label="Reply to Alex" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=422547#respond" onclick='return addComment.moveForm( "comment-422547", "422547", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422575">
+<div class="comment-container" id="li-comment-422575">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 9, 2017 at 9:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-422575" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can use a Mask to ignore padded values.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=422575#respond" onclick='return addComment.moveForm( "comment-422575", "422575", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-424236">
+<div class="comment-container" id="li-comment-424236">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1f41d9f9cb92c9e5027c0fd70ec35115?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1f41d9f9cb92c9e5027c0fd70ec35115?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Rui</span>
+<span class="date">December 21, 2017 at 4:05 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-424236" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>How to apply conv operation to the sequence itself instead of features  (time sample data) ?</p>
+<div class="reply">
+<a aria-label="Reply to Rui" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=424236#respond" onclick='return addComment.moveForm( "comment-424236", "424236", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-424257">
+<div class="comment-container" id="li-comment-424257">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 21, 2017 at 5:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/#comment-424257" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What do you mean exactly?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/cnn-long-short-term-memory-networks/?replytocom=424257#respond" onclick='return addComment.moveForm( "comment-424257", "424257", "respond", "4231" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/cnn-long-short-term-memory-networks/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="4231"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="779267767b"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="4"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-29"> <div class="textwidget"><p></p><center>
+<h3>Deep Learning for Sequence Prediction</h3>
+<p>Cut through the math and research papers.<br/>
+Discover 4 Models, 6 Architectures, and 14 Tutorials.</p>
+<p><a href="/lstms-with-python/">Get Started With LSTMs in Python Today!</a><br/>
+<a href="/lstms-with-python/"><img src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Cover-220.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

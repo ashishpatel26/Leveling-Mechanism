@@ -1,0 +1,1403 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How To Resample and Interpolate Your Time Series Data With Python - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How To Resample and Interpolate Your Time Series Data With Python - Machine Learning Mastery" property="og:title"/>
+<meta content="You may have observations at the wrong frequency. Maybe they are too granular or not granular enough. The Pandas library in Python provides the capability to change the frequency of your time series data. In this tutorial, you will discover how to use Pandas in Python to both increase and decrease the sampling frequency of …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Time Series" property="article:section"/>
+<meta content="2016-12-16T05:00:06+11:00" property="article:published_time"/>
+<meta content="2017-02-21T16:53:49+11:00" property="article:modified_time"/>
+<meta content="2017-02-21T16:53:49+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-To-Resample-and-Interpolate-Your-Time-Series-Data-With-Python.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-To-Resample-and-Interpolate-Your-Time-Series-Data-With-Python.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="427" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/resample-interpolate-time-series-data-python\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/feed/" rel="alternate" title="Machine Learning Mastery » How To Resample and Interpolate Your Time Series Data With Python Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=3514" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fresample-interpolate-time-series-data-python%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fresample-interpolate-time-series-data-python%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-3514 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-3514 post type-post status-publish format-standard has-post-thumbnail hentry category-time-series">
+<header>
+<h1 class="title entry-title">How To Resample and Interpolate Your Time Series Data With Python</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2016-12-16T05:00:06+1100">December 16, 2016</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/time-series/" title="View all items in Time Series">Time Series</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20To%20Resample%20and%20Interpolate%20Your%20Time%20Series%20Data%20With%20Python&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fresample-interpolate-time-series-data-python%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Resample%20and%20Interpolate%20Your%20Time%20Series%20Data%20With%20Python&amp;url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/&amp;summary=You+may+have+observations+at+the+wrong+frequency.%0D%0A%0D%0AMaybe+they+are+too+granular+or+not+granular+eno..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Resample%20and%20Interpolate%20Your%20Time%20Series%20Data%20With%20Python&amp;url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/&amp;summary=You+may+have+observations+at+the+wrong+frequency.%0D%0A%0D%0AMaybe+they+are+too+granular+or+not+granular+eno...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>You may have observations at the wrong frequency.</p>
+<p>Maybe they are too granular or not granular enough. The Pandas library in Python provides the capability to change the frequency of your time series data.</p>
+<p>In this tutorial, you will discover how to use Pandas in Python to both increase and decrease the sampling frequency of time series data.</p>
+<p>After completing this tutorial, you will know:</p>
+<ul>
+<li>About time series resampling, the two types of resampling, and the 2 main reasons why you need to use them.</li>
+<li>How to use Pandas to upsample time series data to a higher frequency and interpolate the new observations.</li>
+<li>How to use Pandas to downsample time series data to a lower frequency and summarize the higher frequency observations.</li>
+</ul>
+<p>Let’s get started.</p>
+<p><strong>Update Dec/2016</strong>: Fixed definitions of upsample and downsample.</p>
+<div class="wp-caption aligncenter" id="attachment_3521" style="max-width: 650px"><img alt="How To Resample and Interpolate Your Time Series Data With Python" class="size-full wp-image-3521" height="427" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-To-Resample-and-Interpolate-Your-Time-Series-Data-With-Python.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-To-Resample-and-Interpolate-Your-Time-Series-Data-With-Python.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-To-Resample-and-Interpolate-Your-Time-Series-Data-With-Python-300x200.jpg 300w" width="640"/><p class="wp-caption-text">How To Resample and Interpolate Your Time Series Data With Python<br/>Photo by <a href="https://www.flickr.com/photos/smwhang/4413240111/">sung ming whang</a>, some rights reserved.</p></div>
+<h2>Resampling</h2>
+<p>Resampling involves changing the frequency of your time series observations.</p>
+<p>Two types of resampling are:</p>
+<ol>
+<li><strong>Upsampling</strong>: Where you increase the frequency of the samples, such as from minutes to seconds.</li>
+<li><strong>Downsampling</strong>: Where you decrease the frequency of the samples, such as from days to months.</li>
+</ol>
+<p>In both cases, data must be invented.</p>
+<p>In the case of upsampling, care may be needed in determining how the fine-grained observations are calculated using interpolation. In the case of downsampling, care may be needed in selecting the summary statistics used to calculate the new aggregated values.</p>
+<p>There are perhaps two main reasons why you may be interested in resampling your time series data:</p>
+<ol>
+<li><strong>Problem Framing</strong>: Resampling may be required if your data is available at the same frequency that you want to make predictions.</li>
+<li><strong>Feature Engineering</strong>: Resampling can also be used to provide additional structure or insight into the learning problem for supervised learning models.</li>
+</ol>
+<p>There is a lot of overlap between these two cases.</p>
+<p>For example, you may have daily data and want to predict a monthly problem. You could use the daily data directly or you could downsample it to monthly data and develop your model.</p>
+<p>A feature engineering perspective may use observations and summaries of observations from both time scales and more in developing a model.</p>
+<p>Let’s make resampling more concrete by looking at a real dataset and some examples.</p>
+<!-- Start shortcoder --><p></p><div class="woo-sc-hr"></div>
+<center>
+<h3>Stop learning Time Series Forecasting the <em>slow way</em>!</h3>
+<p>Take my free 7-day email course and discover data prep, modeling and more (with sample code).</p>
+<p>Click to sign-up and also get a free PDF Ebook version of the course.</p>
+<p><a href="https://machinelearningmastery.leadpages.co/leadbox/14158d173f72a2%3A164f8be4f346dc/5760744339537920/" style="background: #ffce0a; color: #ffffff; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 3px inset, rgba(0, 0, 0, 0.498039) 0px 1px 3px;" target="_blank">Start Your FREE Mini-Course Now!</a><script data-config="%7B%7D" data-leadbox="14158d173f72a2:164f8be4f346dc" data-url="https://machinelearningmastery.leadpages.co/leadbox/14158d173f72a2%3A164f8be4f346dc/5760744339537920/" src="https://machinelearningmastery.leadpages.co/leadbox-1487347410.js" type="text/javascript"></script></p>
+</center>
+<p></p><div class="woo-sc-hr"></div><!-- End shortcoder v4.1.5-->
+<h2>Shampoo Sales Dataset</h2>
+<p>This dataset describes the monthly number of sales of shampoo over a 3 year period.</p>
+<p>The units are a sales count and there are 36 observations. The original dataset is credited to Makridakis, Wheelwright, and Hyndman (1998).</p>
+<p>Below is a sample of the first 5 rows of data, including the header row.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592018362a189303928" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+"Month","Sales"
+"1-01",266.0
+"1-02",145.9
+"1-03",183.1
+"1-04",119.3
+"1-05",180.3</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592018362a189303928-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018362a189303928-2">2</div><div class="crayon-num" data-line="crayon-5a6592018362a189303928-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018362a189303928-4">4</div><div class="crayon-num" data-line="crayon-5a6592018362a189303928-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018362a189303928-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592018362a189303928-1">"Month","Sales"</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018362a189303928-2">"1-01",266.0</div><div class="crayon-line" id="crayon-5a6592018362a189303928-3">"1-02",145.9</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018362a189303928-4">"1-03",183.1</div><div class="crayon-line" id="crayon-5a6592018362a189303928-5">"1-04",119.3</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018362a189303928-6">"1-05",180.3</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Below is a plot of the entire dataset taken from Data Market.</p>
+<div class="wp-caption aligncenter" id="attachment_3485" style="max-width: 734px"><img alt="Shampoo Sales Dataset" class="size-full wp-image-3485" height="387" sizes="(max-width: 724px) 100vw, 724px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Shampoo-Sales-Dataset.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Shampoo-Sales-Dataset.png 724w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Shampoo-Sales-Dataset-300x160.png 300w" width="724"/><p class="wp-caption-text">Shampoo Sales Dataset</p></div>
+<p>The dataset shows an increasing trend and possibly some seasonal components.</p>
+<p><a href="https://datamarket.com/data/set/22r0/sales-of-shampoo-over-a-three-year-period">Download and learn more about the dataset here</a>.</p>
+<h2>Load the Shampoo Sales Dataset</h2>
+<p>Download the dataset and place it in the current working directory with the filename “<em>shampoo-sales.csv</em>“.</p>
+<p>The timestamps in the dataset do not have an absolute year, but do have a month. We can write a custom date parsing function to load this dataset and pick an arbitrary year, such as 1900, to baseline the years from.</p>
+<p>Below is a snippet of code to load the Shampoo Sales dataset using the custom date parsing function from <em>read_csv()</em>.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183639302072026" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from pandas import datetime
+from matplotlib import pyplot
+
+def parser(x):
+	return datetime.strptime('190'+x, '%Y-%m')
+
+series = read_csv('shampoo-sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+print(series.head())
+series.plot()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183639302072026-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183639302072026-2">2</div><div class="crayon-num" data-line="crayon-5a65920183639302072026-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183639302072026-4">4</div><div class="crayon-num" data-line="crayon-5a65920183639302072026-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183639302072026-6">6</div><div class="crayon-num" data-line="crayon-5a65920183639302072026-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183639302072026-8">8</div><div class="crayon-num" data-line="crayon-5a65920183639302072026-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183639302072026-10">10</div><div class="crayon-num" data-line="crayon-5a65920183639302072026-11">11</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183639302072026-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183639302072026-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">datetime</span></div><div class="crayon-line" id="crayon-5a65920183639302072026-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183639302072026-4"> </div><div class="crayon-line" id="crayon-5a65920183639302072026-5"><span class="crayon-e">def </span><span class="crayon-e">parser</span><span class="crayon-sy">(</span><span class="crayon-v">x</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183639302072026-6"><span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">strptime</span><span class="crayon-sy">(</span><span class="crayon-s">'190'</span><span class="crayon-o">+</span><span class="crayon-v">x</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'%Y-%m'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183639302072026-7"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183639302072026-8"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'shampoo-sales.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">squeeze</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">date_parser</span><span class="crayon-o">=</span><span class="crayon-v">parser</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183639302072026-9"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183639302072026-10"><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183639302072026-11"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p>Running this example loads the dataset and prints the first 5 rows. This shows the correct handling of the dates, baselined from 1900.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592018363d820280142" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Month
+1901-01-01 266.0
+1901-02-01 145.9
+1901-03-01 183.1
+1901-04-01 119.3
+1901-05-01 180.3
+Name: Sales of shampoo over a three year period, dtype: float64</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592018363d820280142-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018363d820280142-2">2</div><div class="crayon-num" data-line="crayon-5a6592018363d820280142-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018363d820280142-4">4</div><div class="crayon-num" data-line="crayon-5a6592018363d820280142-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018363d820280142-6">6</div><div class="crayon-num" data-line="crayon-5a6592018363d820280142-7">7</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592018363d820280142-1">Month</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018363d820280142-2">1901-01-01 266.0</div><div class="crayon-line" id="crayon-5a6592018363d820280142-3">1901-02-01 145.9</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018363d820280142-4">1901-03-01 183.1</div><div class="crayon-line" id="crayon-5a6592018363d820280142-5">1901-04-01 119.3</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018363d820280142-6">1901-05-01 180.3</div><div class="crayon-line" id="crayon-5a6592018363d820280142-7">Name: Sales of shampoo over a three year period, dtype: float64</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>We also get a plot of the dataset, showing the rising trend in sales from month to month.</p>
+<div class="wp-caption aligncenter" id="attachment_3515" style="max-width: 810px"><img alt="Plot of the Shamoo Sales Dataset" class="size-full wp-image-3515" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Dataset.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Dataset.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Dataset-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Dataset-768x576.png 768w" width="800"/><p class="wp-caption-text">Plot of the Shampoo Sales Dataset</p></div>
+<h2>Upsample Shampoo Sales</h2>
+<p>The observations in the Shampoo Sales are monthly.</p>
+<p>Imagine we wanted daily sales information. We would have to upsample the frequency from monthly to daily and use an interpolation scheme to fill in the new daily frequency.</p>
+<p>The Pandas library provides a function called <em>resample()</em> on the <em>Series</em> and <em>DataFrame</em> objects. This can be used to group records when downsampling and making space for new observations when upsampling.</p>
+<p>We can use this function to transform our monthly dataset into a daily dataset by calling resampling and specifying the preferred frequency of calendar day frequency or “D”.</p>
+<p>Pandas is clever and you could just as easily specify the frequency as “1D” or even something domain specific, such as “5D.” See the further reading section at the end of the tutorial for the list of aliases that you can use.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183642632982053" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from pandas import datetime
+
+def parser(x):
+	return datetime.strptime('190'+x, '%Y-%m')
+
+series = read_csv('shampoo-sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+upsampled = series.resample('D')
+print(upsampled.head(32))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183642632982053-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183642632982053-2">2</div><div class="crayon-num" data-line="crayon-5a65920183642632982053-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183642632982053-4">4</div><div class="crayon-num" data-line="crayon-5a65920183642632982053-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183642632982053-6">6</div><div class="crayon-num" data-line="crayon-5a65920183642632982053-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183642632982053-8">8</div><div class="crayon-num" data-line="crayon-5a65920183642632982053-9">9</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183642632982053-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183642632982053-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">datetime</span></div><div class="crayon-line" id="crayon-5a65920183642632982053-3"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183642632982053-4"><span class="crayon-e">def </span><span class="crayon-e">parser</span><span class="crayon-sy">(</span><span class="crayon-v">x</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a65920183642632982053-5"><span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">strptime</span><span class="crayon-sy">(</span><span class="crayon-s">'190'</span><span class="crayon-o">+</span><span class="crayon-v">x</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'%Y-%m'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183642632982053-6"> </div><div class="crayon-line" id="crayon-5a65920183642632982053-7"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'shampoo-sales.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">squeeze</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">date_parser</span><span class="crayon-o">=</span><span class="crayon-v">parser</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183642632982053-8"><span class="crayon-v">upsampled</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'D'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183642632982053-9"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">upsampled</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-cn">32</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>Running this example prints the first 32 rows of the upsampled dataset, showing each day of January and the first day of February.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183646279634871" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Month
+1901-01-01 266.0
+1901-01-02 NaN
+1901-01-03 NaN
+1901-01-04 NaN
+1901-01-05 NaN
+1901-01-06 NaN
+1901-01-07 NaN
+1901-01-08 NaN
+1901-01-09 NaN
+1901-01-10 NaN
+1901-01-11 NaN
+1901-01-12 NaN
+1901-01-13 NaN
+1901-01-14 NaN
+1901-01-15 NaN
+1901-01-16 NaN
+1901-01-17 NaN
+1901-01-18 NaN
+1901-01-19 NaN
+1901-01-20 NaN
+1901-01-21 NaN
+1901-01-22 NaN
+1901-01-23 NaN
+1901-01-24 NaN
+1901-01-25 NaN
+1901-01-26 NaN
+1901-01-27 NaN
+1901-01-28 NaN
+1901-01-29 NaN
+1901-01-30 NaN
+1901-01-31 NaN
+1901-02-01 145.9</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183646279634871-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-2">2</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-4">4</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-6">6</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-8">8</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-10">10</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-12">12</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-14">14</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-16">16</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-18">18</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-20">20</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-22">22</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-24">24</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-26">26</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-28">28</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-30">30</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183646279634871-32">32</div><div class="crayon-num" data-line="crayon-5a65920183646279634871-33">33</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183646279634871-1">Month</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-2">1901-01-01 266.0</div><div class="crayon-line" id="crayon-5a65920183646279634871-3">1901-01-02 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-4">1901-01-03 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-5">1901-01-04 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-6">1901-01-05 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-7">1901-01-06 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-8">1901-01-07 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-9">1901-01-08 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-10">1901-01-09 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-11">1901-01-10 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-12">1901-01-11 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-13">1901-01-12 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-14">1901-01-13 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-15">1901-01-14 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-16">1901-01-15 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-17">1901-01-16 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-18">1901-01-17 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-19">1901-01-18 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-20">1901-01-19 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-21">1901-01-20 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-22">1901-01-21 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-23">1901-01-22 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-24">1901-01-23 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-25">1901-01-24 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-26">1901-01-25 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-27">1901-01-26 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-28">1901-01-27 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-29">1901-01-28 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-30">1901-01-29 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-31">1901-01-30 NaN</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183646279634871-32">1901-01-31 NaN</div><div class="crayon-line" id="crayon-5a65920183646279634871-33">1901-02-01 145.9</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>We can see that the <em>resample()</em> function has created the rows by putting NaN values in the new values. We can see we still have the sales volume on the first of January and February from the original data.</p>
+<p>Next, we can interpolate the missing values at this new frequency.</p>
+<p>The <em>Series</em> Pandas object provides an <em>interpolate()</em> function to interpolate missing values, and there is a nice selection of simple and more complex interpolation functions. You may have domain knowledge to help choose how values are to be interpolated.</p>
+<p>A good starting point is to use a linear interpolation. This draws a straight line between available data, in this case on the first of the month, and fills in values at the chosen frequency from this line.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592018364d596309681" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from pandas import datetime
+
+def parser(x):
+	return datetime.strptime('190'+x, '%Y-%m')
+
+series = read_csv('shampoo-sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+upsampled = series.resample('D')
+interpolated = upsampled.interpolate(method='linear')
+print(interpolated.head(32))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592018364d596309681-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018364d596309681-2">2</div><div class="crayon-num" data-line="crayon-5a6592018364d596309681-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018364d596309681-4">4</div><div class="crayon-num" data-line="crayon-5a6592018364d596309681-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018364d596309681-6">6</div><div class="crayon-num" data-line="crayon-5a6592018364d596309681-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018364d596309681-8">8</div><div class="crayon-num" data-line="crayon-5a6592018364d596309681-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018364d596309681-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592018364d596309681-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018364d596309681-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">datetime</span></div><div class="crayon-line" id="crayon-5a6592018364d596309681-3"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018364d596309681-4"><span class="crayon-e">def </span><span class="crayon-e">parser</span><span class="crayon-sy">(</span><span class="crayon-v">x</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a6592018364d596309681-5"><span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">strptime</span><span class="crayon-sy">(</span><span class="crayon-s">'190'</span><span class="crayon-o">+</span><span class="crayon-v">x</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'%Y-%m'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018364d596309681-6"> </div><div class="crayon-line" id="crayon-5a6592018364d596309681-7"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'shampoo-sales.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">squeeze</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">date_parser</span><span class="crayon-o">=</span><span class="crayon-v">parser</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018364d596309681-8"><span class="crayon-v">upsampled</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'D'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6592018364d596309681-9"><span class="crayon-v">interpolated</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">upsampled</span><span class="crayon-sy">.</span><span class="crayon-e">interpolate</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">'linear'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018364d596309681-10"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">interpolated</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-cn">32</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Running this example, we can see interpolated values.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183651622978317" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Month
+1901-01-01 266.000000
+1901-01-02 262.125806
+1901-01-03 258.251613
+1901-01-04 254.377419
+1901-01-05 250.503226
+1901-01-06 246.629032
+1901-01-07 242.754839
+1901-01-08 238.880645
+1901-01-09 235.006452
+1901-01-10 231.132258
+1901-01-11 227.258065
+1901-01-12 223.383871
+1901-01-13 219.509677
+1901-01-14 215.635484
+1901-01-15 211.761290
+1901-01-16 207.887097
+1901-01-17 204.012903
+1901-01-18 200.138710
+1901-01-19 196.264516
+1901-01-20 192.390323
+1901-01-21 188.516129
+1901-01-22 184.641935
+1901-01-23 180.767742
+1901-01-24 176.893548
+1901-01-25 173.019355
+1901-01-26 169.145161
+1901-01-27 165.270968
+1901-01-28 161.396774
+1901-01-29 157.522581
+1901-01-30 153.648387
+1901-01-31 149.774194
+1901-02-01 145.900000</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183651622978317-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-2">2</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-4">4</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-6">6</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-8">8</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-10">10</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-12">12</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-14">14</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-16">16</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-18">18</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-20">20</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-22">22</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-24">24</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-26">26</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-28">28</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-30">30</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183651622978317-32">32</div><div class="crayon-num" data-line="crayon-5a65920183651622978317-33">33</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183651622978317-1">Month</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-2">1901-01-01 266.000000</div><div class="crayon-line" id="crayon-5a65920183651622978317-3">1901-01-02 262.125806</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-4">1901-01-03 258.251613</div><div class="crayon-line" id="crayon-5a65920183651622978317-5">1901-01-04 254.377419</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-6">1901-01-05 250.503226</div><div class="crayon-line" id="crayon-5a65920183651622978317-7">1901-01-06 246.629032</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-8">1901-01-07 242.754839</div><div class="crayon-line" id="crayon-5a65920183651622978317-9">1901-01-08 238.880645</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-10">1901-01-09 235.006452</div><div class="crayon-line" id="crayon-5a65920183651622978317-11">1901-01-10 231.132258</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-12">1901-01-11 227.258065</div><div class="crayon-line" id="crayon-5a65920183651622978317-13">1901-01-12 223.383871</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-14">1901-01-13 219.509677</div><div class="crayon-line" id="crayon-5a65920183651622978317-15">1901-01-14 215.635484</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-16">1901-01-15 211.761290</div><div class="crayon-line" id="crayon-5a65920183651622978317-17">1901-01-16 207.887097</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-18">1901-01-17 204.012903</div><div class="crayon-line" id="crayon-5a65920183651622978317-19">1901-01-18 200.138710</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-20">1901-01-19 196.264516</div><div class="crayon-line" id="crayon-5a65920183651622978317-21">1901-01-20 192.390323</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-22">1901-01-21 188.516129</div><div class="crayon-line" id="crayon-5a65920183651622978317-23">1901-01-22 184.641935</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-24">1901-01-23 180.767742</div><div class="crayon-line" id="crayon-5a65920183651622978317-25">1901-01-24 176.893548</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-26">1901-01-25 173.019355</div><div class="crayon-line" id="crayon-5a65920183651622978317-27">1901-01-26 169.145161</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-28">1901-01-27 165.270968</div><div class="crayon-line" id="crayon-5a65920183651622978317-29">1901-01-28 161.396774</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-30">1901-01-29 157.522581</div><div class="crayon-line" id="crayon-5a65920183651622978317-31">1901-01-30 153.648387</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183651622978317-32">1901-01-31 149.774194</div><div class="crayon-line" id="crayon-5a65920183651622978317-33">1901-02-01 145.900000</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Looking at a line plot, we see no difference from plotting the original data as the plot already interpolated the values between points to draw the line.</p>
+<div class="wp-caption aligncenter" id="attachment_3516" style="max-width: 810px"><img alt="Shamoo Sales Interpolated Linear" class="size-full wp-image-3516" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Linear.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Linear.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Linear-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Linear-768x576.png 768w" width="800"/><p class="wp-caption-text">Shampoo Sales Interpolated Linear</p></div>
+<p>Another common interpolation method is to use a polynomial or a spline to connect the values.</p>
+<p>This creates more curves and can look more natural on many datasets. Using a spline interpolation requires you specify the order (number of terms in the polynomial); in this case, an order of 2 is just fine.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183656333182132" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from pandas import datetime
+from matplotlib import pyplot
+
+def parser(x):
+	return datetime.strptime('190'+x, '%Y-%m')
+
+series = read_csv('shampoo-sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+upsampled = series.resample('D')
+interpolated = upsampled.interpolate(method='spline', order=2)
+print(interpolated.head(32))
+interpolated.plot()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183656333182132-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183656333182132-2">2</div><div class="crayon-num" data-line="crayon-5a65920183656333182132-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183656333182132-4">4</div><div class="crayon-num" data-line="crayon-5a65920183656333182132-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183656333182132-6">6</div><div class="crayon-num" data-line="crayon-5a65920183656333182132-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183656333182132-8">8</div><div class="crayon-num" data-line="crayon-5a65920183656333182132-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183656333182132-10">10</div><div class="crayon-num" data-line="crayon-5a65920183656333182132-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183656333182132-12">12</div><div class="crayon-num" data-line="crayon-5a65920183656333182132-13">13</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183656333182132-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183656333182132-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">datetime</span></div><div class="crayon-line" id="crayon-5a65920183656333182132-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183656333182132-4"> </div><div class="crayon-line" id="crayon-5a65920183656333182132-5"><span class="crayon-e">def </span><span class="crayon-e">parser</span><span class="crayon-sy">(</span><span class="crayon-v">x</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183656333182132-6"><span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">strptime</span><span class="crayon-sy">(</span><span class="crayon-s">'190'</span><span class="crayon-o">+</span><span class="crayon-v">x</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'%Y-%m'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183656333182132-7"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183656333182132-8"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'shampoo-sales.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">squeeze</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">date_parser</span><span class="crayon-o">=</span><span class="crayon-v">parser</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183656333182132-9"><span class="crayon-v">upsampled</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'D'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183656333182132-10"><span class="crayon-v">interpolated</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">upsampled</span><span class="crayon-sy">.</span><span class="crayon-e">interpolate</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">'spline'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">order</span><span class="crayon-o">=</span><span class="crayon-cn">2</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183656333182132-11"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">interpolated</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-cn">32</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183656333182132-12"><span class="crayon-v">interpolated</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183656333182132-13"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>Running the example, we can first review the raw interpolated values.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592018365a190405435" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Month
+1901-01-01 266.000000
+1901-01-02 258.630160
+1901-01-03 251.560886
+1901-01-04 244.720748
+1901-01-05 238.109746
+1901-01-06 231.727880
+1901-01-07 225.575149
+1901-01-08 219.651553
+1901-01-09 213.957094
+1901-01-10 208.491770
+1901-01-11 203.255582
+1901-01-12 198.248529
+1901-01-13 193.470612
+1901-01-14 188.921831
+1901-01-15 184.602185
+1901-01-16 180.511676
+1901-01-17 176.650301
+1901-01-18 173.018063
+1901-01-19 169.614960
+1901-01-20 166.440993
+1901-01-21 163.496161
+1901-01-22 160.780465
+1901-01-23 158.293905
+1901-01-24 156.036481
+1901-01-25 154.008192
+1901-01-26 152.209039
+1901-01-27 150.639021
+1901-01-28 149.298139
+1901-01-29 148.186393
+1901-01-30 147.303783
+1901-01-31 146.650308
+1901-02-01 145.900000</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592018365a190405435-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-2">2</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-4">4</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-6">6</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-8">8</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-10">10</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-12">12</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-14">14</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-16">16</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-18">18</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-20">20</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-22">22</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-24">24</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-26">26</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-28">28</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-30">30</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592018365a190405435-32">32</div><div class="crayon-num" data-line="crayon-5a6592018365a190405435-33">33</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592018365a190405435-1">Month</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-2">1901-01-01 266.000000</div><div class="crayon-line" id="crayon-5a6592018365a190405435-3">1901-01-02 258.630160</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-4">1901-01-03 251.560886</div><div class="crayon-line" id="crayon-5a6592018365a190405435-5">1901-01-04 244.720748</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-6">1901-01-05 238.109746</div><div class="crayon-line" id="crayon-5a6592018365a190405435-7">1901-01-06 231.727880</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-8">1901-01-07 225.575149</div><div class="crayon-line" id="crayon-5a6592018365a190405435-9">1901-01-08 219.651553</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-10">1901-01-09 213.957094</div><div class="crayon-line" id="crayon-5a6592018365a190405435-11">1901-01-10 208.491770</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-12">1901-01-11 203.255582</div><div class="crayon-line" id="crayon-5a6592018365a190405435-13">1901-01-12 198.248529</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-14">1901-01-13 193.470612</div><div class="crayon-line" id="crayon-5a6592018365a190405435-15">1901-01-14 188.921831</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-16">1901-01-15 184.602185</div><div class="crayon-line" id="crayon-5a6592018365a190405435-17">1901-01-16 180.511676</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-18">1901-01-17 176.650301</div><div class="crayon-line" id="crayon-5a6592018365a190405435-19">1901-01-18 173.018063</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-20">1901-01-19 169.614960</div><div class="crayon-line" id="crayon-5a6592018365a190405435-21">1901-01-20 166.440993</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-22">1901-01-21 163.496161</div><div class="crayon-line" id="crayon-5a6592018365a190405435-23">1901-01-22 160.780465</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-24">1901-01-23 158.293905</div><div class="crayon-line" id="crayon-5a6592018365a190405435-25">1901-01-24 156.036481</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-26">1901-01-25 154.008192</div><div class="crayon-line" id="crayon-5a6592018365a190405435-27">1901-01-26 152.209039</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-28">1901-01-27 150.639021</div><div class="crayon-line" id="crayon-5a6592018365a190405435-29">1901-01-28 149.298139</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-30">1901-01-29 148.186393</div><div class="crayon-line" id="crayon-5a6592018365a190405435-31">1901-01-30 147.303783</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592018365a190405435-32">1901-01-31 146.650308</div><div class="crayon-line" id="crayon-5a6592018365a190405435-33">1901-02-01 145.900000</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Reviewing the line plot, we can see more natural curves on the interpolated values.</p>
+<div class="wp-caption aligncenter" id="attachment_3517" style="max-width: 810px"><img alt="Shamoo Sales Interpolated Spline" class="size-full wp-image-3517" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Spline.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Spline.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Spline-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Interpolated-Spline-768x576.png 768w" width="800"/><p class="wp-caption-text">Shampoo Sales Interpolated Spline</p></div>
+<p>Generally, interpolation is a useful tool when you have missing observations.</p>
+<p>Next, we will consider resampling in the other direction and decreasing the frequency of observations.</p>
+<h2>Downsample Shampoo Sales</h2>
+<p>The sales data is monthly, but perhaps we would prefer the data to be quarterly.</p>
+<p>The year can be divided into 4 business quarters, 3 months a piece.</p>
+<p>Instead of creating new rows between existing observations, the <em>resample()</em> function in Pandas will group all observations by the new frequency.</p>
+<p>We could use an alias like “3M” to create groups of 3 months, but this might have trouble if our observations did not start in January, April, July, or October. Pandas does have a quarter-aware alias of “Q” that we can use for this purpose.</p>
+<p>We must now decide how to create a new quarterly value from each group of 3 records. A good starting point is to calculate the average monthly sales numbers for the quarter. For this, we can use the <em>mean()</em> function.</p>
+<p>Putting this all together, we get the following code example.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183660953790090" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from pandas import datetime
+from matplotlib import pyplot
+
+def parser(x):
+	return datetime.strptime('190'+x, '%Y-%m')
+
+series = read_csv('shampoo-sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+resample = series.resample('Q')
+quarterly_mean_sales = resample.mean()
+print(quarterly_mean_sales.head())
+quarterly_mean_sales.plot()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183660953790090-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183660953790090-2">2</div><div class="crayon-num" data-line="crayon-5a65920183660953790090-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183660953790090-4">4</div><div class="crayon-num" data-line="crayon-5a65920183660953790090-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183660953790090-6">6</div><div class="crayon-num" data-line="crayon-5a65920183660953790090-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183660953790090-8">8</div><div class="crayon-num" data-line="crayon-5a65920183660953790090-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183660953790090-10">10</div><div class="crayon-num" data-line="crayon-5a65920183660953790090-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183660953790090-12">12</div><div class="crayon-num" data-line="crayon-5a65920183660953790090-13">13</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183660953790090-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183660953790090-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">datetime</span></div><div class="crayon-line" id="crayon-5a65920183660953790090-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183660953790090-4"> </div><div class="crayon-line" id="crayon-5a65920183660953790090-5"><span class="crayon-e">def </span><span class="crayon-e">parser</span><span class="crayon-sy">(</span><span class="crayon-v">x</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183660953790090-6"><span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">strptime</span><span class="crayon-sy">(</span><span class="crayon-s">'190'</span><span class="crayon-o">+</span><span class="crayon-v">x</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'%Y-%m'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183660953790090-7"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183660953790090-8"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'shampoo-sales.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">squeeze</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">date_parser</span><span class="crayon-o">=</span><span class="crayon-v">parser</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183660953790090-9"><span class="crayon-v">resample</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'Q'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183660953790090-10"><span class="crayon-v">quarterly_mean_sales</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">resample</span><span class="crayon-sy">.</span><span class="crayon-e">mean</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183660953790090-11"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">quarterly_mean_sales</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183660953790090-12"><span class="crayon-v">quarterly_mean_sales</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183660953790090-13"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Running the example prints the first 5 rows of the quarterly data.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183664029727524" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Month
+1901-03-31 198.333333
+1901-06-30 156.033333
+1901-09-30 216.366667
+1901-12-31 215.100000
+1902-03-31 184.633333
+Freq: Q-DEC, Name: Sales, dtype: float64</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183664029727524-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183664029727524-2">2</div><div class="crayon-num" data-line="crayon-5a65920183664029727524-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183664029727524-4">4</div><div class="crayon-num" data-line="crayon-5a65920183664029727524-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183664029727524-6">6</div><div class="crayon-num" data-line="crayon-5a65920183664029727524-7">7</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183664029727524-1">Month</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183664029727524-2">1901-03-31 198.333333</div><div class="crayon-line" id="crayon-5a65920183664029727524-3">1901-06-30 156.033333</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183664029727524-4">1901-09-30 216.366667</div><div class="crayon-line" id="crayon-5a65920183664029727524-5">1901-12-31 215.100000</div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183664029727524-6">1902-03-31 184.633333</div><div class="crayon-line" id="crayon-5a65920183664029727524-7">Freq: Q-DEC, Name: Sales, dtype: float64</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>We also plot the quarterly data, showing Q1-Q4 across the 3 years of original observations.</p>
+<div class="wp-caption aligncenter" id="attachment_3518" style="max-width: 810px"><img alt="Shamoo Sales Upsampled Quarterly" class="size-full wp-image-3518" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Quarterly.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Quarterly.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Quarterly-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Quarterly-768x576.png 768w" width="800"/><p class="wp-caption-text">Shampoo Sales Downsampled Quarterly</p></div>
+<p>Perhaps we want to go further and turn the monthly data into yearly data, and perhaps later use that to model the following year.</p>
+<p>We can downsample the data using the alias “A” for year-end frequency and this time use sum to calculate the total sales each year.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65920183669285237982" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from pandas import datetime
+from matplotlib import pyplot
+
+def parser(x):
+	return datetime.strptime('190'+x, '%Y-%m')
+
+series = read_csv('shampoo-sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=parser)
+resample = series.resample('A')
+quarterly_mean_sales = resample.sum()
+print(quarterly_mean_sales.head())
+quarterly_mean_sales.plot()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65920183669285237982-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183669285237982-2">2</div><div class="crayon-num" data-line="crayon-5a65920183669285237982-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183669285237982-4">4</div><div class="crayon-num" data-line="crayon-5a65920183669285237982-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183669285237982-6">6</div><div class="crayon-num" data-line="crayon-5a65920183669285237982-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183669285237982-8">8</div><div class="crayon-num" data-line="crayon-5a65920183669285237982-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183669285237982-10">10</div><div class="crayon-num" data-line="crayon-5a65920183669285237982-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65920183669285237982-12">12</div><div class="crayon-num" data-line="crayon-5a65920183669285237982-13">13</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65920183669285237982-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183669285237982-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">datetime</span></div><div class="crayon-line" id="crayon-5a65920183669285237982-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183669285237982-4"> </div><div class="crayon-line" id="crayon-5a65920183669285237982-5"><span class="crayon-e">def </span><span class="crayon-e">parser</span><span class="crayon-sy">(</span><span class="crayon-v">x</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183669285237982-6"><span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">strptime</span><span class="crayon-sy">(</span><span class="crayon-s">'190'</span><span class="crayon-o">+</span><span class="crayon-v">x</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'%Y-%m'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183669285237982-7"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183669285237982-8"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'shampoo-sales.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">index_col</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">squeeze</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">date_parser</span><span class="crayon-o">=</span><span class="crayon-v">parser</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183669285237982-9"><span class="crayon-v">resample</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'A'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183669285237982-10"><span class="crayon-v">quarterly_mean_sales</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">resample</span><span class="crayon-sy">.</span><span class="crayon-e">sum</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183669285237982-11"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">quarterly_mean_sales</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65920183669285237982-12"><span class="crayon-v">quarterly_mean_sales</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65920183669285237982-13"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>Running the example shows the 3 records for the 3 years of observations.</p>
+<p>We also get a plot, correctly showing the year along the x-axis and the total number of sales per year along the y-axis.</p>
+<div class="wp-caption aligncenter" id="attachment_3519" style="max-width: 810px"><img alt="Shamoo Sales Upsampled Yearly Sum" class="size-full wp-image-3519" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Yearly-Sum.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Yearly-Sum.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Yearly-Sum-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Shamoo-Sales-Upsampled-Yearly-Sum-768x576.png 768w" width="800"/><p class="wp-caption-text">Shampoo Sales Downsampled Yearly Sum</p></div>
+<h2>Further Reading</h2>
+<p>This section provides links and further reading for the Pandas functions used in this tutorial.</p>
+<ul>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.resample.html">pandas.Series.resample API documentation</a> for more on how to configure the resample() function.</li>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/timeseries.html#resampling">Pandas Time Series Resampling Examples</a> for more general code examples.</li>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/timeseries.html#offset-aliases">Pandas Offset Aliases used when resampling</a> for all the built-in methods for changing the granularity of the data.</li>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.interpolate.html">pandas.Series.interpolate API documentation</a> for more on how to configure the interpolate() function.</li>
+</ul>
+<h2>Summary</h2>
+<p>In this tutorial, you discovered how to resample your time series data using Pandas in Python.</p>
+<p>Specifically, you learned:</p>
+<ul>
+<li>About time series resampling and the difference and reasons between downsampling and upsampling observation frequencies.</li>
+<li>How to upsample time series data using Pandas and how to use different interpolation schemes.</li>
+<li>How to downsample time series data using Pandas and how to summarize grouped data.</li>
+</ul>
+<p>Do you have any questions about resampling or interpolating time series data or about this tutorial?<br/>
+Ask your questions in the comments and I will do my best to answer them.</p>
+<div class="awac-wrapper"><div class="awac widget text-26"> <div class="textwidget"><p></p><center>
+<div class="woo-sc-hr"></div>
+<h2>Want to Develop Time Series Forecasts with Python?</h2>
+<p><a href="/introduction-to-time-series-forecasting-with-python/"><img align="left" alt="Introduction to Time Series Forecasting With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Introduction-to-Time-Series-Forecasting-With-Python-220.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own Forecasts in Minutes</h4>
+<p>...with just a few lines of python code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/introduction-to-time-series-forecasting-with-python/">Introduction to Time Series Forecasting With Python</a></p>
+<p>It covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> on topics like:<br/>
+<em>Loading data, visualization, modeling, algorithm tuning,</em> and much more...</p>
+<h4>Finally Bring Time Series Forecasting to<br/>
+Your Own Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/">Click to learn more</a>.</p>
+<div class="woo-sc-hr"></div>
+<p></p></center>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20To%20Resample%20and%20Interpolate%20Your%20Time%20Series%20Data%20With%20Python&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fresample-interpolate-time-series-data-python%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Resample%20and%20Interpolate%20Your%20Time%20Series%20Data%20With%20Python&amp;url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/&amp;summary=You+may+have+observations+at+the+wrong+frequency.%0D%0A%0D%0AMaybe+they+are+too+granular+or+not+granular+eno..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Resample%20and%20Interpolate%20Your%20Time%20Series%20Data%20With%20Python&amp;url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/&amp;summary=You+may+have+observations+at+the+wrong+frequency.%0D%0A%0D%0AMaybe+they+are+too+granular+or+not+granular+eno...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/resample-interpolate-time-series-data-python/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/basic-feature-engineering-time-series-data-python/" rel="prev"><i class="fa fa-angle-left"></i> Basic Feature Engineering With Time Series Data in Python</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/backtest-machine-learning-models-time-series-forecasting/" rel="next">How To Backtest Machine Learning Models for Time Series Forecasting <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">20 Responses to <em>How To Resample and Interpolate Your Time Series Data With Python</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-378156">
+<div class="comment-container" id="li-comment-378156">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1eeffa4ac64ad2fc5111d9eda6aeb5b0?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1eeffa4ac64ad2fc5111d9eda6aeb5b0?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Alex</span>
+<span class="date">December 28, 2016 at 10:03 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-378156" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Kinda feel like you inverted upsampling and downsampling.</p>
+<p><a href="https://en.wikipedia.org/wiki/Upsampling" rel="nofollow">https://en.wikipedia.org/wiki/Upsampling</a><br/>
+<a href="https://en.wikipedia.org/wiki/Decimation_(signal_processing)" rel="nofollow">https://en.wikipedia.org/wiki/Decimation_(signal_processing)</a></p>
+<div class="reply">
+<a aria-label="Reply to Alex" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=378156#respond" onclick='return addComment.moveForm( "comment-378156", "378156", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-378289">
+<div class="comment-container" id="li-comment-378289">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 29, 2016 at 7:26 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-378289" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Alex, fixed.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=378289#respond" onclick='return addComment.moveForm( "comment-378289", "378289", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-381530">
+<div class="comment-container" id="li-comment-381530">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/b2002abe2ea000400745193efef67c52?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/b2002abe2ea000400745193efef67c52?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">David</span>
+<span class="date">January 12, 2017 at 1:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-381530" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi,</p>
+<p>in the upsample section, why did you write </p>
+<p>upampled = series.resample(‘D’).mean()</p>
+<p>(by the way, I assume it is _upsampled_, not upampled). I don’t understand why you need to put the mean if you are inserting NaNs. Wouldn’t it be sufficient just to write series.resample(‘D’)?</p>
+<div class="reply">
+<a aria-label="Reply to David" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=381530#respond" onclick='return addComment.moveForm( "comment-381530", "381530", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-381599">
+<div class="comment-container" id="li-comment-381599">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 12, 2017 at 9:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-381599" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi David,</p>
+<p>You are right, I’ve fixed up the examples.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=381599#respond" onclick='return addComment.moveForm( "comment-381599", "381599", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-381761">
+<div class="comment-container" id="li-comment-381761">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/b2002abe2ea000400745193efef67c52?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/b2002abe2ea000400745193efef67c52?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">David</span>
+<span class="date">January 13, 2017 at 3:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-381761" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello,</p>
+<p>I think it is necessary to add “asfreq()”, i.e.: </p>
+<p>upsampled = series.resample(‘D’).asfreq()</p>
+<p>because in new versions of pandas resample is just a grouping operation and then you have to aggregate functions.</p>
+<div class="reply">
+<a aria-label="Reply to David" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=381761#respond" onclick='return addComment.moveForm( "comment-381761", "381761", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-384365">
+<div class="comment-container" id="li-comment-384365">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6464e3728d4c999036e85d11f7a7557d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6464e3728d4c999036e85d11f7a7557d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Carmen Mardiros</span>
+<span class="date">January 27, 2017 at 2:08 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-384365" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Jason, I have what’s hopefully a quick question that was prompted by the interpolation example you’ve given above. </p>
+<p>I’ve been tasked with a monthly forecasting analysis. My original data is daily. If I aggregate it to month-level, this gives me only 24 usable observations so many models may struggle with that. It feels like I should be able to make more use of my richer, daily dataset for my problem. </p>
+<p>I have heard somewhere (but can’t remember where or whether I imagined it!) that a workaround is to create “fake” monthly data by creating rolling sums say from 26th Dec to 26th January. So for December I would have 31 “fake months”, one starting on each day of December and ending on the corresponding day number in January. Is this a valid workaround for artificially increasing sample size in short time series for training models? I can see straight off the bat that autocorrelation is a massive issue but is it worth exploring or have I just dreamt that up. </p>
+<p>Are there any other workarounds for working with short time series?</p>
+<p>Thanks!</p>
+<div class="reply">
+<a aria-label="Reply to Carmen Mardiros" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=384365#respond" onclick='return addComment.moveForm( "comment-384365", "384365", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-384498">
+<div class="comment-container" id="li-comment-384498">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 27, 2017 at 12:11 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-384498" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Carmen,</p>
+<p>Perhaps the 24 obs provide sufficient information for making accurate forecasts.</p>
+<p>I would advise you to develop and evaluate a suite of different models and focus on those representations that produce effective results.</p>
+<p>Your idea of fake months seems useful only if it can expose more or different information to the learning algorithms not available by other means/representations.</p>
+<p>I’d love to hear how you go with your forecast problem.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=384498#respond" onclick='return addComment.moveForm( "comment-384498", "384498", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-396083">
+<div class="comment-container" id="li-comment-396083">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/23121ef76bebe0aa639297cb1e4d4ae8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/23121ef76bebe0aa639297cb1e4d4ae8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Priyanka Mehta</span>
+<span class="date">April 11, 2017 at 4:11 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-396083" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I have a timeseries data where I am using resample technique to downsample my data from 15 minute to 1 hour. The data is quite large ( values every 15 minutes for 1 year) so there are  more than 30k rows in my original csv file. </p>
+<p>I am using:<br/>
+df[‘dt’] = pd.to_datetime(df[‘Date’] + ‘ ‘ + df[‘Time’])<br/>
+df = df.set_index(‘dt’).resample(‘1H’)[‘KWH’].first().reset_index()</p>
+<p>but after resampling I only get first day and last day correctly, all the intermediate values are filled with NAN. Can you help point what I might be doing wrong.</p>
+<div class="reply">
+<a aria-label="Reply to Priyanka Mehta" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=396083#respond" onclick='return addComment.moveForm( "comment-396083", "396083", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-396165">
+<div class="comment-container" id="li-comment-396165">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 12, 2017 at 7:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-396165" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Onse resampled, you need to interpolate the missing data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=396165#respond" onclick='return addComment.moveForm( "comment-396165", "396165", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-396087">
+<div class="comment-container" id="li-comment-396087">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/23121ef76bebe0aa639297cb1e4d4ae8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/23121ef76bebe0aa639297cb1e4d4ae8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Priyanka Mehta</span>
+<span class="date">April 11, 2017 at 4:50 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-396087" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This is how my data looks before resampling :<br/>
+24    01/01/16  06:00:04  4749.28  15.1  23.5  369.6 2016-01-01 06:00:04<br/>
+25    01/01/16  06:15:04  4749.28  14.7  23.5  369.6 2016-01-01 06:15:04<br/>
+26    01/01/16  06:30:04  4749.28  14.9  23.5  369.6 2016-01-01 06:30:04<br/>
+27    01/01/16  06:45:04  4749.47  14.9  23.5  373.1 2016-01-01 06:45:04<br/>
+28    01/01/16  07:00:04  4749.47  15.1  23.5  373.1 2016-01-01 07:00:04<br/>
+29    01/01/16  07:15:04  4749.47  15.2  23.5  373.1 2016-01-01 07:15:04<br/>
+       …       …      …   …   …    …                 …<br/>
+2946  31/01/16  16:30:04  4927.18  15.5  24.4  373.1 2016-01-31 16:30:04<br/>
+2947  31/01/16  16:45:04  4927.24  15.0  24.4  377.6 2016-01-31 16:45:04<br/>
+2948  31/01/16  17:00:04  4927.30  15.2  24.4  370.5 2016-01-31 17:00:04</p>
+<p>and this is how it looks after resampling:</p>
+<p>df[‘dt’] = pd.to_datetime(df[‘Date’] + ‘ ‘ + df[‘Time’])<br/>
+df = df.set_index(‘dt’).resample(‘1H’)[‘KWH’,’OCT’,’RAT’,’CO2′].first().reset_index()</p>
+<p>17   2016-01-01 17:00:00  4751.62  15.0  23.8  370.9<br/>
+18   2016-01-01 18:00:00  4751.82  15.1  23.6  369.2<br/>
+19   2016-01-01 19:00:00  4752.01  15.3  23.6  375.4<br/>
+20   2016-01-01 20:00:00  4752.21  14.8  23.6  370.1<br/>
+21   2016-01-01 21:00:00  4752.61  15.0  23.8  369.2<br/>
+22   2016-01-01 22:00:00  4752.80  15.2  23.7  369.6<br/>
+23   2016-01-01 23:00:00  4753.00  15.7  23.5  372.3<br/>
+24   2016-01-02 00:00:00      NaN   NaN   NaN    NaN<br/>
+25   2016-01-02 01:00:00      NaN   NaN   NaN    NaN<br/>
+26   2016-01-02 02:00:00      NaN   NaN   NaN    NaN<br/>
+27   2016-01-02 03:00:00      NaN   NaN   NaN    NaN<br/>
+28   2016-01-02 04:00:00      NaN   NaN   NaN    NaN<br/>
+29   2016-01-02 05:00:00      NaN   NaN   NaN    NaN<br/>
+                 …      …   …   …    …<br/>
+8034 2016-11-30 18:00:00      NaN   NaN   NaN    NaN<br/>
+8035 2016-11-30 19:00:00      NaN   NaN   NaN    NaN<br/>
+8036 2016-11-30 20:00:00      NaN   NaN   NaN    NaN<br/>
+8037 2016-11-30 21:00:00      NaN   NaN   NaN    NaN<br/>
+8038 2016-11-30 22:00:00      NaN   NaN   NaN    NaN<br/>
+8039 2016-11-30 23:00:00      NaN   NaN   NaN    NaN<br/>
+8040 2016-12-01 00:00:00  4811.96  14.8  24.8  364.3<br/>
+8041 2016-12-01 01:00:00  4812.19  15.1  24.8  376.7<br/>
+8042 2016-12-01 02:00:00  4812.42  15.1  24.7  373.1<br/>
+8043 2016-12-01 03:00:00  4812.66  15.2  24.7  372.7<br/>
+8044 2016-12-01 04:00:00  4812.89  14.9  24.7  370.9</p>
+<div class="reply">
+<a aria-label="Reply to Priyanka Mehta" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=396087#respond" onclick='return addComment.moveForm( "comment-396087", "396087", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-397683">
+<div class="comment-container" id="li-comment-397683">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/cc8ae9268d848e1e993865c7f542a8ec?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/cc8ae9268d848e1e993865c7f542a8ec?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Geoff S</span>
+<span class="date">April 26, 2017 at 7:43 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-397683" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Do you really think it makes sense to take monthly sales in January of 266 bottles of shampoo, then resample that to daily intervals and say you had sales of 266 bottles on the 1st Jan, 262.125806 bottles on the 2nd Jan ?</p>
+<div class="reply">
+<a aria-label="Reply to Geoff S" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=397683#respond" onclick='return addComment.moveForm( "comment-397683", "397683", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-397737">
+<div class="comment-container" id="li-comment-397737">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 27, 2017 at 8:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-397737" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No, it is just an example of how to use the API.</p>
+<p>The domain/domain experts may indicate suitable resampling and interpolation schemes.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=397737#respond" onclick='return addComment.moveForm( "comment-397737", "397737", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-406404">
+<div class="comment-container" id="li-comment-406404">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/330b35b58b86d0ab86c023a79ab32f02?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/330b35b58b86d0ab86c023a79ab32f02?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Emilia</span>
+<span class="date">July 19, 2017 at 2:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-406404" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Instead of interpolating when resampling monthly sales to the daily interval, is there a function that would instead fill the daily values with the daily average sales for the month? This would be useful for data that represent aggregated values, where the sum of the dataset should remain constant regardless of the frequency… For example, if I need to upsample rainfall data, then the total rainfall needs to remain the same. Are there built-in functions that can do this?</p>
+<div class="reply">
+<a aria-label="Reply to Emilia" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=406404#respond" onclick='return addComment.moveForm( "comment-406404", "406404", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-406445">
+<div class="comment-container" id="li-comment-406445">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 19, 2017 at 8:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-406445" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sure, you can do this. You will have to write some code though.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=406445#respond" onclick='return addComment.moveForm( "comment-406445", "406445", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-5" id="comment-416190">
+<div class="comment-container" id="li-comment-416190">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/960e7f3aa1dd23b47ba5f62a777659e1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/960e7f3aa1dd23b47ba5f62a777659e1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">thrillbo</span>
+<span class="date">October 10, 2017 at 8:19 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-416190" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>we just had an intern do this with rainfall data. it’s not too hard! thanks Jason for the helpful guide, this was just was i was searching for!</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-5" id="comment-416228">
+<div class="comment-container" id="li-comment-416228">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 10, 2017 at 4:41 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-416228" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Glad to hear it!</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-420399">
+<div class="comment-container" id="li-comment-420399">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e106f1c922d7e4def5829d66b1d5ed85?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e106f1c922d7e4def5829d66b1d5ed85?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.bosch.de" rel="external nofollow">Aman Garg</a></span>
+<span class="date">November 18, 2017 at 5:03 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-420399" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason, </p>
+<p>Thanks for a nice post. In my time series data, I have two feature columns i.e. Latitude and Longitude and index is datetime. </p>
+<p>Since these GPS coordinates are captured at infrequent time intervals, I want to resample my data in the fixed time interval bin, for example: one GPS coordinate in every 5sec time interval. </p>
+<p>Is there a way to do it?</p>
+<div class="reply">
+<a aria-label="Reply to Aman Garg" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=420399#respond" onclick='return addComment.moveForm( "comment-420399", "420399", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-420433">
+<div class="comment-container" id="li-comment-420433">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 18, 2017 at 10:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-420433" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sounds like you could use a linear interpolation for time and something like linear for the spatial coordinates.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=420433#respond" onclick='return addComment.moveForm( "comment-420433", "420433", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-427000">
+<div class="comment-container" id="li-comment-427000">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7e56fb5245fa719e98ac5c8d55a4a93c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7e56fb5245fa719e98ac5c8d55a4a93c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Elham</span>
+<span class="date">January 20, 2018 at 11:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-427000" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason,</p>
+<p>I have a question regarding down sampling  data from daily to weekly or monthly data,<br/>
+If my data is multivariate time series for example it has a categorical variables and numeric variables, how can I do the down sampling for each column automatically, is there a simple way of doing this?</p>
+<p>Thanks in advance</p>
+<div class="reply">
+<a aria-label="Reply to Elham" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=427000#respond" onclick='return addComment.moveForm( "comment-427000", "427000", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-427044">
+<div class="comment-container" id="li-comment-427044">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 21, 2018 at 9:05 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/#comment-427044" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You may need to do each column one at a time.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/resample-interpolate-time-series-data-python/?replytocom=427044#respond" onclick='return addComment.moveForm( "comment-427044", "427044", "respond", "3514" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/resample-interpolate-time-series-data-python/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="3514"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="4ebcfab2f9"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="151"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-27"> <div class="textwidget"><p></p><center>
+<h3>Get Good at Time Series Forecasting</h3>
+<p>Need visualizations and forecast models?<br/>
+Looking for step-by-step tutorials?<br/>
+Want end-to-end projects?</p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/">Get Started with Time Series Forecasting in Python!</a></p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/"><img alt="Introduction to Time Series Forecasting With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Introduction-to-Time-Series-Forecasting-With-Python-220.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

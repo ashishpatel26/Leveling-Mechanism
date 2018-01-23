@@ -1,0 +1,1571 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How to Train a Final Machine Learning Model - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/train-final-machine-learning-model/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How to Train a Final Machine Learning Model - Machine Learning Mastery" property="og:title"/>
+<meta content="The machine learning model that we use to make predictions on new data is called the final model. There can be confusion in applied machine learning about how to train a final model. This error is seen with beginners to the field who ask questions such as: How do I predict with cross validation? Which …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/train-final-machine-learning-model/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Machine Learning Process" property="article:section"/>
+<meta content="2017-03-17T05:00:30+11:00" property="article:published_time"/>
+<meta content="2017-02-09T19:00:14+11:00" property="article:modified_time"/>
+<meta content="2017-02-09T19:00:14+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Train-a-Final-Machine-Learning-Model.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Train-a-Final-Machine-Learning-Model.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="480" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/train-final-machine-learning-model\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/train-final-machine-learning-model/feed/" rel="alternate" title="Machine Learning Mastery » How to Train a Final Machine Learning Model Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=3804" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Ftrain-final-machine-learning-model%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Ftrain-final-machine-learning-model%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-3804 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-18"> <div class="textwidget"><p>Need help with machine learning? <a href="https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/">Take the FREE Crash-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-3804 post type-post status-publish format-standard has-post-thumbnail hentry category-machine-learning-process">
+<header>
+<h1 class="title entry-title">How to Train a Final Machine Learning Model</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2017-03-17T05:00:30+1100">March 17, 2017</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/machine-learning-process/" title="View all items in Machine Learning Process">Machine Learning Process</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Train%20a%20Final%20Machine%20Learning%20Model&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Ftrain-final-machine-learning-model%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/train-final-machine-learning-model/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/train-final-machine-learning-model/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Train%20a%20Final%20Machine%20Learning%20Model&amp;url=https://machinelearningmastery.com/train-final-machine-learning-model/&amp;summary=The+machine+learning+model+that+we+use+to+make+predictions+on+new+data+is+called+the+final+model.%0D%0A%0D..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Train%20a%20Final%20Machine%20Learning%20Model&amp;url=https://machinelearningmastery.com/train-final-machine-learning-model/&amp;summary=The+machine+learning+model+that+we+use+to+make+predictions+on+new+data+is+called+the+final+model.%0D%0A%0D...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/train-final-machine-learning-model/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/train-final-machine-learning-model/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>The machine learning model that we use to make predictions on new data is called the final model.</p>
+<p>There can be confusion in applied machine learning about how to train a final model.</p>
+<p>This error is seen with beginners to the field who ask questions such as:</p>
+<ul>
+<li><em>How do I predict with cross validation?</em></li>
+<li><em>Which model do I choose from cross-validation?</em></li>
+<li><em>Do I use the model after preparing it on the training dataset?</em></li>
+</ul>
+<p>This post will clear up the confusion.</p>
+<p>In this post, you will discover how to finalize your machine learning model in order to make predictions on new data.</p>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_3806" style="max-width: 650px"><img alt="How to Train a Final Machine Learning Model" class="size-full wp-image-3806" height="480" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Train-a-Final-Machine-Learning-Model.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Train-a-Final-Machine-Learning-Model.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Train-a-Final-Machine-Learning-Model-300x225.jpg 300w" width="640"/><p class="wp-caption-text">How to Train a Final Machine Learning Model<br/>Photo by <a href="https://www.flickr.com/photos/camera_is_a_mirror_with_memory/16665301421/">Camera Eye Photography</a>, some rights reserved.</p></div>
+<h2>What is a Final Model?</h2>
+<p>A final machine learning model is a model that you use to make predictions on new data.</p>
+<p>That is, given new examples of input data, you want to use the model to predict the expected output. This may be a classification (assign a label) or a regression (a real value).</p>
+<p>For example, whether the photo is a picture of a <em>dog</em> or a <em>cat</em>, or the estimated number of sales for tomorrow.</p>
+<p>The goal of your machine learning project is to arrive at a final model that performs the best, where “best” is defined by:</p>
+<ul>
+<li><strong>Data</strong>: the historical data that you have available.</li>
+<li><strong>Time</strong>: the time you have to spend on the project.</li>
+<li><strong>Procedure</strong>: the data preparation steps, algorithm or algorithms, and the chosen algorithm configurations.</li>
+</ul>
+<p>In your project, you gather the data, spend the time you have, and discover the data preparation procedures, algorithm to use, and how to configure it.</p>
+<p>The final model is the pinnacle of this process, the end you seek in order to start actually making predictions.</p>
+<h2>The Purpose of Train/Test Sets</h2>
+<p>Why do we use train and test sets?</p>
+<p>Creating a train and test split of your dataset is one method to quickly evaluate the performance of an algorithm on your problem.</p>
+<p>The training dataset is used to prepare a model, to train it.</p>
+<p>We pretend the test dataset is new data where the output values are withheld from the algorithm. We gather predictions from the trained model on the inputs from the test dataset and compare them to the withheld output values of the test set.</p>
+<p>Comparing the predictions and withheld outputs on the test dataset allows us to compute a performance measure for the model on the test dataset. This is an estimate of the skill of the algorithm trained on the problem when making predictions on unseen data.</p>
+<h3>Let’s unpack this further</h3>
+<p>When we evaluate an algorithm, we are in fact evaluating all steps in the procedure, including how the training data was prepared (e.g. scaling), the choice of algorithm (e.g. kNN), and how the chosen algorithm was configured (e.g. k=3).</p>
+<p>The performance measure calculated on the predictions is an estimate of the skill of the whole procedure.</p>
+<p>We generalize the performance measure from:</p>
+<ul>
+<li>“<em>the skill of the procedure on the <strong>test set</strong></em>“</li>
+</ul>
+<p>to</p>
+<ul>
+<li>“<em>the skill of the procedure on <strong>unseen data</strong></em>“.</li>
+</ul>
+<p>This is quite a leap and requires that:</p>
+<ul>
+<li>The procedure is sufficiently robust that the estimate of skill is close to what we actually expect on unseen data.</li>
+<li>The choice of performance measure accurately captures what we are interested in measuring in predictions on unseen data.</li>
+<li>The choice of data preparation is well understood and repeatable on new data, and reversible if predictions need to be returned to their original scale or related to the original input values.</li>
+<li>The choice of algorithm makes sense for its intended use and operational environment (e.g. complexity or chosen programming language).</li>
+</ul>
+<p>A lot rides on the estimated skill of the whole procedure on the test set.</p>
+<p>In fact, using the train/test method of estimating the skill of the procedure on unseen data often has a high variance (unless we have a heck of a lot of data to split). This means that when it is repeated, it gives different results, often very different results.</p>
+<p>The outcome is that we may be quite uncertain about how well the procedure actually performs on unseen data and how one procedure compares to another.</p>
+<p>Often, time permitting, we prefer to use k-fold cross-validation instead.</p>
+<h2>The Purpose of k-fold Cross Validation</h2>
+<p>Why do we use k-fold cross validation?</p>
+<p>Cross-validation is another method to estimate the skill of a method on unseen data. Like using a train-test split.</p>
+<p>Cross-validation systematically creates and evaluates multiple models on multiple subsets of the dataset.</p>
+<p>This, in turn, provides a population of performance measures.</p>
+<ul>
+<li>We can calculate the mean of these measures to get an idea of how well the procedure performs on average.</li>
+<li>We can calculate the standard deviation of these measures to get an idea of how much the skill of the procedure is expected to vary in practice.</li>
+</ul>
+<p>This is also helpful for providing a more nuanced comparison of one procedure to another when you are trying to choose which algorithm and data preparation procedures to use.</p>
+<p>Also, this information is invaluable as you can use the mean and spread to give a confidence interval on the expected performance on a machine learning procedure in practice.</p>
+<p>Both train-test splits and k-fold cross validation are examples of resampling methods.</p>
+<h2>Why do we use Resampling Methods?</h2>
+<p>The problem with applied machine learning is that we are trying to model the unknown.</p>
+<p>On a given predictive modeling problem, the ideal model is one that performs the best when making predictions on new data.</p>
+<p>We don’t have new data, so we have to pretend with statistical tricks.</p>
+<p>The train-test split and k-fold cross validation are called resampling methods. Resampling methods are statistical procedures for sampling a dataset and estimating an unknown quantity.</p>
+<p>In the case of applied machine learning, we are interested in estimating the skill of a machine learning procedure on unseen data. More specifically, the skill of the predictions made by a machine learning procedure.</p>
+<p>Once we have the estimated skill, we are finished with the resampling method.</p>
+<ul>
+<li>If you are using a train-test split, that means you can discard the split datasets and the trained model.</li>
+<li>If you are using k-fold cross-validation, that means you can throw away all of the trained models.</li>
+</ul>
+<p>They have served their purpose and are no longer needed.</p>
+<p>You are now ready to finalize your model.</p>
+<h2>How to Finalize a Model?</h2>
+<p>You finalize a model by applying the chosen machine learning procedure on all of your data.</p>
+<p>That’s it.</p>
+<p>With the finalized model, you can:</p>
+<ul>
+<li>Save the model for later or operational use.</li>
+<li>Make predictions on new data.</li>
+</ul>
+<p>What about the cross-validation models or the train-test datasets?</p>
+<p>They’ve been discarded. They are no longer needed. They have served their purpose to help you choose a procedure to finalize.</p>
+<h2>Common Questions</h2>
+<p>This section lists some common questions you might have.</p>
+<h3>Why not keep the model trained on the training dataset?</h3>
+<p>and</p>
+<h3>Why not keep the best model from the cross-validation?</h3>
+<p>You can if you like.</p>
+<p>You may save time and effort by reusing one of the models trained during skill estimation.</p>
+<p>This can be a big deal if it takes days, weeks, or months to train a model.</p>
+<p>Your model will likely perform better when trained on all of the available data than just the subset used to estimate the performance of the model.</p>
+<p>This is why we prefer to train the final model on all available data.</p>
+<h3>Won’t the performance of the model trained on all of the data be different?</h3>
+<p>I think this question drives most of the misunderstanding around model finalization.</p>
+<p>Put another way:</p>
+<ul>
+<li>If you train a model on all of the available data, then how do you know how well the model will perform?</li>
+</ul>
+<p>You have already answered this question using the resampling procedure.</p>
+<p>If well designed, the performance measures you calculate using train-test or k-fold cross validation suitably describe how well the finalized model trained on all available historical data will perform in general.</p>
+<p>If you used k-fold cross validation, you will have an estimate of how “wrong” (or conversely, how “right”) the model will be on average, and the expected spread of that wrongness or rightness.</p>
+<p>This is why the careful design of your test harness is so absolutely critical in applied machine learning. A more robust test harness will allow you to lean on the estimated performance all the more.</p>
+<h3>Each time I train the model, I get a different performance score; should I pick the model with the best score?</h3>
+<p>Machine learning algorithms are stochastic and this behavior of different performance on the same data is to be expected.</p>
+<p>Resampling methods like repeated train/test or repeated k-fold cross-validation will help to get a handle on how much variance there is in the method.</p>
+<p>If it is a real concern, you can create multiple final models and take the mean from an ensemble of predictions in order to reduce the variance.</p>
+<p>I talk more about this in the post:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/randomness-in-machine-learning/">Embrace Randomness in Machine Learning</a></li>
+</ul>
+<h2>Summary</h2>
+<p>In this post, you discovered how to train a final machine learning model for operational use.</p>
+<p>You have overcome obstacles to finalizing your model, such as:</p>
+<ul>
+<li>Understanding the goal of resampling procedures such as train-test splits and k-fold cross validation.</li>
+<li>Model finalization as training a new model on all available data.</li>
+<li>Separating the concern of estimating performance from finalizing the model.</li>
+</ul>
+<p>Do you have another question or concern about finalizing your model that I have not addressed?<br/>
+Ask in the comments and I will do my best to help.</p>
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Train%20a%20Final%20Machine%20Learning%20Model&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Ftrain-final-machine-learning-model%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/train-final-machine-learning-model/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/train-final-machine-learning-model/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Train%20a%20Final%20Machine%20Learning%20Model&amp;url=https://machinelearningmastery.com/train-final-machine-learning-model/&amp;summary=The+machine+learning+model+that+we+use+to+make+predictions+on+new+data+is+called+the+final+model.%0D%0A%0D..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Train%20a%20Final%20Machine%20Learning%20Model&amp;url=https://machinelearningmastery.com/train-final-machine-learning-model/&amp;summary=The+machine+learning+model+that+we+use+to+make+predictions+on+new+data+is+called+the+final+model.%0D%0A%0D...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/train-final-machine-learning-model/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/train-final-machine-learning-model/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/install-python-3-environment-mac-os-x-machine-learning-deep-learning/" rel="prev"><i class="fa fa-angle-left"></i> How to Install a Python 3 Environment on Mac OS X for Machine Learning and Deep Learning</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/handle-missing-data-python/" rel="next">How to Handle Missing Data with Python <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">52 Responses to <em>How to Train a Final Machine Learning Model</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-392968">
+<div class="comment-container" id="li-comment-392968">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f6d435926c428c3ee9776763d8988bbc?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f6d435926c428c3ee9776763d8988bbc?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Elie Kawerk</span>
+<span class="date">March 17, 2017 at 7:06 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-392968" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Thank you for this very informative post. I have a question regarding the train-test split for classification problems: Can we perform a rain/test split in a stratified way for classification or does this introduce what is called data snooping (a biased estimate of test error)?</p>
+<p>Thanks<br/>
+Elie</p>
+<div class="reply">
+<a aria-label="Reply to Elie Kawerk" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=392968#respond" onclick='return addComment.moveForm( "comment-392968", "392968", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-392992">
+<div class="comment-container" id="li-comment-392992">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 17, 2017 at 8:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-392992" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The key is to ensure that fitting your model does not use any information about the test dataset, including min/max values if you are scaling.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=392992#respond" onclick='return addComment.moveForm( "comment-392992", "392992", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-417758">
+<div class="comment-container" id="li-comment-417758">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2330c22c3384aadb0ecd96ecc37f4b29?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2330c22c3384aadb0ecd96ecc37f4b29?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">kamran</span>
+<span class="date">October 24, 2017 at 6:46 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-417758" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+Do you have any blog on How to Deploy the Final ML model</p>
+<div class="reply">
+<a aria-label="Reply to kamran" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=417758#respond" onclick='return addComment.moveForm( "comment-417758", "417758", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-417823">
+<div class="comment-container" id="li-comment-417823">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 25, 2017 at 6:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-417823" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This post will give you some ideas:<br/>
+<a href="http://machinelearningmastery.com/deploy-machine-learning-model-to-production/" rel="nofollow">http://machinelearningmastery.com/deploy-machine-learning-model-to-production/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=417823#respond" onclick='return addComment.moveForm( "comment-417823", "417823", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-393106">
+<div class="comment-container" id="li-comment-393106">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/fe5552c5ba4d2c3d69230b79c40bedb6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/fe5552c5ba4d2c3d69230b79c40bedb6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Dan</span>
+<span class="date">March 18, 2017 at 5:59 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-393106" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>“Also, this information is invaluable as you can use the mean and spread to give a confidence interval on the expected performance on a machine learning procedure in practice.”</p>
+<p>I have to assume a normal distribution for that right? But is this the always the case? Or should i normalize my data in a preprocessing step and then it would be correct to assume that? Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Dan" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=393106#respond" onclick='return addComment.moveForm( "comment-393106", "393106", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-393127">
+<div class="comment-container" id="li-comment-393127">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 18, 2017 at 7:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-393127" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Dan, great question!</p>
+<p>Yes, we are assuming results are Gaussian to report results using mean and standard deviation.</p>
+<p>Repeating experiments and gathering info on the min, max and central tendency (median, percentiles) regardless of the distribution of results is a valuable exercise in reporting on model performance.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=393127#respond" onclick='return addComment.moveForm( "comment-393127", "393127", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-393444">
+<div class="comment-container" id="li-comment-393444">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/620cd6e4741c7eb061245f4271e45d2d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/620cd6e4741c7eb061245f4271e45d2d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kleyn Guerreiro</span>
+<span class="date">March 20, 2017 at 10:36 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-393444" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great post….my little experience teached me that:<br/>
+a) for classification you can use your final trained model with no risk<br/>
+b) for regression, you have to rerun your model againt all data (using the parameters tuned during training)<br/>
+b) specifically for time series regression, you can’t use normal cross validation – it should respect the cronology of the data (from old to new always) and you have to rerun your model againt all data (using the parameters tuned during training) as well, as the latest data are the crucial ones for the model to learn.<br/>
+Cheers!</p>
+<div class="reply">
+<a aria-label="Reply to Kleyn Guerreiro" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=393444#respond" onclick='return addComment.moveForm( "comment-393444", "393444", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-393515">
+<div class="comment-container" id="li-comment-393515">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 21, 2017 at 8:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-393515" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the tips Kleyn.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=393515#respond" onclick='return addComment.moveForm( "comment-393515", "393515", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-399425">
+<div class="comment-container" id="li-comment-399425">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/515f5b6509fef6d797d58489350f7711?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/515f5b6509fef6d797d58489350f7711?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hank</span>
+<span class="date">May 12, 2017 at 5:16 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399425" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great post! I really learned a lot from your post and applied it to my academic project. However, there are few questions still in my mind. In our project, we want to compare different machine algorithms with and without 10-fold cv, including logistics regression, SVM, random forest, and ANN. We can get the cv score of each model with 10-fold cross validation, but the problem is how can we get the final model with 10-fold? Does the cross-validation function as finding best parameter of the different model? (such determine k in kNN?) I am still a little bit confused about the purpose of cross-validation. Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Hank" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399425#respond" onclick='return addComment.moveForm( "comment-399425", "399425", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399449">
+<div class="comment-container" id="li-comment-399449">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 12, 2017 at 7:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399449" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Hank, the above directly answers this question.</p>
+<p>Cross-validation is a tool to help you estimate the skill of models. We calculate these estimates so we can compare models and configs.</p>
+<p>After we have chosen a model and it’s config, we throw away all of the CV models. We’re done estimating.</p>
+<p>We can now fit the “final model” on all available data and use it to make predictions.</p>
+<p>Does that make sense?<br/>
+Please ask more questions if this in not clear. This is really important to understand and I thought I answered all of this in the post.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399449#respond" onclick='return addComment.moveForm( "comment-399449", "399449", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-399470">
+<div class="comment-container" id="li-comment-399470">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/515f5b6509fef6d797d58489350f7711?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/515f5b6509fef6d797d58489350f7711?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hank</span>
+<span class="date">May 12, 2017 at 3:20 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399470" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Thank you so much! Does that mean cross-validation is just a tool to help us compare different models based on cross-validation score?<br/>
+After we are done with evaluation, we would apply original model to whole dataset and make predictions. Since I read a paper where the author compare auc, true positive rate, true negative rate, false positive rate and false negative rate between those models with and without cross-validation. It turns out that logistic regression with 10fold perform best. So I though we will apply logistics regression with 10-fold to test data. Is my understanding incorrectly? Thanks!</p>
+<div class="reply">
+<a aria-label="Reply to Hank" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399470#respond" onclick='return addComment.moveForm( "comment-399470", "399470", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-399528">
+<div class="comment-container" id="li-comment-399528">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 13, 2017 at 6:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399528" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, CV is just a tool to compare configs for a model or compare models.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399528#respond" onclick='return addComment.moveForm( "comment-399528", "399528", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-399457">
+<div class="comment-container" id="li-comment-399457">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d6f45d66dc8d7361f1a31a4a20b6948c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d6f45d66dc8d7361f1a31a4a20b6948c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Petros</span>
+<span class="date">May 12, 2017 at 10:55 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399457" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Great post.</p>
+<p>It took me awhile to get this but when the penny dropped about 18 months ago it was liberating. I liken cross validation to experimenting a process which you want to emulate against all your train data. One idea though.</p>
+<p>When you cross validate you might say 10 folds of 3 repeats for each combination of parameters. Now say with whatever measure you are taking for accuracy you typically taken the mean from these 30. Is it sensible to bootstrap with replacement, particularly if it is not Gaussian, from this sample of 30 say 1000 times and from their calculate the median and 2.5/97.5 percentiles?</p>
+<p>What does everyone else think!</p>
+<p>PK</p>
+<div class="reply">
+<a aria-label="Reply to Petros" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399457#respond" onclick='return addComment.moveForm( "comment-399457", "399457", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399524">
+<div class="comment-container" id="li-comment-399524">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 13, 2017 at 6:09 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399524" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, I like to use the bootstrap + empirical confidence intervals to report final model skill.</p>
+<p>I have a post showing how to do this scheduled for later in the month.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399524#respond" onclick='return addComment.moveForm( "comment-399524", "399524", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-399469">
+<div class="comment-container" id="li-comment-399469">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2b4edb4de309dcb790c8064f2d0d1d9f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2b4edb4de309dcb790c8064f2d0d1d9f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Warren van Niekerk</span>
+<span class="date">May 12, 2017 at 2:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399469" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the very informative post. Just one question: When you train the final model, are you learning a completely new model or is some or all of the value of the previously learned models somehow retained?</p>
+<div class="reply">
+<a aria-label="Reply to Warren van Niekerk" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399469#respond" onclick='return addComment.moveForm( "comment-399469", "399469", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399527">
+<div class="comment-container" id="li-comment-399527">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 13, 2017 at 6:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399527" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, generally, you are training an entirely new model. All the CV models are discarded.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399527#respond" onclick='return addComment.moveForm( "comment-399527", "399527", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-399475">
+<div class="comment-container" id="li-comment-399475">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/062b8d497b4d05c1ed03b3ab7fabf527?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/062b8d497b4d05c1ed03b3ab7fabf527?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://atmecs.com" rel="external nofollow">Muralidhar SJ</a></span>
+<span class="date">May 12, 2017 at 6:53 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399475" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jason. Very Useful info &amp; insight , helping lot to take right approach .</p>
+<div class="reply">
+<a aria-label="Reply to Muralidhar SJ" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399475#respond" onclick='return addComment.moveForm( "comment-399475", "399475", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399529">
+<div class="comment-container" id="li-comment-399529">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 13, 2017 at 6:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399529" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad it helped Muralidhar.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399529#respond" onclick='return addComment.moveForm( "comment-399529", "399529", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-399611">
+<div class="comment-container" id="li-comment-399611">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/57ed4a3a7aaac97390408df6c8c81208?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/57ed4a3a7aaac97390408df6c8c81208?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Imene</span>
+<span class="date">May 14, 2017 at 6:57 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399611" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you very much Jason. I found in this post answers to many questions.</p>
+<div class="reply">
+<a aria-label="Reply to Imene" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399611#respond" onclick='return addComment.moveForm( "comment-399611", "399611", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399635">
+<div class="comment-container" id="li-comment-399635">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 14, 2017 at 7:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399635" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m so glad to hear that Imene.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399635#respond" onclick='return addComment.moveForm( "comment-399635", "399635", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-399640">
+<div class="comment-container" id="li-comment-399640">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3e0457176d075fe088001c264ef1aaa1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3e0457176d075fe088001c264ef1aaa1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">issam</span>
+<span class="date">May 14, 2017 at 8:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399640" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason<br/>
+I want tank you for this  informative post . I m working in project “emotion recognition on image” I want to know how can I create my model and train it.</p>
+<p>thanks in advance</p>
+<div class="reply">
+<a aria-label="Reply to issam" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399640#respond" onclick='return addComment.moveForm( "comment-399640", "399640", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399679">
+<div class="comment-container" id="li-comment-399679">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 15, 2017 at 5:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399679" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad it helped issam.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399679#respond" onclick='return addComment.moveForm( "comment-399679", "399679", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-399659">
+<div class="comment-container" id="li-comment-399659">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1adb770673ccf21da9621354ea59183b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1adb770673ccf21da9621354ea59183b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">EN MO</span>
+<span class="date">May 14, 2017 at 5:37 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399659" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very informative, thanks alot, am also trying to see if this will be useful in a project I would like to do, and how it can be applied in biometrics and pattern recognition</p>
+<div class="reply">
+<a aria-label="Reply to EN MO" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399659#respond" onclick='return addComment.moveForm( "comment-399659", "399659", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399683">
+<div class="comment-container" id="li-comment-399683">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 15, 2017 at 5:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399683" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399683#respond" onclick='return addComment.moveForm( "comment-399683", "399683", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-399900">
+<div class="comment-container" id="li-comment-399900">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2a864534ed5b83f27854c74a72b90424?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2a864534ed5b83f27854c74a72b90424?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ras</span>
+<span class="date">May 17, 2017 at 10:38 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399900" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the article. What about the parameters. You will likely do tunning on the a development set or via cross-validation. The optimum parameter set you find is the best for that particular split or fold. Wouldn’t it be left to chance for our optimized parameters to be the optimum with the whole training data as well?</p>
+<div class="reply">
+<a aria-label="Reply to Ras" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399900#respond" onclick='return addComment.moveForm( "comment-399900", "399900", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399934">
+<div class="comment-container" id="li-comment-399934">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 18, 2017 at 8:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-399934" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Ras,</p>
+<p>k-fold cross-validation is generally the best practice for using the training dataset to find a “good” configuration of a model.</p>
+<p>Does that help? Is that clearer?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=399934#respond" onclick='return addComment.moveForm( "comment-399934", "399934", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-400370">
+<div class="comment-container" id="li-comment-400370">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6ada3716cdc762fd295b3ed85681a73c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6ada3716cdc762fd295b3ed85681a73c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">lalneirem</span>
+<span class="date">May 23, 2017 at 7:28 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-400370" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>thanks for this post<br/>
+i know this may be useful but i don’t know what we do in training phase using KNN<br/>
+if u can write the details step that is done during training phase<br/>
+i will be so grateful</p>
+<div class="reply">
+<a aria-label="Reply to lalneirem" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=400370#respond" onclick='return addComment.moveForm( "comment-400370", "400370", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-400398">
+<div class="comment-container" id="li-comment-400398">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 24, 2017 at 4:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-400398" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>There is no training of knn, only predictions.</p>
+<p>See this post:<br/>
+<a href="http://machinelearningmastery.com/tutorial-to-implement-k-nearest-neighbors-in-python-from-scratch/" rel="nofollow">http://machinelearningmastery.com/tutorial-to-implement-k-nearest-neighbors-in-python-from-scratch/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=400398#respond" onclick='return addComment.moveForm( "comment-400398", "400398", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-401040">
+<div class="comment-container" id="li-comment-401040">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">aquaq</span>
+<span class="date">June 1, 2017 at 6:29 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-401040" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for this post, it has given a clear explanation for most of my questions. However, I still have one question: if I have used undersampling duting CV, how should apply it to my whole data. To be clearer<br/>
+– I have a training set of around 1 million positive (+) and 130 thousand negative (-)  examples. I also have an independent test data set with a hundred thousand (+) and 4000 (-) examples.<br/>
+– I have estimated performance with 10-fold CV and applied undersampling (I have used R gmlnet package, logit regression with LASSO, training for AUC). It gave me super results for the CV.</p>
+<p> And now I’m lost a bit. Training for all data would mean to randomly select 130 thousand (+) from the 1 million and only use this ~260 thousand examples? Should I evaluate my model after training on my test data set?</p>
+<p>Thank you for your help!</p>
+<div class="reply">
+<a aria-label="Reply to aquaq" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=401040#respond" onclick='return addComment.moveForm( "comment-401040", "401040", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-401232">
+<div class="comment-container" id="li-comment-401232">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 2, 2017 at 12:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-401232" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>If you can, I would suggest evaluating the model on all data and see if skill improves.</p>
+<p>In fact, it is a good idea to understand the data set size and model skill relationship to find the point of diminishing returns.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=401232#respond" onclick='return addComment.moveForm( "comment-401232", "401232", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-403067">
+<div class="comment-container" id="li-comment-403067">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9ab74e11301f462c4f4901a5a05aeaec?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9ab74e11301f462c4f4901a5a05aeaec?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Chayanika Mudiar</span>
+<span class="date">June 19, 2017 at 10:19 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-403067" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I have a question. In the training process using gausion naive bayes, can you say what are the steps to be taken to train the model.</p>
+<div class="reply">
+<a aria-label="Reply to Chayanika Mudiar" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=403067#respond" onclick='return addComment.moveForm( "comment-403067", "403067", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-403124">
+<div class="comment-container" id="li-comment-403124">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 20, 2017 at 6:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-403124" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, see here:<br/>
+<a href="http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/" rel="nofollow">http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=403124#respond" onclick='return addComment.moveForm( "comment-403124", "403124", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-405023">
+<div class="comment-container" id="li-comment-405023">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6bd926f04ea15bc70dde1e2afb50e6e0?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6bd926f04ea15bc70dde1e2afb50e6e0?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Tyrone</span>
+<span class="date">July 7, 2017 at 5:40 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-405023" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. Thanks for a great article!</p>
+<p>When you say that “You finalize a model by applying the chosen machine learning procedure on all of your data”, does this mean that before deploying the model you should train a completely new model with the best hyperparameters from the validation phase, but now using training data + validation data + testing data, i.e. including the completely unseen testing data that you had never touched before?</p>
+<p>This is how I interpret it, and it makes sense to me given that the whole the whole point of validation is to estimate the performance of a method of generating a model, rather than the performance of the model itself. Some people may argue, though, that because you’re now training on previously unseen data, it is impossible to know how the new trained model is actually performing and whether or not the new, real-world results will be in line with those estimated during validation and testing.</p>
+<p>If I am interpreting this correctly, is there a good technical description anywhere for why this works in theory, or a good explanation for convincing people that this is the correct approach?</p>
+<div class="reply">
+<a aria-label="Reply to Tyrone" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=405023#respond" onclick='return addComment.moveForm( "comment-405023", "405023", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-405245">
+<div class="comment-container" id="li-comment-405245">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 9, 2017 at 10:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-405245" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes. Correct.</p>
+<p>Yes. The prior results are estimates of the performance of the final model in practice.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=405245#respond" onclick='return addComment.moveForm( "comment-405245", "405245", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-405423">
+<div class="comment-container" id="li-comment-405423">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6bd926f04ea15bc70dde1e2afb50e6e0?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6bd926f04ea15bc70dde1e2afb50e6e0?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Tyrone</span>
+<span class="date">July 10, 2017 at 11:19 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-405423" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jason. It’s great to have confirmation of that. Do you know of any published papers or sources out there that spell this out explicitly or go into the theory as to why this is theoretically sound?</p>
+<div class="reply">
+<a aria-label="Reply to Tyrone" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=405423#respond" onclick='return addComment.moveForm( "comment-405423", "405423", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-405484">
+<div class="comment-container" id="li-comment-405484">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 11, 2017 at 10:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-405484" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Not off hand sorry.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=405484#respond" onclick='return addComment.moveForm( "comment-405484", "405484", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-407276">
+<div class="comment-container" id="li-comment-407276">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">aquaq</span>
+<span class="date">July 25, 2017 at 10:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-407276" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jason for this explanation. I would like to ask how to deal with test sets when I would like to compare the performance of my model to existing models. Do I have to hold out a test set, train my model on the remaining data and compare all models using my test set?<br/>
+After that, can I merge this held out set to my original training set and use all data for training a final  model?<br/>
+What other solutions can be used?</p>
+<div class="reply">
+<a aria-label="Reply to aquaq" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=407276#respond" onclick='return addComment.moveForm( "comment-407276", "407276", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-407322">
+<div class="comment-container" id="li-comment-407322">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 26, 2017 at 7:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-407322" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes. Choose models based on skill on the test set. Then re-fit the model on all available data (if this makes sense for your chosen model and data).</p>
+<p>Does that make sense?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=407322#respond" onclick='return addComment.moveForm( "comment-407322", "407322", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-407578">
+<div class="comment-container" id="li-comment-407578">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">aquaq</span>
+<span class="date">July 28, 2017 at 3:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-407578" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, it makes sense, thank you.</p>
+<div class="reply">
+<a aria-label="Reply to aquaq" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=407578#respond" onclick='return addComment.moveForm( "comment-407578", "407578", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-407624">
+<div class="comment-container" id="li-comment-407624">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 28, 2017 at 8:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-407624" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great!</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=407624#respond" onclick='return addComment.moveForm( "comment-407624", "407624", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-408376">
+<div class="comment-container" id="li-comment-408376">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d0dc4739fd3aa8cbd25fe69a64426e1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d0dc4739fd3aa8cbd25fe69a64426e1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Paul</span>
+<span class="date">August 3, 2017 at 10:21 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-408376" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for the great post Jason.<br/>
+I have a question about forecasting unseen data in RNN with LSTM.<br/>
+I’ve built complete model using RNN with LSTM by using the post(<a href="http://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras" rel="nofollow">http://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras</a>).<br/>
+How can we forecast unseen data(like ahead of current) from complete model?<br/>
+I mean we don’t have any base data except time though.</p>
+<p>I already saw some comments that you replied “You can make predictions on new data by calling Y = model.predict(X)” on that post. However, I couldn’t understand.. :'(</p>
+<div class="reply">
+<a aria-label="Reply to Paul" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=408376#respond" onclick='return addComment.moveForm( "comment-408376", "408376", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-408377">
+<div class="comment-container" id="li-comment-408377">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d0dc4739fd3aa8cbd25fe69a64426e1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d0dc4739fd3aa8cbd25fe69a64426e1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Paul</span>
+<span class="date">August 3, 2017 at 10:30 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-408377" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I mean in real-time. 🙂</p>
+<p>Thanks in advance.</p>
+<p>Best,<br/>
+Paul</p>
+<div class="reply">
+<a aria-label="Reply to Paul" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=408377#respond" onclick='return addComment.moveForm( "comment-408377", "408377", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-3" id="comment-408461">
+<div class="comment-container" id="li-comment-408461">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 4, 2017 at 6:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-408461" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>In real time, the same applies, but you can decide whether you re-train a new model, update the model or do nothing and just make predictions.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=408461#respond" onclick='return addComment.moveForm( "comment-408461", "408461", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-408459">
+<div class="comment-container" id="li-comment-408459">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 4, 2017 at 6:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-408459" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can predict the next step beyond the available data by training the model on all current data, then calling predict with whatever input your model takes taken from the end of the training data.</p>
+<p>Does that help?</p>
+<p>Which part is confusing?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=408459#respond" onclick='return addComment.moveForm( "comment-408459", "408459", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-413132">
+<div class="comment-container" id="li-comment-413132">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/28639463c19d729a03f018782929fba5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/28639463c19d729a03f018782929fba5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">S H</span>
+<span class="date">September 8, 2017 at 11:45 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-413132" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. </p>
+<p>Thanks a lot for this great and informative post. I have 2 questions I would be thankful if you can help me with them:</p>
+<p>1- Is that possible to refresh (update) a model without retraining it in full? To elaborate more, I have a model built using 9 weeks of data (weekly snapshots). As the size of the dataset is very large, when I want to update the model on a weekly basis, it takes a lot of time. Is that possible to update the model with the new snapshot (say for week 10), without retraining the model on the whole 10 weeks (9 old snapshots + 1 new snapshot)?</p>
+<p>2- When I train my model and evaluate it using cross-validation, I get errors (or alternatively, I get AUCs) which are consistently better than what I get when I score serving data and test the real performance of the model. Why is that so, and how can I treat it? To elaborate more, taking the 9 snapshots explained in the first question, I use snapshot_date column as cross-validation fold column. Therefore, in each round, the algorithm uses 8 weeks of data for training, and test the model on the remaining unseen week. Therefore, I would end up with 9 different models and 9 different AUCs on the validation frame. All the AUCs are between 0.83 to 0.91. So I would expect that the real performance of the model built using whole data should be at minimum AUC 0.83. However, when I score the serving data, and the next week I assess the performance of the model, I see no better than AUC 0.78. I have experienced it for 3 weeks (3 times), so I don’t think it’s just random variation. Additionally, I am quite sure there is no data leakage and there is no future variable in my data. Also, I tune the model quite well and there is no overfitting. </p>
+<p>Your help is highly appreciated.</p>
+<div class="reply">
+<a aria-label="Reply to S H" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=413132#respond" onclick='return addComment.moveForm( "comment-413132", "413132", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-413227">
+<div class="comment-container" id="li-comment-413227">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 9, 2017 at 11:57 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-413227" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can update a model. The amount of updating depends on your data and domain. I have some posts on this and more in my LSTM book.</p>
+<p>Model evaluation on test data is biased and optimistic generally. You may want to further refine your test harness to make the reported scores less biases for your specific dataset (e.g. fewer folds, more folds, more data, etc. depends on your dataset).</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=413227#respond" onclick='return addComment.moveForm( "comment-413227", "413227", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-416349">
+<div class="comment-container" id="li-comment-416349">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/51be1246106781211fbdff19617544b2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/51be1246106781211fbdff19617544b2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kenny</span>
+<span class="date">October 12, 2017 at 1:05 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-416349" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason, very interesting this post! what do you get</p>
+<p>I finished my model (with a score of 91%), but how do I do or how to evaluate this model with the new dataset?</p>
+<p>I have saved the model in model.pkl but in my new data (for example iris.csv) How to predict the field “species”? (in my datasets do I need to put this field blank?) how is this step?</p>
+<p>Thks for your help because I’m confused</p>
+<div class="reply">
+<a aria-label="Reply to Kenny" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=416349#respond" onclick='return addComment.moveForm( "comment-416349", "416349", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-416385">
+<div class="comment-container" id="li-comment-416385">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 12, 2017 at 5:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-416385" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Load the model and call model.predict(X) where X is your new input data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=416385#respond" onclick='return addComment.moveForm( "comment-416385", "416385", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-426664">
+<div class="comment-container" id="li-comment-426664">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a00f207436d576f12e1d8aaa0e1a815b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a00f207436d576f12e1d8aaa0e1a815b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Prasshanth VP</span>
+<span class="date">January 16, 2018 at 10:05 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-426664" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason – Great post. This cleared things for me in settling with a final model. </p>
+<p>fitControl &lt;- trainControl(<br/>
+  method = "repeatedcv",<br/>
+  number = 10,<br/>
+  savePredictions = 'final',<br/>
+  verboseIter = T,<br/>
+  summaryFunction = twoClassSummary,<br/>
+  classProbs = T)</p>
+<p>glm_fit &lt;- caret::train(dv ~. , data = dataset<br/>
+                 ,method = "glm", family=binomial, trControl = fitControl, metric = "ROC")</p>
+<p>It says that the glm_fit now becomes the final model as it runs 10 fold based on trControl and finally trains model using entire data. Setting verboseIter = T, gives me a summary during this run a message at the end – "Fitting final model on full training set". So can I use this as a final model?</p>
+<div class="reply">
+<a aria-label="Reply to Prasshanth VP" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=426664#respond" onclick='return addComment.moveForm( "comment-426664", "426664", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-426713">
+<div class="comment-container" id="li-comment-426713">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 17, 2018 at 9:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-426713" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=426713#respond" onclick='return addComment.moveForm( "comment-426713", "426713", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-426768">
+<div class="comment-container" id="li-comment-426768">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c469feb1866b37009aa5986c2c8261d1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c469feb1866b37009aa5986c2c8261d1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Martin Main</span>
+<span class="date">January 18, 2018 at 2:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-426768" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi there,<br/>
+   This article makes a lot of sense, but one thing I am surprised was not addressed was the problem of over-fitting. If there is no test/validation data used in the final model generation, and if the model being used has been seen to over-fit the data in testing, then we need to know when to stop training without over-fitting. A simple approach would be to guess from the ‘correct’ training times from the previous tests, but of course the final model with all data will naturally need longer training times. Is there a statistical approach we could use to determine the best time to stop training without using a validation set?</p>
+<div class="reply">
+<a aria-label="Reply to Martin Main" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=426768#respond" onclick='return addComment.moveForm( "comment-426768", "426768", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-426808">
+<div class="comment-container" id="li-comment-426808">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 18, 2018 at 10:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/train-final-machine-learning-model/#comment-426808" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Concerns of overfitting are addressed prior to finalizing the model as part of model selection.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/train-final-machine-learning-model/?replytocom=426808#respond" onclick='return addComment.moveForm( "comment-426808", "426808", "respond", "3804" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/train-final-machine-learning-model/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="3804"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="d807a39473"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="15"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-5"> <div class="textwidget"><p></p><center>
+<h3>You’re a Professional (and you need results)!</h3>
+<p><em>The field moves quickly…</em><br/>
+<strong>How Long Can You Afford To Wait?</strong></p>
+<p>Take Action Now!</p>
+<p><a class="woo-sc-button teal" href="/products/"><span class="woo-">Get The Training You Need</span></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

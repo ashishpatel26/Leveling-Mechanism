@@ -1,0 +1,1612 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How to Evaluate Machine Learning Algorithms with R - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How to Evaluate Machine Learning Algorithms with R - Machine Learning Mastery" property="og:title"/>
+<meta content="What algorithm should you use on your dataset? This is the most common question in applied machine learning. It’s a question that can only be answered by trial and error, or what I call: spot-checking algorithms. In this post you will discover how to spot check algorithms on a dataset using R. Including the selection of …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="R Machine Learning" property="article:section"/>
+<meta content="2016-02-01T05:00:19+11:00" property="article:published_time"/>
+<meta content="2016-09-22T10:17:10+11:00" property="article:modified_time"/>
+<meta content="2016-09-22T10:17:10+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/Evaluate-Machine-Learning-Algorithms-with-R.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/Evaluate-Machine-Learning-Algorithms-with-R.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="427" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/evaluate-machine-learning-algorithms-with-r\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/feed/" rel="alternate" title="Machine Learning Mastery » How to Evaluate Machine Learning Algorithms with R Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=2177" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fevaluate-machine-learning-algorithms-with-r%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fevaluate-machine-learning-algorithms-with-r%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-2177 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-15"> <div class="textwidget"><p>Want help with R machine learning? <a href="https://machinelearningmastery.leadpages.co/r-machine-learning-mini-course/">Take the FREE Mini-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-2177 post type-post status-publish format-standard has-post-thumbnail hentry category-r-machine-learning">
+<header>
+<h1 class="title entry-title">How to Evaluate Machine Learning Algorithms with R</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2016-02-01T05:00:19+1100">February 1, 2016</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/r-machine-learning/" title="View all items in R Machine Learning">R Machine Learning</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Evaluate%20Machine%20Learning%20Algorithms%20with%20R&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fevaluate-machine-learning-algorithms-with-r%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Evaluate%20Machine%20Learning%20Algorithms%20with%20R&amp;url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/&amp;summary=What+algorithm+should+you+use+on+your%C2%A0dataset%3F%0D%0A%0D%0AThis+is+the+most+common+question+in+applied+machi..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Evaluate%20Machine%20Learning%20Algorithms%20with%20R&amp;url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/&amp;summary=What+algorithm+should+you+use+on+your%C2%A0dataset%3F%0D%0A%0D%0AThis+is+the+most+common+question+in+applied+machi...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>What algorithm should you use on your dataset?</p>
+<p>This is the most common question in applied machine learning. It’s a question that can only be answered by trial and error, or what I call: spot-checking algorithms.</p>
+<p>In this post you will discover how to spot check algorithms on a dataset using R. Including the selection of test options, evaluation metrics, and algorithms.</p>
+<p>You can use the code in this post as a template for spot checking machine learning algorithms on your own problems.</p>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_2181" style="max-width: 650px"><img alt="Evaluate Machine Learning Algorithms with R" class="size-full wp-image-2181" height="427" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/Evaluate-Machine-Learning-Algorithms-with-R.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/Evaluate-Machine-Learning-Algorithms-with-R.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/Evaluate-Machine-Learning-Algorithms-with-R-300x200.jpg 300w" width="640"/><p class="wp-caption-text">Evaluate Machine Learning Algorithms with R<br/>Photo by <a href="https://www.flickr.com/photos/taimages/15423057880/">Brian Townsley</a>, some rights reserved.</p></div>
+<h2>Best Algorithm For a Problem</h2>
+<p>You want the most accurate model for your dataset. That is the goal of predictive modeling.</p>
+<p>No one can tell you what algorithm to use on your dataset to get the best results. If you or anyone knew what algorithm gave the best results for a specific dataset, then you probably would not need to use machine learning in the first place because of your deep knowledge of the problem.</p>
+<p>We cannot know beforehand the best algorithm representation or learning algorithm for that representation to use. We don’t even know the best parameters to use for algorithms that we could try.</p>
+<p>We need a strategy to find the best algorithm for our dataset.</p>
+<h3>Use Past Experience To Choose An Algorithm</h3>
+<p>One way that you could choose an algorithm for a problem is to reply on experience.</p>
+<p>This could be your experience with working on similar problems in the past. It could also be the collective experience of the field where you refer to papers, books and other resources for similar problems to get an idea of what algorithms have worked well in the past.</p>
+<p>This is a good start, but this should not be where you stop.</p>
+<h3>Use Trial And Error To Choose An Algorithm</h3>
+<p>The most robust way to discover good or even best algorithms for your dataset is by trial and error. Evaluate a diverse set of algorithms on your dataset and see what works and drop what doesn’t.</p>
+<p>I call this process spot-checking algorithms.</p>
+<p>Once you have a short list of algorithms that you know are good at picking out the structure of your problem, you can focus your efforts on those algorithms.</p>
+<p>You can improve the results of candidate algorithms by either tuning the algorithm parameters or by combining the predictions of multiple models using ensemble methods.</p>
+<p>Next, let’s take a look at how we can evaluate multiple machine algorithms on a dataset in R.</p>
+<!-- Start shortcoder --><p></p><div class="woo-sc-hr"></div>
+<center>
+<h3>Need more elp with R for Machine Learning?</h3>
+<p>Take my free 14-day email course and discover how to use R on your project (with sample code).</p>
+<p>Click to sign-up and also get a free PDF Ebook version of the course.</p>
+<p><a href="https://machinelearningmastery.lpages.co/leadbox/141caac73f72a2%3A164f8be4f346dc/5734055144325120/" style="background: rgb(255, 206, 10); color: rgb(255, 255, 255); text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.25) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.5) 0px 1px 3px inset, rgba(0, 0, 0, 0.5) 0px 1px 3px;" target="_blank">Start Your FREE Mini-Course Now!</a><script data-config="%7B%7D" data-leadbox="141caac73f72a2:164f8be4f346dc" data-url="https://machinelearningmastery.lpages.co/leadbox/141caac73f72a2%3A164f8be4f346dc/5734055144325120/" src="https://machinelearningmastery.lpages.co/leadbox-1500583721.js" type="text/javascript"></script></p>
+</center>
+<p></p><div class="woo-sc-hr"></div><!-- End shortcoder v4.1.5-->
+<h2>Spot Check Algorithms in R</h2>
+<p>In this section you will work through a case study of evaluating a suite of algorithms for a test problem in R.</p>
+<p>The test problem used in this example is a binary classification dataset from the <a href="http://machinelearningmastery.com/practice-machine-learning-with-small-in-memory-datasets-from-the-uci-machine-learning-repository/">UCI Machine Learning Repository</a> call the Pima Indians dataset. The data describes medical details for female patients and boolean output variable as to whether they had an onset of diabetes within five years of their medical evaluation.</p>
+<p>You can learn more about this dataset here: <a href="https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes">Pima Indians Diabetes Data Set</a>.</p>
+<p>This case study is broken down into 3 sections:</p>
+<ol>
+<li>Defining a test harness.</li>
+<li>Building multiple predictive models from the data.</li>
+<li>Comparing models and selecting a short list.</li>
+</ol>
+<p>We will be using the caret package in R as it provides an excellent interface into hundreds of different machine learning algorithms and useful tools for evaluating and comparing models.</p>
+<p>For more information on caret, see the post:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/caret-r-package-for-applied-predictive-modeling/">Caret R Package for Applied Predictive Modeling</a></li>
+</ul>
+<p>Let’s define the test harness</p>
+<h3>1. Test Harness</h3>
+<p>The test harness is comprised of three key elements:</p>
+<ol>
+<li>The dataset we will use to train models.</li>
+<li>The test options used to evaluate a model (e.g. resampling method).</li>
+<li>The metric we are interested in measuring and comparing.</li>
+</ol>
+<h4>Test Dataset</h4>
+<p>The dataset we use to spot check algorithms should be representative of our problem, but it does not have to be all of our data.</p>
+<p>Spot checking algorithms must be fast. If we have a large dataset, it could cause some of the more computationally intensive algorithms we want to check to take a long time to train.</p>
+<p>When spot checking a good rule of thumb I use is that each algorithm should train within 1-to-2 minutes.(ideally within 30 seconds). I find that a less than 10,000 instances (rows) is often a good size, but this will vary from dataset to dataset.</p>
+<p>If you have a large dataset, take some different random samples and one simple model (glm) and see how long it takes to train. Select a sample size that falls within the sweet spot.</p>
+<p>We can investigate the effect that sample size has on our short list of well performing algorithms later.</p>
+<p>Also, you can repeat this experiment later with a larger dataset, once you have a smaller subset of algorithms that look promising.</p>
+<p>Let’s load libraries and our diabetes dataset. It is distributed with the <em>mlbench</em> package, so we can just load it up.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cf92607392496" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# load libraries
+library(mlbench)
+library(caret)
+
+# load data
+data(PimaIndiansDiabetes)
+# rename dataset to keep code below generic
+dataset &lt;- PimaIndiansDiabetes</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cf92607392496-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cf92607392496-2">2</div><div class="crayon-num" data-line="crayon-5a65890c2cf92607392496-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cf92607392496-4">4</div><div class="crayon-num" data-line="crayon-5a65890c2cf92607392496-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cf92607392496-6">6</div><div class="crayon-num" data-line="crayon-5a65890c2cf92607392496-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cf92607392496-8">8</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cf92607392496-1"><span class="crayon-p"># load libraries</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cf92607392496-2"><span class="crayon-e">library</span><span class="crayon-sy">(</span><span class="crayon-v">mlbench</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cf92607392496-3"><span class="crayon-e">library</span><span class="crayon-sy">(</span><span class="crayon-v">caret</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cf92607392496-4"> </div><div class="crayon-line" id="crayon-5a65890c2cf92607392496-5"><span class="crayon-p"># load data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cf92607392496-6"><span class="crayon-e">data</span><span class="crayon-sy">(</span><span class="crayon-v">PimaIndiansDiabetes</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cf92607392496-7"><span class="crayon-p"># rename dataset to keep code below generic</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cf92607392496-8"><span class="crayon-v">dataset</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">PimaIndiansDiabetes</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>There are only 768 instances, so in this case study we will use all of this data to spot check our algorithms.</p>
+<p>Note, that on a full end-to-end project I would recommend holding back a validation dataset to get an objective final evaluation of the very best performing model.</p>
+<h4>Test Options</h4>
+<p>Test options refers to the technique used to evaluate the accuracy of a model on unseen data. They are often referred to as resampling methods in statistics.</p>
+<p>Test options I’d generally recommend are:</p>
+<ul>
+<li><strong>Train/Test split</strong>: if you have a lot of data and determine you need a lot of data to build accurate models</li>
+<li><strong>Cross Validation</strong>: 5 folds or 10 folds provide a commonly used tradeoff of speed of compute time and generalize error estimate.</li>
+<li><strong>Repeated Cross Validation</strong>: 5- or 10-fold cross validation and 3 or more repeats to give a more robust estimate, only if you have a small dataset and can afford the time.</li>
+</ul>
+<p>In this case study we will use 10-fold cross validation with 3 repeats.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cf9e906997731" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+control &lt;- trainControl(method="repeatedcv", number=10, repeats=3)
+seed &lt;- 7</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cf9e906997731-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cf9e906997731-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cf9e906997731-1"><span class="crayon-v">control</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">trainControl</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"repeatedcv"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">number</span><span class="crayon-o">=</span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">repeats</span><span class="crayon-o">=</span><span class="crayon-cn">3</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cf9e906997731-2"><span class="crayon-v">seed</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-cn">7</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>Note that we assigning a random number seed to a variable, so that we can re-set the random number generator before we train each algorithm.</p>
+<p>This is important to ensure that each algorithm is evaluated on exactly the same splits of data, allow for true apples to apples comparisons later.</p>
+<p>For more on test options, see the post:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/how-to-choose-the-right-test-options-when-evaluating-machine-learning-algorithms/">How To Choose The Right Test Options When Evaluating Machine Learning Algorithms</a></li>
+</ul>
+<p>For examples of using all three recommended test options and more in caret, see the post:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/">How To Estimate Model Accuracy in R Using the Caret Package</a></li>
+</ul>
+<h4>Test Metric</h4>
+<p>There are many possible evaluation metrics to chose from. Caret provides a good selection and you can use your own if needed.</p>
+<p>Some good test metrics to use for different problem types include:</p>
+<p>Classification:</p>
+<ul>
+<li><strong>Accuracy</strong>: x correct divided by y total instances. Easy to understand and widely used.</li>
+<li><strong>Kappa</strong>: easily understood as accuracy that takes the base distribution of classes into account.</li>
+</ul>
+<p>Regression:</p>
+<ul>
+<li><strong>RMSE</strong>: root mean squared error. Again, easy to understand and widely used.</li>
+<li><strong>Rsquared</strong>: the goodness of fit or coefficient of determination.</li>
+</ul>
+<p>Other popular measures include ROC and LogLoss.</p>
+<p>The evaluation metric is specified the call to the <em>train()</em> function for a given model, so we will define the metric now for use with all of the model training later.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cfa2203836434" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+metric &lt;- "Accuracy"</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cfa2203836434-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cfa2203836434-1"><span class="crayon-v">metric</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-s">"Accuracy"</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>Learn more about test metrics in the post:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/classification-accuracy-is-not-enough-more-performance-measures-you-can-use/">Classification Accuracy is Not Enough: More Performance Measures You Can Use</a></li>
+</ul>
+<h3>2. Model Building</h3>
+<p>There are three concerns when selecting models to spot check:</p>
+<ol>
+<li>What models to actually choose.</li>
+<li>How to configure their arguments.</li>
+<li>Preprocessing of the data for the algorithm.</li>
+</ol>
+<h4>Algorithms</h4>
+<p>It is important to have a good mix of algorithm representations (lines, trees, instances, etc.) as well as algorithms for learning those representations.</p>
+<p>A good rule of thumb I use is “a few of each”, for example in the case of binary classification:</p>
+<ul>
+<li><strong>Linear methods</strong>: Linear Discriminant Analysis and Logistic Regression.</li>
+<li><strong>Non-Linear methods</strong>: Neural Network, SVM, kNN and Naive Bayes</li>
+<li><strong>Trees and Rules</strong>: CART, J48 and PART</li>
+<li><strong>Ensembles of Trees</strong>: C5.0, Bagged CART, Random Forest and Stochastic Gradient Boosting</li>
+</ul>
+<p>You want some low complexity easy to interpret methods in there (like LDA and kNN) in case they do well, you can adopt them. You also want some sophisticated methods in there (like random forest) to see if the problem can even be learned and to start building up expectations of accuracy.</p>
+<p>How many algorithms? At least 10-to-20 different algorithms.</p>
+<h4>Algorithm Configuration</h4>
+<p>Almost all machine learning algorithms are parameterized, requiring that you specify their arguments.</p>
+<p>The good thing is, most algorithm parameters have heuristics that you can use to provide a first past configuration of the algorithm to get the ball rolling.</p>
+<p>When we are spot checking, we do not want to be trying many variations of algorithm parameters, that comes later when improving results. We also want to give each algorithm a chance to show its stuff.</p>
+<p>One aspect of the caret package in R is that it helps with tuning algorithm parameters. It can also estimate good defaults (via the automatic tuning functionality and the <em>tunelength</em> argument to the <em>train()</em> function).</p>
+<p>I recommend using the defaults for most if not all algorithms when spot checking, unless you look up some sensible defaults or have some experience with a given algorithm.</p>
+<h4>Data Preprocessing</h4>
+<p>Some algorithms perform a whole lot better with some basic data preprocessing.</p>
+<p>You want to give each algorithm a good fair chance of shining, so it is important to include any required preprocessing in with the training of those algorithms that do require it.</p>
+<p>For example, many instance based algorithms work a lot better if all input variables have the same scale.</p>
+<p>Fortunately, the <em>train()</em> function in caret lets you specify preprocessing of the data to perform prior to training. The transforms you need are provided to the preProcess argument as a list and are executed on the data sequentially</p>
+<p>The most useful transform is to scale and center the data via. For example:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cfa7360643840" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+preProcess=c("center", "scale")</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cfa7360643840-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cfa7360643840-1"><span class="crayon-v">preProcess</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-s">"center"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"scale"</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p></p>
+<h4>Algorithm Spot Check</h4>
+<p>Below are the models that we will spot check for this diabetes case study.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cfaa920048962" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# Linear Discriminant Analysis
+set.seed(seed)
+fit.lda &lt;- train(diabetes~., data=dataset, method="lda", metric=metric, preProc=c("center", "scale"), trControl=control)
+# Logistic Regression
+set.seed(seed)
+fit.glm &lt;- train(diabetes~., data=dataset, method="glm", metric=metric, trControl=control)
+# GLMNET
+set.seed(seed)
+fit.glmnet &lt;- train(diabetes~., data=dataset, method="glmnet", metric=metric, preProc=c("center", "scale"), trControl=control)
+# SVM Radial
+set.seed(seed)
+fit.svmRadial &lt;- train(diabetes~., data=dataset, method="svmRadial", metric=metric, preProc=c("center", "scale"), trControl=control, fit=FALSE)
+# kNN
+set.seed(seed)
+fit.knn &lt;- train(diabetes~., data=dataset, method="knn", metric=metric, preProc=c("center", "scale"), trControl=control)
+# Naive Bayes
+set.seed(seed)
+fit.nb &lt;- train(diabetes~., data=dataset, method="nb", metric=metric, trControl=control)
+# CART
+set.seed(seed)
+fit.cart &lt;- train(diabetes~., data=dataset, method="rpart", metric=metric, trControl=control)
+# C5.0
+set.seed(seed)
+fit.c50 &lt;- train(diabetes~., data=dataset, method="C5.0", metric=metric, trControl=control)
+# Bagged CART
+set.seed(seed)
+fit.treebag &lt;- train(diabetes~., data=dataset, method="treebag", metric=metric, trControl=control)
+# Random Forest
+set.seed(seed)
+fit.rf &lt;- train(diabetes~., data=dataset, method="rf", metric=metric, trControl=control)
+# Stochastic Gradient Boosting (Generalized Boosted Modeling)
+set.seed(seed)
+fit.gbm &lt;- train(diabetes~., data=dataset, method="gbm", metric=metric, trControl=control, verbose=FALSE)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-2">2</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-4">4</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-6">6</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-8">8</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-10">10</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-12">12</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-14">14</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-16">16</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-18">18</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-20">20</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-22">22</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-24">24</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-26">26</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-28">28</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-30">30</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfaa920048962-32">32</div><div class="crayon-num" data-line="crayon-5a65890c2cfaa920048962-33">33</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-1"><span class="crayon-p"># Linear Discriminant Analysis</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-2"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-3"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">lda</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"lda"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">preProc</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-s">"center"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"scale"</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-4"><span class="crayon-p"># Logistic Regression</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-5"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-6"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">glm</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"glm"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-7"><span class="crayon-p"># GLMNET</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-8"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-9"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">glmnet</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"glmnet"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">preProc</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-s">"center"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"scale"</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-10"><span class="crayon-p"># SVM Radial</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-11"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-12"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">svmRadial</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"svmRadial"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">preProc</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-s">"center"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"scale"</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">fit</span><span class="crayon-o">=</span><span class="crayon-t">FALSE</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-13"><span class="crayon-p"># kNN</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-14"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-15"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">knn</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"knn"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">preProc</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-s">"center"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"scale"</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-16"><span class="crayon-p"># Naive Bayes</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-17"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-18"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">nb</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"nb"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-19"><span class="crayon-p"># CART</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-20"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-21"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">cart</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"rpart"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-22"><span class="crayon-p"># C5.0</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-23"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-24"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">c50</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"C5.0"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-25"><span class="crayon-p"># Bagged CART</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-26"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-27"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">treebag</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"treebag"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-28"><span class="crayon-p"># Random Forest</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-29"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-30"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">rf</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"rf"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-31"><span class="crayon-p"># Stochastic Gradient Boosting (Generalized Boosted Modeling)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfaa920048962-32"><span class="crayon-v">set</span><span class="crayon-sy">.</span><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-v">seed</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfaa920048962-33"><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">gbm</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">diabetes</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">dataset</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"gbm"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">metric</span><span class="crayon-o">=</span><span class="crayon-v">metric</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">control</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">verbose</span><span class="crayon-o">=</span><span class="crayon-t">FALSE</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0046 seconds] -->
+<p>You can see a good mixture of algorithm types.</p>
+<p>You can see that all algorithms use the default (automatically estimated) algorithm parameters, there are no tune grids (how caret tunes algorithms).</p>
+<p>You can also see that those algorithms that benefit from rescaled data have the preProcess argument set.</p>
+<p>For more information on spot checking algorithms see the post:</p>
+<ul>
+<li><a href="http://machinelearningmastery.com/why-you-should-be-spot-checking-algorithms-on-your-machine-learning-problems/">Why You Should Be Spot-Checking Algorithms On Your Machine Learning Problems</a></li>
+</ul>
+<h3>3. Model Selection</h3>
+<p>Now that we have trained a large and diverse list of models, we need to evaluate and compare them.</p>
+<p>We are not looking for a best model at this stage. The algorithms have not been tuned and can all likely do a lot better than the results you currently see.</p>
+<p>The goal now is to select a handful, perhaps 2-to-5 diverse and well performing algorithms to investigate further.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cfad909639279" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+results &lt;- resamples(list(lda=fit.lda, logistic=fit.glm, glmnet=fit.glmnet,
+	svm=fit.svmRadial, knn=fit.knn, nb=fit.nb, cart=fit.cart, c50=fit.c50,
+	bagging=fit.treebag, rf=fit.rf, gbm=fit.gbm))
+# Table comparison
+summary(results)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cfad909639279-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfad909639279-2">2</div><div class="crayon-num" data-line="crayon-5a65890c2cfad909639279-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfad909639279-4">4</div><div class="crayon-num" data-line="crayon-5a65890c2cfad909639279-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cfad909639279-1"><span class="crayon-v">results</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">resamples</span><span class="crayon-sy">(</span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-v">lda</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">lda</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">logistic</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">glm</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">glmnet</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">glmnet</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfad909639279-2"><span class="crayon-h"> </span><span class="crayon-v">svm</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">svmRadial</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">knn</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">knn</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">nb</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">nb</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">cart</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">cart</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">c50</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">c50</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-5a65890c2cfad909639279-3"><span class="crayon-h"> </span><span class="crayon-v">bagging</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">treebag</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">rf</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">rf</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">gbm</span><span class="crayon-o">=</span><span class="crayon-v">fit</span><span class="crayon-sy">.</span><span class="crayon-v">gbm</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfad909639279-4"><span class="crayon-p"># Table comparison</span></div><div class="crayon-line" id="crayon-5a65890c2cfad909639279-5"><span class="crayon-e">summary</span><span class="crayon-sy">(</span><span class="crayon-v">results</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>You can see that we have summarized the results of the algorithms as a table.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cfb0790906358" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Models: lda, logistic, glmnet, svm, knn, nb, cart, c50, bagging, rf, gbm 
+Number of resamples: 30 
+
+Accuracy 
+           Min. 1st Qu. Median   Mean 3rd Qu.   Max. NA's
+lda      0.6711  0.7532 0.7662 0.7759  0.8052 0.8701    0
+logistic 0.6842  0.7639 0.7713 0.7781  0.8019 0.8701    0
+glmnet   0.6842  0.7557 0.7662 0.7773  0.8019 0.8701    0
+svm      0.6711  0.7403 0.7582 0.7651  0.7890 0.8961    0
+knn      0.6753  0.7115 0.7386 0.7465  0.7785 0.8961    0
+nb       0.6316  0.7305 0.7597 0.7569  0.7869 0.8571    0
+cart     0.6234  0.7115 0.7403 0.7382  0.7760 0.8442    0
+c50      0.6711  0.7273 0.7468 0.7586  0.7785 0.8831    0
+bagging  0.6883  0.7246 0.7451 0.7530  0.7792 0.8571    0
+rf       0.6711  0.7273 0.7516 0.7617  0.7890 0.8571    0
+gbm      0.6974  0.7273 0.7727 0.7708  0.8052 0.8831    0</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-2">2</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-4">4</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-6">6</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-8">8</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-10">10</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-12">12</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-14">14</div><div class="crayon-num" data-line="crayon-5a65890c2cfb0790906358-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb0790906358-16">16</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-1"><span class="crayon-v">Models</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">lda</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">logistic</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">glmnet</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">svm</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">knn</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">nb</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">cart</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">c50</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">bagging</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">rf</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">gbm </span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-2"><span class="crayon-e">Number </span><span class="crayon-e">of </span><span class="crayon-v">resamples</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">30</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-3"> </div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-4"><span class="crayon-e">Accuracy </span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-5"><span class="crayon-e">           </span><span class="crayon-v">Min</span><span class="crayon-sy">.</span><span class="crayon-h"> </span><span class="crayon-cn">1st</span><span class="crayon-h"> </span><span class="crayon-v">Qu</span><span class="crayon-sy">.</span><span class="crayon-h"> </span><span class="crayon-e">Median   </span><span class="crayon-i">Mean</span><span class="crayon-h"> </span><span class="crayon-cn">3rd</span><span class="crayon-h"> </span><span class="crayon-v">Qu</span><span class="crayon-sy">.</span><span class="crayon-h">   </span><span class="crayon-v">Max</span><span class="crayon-sy">.</span><span class="crayon-h"> </span><span class="crayon-i">NA</span>'<span class="crayon-i">s</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-6"><span class="crayon-i">lda</span><span class="crayon-h">      </span><span class="crayon-cn">0.6711</span><span class="crayon-h">  </span><span class="crayon-cn">0.7532</span><span class="crayon-h"> </span><span class="crayon-cn">0.7662</span><span class="crayon-h"> </span><span class="crayon-cn">0.7759</span><span class="crayon-h">  </span><span class="crayon-cn">0.8052</span><span class="crayon-h"> </span><span class="crayon-cn">0.8701</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-7"><span class="crayon-i">logistic</span><span class="crayon-h"> </span><span class="crayon-cn">0.6842</span><span class="crayon-h">  </span><span class="crayon-cn">0.7639</span><span class="crayon-h"> </span><span class="crayon-cn">0.7713</span><span class="crayon-h"> </span><span class="crayon-cn">0.7781</span><span class="crayon-h">  </span><span class="crayon-cn">0.8019</span><span class="crayon-h"> </span><span class="crayon-cn">0.8701</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-8"><span class="crayon-i">glmnet</span><span class="crayon-h">   </span><span class="crayon-cn">0.6842</span><span class="crayon-h">  </span><span class="crayon-cn">0.7557</span><span class="crayon-h"> </span><span class="crayon-cn">0.7662</span><span class="crayon-h"> </span><span class="crayon-cn">0.7773</span><span class="crayon-h">  </span><span class="crayon-cn">0.8019</span><span class="crayon-h"> </span><span class="crayon-cn">0.8701</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-9"><span class="crayon-i">svm</span><span class="crayon-h">      </span><span class="crayon-cn">0.6711</span><span class="crayon-h">  </span><span class="crayon-cn">0.7403</span><span class="crayon-h"> </span><span class="crayon-cn">0.7582</span><span class="crayon-h"> </span><span class="crayon-cn">0.7651</span><span class="crayon-h">  </span><span class="crayon-cn">0.7890</span><span class="crayon-h"> </span><span class="crayon-cn">0.8961</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-10"><span class="crayon-i">knn</span><span class="crayon-h">      </span><span class="crayon-cn">0.6753</span><span class="crayon-h">  </span><span class="crayon-cn">0.7115</span><span class="crayon-h"> </span><span class="crayon-cn">0.7386</span><span class="crayon-h"> </span><span class="crayon-cn">0.7465</span><span class="crayon-h">  </span><span class="crayon-cn">0.7785</span><span class="crayon-h"> </span><span class="crayon-cn">0.8961</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-11"><span class="crayon-i">nb</span><span class="crayon-h">       </span><span class="crayon-cn">0.6316</span><span class="crayon-h">  </span><span class="crayon-cn">0.7305</span><span class="crayon-h"> </span><span class="crayon-cn">0.7597</span><span class="crayon-h"> </span><span class="crayon-cn">0.7569</span><span class="crayon-h">  </span><span class="crayon-cn">0.7869</span><span class="crayon-h"> </span><span class="crayon-cn">0.8571</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-12"><span class="crayon-i">cart</span><span class="crayon-h">     </span><span class="crayon-cn">0.6234</span><span class="crayon-h">  </span><span class="crayon-cn">0.7115</span><span class="crayon-h"> </span><span class="crayon-cn">0.7403</span><span class="crayon-h"> </span><span class="crayon-cn">0.7382</span><span class="crayon-h">  </span><span class="crayon-cn">0.7760</span><span class="crayon-h"> </span><span class="crayon-cn">0.8442</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-13"><span class="crayon-i">c50</span><span class="crayon-h">      </span><span class="crayon-cn">0.6711</span><span class="crayon-h">  </span><span class="crayon-cn">0.7273</span><span class="crayon-h"> </span><span class="crayon-cn">0.7468</span><span class="crayon-h"> </span><span class="crayon-cn">0.7586</span><span class="crayon-h">  </span><span class="crayon-cn">0.7785</span><span class="crayon-h"> </span><span class="crayon-cn">0.8831</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-14"><span class="crayon-i">bagging</span><span class="crayon-h">  </span><span class="crayon-cn">0.6883</span><span class="crayon-h">  </span><span class="crayon-cn">0.7246</span><span class="crayon-h"> </span><span class="crayon-cn">0.7451</span><span class="crayon-h"> </span><span class="crayon-cn">0.7530</span><span class="crayon-h">  </span><span class="crayon-cn">0.7792</span><span class="crayon-h"> </span><span class="crayon-cn">0.8571</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-5a65890c2cfb0790906358-15"><span class="crayon-i">rf</span><span class="crayon-h">       </span><span class="crayon-cn">0.6711</span><span class="crayon-h">  </span><span class="crayon-cn">0.7273</span><span class="crayon-h"> </span><span class="crayon-cn">0.7516</span><span class="crayon-h"> </span><span class="crayon-cn">0.7617</span><span class="crayon-h">  </span><span class="crayon-cn">0.7890</span><span class="crayon-h"> </span><span class="crayon-cn">0.8571</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb0790906358-16"><span class="crayon-i">gbm</span><span class="crayon-h">      </span><span class="crayon-cn">0.6974</span><span class="crayon-h">  </span><span class="crayon-cn">0.7273</span><span class="crayon-h"> </span><span class="crayon-cn">0.7727</span><span class="crayon-h"> </span><span class="crayon-cn">0.7708</span><span class="crayon-h">  </span><span class="crayon-cn">0.8052</span><span class="crayon-h"> </span><span class="crayon-cn">0.8831</span><span class="crayon-h">    </span><span class="crayon-cn">0</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0024 seconds] -->
+<p>It is also useful to review the results using a few different visualization techniques to get an idea of the mean and spread of accuracies.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a65890c2cfb3562700324" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# boxplot comparison
+bwplot(results)
+# Dot-plot comparison
+dotplot(results)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a65890c2cfb3562700324-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb3562700324-2">2</div><div class="crayon-num" data-line="crayon-5a65890c2cfb3562700324-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a65890c2cfb3562700324-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a65890c2cfb3562700324-1"><span class="crayon-p"># boxplot comparison</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb3562700324-2"><span class="crayon-e">bwplot</span><span class="crayon-sy">(</span><span class="crayon-v">results</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a65890c2cfb3562700324-3"><span class="crayon-p"># Dot-plot comparison</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a65890c2cfb3562700324-4"><span class="crayon-e">dotplot</span><span class="crayon-sy">(</span><span class="crayon-v">results</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>From these results, it looks like linear methods do well on this problem. I would probably investigate <em>logistic</em>, <em>lda</em>, <em>glmnet</em>, and <em>gbm</em> further.</p>
+<div class="wp-caption aligncenter" id="attachment_2178" style="max-width: 737px"><img alt="Compare Machine Learining Algorithms in R Box and Whisker Plots" class="size-full wp-image-2178" height="726" sizes="(max-width: 727px) 100vw, 727px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Box-and-Whisker-Plots.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Box-and-Whisker-Plots.png 727w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Box-and-Whisker-Plots-150x150.png 150w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Box-and-Whisker-Plots-300x300.png 300w" width="727"/><p class="wp-caption-text">Compare Machine Learining Algorithms in R Box and Whisker Plots</p></div>
+<div class="wp-caption aligncenter" id="attachment_2179" style="max-width: 759px"><img alt="Compare Machine Learining Algorithms in R Dot Plots" class="size-full wp-image-2179" height="742" sizes="(max-width: 749px) 100vw, 749px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Dot-Plots.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Dot-Plots.png 749w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Dot-Plots-150x150.png 150w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Compare-Machine-Learining-Algorithms-in-R-Dot-Plots-300x297.png 300w" width="749"/><p class="wp-caption-text">Compare Machine Learining Algorithms in R Dot Plots</p></div>
+<p>If I had more data, I would probably repeat the experiment with a large sample and see if the large dataset improve the performance of any of the tree methods (it often does).</p>
+<h2>Tips For Good Algorithm Spot Checking</h2>
+<p>Below are some tips that you can use to get good at evaluating machine learning algorithms in R.</p>
+<ul>
+<li><strong>Speed</strong>. Get results fast. Use small samples of your data and simple estimates for algorithm parameters. Turn around should be minutes to an hour.</li>
+<li><strong>Diversity</strong>. Use a diverse selection of algorithms including representations and different learning algorithms for the same type of representation.</li>
+<li><strong>Scale-up</strong>. Don’t be afraid to schedule follow-up spot-check experiments with larger data samples. These can be run overnight or on larger computers and can be good to flush out those algorithms that only do well with larger samples (e.g. trees).</li>
+<li><strong>Short-list</strong>. Your goal is to create a shortlist of algorithms to investigate further, not optimize accuracy (not yet).</li>
+<li><strong>Heuristics</strong>. Best practice algorithm configurations and algorithms known to be suited to problems like your are an excellent place to start. Use them to seed your spot-check experiments. Some algorithms only start to show that they are accurate with specific parameter configurations.</li>
+</ul>
+<h2>You Can Spot Check Algorithms in R</h2>
+<p><strong>You do not need to be a machine learning expert</strong>. You can get started by running the case study above and reviewing the results. You can dive deeper by reading up on the R functions and machine learning algorithms used in the case study.</p>
+<p><strong>You do not need to be an R programmer</strong>. The case study in this post is complete and will produce a result. You can copy it, run it on your workstation and use it as a template on your current or next project.</p>
+<p><strong>You do not need to know how to configure algorithms</strong>. The <em>train()</em> function in R can automatically estimate reasonable defaults as a starting point. You do not need to specify algorithm parameters yet. You may need to later during tuning and the help for specific machine learning functions in R often also provide example parameters that you can use, as well as research papers on the algorithms themselves.</p>
+<p><strong>You do not need to collect your own data</strong>. There are many R packages that provide, small standard, in-memory datasets that you can use to practice classification and regression machine learning problems. In this example we used the <em>mlbench</em> package.</p>
+<p><strong>You do not need a lot of data</strong>. Small samples of your data are good for spot checking algorithms. You want a result quickly and small data samples are the best way to achieve that.</p>
+<h2>Summary</h2>
+<p>In this post you discovered the importance of spot checking machine learning algorithms on your problem.</p>
+<p>You discovered that spot checking is the best way to find the good and even best machine learning algorithms for a given dataset.</p>
+<p>You worked through a case study in R using the caret package and evaluated more than 10 different algorithms on a binary classification problem.</p>
+<p>You now have a template for spot checking algorithms that you can use on your current or next machine learning project.</p>
+<h2>Next Step</h2>
+<p>Did you work through the case study?</p>
+<ol>
+<li>Start your R interactive environment.</li>
+<li>Type or copy-paste each code snippet.</li>
+<li>Take your time to understand what is going on and read up on the functions used.</li>
+</ol>
+<p>Do you have any questions? Ask in the comments and I will do my best to answer.</p>
+<!-- Shortcoder conditions not met -->
+<div class="awac-wrapper"><div class="awac widget text-39"> <div class="textwidget"><p></p><div class="woo-sc-hr"></div><br/>
+<center>
+<h2>Frustrated With Your Progress In R Machine Learning?</h2>
+<p><a href="/machine-learning-with-r/"><img align="left" alt="Master Machine Learning With R" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/MachineLearningMasteryWithR-small.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own Models in Minutes</h4>
+<p>…with just a few lines of R code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/machine-learning-with-r/">Machine Learning Mastery With R</a></p>
+<p>Covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> like:<br/>Loading data, visualization, build models, tuning, and much more…</p>
+<h4>Finally Bring Machine Learning To<br/>Your Own Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/machine-learning-with-r/">Click to learn more</a>.</p>
+<p></p></center><br/>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Evaluate%20Machine%20Learning%20Algorithms%20with%20R&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fevaluate-machine-learning-algorithms-with-r%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Evaluate%20Machine%20Learning%20Algorithms%20with%20R&amp;url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/&amp;summary=What+algorithm+should+you+use+on+your%C2%A0dataset%3F%0D%0A%0D%0AThis+is+the+most+common+question+in+applied+machi..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Evaluate%20Machine%20Learning%20Algorithms%20with%20R&amp;url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/&amp;summary=What+algorithm+should+you+use+on+your%C2%A0dataset%3F%0D%0A%0D%0AThis+is+the+most+common+question+in+applied+machi...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/data-visualization-in-r/" rel="prev"><i class="fa fa-angle-left"></i> Better Understand Your Data in R Using Visualization (10 recipes you can use today)</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/machine-learning-in-r-step-by-step/" rel="next">Your First Machine Learning Project in R Step-By-Step (tutorial and template for future projects) <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">37 Responses to <em>How to Evaluate Machine Learning Algorithms with R</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-340876">
+<div class="comment-container" id="li-comment-340876">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/59bdcd14f799475d0dea9e9173993bfb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/59bdcd14f799475d0dea9e9173993bfb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Jai Panthail</span>
+<span class="date">February 4, 2016 at 7:39 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340876" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Thank you for the very detailed explanation. I have been following a very similar method to compare algorithms using Caret, but I found a few tweaks I need to make to my method based on your article. I have a couple of questions:</p>
+<p>1. I know that certain algorithms (SVM, neural network models etc.) do not have in-built feature selection, as many other algorithms (like random forests) do. I’m worried that by not including the feature selection step in the algorithm selection process, I’m not giving a fair chance to algorithms that work better with a smaller set of variables. What would be the best way to integrate feature selection (based on variable importance) into the algorithm selection process?</p>
+<p>2. What 10 algorithms would you suggest be tried for regression? My datasets usually have 3000-5000 instances of 20-40 variables. </p>
+<p>Thanks,<br/>
+Jai</p>
+<div class="reply">
+<a aria-label="Reply to Jai Panthail" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340876#respond" onclick='return addComment.moveForm( "comment-340876", "340876", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-340877">
+<div class="comment-container" id="li-comment-340877">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 4, 2016 at 7:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340877" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jai, really great questions!</p>
+<p>I like to create many “presentations” or “views” of my training data and and then run a suite of 10-20 algorithms on each view. Some views will be transforms, others will have had feature selection applied, and so on. </p>
+<p>Spot-checking algorithms becomes m views * n algorithms * o CV folds * p repeats. </p>
+<p>As for regression algorithms, here are my go-to methods: linear regression, penalized linear regression (e.g. lasso and elasticnet), CART, SVM, neural net, MARS, KNN, Random Forest, boosted trees and  more recently Cubist.</p>
+<p>I hope that helps.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340877#respond" onclick='return addComment.moveForm( "comment-340877", "340877", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-340879">
+<div class="comment-container" id="li-comment-340879">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/59bdcd14f799475d0dea9e9173993bfb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/59bdcd14f799475d0dea9e9173993bfb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Jai Panthail</span>
+<span class="date">February 4, 2016 at 7:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340879" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you, Jason! That’s really helpful!</p>
+<div class="reply">
+<a aria-label="Reply to Jai Panthail" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340879#respond" onclick='return addComment.moveForm( "comment-340879", "340879", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-340961">
+<div class="comment-container" id="li-comment-340961">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f8f682f30f7a3b07bd67be391e169232?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f8f682f30f7a3b07bd67be391e169232?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://paulremote.blogspot.fr/" rel="external nofollow">Paul</a></span>
+<span class="date">February 5, 2016 at 6:59 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340961" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m trying to reproduce your code. Could you provide the line used to load the data set and name the columns?</p>
+<p>I loaded the csv from <a href="https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes" rel="nofollow">https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes</a><br/>
+I guess the dependent variable in your model diabete is in column 7. Diabetes pedigree function ?</p>
+<div class="reply">
+<a aria-label="Reply to Paul" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340961#respond" onclick='return addComment.moveForm( "comment-340961", "340961", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-340962">
+<div class="comment-container" id="li-comment-340962">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 5, 2016 at 7:00 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340962" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Paul,</p>
+<p>The line to load the dataset is in the very first code block:</p>
+<p># load data<br/>
+data(PimaIndiansDiabetes)</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340962#respond" onclick='return addComment.moveForm( "comment-340962", "340962", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-340964">
+<div class="comment-container" id="li-comment-340964">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f8f682f30f7a3b07bd67be391e169232?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f8f682f30f7a3b07bd67be391e169232?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://paulremote.blogspot.fr/" rel="external nofollow">Paul</a></span>
+<span class="date">February 5, 2016 at 7:12 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340964" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The “PimaIndiansDiabetes” dataset is part of the mlbench package which wasn’t installed on my system. I installed it and now I can indeed load the data with:</p>
+<p>data(PimaIndiansDiabetes)</p>
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Paul" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340964#respond" onclick='return addComment.moveForm( "comment-340964", "340964", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-340963">
+<div class="comment-container" id="li-comment-340963">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f8f682f30f7a3b07bd67be391e169232?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f8f682f30f7a3b07bd67be391e169232?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://paulremote.blogspot.fr/" rel="external nofollow">Paul</a></span>
+<span class="date">February 5, 2016 at 7:09 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340963" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi again,<br/>
+Most function called in the “Algorithm Spot Check” section return the message:</p>
+<p>“Error in train.default(x, y, weights = w, …) :<br/>
+  Metric Accuracy not applicable for regression models”</p>
+<div class="reply">
+<a aria-label="Reply to Paul" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340963#respond" onclick='return addComment.moveForm( "comment-340963", "340963", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-340968">
+<div class="comment-container" id="li-comment-340968">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/fa6f29a3ade54e34b308e27d81f1b40a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/fa6f29a3ade54e34b308e27d81f1b40a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nikhil Goyal</span>
+<span class="date">February 5, 2016 at 10:25 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-340968" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great post! Very very useful. Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to Nikhil Goyal" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=340968#respond" onclick='return addComment.moveForm( "comment-340968", "340968", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-353715">
+<div class="comment-container" id="li-comment-353715">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/16de0780df156b0c8aa1ea3a0b0d26fa?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/16de0780df156b0c8aa1ea3a0b0d26fa?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">ht</span>
+<span class="date">June 14, 2016 at 12:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-353715" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>what is diabetes~. ?</p>
+<div class="reply">
+<a aria-label="Reply to ht" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=353715#respond" onclick='return addComment.moveForm( "comment-353715", "353715", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-353744">
+<div class="comment-container" id="li-comment-353744">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 14, 2016 at 8:07 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-353744" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The “diabetes~.” is an example of the formula interface to data frames in R. </p>
+<p>It is an equation that describes a model to predict the “diabetes” outcome variable given “~” all of the other attributes “.”.</p>
+<p>I will write a post on the formula interface soon. Until then, here is some more info:<br/>
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/formula.html" rel="nofollow">https://stat.ethz.ch/R-manual/R-devel/library/stats/html/formula.html</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=353744#respond" onclick='return addComment.moveForm( "comment-353744", "353744", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-360212">
+<div class="comment-container" id="li-comment-360212">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d5c0232e7336d22d0ebd44f29d4965a3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d5c0232e7336d22d0ebd44f29d4965a3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://-" rel="external nofollow">Raag</a></span>
+<span class="date">August 16, 2016 at 8:14 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-360212" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi, I really appreciate this article. Very well written and explained. I have a couple of technical questions though..<br/>
+Q1. On what features are you fitting the model?(Using the full subset of features may no be fair, since some models may not perform very well on the full subset but may give much better results after feature selection)<br/>
+Q2. What next? 😛 (I mean to ask, that after you’ve chosen 2-5 models that you can work with, how do you select the best model among those?)</p>
+<div class="reply">
+<a aria-label="Reply to Raag" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=360212#respond" onclick='return addComment.moveForm( "comment-360212", "360212", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-360269">
+<div class="comment-container" id="li-comment-360269">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 17, 2016 at 9:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-360269" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I use the full set of features, but you should perform feature selection in practice.</p>
+<p>Select models by performance (maximize) and complexity (minimize). </p>
+<p>Tune top performing models, ensemble results, then present model/predictions.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=360269#respond" onclick='return addComment.moveForm( "comment-360269", "360269", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-360416">
+<div class="comment-container" id="li-comment-360416">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d5c0232e7336d22d0ebd44f29d4965a3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d5c0232e7336d22d0ebd44f29d4965a3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://-" rel="external nofollow">Raag</a></span>
+<span class="date">August 19, 2016 at 12:10 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-360416" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Here comes the paradox. Applying feature selection using a hybrid filter-wrapper model, includes using the classifier to find the best features. Hence the best feature subset will be different for each machine learning algorithm. For example Random Forest may have the best feature subset as {f1,f9,f17,f23} but random forest may have {f1,f9,f28,f46,f55}. Running a wrapper is pretty expensive and slow, and hence i need to decide which algos to apply it on. So basically to apply feature selection i need to decide an algo and to decide the algo i need to apply feature selection. What are your thoughts on this? My task is basically to decide 2 out of 10 algorithms on which i want to apply feature selection. Using the full subset will not indicate which algorithm will perform better after feature selection. For example in your example, logistic, gbm, lda have given good results on the full subset, But after selecting the best feature subset for each model, it may be c50 or knn which gives the highest accuracy. Please let me know how to go about this. I really am grateful to you for taking time out and helping me. Thanks. 🙂</p>
+<div class="reply">
+<a aria-label="Reply to Raag" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=360416#respond" onclick='return addComment.moveForm( "comment-360416", "360416", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-360451">
+<div class="comment-container" id="li-comment-360451">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 19, 2016 at 5:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-360451" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Raag,</p>
+<p>Generally the wrapper feature selection methods will arrive at similar if not the same subsets. Consider taking a smaller subset of your data for speed and try a few wrappers, to end up with a few different “views” of your problem. Then try a suite of algorithms on those views to discover which view+algorithm result in good performance on your problem.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=360451#respond" onclick='return addComment.moveForm( "comment-360451", "360451", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-395528">
+<div class="comment-container" id="li-comment-395528">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Seo young jae</span>
+<span class="date">April 6, 2017 at 7:47 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-395528" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi jason! It is good information. But i have a question.</p>
+<p>In Algorithm spot check that models that we will spot check for this diabetes case study.</p>
+<p>You use 11 algorithms. But in your code, you didn’t use preProc parameter in some algorithm code. </p>
+<p>Why you didn’t use preProc in some algorithms?</p>
+<p>Have a nice day</p>
+<div class="reply">
+<a aria-label="Reply to Seo young jae" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=395528#respond" onclick='return addComment.moveForm( "comment-395528", "395528", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-395792">
+<div class="comment-container" id="li-comment-395792">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:38 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-395792" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Whim. Some algorithms benefit from scaling and some do not.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=395792#respond" onclick='return addComment.moveForm( "comment-395792", "395792", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-395545">
+<div class="comment-container" id="li-comment-395545">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Seo young jae</span>
+<span class="date">April 6, 2017 at 11:29 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-395545" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. I have one more question.</p>
+<p>In chapter 3. Model Selection, you said “We are not looking for a best model at this stage. The algorithms have not been tuned and can all likely do a lot better than the results you currently see”. </p>
+<p>You mean that purpose of “spot checking algorithms” is looking proper some algorithms, not best one algorithm. right??</p>
+<p>Then,  the purpose of spot checking algorithms is looking for some proper algorithms. After, Should i tune that proper algorithms?? </p>
+<p>Have a nice day!</p>
+<div class="reply">
+<a aria-label="Reply to Seo young jae" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=395545#respond" onclick='return addComment.moveForm( "comment-395545", "395545", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-395799">
+<div class="comment-container" id="li-comment-395799">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:42 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-395799" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes. The idea is to quickly find some algorithms that do well that you can tune and get the most out of.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=395799#respond" onclick='return addComment.moveForm( "comment-395799", "395799", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-398597">
+<div class="comment-container" id="li-comment-398597">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 5, 2017 at 10:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-398597" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is here an accuracy of 0.80 = 80% performance?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=398597#respond" onclick='return addComment.moveForm( "comment-398597", "398597", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-398608">
+<div class="comment-container" id="li-comment-398608">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 5, 2017 at 11:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-398608" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Correct.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=398608#respond" onclick='return addComment.moveForm( "comment-398608", "398608", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-398676">
+<div class="comment-container" id="li-comment-398676">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 5, 2017 at 10:27 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-398676" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is there a hint available to get the example code ready for regressions?</p>
+<p>&gt; fit.lda  # Logistic Regression<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.glm  # GLMNET<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.glmnet  # SVM Radial<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.svmRadial  # kNN<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.knn  # Naive Bayes<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.nb  # CART<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.cart  # C5.0<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.c50  # Bagged CART<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.treebag  # Random Forest<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.rf  # Stochastic Gradient Boosting (Generalized Boosted Modeling)<br/>
+&gt; set.seed(seed)<br/>
+&gt; fit.gbm  results  # Table comparison<br/>
+&gt; summary(results)</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=398676#respond" onclick='return addComment.moveForm( "comment-398676", "398676", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-398677">
+<div class="comment-container" id="li-comment-398677">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 5, 2017 at 10:34 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-398677" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry the text was stripped out…<br/>
+I get for the models the following messages using an own data set Columns: date=date,n2=numbers:</p>
+<p>fit.lda<br/>
+Error: wrong model type for regression<br/>
+fit.glm<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.glmnet<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.svmRadial<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.knn<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.nb<br/>
+Error: wrong model type for regression<br/>
+fit.cart<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.c50<br/>
+Error: wrong model type for regression<br/>
+fit.treebag<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.rf<br/>
+Error: Metric Accuracy not applicable for regression models<br/>
+fit.gbm<br/>
+Error: Metric Accuracy not applicable for regression models</p>
+<p>How could this be?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=398677#respond" onclick='return addComment.moveForm( "comment-398677", "398677", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-399186">
+<div class="comment-container" id="li-comment-399186">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 9, 2017 at 10:32 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399186" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What are the predictors in this experiment?<br/>
+Are they automatically chosen from the dataset?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399186#respond" onclick='return addComment.moveForm( "comment-399186", "399186", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399255">
+<div class="comment-container" id="li-comment-399255">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 10, 2017 at 8:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399255" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You mean the output variable? It is the last column. All other columns are taken as input variables.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399255#respond" onclick='return addComment.moveForm( "comment-399255", "399255", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-399270">
+<div class="comment-container" id="li-comment-399270">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 10, 2017 at 10:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399270" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Obviously this seems to be a classification experiment.<br/>
+Maybe ‘predictors’ is the wrong term in a non regression context.<br/>
+Would you call the input variables ‘predictors’ or ‘features’?<br/>
+Could one row of the data set seen as: ‘x1,x2,x3,x4,x5,x6,x7,x8,y’ ?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399270#respond" onclick='return addComment.moveForm( "comment-399270", "399270", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-399348">
+<div class="comment-container" id="li-comment-399348">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 11, 2017 at 8:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399348" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I call them features. Predictors is fine. Columns if we are in excel.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399348#respond" onclick='return addComment.moveForm( "comment-399348", "399348", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-399271">
+<div class="comment-container" id="li-comment-399271">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 10, 2017 at 10:58 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399271" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Would class ‘diabetes’ represent a column header in a csv-only-version?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399271#respond" onclick='return addComment.moveForm( "comment-399271", "399271", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-399289">
+<div class="comment-container" id="li-comment-399289">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 10, 2017 at 5:11 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399289" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Let’s say we found a good performing model. How would it looks like to predict unseen data with that fitted model?</p>
+<p>I found a bunch of examples, but nothing really helpful.</p>
+<p><a href="https://www.rdocumentation.org/packages/glmnet/versions/2.0-5/topics/predict.glmnet" rel="nofollow">https://www.rdocumentation.org/packages/glmnet/versions/2.0-5/topics/predict.glmnet</a></p>
+<p>How would we define a so called ‘newx’ in context of the diabetes example?</p>
+<p>predict(fit3,newx=x[1:3,],type=”response”,s=0.01)</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399289#respond" onclick='return addComment.moveForm( "comment-399289", "399289", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-399352">
+<div class="comment-container" id="li-comment-399352">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 11, 2017 at 8:30 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-399352" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>See this post on how to finalize a model and make predictions on new data:<br/>
+<a href="http://machinelearningmastery.com/finalize-machine-learning-models-in-r/" rel="nofollow">http://machinelearningmastery.com/finalize-machine-learning-models-in-r/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=399352#respond" onclick='return addComment.moveForm( "comment-399352", "399352", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-413396">
+<div class="comment-container" id="li-comment-413396">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a9db817275a9e42c88a00ab85ee414b7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a9db817275a9e42c88a00ab85ee414b7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Elizabeth</span>
+<span class="date">September 11, 2017 at 4:51 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-413396" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, In this post, it seems that you used all of the data in the dataset? Should we not divide it to Train/Test split before we run the train models and then we can validate that the summary of results we receive holds up with the new data?<br/>
+Maybe I am missing something</p>
+<div class="reply">
+<a aria-label="Reply to Elizabeth" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=413396#respond" onclick='return addComment.moveForm( "comment-413396", "413396", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-413437">
+<div class="comment-container" id="li-comment-413437">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 11, 2017 at 12:10 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-413437" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>We are using k-fold cross validation which is a less biased way for estimating model skill on unseen data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=413437#respond" onclick='return addComment.moveForm( "comment-413437", "413437", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-413581">
+<div class="comment-container" id="li-comment-413581">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a25f97ecccfd1cb339fa8dcfe274c83f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a25f97ecccfd1cb339fa8dcfe274c83f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nana</span>
+<span class="date">September 12, 2017 at 8:52 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-413581" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>fit.rf &lt;- train(diabetes~., data=dataset, method="rf", metric=metric, trControl=control)</p>
+<p>what algorithm is needed so that I can find out the details of the number of trees generated in that process ?</p>
+<div class="reply">
+<a aria-label="Reply to Nana" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=413581#respond" onclick='return addComment.moveForm( "comment-413581", "413581", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-413648">
+<div class="comment-container" id="li-comment-413648">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 13, 2017 at 12:30 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-413648" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It will use the default number of trees, which might be 100 from memory. You can check with the rf package.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=413648#respond" onclick='return addComment.moveForm( "comment-413648", "413648", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-415422">
+<div class="comment-container" id="li-comment-415422">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/03bd8c065d2a6c31d02be767bf55b538?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/03bd8c065d2a6c31d02be767bf55b538?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ipong</span>
+<span class="date">October 3, 2017 at 2:17 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-415422" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+I’m split my imbalanced data to training and testing, then I use the training data with kfold validation to optimize my model for imbalanced class besides Im using kfold validation to optimize my balanced class (after handling imbalanced class). my question is, why my accuracy in final model imbalanced class has low accuracy than the balanced class ( I use data testing with those final model to evaluate) ?<br/>
+thankyou</p>
+<div class="reply">
+<a aria-label="Reply to Ipong" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=415422#respond" onclick='return addComment.moveForm( "comment-415422", "415422", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-415432">
+<div class="comment-container" id="li-comment-415432">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 3, 2017 at 3:45 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-415432" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I would recommend not using accuracy as a measure for imbalanced data as it will not meaningfully report the skill of the model.</p>
+<p>Perhaps you can use AUC, logloss, kappa or F1?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=415432#respond" onclick='return addComment.moveForm( "comment-415432", "415432", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-415635">
+<div class="comment-container" id="li-comment-415635">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/4d309acde839cac2902e53e6bb5769fe?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/4d309acde839cac2902e53e6bb5769fe?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ipong</span>
+<span class="date">October 5, 2017 at 2:00 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-415635" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+if I measure the evaluation result using F1 for final model and test data I do not need to see the proportion of the test data? why ?</p>
+<div class="reply">
+<a aria-label="Reply to Ipong" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=415635#respond" onclick='return addComment.moveForm( "comment-415635", "415635", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-415656">
+<div class="comment-container" id="li-comment-415656">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 5, 2017 at 5:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/#comment-415656" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I don’t follow. Perhaps you can restate your question?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/?replytocom=415656#respond" onclick='return addComment.moveForm( "comment-415656", "415656", "respond", "2177" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/evaluate-machine-learning-algorithms-with-r/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="2177"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="9fcbe61c14"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="165"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-8"><h3>Create Predictive Models With R</h3> <div class="textwidget"><center>
+Want to develop your own predictive models in R?<br/>
+Looking for step-by-step tutorials?<br/>
+Want end-to-end projects with templates?<br/>
+<br/>
+<a href="/machine-learning-with-r/">Get Started With R Machine Learning Today! </a>
+<a href="/machine-learning-with-r/"><img alt="Machine Learning Mastery With R" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/MachineLearningMasteryWithR-small.png"/></a>
+<br/>
+</center></div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

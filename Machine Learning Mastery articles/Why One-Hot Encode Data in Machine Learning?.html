@@ -1,0 +1,1877 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>Why One-Hot Encode Data in Machine Learning? - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="Why One-Hot Encode Data in Machine Learning? - Machine Learning Mastery" property="og:title"/>
+<meta content="Getting started in applied machine learning can be difficult, especially when working with real-world data. Often, machine learning tutorials will recommend or require that you prepare your data in specific ways before fitting a machine learning model. One good example is to use a one-hot encoding on categorical data. Why is a one-hot encoding required? …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Machine Learning Process" property="article:section"/>
+<meta content="2017-07-28T05:00:31+11:00" property="article:published_time"/>
+<meta content="2017-06-20T15:19:35+11:00" property="article:modified_time"/>
+<meta content="2017-06-20T15:19:35+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="428" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/why-one-hot-encode-data-in-machine-learning\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/feed/" rel="alternate" title="Machine Learning Mastery » Why One-Hot Encode Data in Machine Learning? Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=4160" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhy-one-hot-encode-data-in-machine-learning%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhy-one-hot-encode-data-in-machine-learning%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-4160 single-format-standard ie9 ie alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-18"> <div class="textwidget"><p>Need help with machine learning? <a href="https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/">Take the FREE Crash-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-4160 post type-post status-publish format-standard has-post-thumbnail hentry category-machine-learning-process">
+<header>
+<h1 class="title entry-title">Why One-Hot Encode Data in Machine Learning?</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2017-07-28T05:00:31+1100">July 28, 2017</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/machine-learning-process/" title="View all items in Machine Learning Process">Machine Learning Process</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Why%20One-Hot%20Encode%20Data%20in%20Machine%20Learning%3F&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhy-one-hot-encode-data-in-machine-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Why%20One-Hot%20Encode%20Data%20in%20Machine%20Learning%3F&amp;url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/&amp;summary=Getting+started+in+applied+machine+learning+can+be+difficult%2C+especially+when+working+with+real-worl..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Why%20One-Hot%20Encode%20Data%20in%20Machine%20Learning%3F&amp;url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/&amp;summary=Getting+started+in+applied+machine+learning+can+be+difficult%2C+especially+when+working+with+real-worl...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>Getting started in applied machine learning can be difficult, especially when working with real-world data.</p>
+<p>Often, machine learning tutorials will recommend or require that you prepare your data in specific ways before fitting a machine learning model.</p>
+<p>One good example is to use a one-hot encoding on categorical data.</p>
+<ul>
+<li>Why is a one-hot encoding required?</li>
+<li>Why can’t you fit a model on your data directly?</li>
+</ul>
+<p>In this post, you will discover the answer to these important questions and better understand data preparation in general in applied machine learning.</p>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_4161" style="max-width: 650px"><img alt="Why One-Hot Encode Data in Machine Learning?" class="size-full wp-image-4161" height="428" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning-300x201.jpg 300w" width="640"/><p class="wp-caption-text">Why One-Hot Encode Data in Machine Learning?<br/>Photo by <a href="https://www.flickr.com/photos/jiangkeren/8263176332/">Karan Jain</a>, some rights reserved.</p></div>
+<h2>What is Categorical Data?</h2>
+<p>Categorical data are variables that contain label values rather than numeric values.</p>
+<p>The number of possible values is often limited to a fixed set.</p>
+<p>Categorical variables are often called <a href="https://en.wikipedia.org/wiki/Nominal_category">nominal</a>.</p>
+<p>Some examples include:</p>
+<ul>
+<li>A “<em>pet</em>” variable with the values: “<em>dog</em>” and “<em>cat</em>“.</li>
+<li>A “<em>color</em>” variable with the values: “<em>red</em>“, “<em>green</em>” and “<em>blue</em>“.</li>
+<li>A “<em>place</em>” variable with the values: “first”, “<em>second</em>” <em>and</em> “<em>third</em>“.</li>
+</ul>
+<p>Each value represents a different category.</p>
+<p>Some categories may have a natural relationship to each other, such as a natural ordering.</p>
+<p>The “<em>place</em>” variable above does have a natural ordering of values. This type of categorical variable is called an ordinal variable.</p>
+<h2>What is the Problem with Categorical Data?</h2>
+<p>Some algorithms can work with categorical data directly.</p>
+<p>For example, a decision tree can be learned directly from categorical data with no data transform required (this depends on the specific implementation).</p>
+<p>Many machine learning algorithms cannot operate on label data directly. They require all input variables and output variables to be numeric.</p>
+<p>In general, this is mostly a constraint of the efficient implementation of machine learning algorithms rather than hard limitations on the algorithms themselves.</p>
+<p>This means that categorical data must be converted to a numerical form. If the categorical variable is an output variable, you may also want to convert predictions by the model back into a categorical form in order to present them or use them in some application.</p>
+<h2>How to Convert Categorical Data to Numerical Data?</h2>
+<p>This involves two steps:</p>
+<ol>
+<li>Integer Encoding</li>
+<li>One-Hot Encoding</li>
+</ol>
+<h3>1. Integer Encoding</h3>
+<p>As a first step, each unique category value is assigned an integer value.</p>
+<p>For example, “<em>red</em>” is 1, “<em>green</em>” is 2, and “<em>blue</em>” is 3.</p>
+<p>This is called a label encoding or an integer encoding and is easily reversible.</p>
+<p>For some variables, this may be enough.</p>
+<p>The integer values have a natural ordered relationship between each other and machine learning algorithms may be able to understand and harness this relationship.</p>
+<p>For example, ordinal variables like the “place” example above would be a good example where a label encoding would be sufficient.</p>
+<h3>2. One-Hot Encoding</h3>
+<p>For categorical variables where no such ordinal relationship exists, the integer encoding is not enough.</p>
+<p>In fact, using this encoding and allowing the model to assume a natural ordering between categories may result in poor performance or unexpected results (predictions halfway between categories).</p>
+<p>In this case, a one-hot encoding can be applied to the integer representation. This is where the integer encoded variable is removed and a new binary variable is added for each unique integer value.</p>
+<p>In the “<em>color</em>” variable example, there are 3 categories and therefore 3 binary variables are needed. A “1” value is placed in the binary variable for the color and “0” values for the other colors.</p>
+<p>For example:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6592327a310440601533" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+red,	green,	blue
+1,		0,	0
+0,		1,	0
+0,		0,	1</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6592327a310440601533-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592327a310440601533-2">2</div><div class="crayon-num" data-line="crayon-5a6592327a310440601533-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6592327a310440601533-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6592327a310440601533-1">red,	green,	blue</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592327a310440601533-2">1,		0,	0</div><div class="crayon-line" id="crayon-5a6592327a310440601533-3">0,		1,	0</div><div class="crayon-line crayon-striped-line" id="crayon-5a6592327a310440601533-4">0,		0,	1</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>The binary variables are often called “dummy variables” in other fields, such as statistics.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Categorical_variable">Categorical variable</a> on Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Nominal_category">Nominal category</a> on Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Dummy_variable_(statistics)">Dummy variable</a> on Wikipedia</li>
+</ul>
+<h2>Summary</h2>
+<p>In this post, you discovered why categorical data often must be encoded when working with machine learning algorithms.</p>
+<p>Specifically:</p>
+<ul>
+<li>That categorical data is defined as variables with a finite set of label values.</li>
+<li>That most machine learning algorithms require numerical input and output variables.</li>
+<li>That an integer and one hot encoding is used to convert categorical data to integer data.</li>
+</ul>
+<p>Do you have any questions?<br/>
+Post your questions to comments below and I will do my best to answer.</p>
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Why%20One-Hot%20Encode%20Data%20in%20Machine%20Learning%3F&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhy-one-hot-encode-data-in-machine-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Why%20One-Hot%20Encode%20Data%20in%20Machine%20Learning%3F&amp;url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/&amp;summary=Getting+started+in+applied+machine+learning+can+be+difficult%2C+especially+when+working+with+real-worl..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Why%20One-Hot%20Encode%20Data%20in%20Machine%20Learning%3F&amp;url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/&amp;summary=Getting+started+in+applied+machine+learning+can+be+difficult%2C+especially+when+working+with+real-worl...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/difference-between-a-parameter-and-a-hyperparameter/" rel="prev"><i class="fa fa-angle-left"></i> What is the Difference Between a Parameter and a Hyperparameter?</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/get-good-results-fast-deep-learning-time-series-forecasting/" rel="next">How to Get Good Results Fast with Deep Learning for Time Series Forecasting <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">72 Responses to <em>Why One-Hot Encode Data in Machine Learning?</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-407602">
+<div class="comment-container" id="li-comment-407602">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/89c34d6400ccbfe95a20ee7bad5b8ca3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/89c34d6400ccbfe95a20ee7bad5b8ca3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Varun</span>
+<span class="date">July 28, 2017 at 6:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407602" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You didn’t mention that if we have a categorical variable with 3 categories, we only need to define 2 one-hot variables to save us from linear dependency.</p>
+<div class="reply">
+<a aria-label="Reply to Varun" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407602#respond" onclick='return addComment.moveForm( "comment-407602", "407602", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-407604">
+<div class="comment-container" id="li-comment-407604">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7df14518277b57463bb06dfd5425c409?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7df14518277b57463bb06dfd5425c409?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Navdeep</span>
+<span class="date">July 28, 2017 at 6:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407604" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>HHi jason.I truly following you alot and really appreciate your effort and ease of tutorials.just a question,How one hot encoding would work for multilabel class and in coming tutorials could you help in featureselection of text data for muticlass and multilabel classification using keras.i tried multiclass for 90 datapoints. And used keras for mlp,cnn and rnn where each datapoint is long paragraph with labels but accuracy i got is 37.5 prcent. Let me know if you have any suggestions</p>
+<div class="reply">
+<a aria-label="Reply to Navdeep" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407604#respond" onclick='return addComment.moveForm( "comment-407604", "407604", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-407630">
+<div class="comment-container" id="li-comment-407630">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 28, 2017 at 8:39 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407630" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The one hot vector would have a length that would equal the number of labels, but multiple 1 values could be specified.</p>
+<p>Thanks for the suggestion.</p>
+<p>This post suggests ways to lift deep learning model skill:<br/>
+<a href="http://machinelearningmastery.com/improve-deep-learning-performance/" rel="nofollow">http://machinelearningmastery.com/improve-deep-learning-performance/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407630#respond" onclick='return addComment.moveForm( "comment-407630", "407630", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-407606">
+<div class="comment-container" id="li-comment-407606">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1b1941af85542f6696f7e79d02a930c1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1b1941af85542f6696f7e79d02a930c1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Espoir</span>
+<span class="date">July 28, 2017 at 7:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407606" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What are the cons of one hot encoding ??? Supposed that you have some  categorical features with each one with  500 or more differents values !! So when you do one hot encoding you will have many colums in the dataset does it still good for a machine learning algorithm ???</p>
+<div class="reply">
+<a aria-label="Reply to Espoir" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407606#respond" onclick='return addComment.moveForm( "comment-407606", "407606", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-407631">
+<div class="comment-container" id="li-comment-407631">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 28, 2017 at 8:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407631" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question!</p>
+<p>The vectors can get very large, e.g. the length of all words in your vocab in an NLP problem.</p>
+<p>Large vectors make the method slow (increased computational complexity).</p>
+<p>In these cases, a dense representation could be used, e.g. word embeddings in NLP.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407631#respond" onclick='return addComment.moveForm( "comment-407631", "407631", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-407826">
+<div class="comment-container" id="li-comment-407826">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ceedd9aa7a2295d460f71a8beedbe016?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ceedd9aa7a2295d460f71a8beedbe016?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">faadal</span>
+<span class="date">July 30, 2017 at 1:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407826" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, thanks again for your amazing pedagogy.</p>
+<p>Back to the Espoirt question, I face this problem with  84 user_ID. I do a OHE of them and, like you said when I fit the data with a SVM classifier, it’s look like I fall in a infinite loop. So taking in to account the fact that I am not in the NLP case, how can I fixe this ?</p>
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to faadal" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407826#respond" onclick='return addComment.moveForm( "comment-407826", "407826", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-407867">
+<div class="comment-container" id="li-comment-407867">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 30, 2017 at 7:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407867" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What do you mean you fall into an infinite loop?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407867#respond" onclick='return addComment.moveForm( "comment-407867", "407867", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt depth-2" id="comment-407936">
+<div class="comment-container" id="li-comment-407936">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c98a021117ceabc3fdc8e694e2c05b71?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c98a021117ceabc3fdc8e694e2c05b71?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vitor</span>
+<span class="date">July 31, 2017 at 3:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407936" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very helpful post, Jason!<br/>
+Espoir raised my question here but I did not undestand how to apply your answer to my case. I have 11+ thousand different products id. The database has about 130 thousand entries. This easily leads to MemoryError when using OHE. What approach/solution should I look for?</p>
+<div class="reply">
+<a aria-label="Reply to Vitor" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407936#respond" onclick='return addComment.moveForm( "comment-407936", "407936", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-3" id="comment-407960">
+<div class="comment-container" id="li-comment-407960">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 31, 2017 at 8:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407960" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Ouch.</p>
+<p>Maybe you can use efficient sparse vector representations to cut down on memory?</p>
+<p>Maybe try exploring dense vector methods that are used in NLP. Maybe you can something like a word embedding and let the model (e.g. a neural net) learn the relationship between different input labels, if any.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407960#respond" onclick='return addComment.moveForm( "comment-407960", "407960", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-407649">
+<div class="comment-container" id="li-comment-407649">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/abec5dc1f6ddcc301aa1edddd739122b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/abec5dc1f6ddcc301aa1edddd739122b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sasikanth</span>
+<span class="date">July 28, 2017 at 11:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407649" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason how do we retrieve the features back after OHE if we need to present it visually?</p>
+<div class="reply">
+<a aria-label="Reply to Sasikanth" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407649#respond" onclick='return addComment.moveForm( "comment-407649", "407649", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-407736">
+<div class="comment-container" id="li-comment-407736">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 29, 2017 at 8:01 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407736" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can reverse the encoding with an argmax() (e.g. numpy.argmax())</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407736#respond" onclick='return addComment.moveForm( "comment-407736", "407736", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-407675">
+<div class="comment-container" id="li-comment-407675">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">gezmi</span>
+<span class="date">July 28, 2017 at 5:20 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407675" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for these wonderful posts!<br/>
+Does data have to be one-hot encoded for classification trees and random forests as well or they can handle data without it? Or just try which gives better results?</p>
+<div class="reply">
+<a aria-label="Reply to gezmi" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407675#respond" onclick='return addComment.moveForm( "comment-407675", "407675", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-407747">
+<div class="comment-container" id="li-comment-407747">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 29, 2017 at 8:07 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407747" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No, trees can deal with categories as-is.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407747#respond" onclick='return addComment.moveForm( "comment-407747", "407747", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-407676">
+<div class="comment-container" id="li-comment-407676">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d616e77a2413e18217a509ee0229e434?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d616e77a2413e18217a509ee0229e434?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ravindra</span>
+<span class="date">July 28, 2017 at 5:31 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407676" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, this post is very helpful, thank you!!<br/>
+Question- In general what happens to model performance, when we apply One Hot Encoding to a ordinal feature? Would you suggest only to use integer encoding in case of ordinal features?</p>
+<div class="reply">
+<a aria-label="Reply to Ravindra" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407676#respond" onclick='return addComment.moveForm( "comment-407676", "407676", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-407748">
+<div class="comment-container" id="li-comment-407748">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 29, 2017 at 8:07 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407748" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It really depends on the problem and the meaning of the feature being encoded.</p>
+<p>If in doubt, test.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407748#respond" onclick='return addComment.moveForm( "comment-407748", "407748", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-407788">
+<div class="comment-container" id="li-comment-407788">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d616e77a2413e18217a509ee0229e434?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d616e77a2413e18217a509ee0229e434?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ravindra</span>
+<span class="date">July 29, 2017 at 4:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407788" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I see, thanks!</p>
+<div class="reply">
+<a aria-label="Reply to Ravindra" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407788#respond" onclick='return addComment.moveForm( "comment-407788", "407788", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-407684">
+<div class="comment-container" id="li-comment-407684">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ca7a86767684a126a02fe667416d97e4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ca7a86767684a126a02fe667416d97e4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Rajkumar Kaliyaperumal</span>
+<span class="date">July 28, 2017 at 6:47 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407684" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>hey Jason,<br/>
+As usual this is another useful post on feature representation of categorical variables. Since logistic regression fits a separation line on the data points of the form w1X1 + w2X2 +.. where X are features such as categorical variables- Places,color etc,  and w are weights, intuitively X can take only numerical values for the line to fit. Is this a right intuition?</p>
+<div class="reply">
+<a aria-label="Reply to Rajkumar Kaliyaperumal" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407684#respond" onclick='return addComment.moveForm( "comment-407684", "407684", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-407753">
+<div class="comment-container" id="li-comment-407753">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 29, 2017 at 8:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407753" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, regression algorithms like logistic regression require numeric input variables.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407753#respond" onclick='return addComment.moveForm( "comment-407753", "407753", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-407989">
+<div class="comment-container" id="li-comment-407989">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ca7a86767684a126a02fe667416d97e4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ca7a86767684a126a02fe667416d97e4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Raj</span>
+<span class="date">July 31, 2017 at 2:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407989" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks a lot for your clarifying. I love your blogs and daily email digests. They help me to understand key concepts &amp; practical tips easily.</p>
+<div class="reply">
+<a aria-label="Reply to Raj" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407989#respond" onclick='return addComment.moveForm( "comment-407989", "407989", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-408000">
+<div class="comment-container" id="li-comment-408000">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 31, 2017 at 3:50 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-408000" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Raj.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=408000#respond" onclick='return addComment.moveForm( "comment-408000", "408000", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-407685">
+<div class="comment-container" id="li-comment-407685">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/168f0acfbc94851c5c8bb3cdb8728627?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/168f0acfbc94851c5c8bb3cdb8728627?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">PabloRQ</span>
+<span class="date">July 28, 2017 at 7:15 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407685" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>nice!</p>
+<div class="reply">
+<a aria-label="Reply to PabloRQ" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407685#respond" onclick='return addComment.moveForm( "comment-407685", "407685", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-407754">
+<div class="comment-container" id="li-comment-407754">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 29, 2017 at 8:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407754" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407754#respond" onclick='return addComment.moveForm( "comment-407754", "407754", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-407812">
+<div class="comment-container" id="li-comment-407812">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/b0e460c3d26494201784ebe9880b5a75?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/b0e460c3d26494201784ebe9880b5a75?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">ritika</span>
+<span class="date">July 29, 2017 at 8:19 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407812" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>very well explained..thanks</p>
+<div class="reply">
+<a aria-label="Reply to ritika" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407812#respond" onclick='return addComment.moveForm( "comment-407812", "407812", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-407865">
+<div class="comment-container" id="li-comment-407865">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 30, 2017 at 7:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407865" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks, I’m glad it helped.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407865#respond" onclick='return addComment.moveForm( "comment-407865", "407865", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-407979">
+<div class="comment-container" id="li-comment-407979">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/59f346ef4e414938b86f452c59b451e5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/59f346ef4e414938b86f452c59b451e5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Jie</span>
+<span class="date">July 31, 2017 at 11:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407979" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I love your blog!<br/>
+    One question: if we use tree based methods like decision tree, etc. Do we still need one-hot encoding?<br/>
+   Thanks you very much!</p>
+<div class="reply">
+<a aria-label="Reply to Jie" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407979#respond" onclick='return addComment.moveForm( "comment-407979", "407979", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-407998">
+<div class="comment-container" id="li-comment-407998">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 31, 2017 at 3:49 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-407998" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No Jie. Most decision trees can work with categorical inputs directly.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=407998#respond" onclick='return addComment.moveForm( "comment-407998", "407998", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-408046">
+<div class="comment-container" id="li-comment-408046">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/59f346ef4e414938b86f452c59b451e5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/59f346ef4e414938b86f452c59b451e5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Jie</span>
+<span class="date">August 1, 2017 at 1:01 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-408046" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you very much!</p>
+<div class="reply">
+<a aria-label="Reply to Jie" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=408046#respond" onclick='return addComment.moveForm( "comment-408046", "408046", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-408090">
+<div class="comment-container" id="li-comment-408090">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 1, 2017 at 8:00 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-408090" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No probs.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=408090#respond" onclick='return addComment.moveForm( "comment-408090", "408090", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-408309">
+<div class="comment-container" id="li-comment-408309">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9b1427f378d02b9214a63253a645d42e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9b1427f378d02b9214a63253a645d42e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://none" rel="external nofollow">Andrew Jabbitt</a></span>
+<span class="date">August 3, 2017 at 12:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-408309" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, loving the blog … a lot!</p>
+<p>I’m using your binary classification tutorial as a template (thanks!) for a retail sales data predictor. I’m basically trying to predict future hourly sales using product features and hourly weather forecasts, trained on historical sales and using above/below annual average sales as my binary labels.</p>
+<p>I have encoded my categorical data and I get good accuracy when training my data (87%+), but this falls down (to 26%) when I try to predict using an unseen, and much smaller data set.   </p>
+<p>As far as I can see my problem is caused by encoding the categorical data – the same categories in my unseen set have different codes than in my model. Could this be the cause of my poor prediction performance: the encoded prediction categories are not aligned to those used to train and test the model? If so how do you overcome these challenges in practice?</p>
+<p>Hope it makes sense.</p>
+<div class="reply">
+<a aria-label="Reply to Andrew Jabbitt" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=408309#respond" onclick='return addComment.moveForm( "comment-408309", "408309", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-408356">
+<div class="comment-container" id="li-comment-408356">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 3, 2017 at 6:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-408356" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Nice work Andrew!</p>
+<p>Your model might be overfitting, try a smaller model, try regularization, try a large dataset, try less training.</p>
+<p>Here are more ideas:<br/>
+<a href="http://machinelearningmastery.com/improve-deep-learning-performance/" rel="nofollow">http://machinelearningmastery.com/improve-deep-learning-performance/</a></p>
+<p>I hope that helps as a start.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=408356#respond" onclick='return addComment.moveForm( "comment-408356", "408356", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-408396">
+<div class="comment-container" id="li-comment-408396">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9b1427f378d02b9214a63253a645d42e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9b1427f378d02b9214a63253a645d42e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Andrew Jabbitt</span>
+<span class="date">August 3, 2017 at 4:25 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-408396" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey Jason, didn’t think I had ‘that’ problem, but I probably do 🙂 </p>
+<p>Many thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Andrew Jabbitt" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=408396#respond" onclick='return addComment.moveForm( "comment-408396", "408396", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-409085">
+<div class="comment-container" id="li-comment-409085">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d7daf453e0cf00523715c88e64e79ab4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d7daf453e0cf00523715c88e64e79ab4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://thebigmoapproach.com/" rel="external nofollow">Maurice BigMo Flynn</a></span>
+<span class="date">August 9, 2017 at 3:05 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-409085" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Appreciable and very helpful post, thank you!!!</p>
+<p>Question: What is the best way to one hot encode an array of categorical variables?</p>
+<p>I have also startup with a AI post you can also find some knowledge over there: Thebigmoapproach.com/</p>
+<div class="reply">
+<a aria-label="Reply to Maurice BigMo Flynn" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=409085#respond" onclick='return addComment.moveForm( "comment-409085", "409085", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-409149">
+<div class="comment-container" id="li-comment-409149">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 10, 2017 at 6:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-409149" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>There are many ways and “best” is defined by the tools and problem.</p>
+<p>Here are a few ways:<br/>
+<a href="http://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/" rel="nofollow">http://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=409149#respond" onclick='return addComment.moveForm( "comment-409149", "409149", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-411481">
+<div class="comment-container" id="li-comment-411481">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9a65642d348a8bf2a511a7ec85db6ef1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9a65642d348a8bf2a511a7ec85db6ef1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">tom</span>
+<span class="date">August 28, 2017 at 4:33 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-411481" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>hi Jason:</p>
+<p>    One question, take the “color” variable as an example,if the color is ‘red’ , then after one-hot encoding ,it becomes 1,0,0 . So,can we think that it generates three features from one feature?<br/>
+It has been added two columns，is that right？</p>
+<div class="reply">
+<a aria-label="Reply to tom" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=411481#respond" onclick='return addComment.moveForm( "comment-411481", "411481", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-411606">
+<div class="comment-container" id="li-comment-411606">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 29, 2017 at 5:01 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-411606" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Correct Tom!</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=411606#respond" onclick='return addComment.moveForm( "comment-411606", "411606", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-412544">
+<div class="comment-container" id="li-comment-412544">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7d1ddf22f5143ef9a3ae12b4275e1aa5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7d1ddf22f5143ef9a3ae12b4275e1aa5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.sfu.ca/~zhidal/" rel="external nofollow">Zhida Li</a></span>
+<span class="date">September 4, 2017 at 8:32 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-412544" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, if my input data is [1 red 3 4 5],  if use one hot encoder, red become [1,0,0], ]does it mean that the whole features of the input data is extended?<br/>
+input data now is [1 1 0 0 3 4 5]</p>
+<div class="reply">
+<a aria-label="Reply to Zhida Li" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=412544#respond" onclick='return addComment.moveForm( "comment-412544", "412544", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-412937">
+<div class="comment-container" id="li-comment-412937">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 7, 2017 at 12:35 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-412937" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I don’t follow. Perhaps you can restate your question?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=412937#respond" onclick='return addComment.moveForm( "comment-412937", "412937", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-421859">
+<div class="comment-container" id="li-comment-421859">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/b42f731f31b476bfad86d9239cd2cd27?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/b42f731f31b476bfad86d9239cd2cd27?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Zhida Li</span>
+<span class="date">December 1, 2017 at 8:10 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-421859" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, Thank you for the reply.<br/>
+For example, if I have 4 feature of my input, [121 4 red 10; 100 3 green 7; 110 8 blue 6]<br/>
+For the first row, the value related to each feature–feature 1:121, feature 2:4, , feature: red, feature 4: 10.</p>
+<p>I want to use one hot encoder now, red = [1,0,0], green = [0,1,0], blue = [0,0,1].<br/>
+So my input become [121 4 1,0,0 10; 100 3 0,1,0] 7; 110 8 0,0,1 6] , after one hot encoding, we now have 6 features, so I use the new data for training, it that right?<br/>
+Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Zhida Li" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=421859#respond" onclick='return addComment.moveForm( "comment-421859", "421859", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-416558">
+<div class="comment-container" id="li-comment-416558">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1f4c2b09a2bf57f237f25d97bc72ee06?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1f4c2b09a2bf57f237f25d97bc72ee06?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Peter Ken Bediako</span>
+<span class="date">October 13, 2017 at 6:28 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-416558" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello DR. Brownlee,</p>
+<p>I am training a model to detect attacks and i need someone like you to help me detect the mistakes in my code because my training is not producing any better results. Kindly alert me if you will be interested to help me.<br/>
+Thank you</p>
+<div class="reply">
+<a aria-label="Reply to Peter Ken Bediako" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=416558#respond" onclick='return addComment.moveForm( "comment-416558", "416558", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-416618">
+<div class="comment-container" id="li-comment-416618">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 14, 2017 at 5:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-416618" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I do not have the capacity to review your code.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=416618#respond" onclick='return addComment.moveForm( "comment-416618", "416618", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-416571">
+<div class="comment-container" id="li-comment-416571">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1f4c2b09a2bf57f237f25d97bc72ee06?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1f4c2b09a2bf57f237f25d97bc72ee06?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Peter Ken Bediako</span>
+<span class="date">October 13, 2017 at 8:20 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-416571" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I am using Tensorflow developing the mode,and would want to know how your book can help me do that. since it makes reference to Keras. Thank you</p>
+<div class="reply">
+<a aria-label="Reply to Peter Ken Bediako" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=416571#respond" onclick='return addComment.moveForm( "comment-416571", "416571", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-416621">
+<div class="comment-container" id="li-comment-416621">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 14, 2017 at 5:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-416621" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>My deep learning book shows how to bring deep learning to your projects using the Keras library. It does not cover tensorflow.</p>
+<p>Keras is a library that runs on top of tensorflow and is much easier to use.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=416621#respond" onclick='return addComment.moveForm( "comment-416621", "416621", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-417201">
+<div class="comment-container" id="li-comment-417201">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0ad6b56d836cdcbbab3b0b50ffa950d4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0ad6b56d836cdcbbab3b0b50ffa950d4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Yahia Elgamal</span>
+<span class="date">October 20, 2017 at 12:26 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-417201" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This is not entirely correct as far as I understand. As Varun mentioned, you need to have one less column (n-1 columns). What has been described is dummy-encoding (which is not one-hot-encoding). There is a major problem with dummy encoding which is perfect collinearity with the intercept value. As the sum of all the dummy values of one category (n columns) is ALWAYS equal to 1. So it’s basically an intercept</p>
+<div class="reply">
+<a aria-label="Reply to Yahia Elgamal" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=417201#respond" onclick='return addComment.moveForm( "comment-417201", "417201", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-417220">
+<div class="comment-container" id="li-comment-417220">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 20, 2017 at 5:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-417220" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Other way around I believe. Dummy encoding is n-1 columns, one hot has n columns.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=417220#respond" onclick='return addComment.moveForm( "comment-417220", "417220", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-417285">
+<div class="comment-container" id="li-comment-417285">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d621d8a8a3415b11a11b6fe034563569?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d621d8a8a3415b11a11b6fe034563569?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sakthi</span>
+<span class="date">October 20, 2017 at 11:13 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-417285" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,I have 6 categorical values which are present in the data that I have. The data that I have has many missing categorical values that are left as empty strings. What to do if I have missing categorical values? Do I need to OHE them also? or how to deal with the categorial feature with missing values?<br/>
+ I’m using sci-kit learn and trying out many algorithms for my dataset.</p>
+<div class="reply">
+<a aria-label="Reply to Sakthi" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=417285#respond" onclick='return addComment.moveForm( "comment-417285", "417285", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-417337">
+<div class="comment-container" id="li-comment-417337">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 21, 2017 at 5:39 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-417337" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I list some ways to handle missing data here:<br/>
+<a href="https://machinelearningmastery.com/handle-missing-data-python/" rel="nofollow">https://machinelearningmastery.com/handle-missing-data-python/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=417337#respond" onclick='return addComment.moveForm( "comment-417337", "417337", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-417980">
+<div class="comment-container" id="li-comment-417980">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f7df31c4b25133bf446e1c2fb6b204e5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f7df31c4b25133bf446e1c2fb6b204e5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Thomas</span>
+<span class="date">October 26, 2017 at 7:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-417980" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+First thank you for your post !</p>
+<p>There is something i did not understand about your explanation : let’s take the color example (so red is 1, green is 2, blue is 3). </p>
+<p>I did not understand the “ordinal relationship between catégories” : does the One-Hot-Encode allow better accuracy for some learning algorithms than these categories? (So far here’s what I thought: the algorithm reads 1,2 or 3 instead of red, green or blue, and makes the necessary correlations for predictions, and that has no impact on the predictions accuracy.)</p>
+<div class="reply">
+<a aria-label="Reply to Thomas" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=417980#respond" onclick='return addComment.moveForm( "comment-417980", "417980", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-418007">
+<div class="comment-container" id="li-comment-418007">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 26, 2017 at 4:14 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-418007" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hmm. Sorry for not being clearer.</p>
+<p>Ordinal means ordered. Some categories are naturally ordered and in these cases some algorithms may give better results by using just an integer encoding.</p>
+<p>For problems where the categories are not ordered, the integer encoding may result in worse performance than one hot encoding because the algorithm may assume a false ordering based on the assigned numbers.</p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=418007#respond" onclick='return addComment.moveForm( "comment-418007", "418007", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-419832">
+<div class="comment-container" id="li-comment-419832">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7c8d912927c0f7d305e8b25970b92c88?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7c8d912927c0f7d305e8b25970b92c88?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vlad</span>
+<span class="date">November 12, 2017 at 9:34 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-419832" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I have data from 20 000 stores. Each store has it’s integer ID. This ID is meaningless, just ID. Should I add 20 000 binary variables to datatset? And 20 000 neurons in input layer of LTSM? It sounds frightening…</p>
+<div class="reply">
+<a aria-label="Reply to Vlad" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=419832#respond" onclick='return addComment.moveForm( "comment-419832", "419832", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-419873">
+<div class="comment-container" id="li-comment-419873">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 13, 2017 at 10:15 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-419873" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No, drop the id unless you have a hunch that it is predictive (e.g. numbering maps to geographical region and regions have similar outcomes).</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=419873#respond" onclick='return addComment.moveForm( "comment-419873", "419873", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-419924">
+<div class="comment-container" id="li-comment-419924">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7c8d912927c0f7d305e8b25970b92c88?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7c8d912927c0f7d305e8b25970b92c88?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vlad</span>
+<span class="date">November 14, 2017 at 4:03 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-419924" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Ok, I have latitude and longitude of each store. Should I use them instead of ID? Similar question. I have 17 states of weather (cloudy, rainy, etc.). Should I replace them with 17 binary variables? Or should I try to give integer code to them to show similarity of heavy rain to rain and light rain, sunny to partial clouds and heavy clouds?</p>
+<div class="reply">
+<a aria-label="Reply to Vlad" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=419924#respond" onclick='return addComment.moveForm( "comment-419924", "419924", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-419953">
+<div class="comment-container" id="li-comment-419953">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 14, 2017 at 10:20 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-419953" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>There are no rules, I would encourage you to try many different framings and see what works best for your specific data.</p>
+<p>I have some biases that I could suggest, but it would be better (your results would be better) if you use experiments to discover what works for your problem.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=419953#respond" onclick='return addComment.moveForm( "comment-419953", "419953", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-5" id="comment-420023">
+<div class="comment-container" id="li-comment-420023">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7c8d912927c0f7d305e8b25970b92c88?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7c8d912927c0f7d305e8b25970b92c88?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vlad</span>
+<span class="date">November 15, 2017 at 6:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420023" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, it’s right, thanks</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-420024">
+<div class="comment-container" id="li-comment-420024">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/87d55b6930450ad663e5565c0bd13b4b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/87d55b6930450ad663e5565c0bd13b4b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ali</span>
+<span class="date">November 15, 2017 at 7:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420024" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great post Jason! I’m glad I came across it. It really helped me to understand the need for one hot encoding. I’m new to machine learning and I am currently running xgboost in R for a classification problem.<br/>
+I have 2 questions:<br/>
+(1) If my target variable (the variable I want to predict) is categorical, should I also convert it into numeric form using hot encoding or will a simple label encoding suffice?<br/>
+(2) Are there specific R packages for one hot encoding of features?</p>
+<div class="reply">
+<a aria-label="Reply to Ali" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420024#respond" onclick='return addComment.moveForm( "comment-420024", "420024", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-420051">
+<div class="comment-container" id="li-comment-420051">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 15, 2017 at 9:59 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420051" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It really depends on the method. It can help.</p>
+<p>Sorry, I don’t recall if you must encode variables for xgboost in R, it has been a long time.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420051#respond" onclick='return addComment.moveForm( "comment-420051", "420051", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-420123">
+<div class="comment-container" id="li-comment-420123">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7d3bb6182655e64abafc4e4bc92a4e79?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7d3bb6182655e64abafc4e4bc92a4e79?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Anu</span>
+<span class="date">November 16, 2017 at 1:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420123" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason</p>
+<p>I have dataset having numeric and nominal type. It also has missing values. For nominal datatype, first I applied Labelencoder() to convert them into numeric values, but along with my two categories(normal, abnormal), it also assigns a code to NaN. In such scenario how can I impute values by its Mean?</p>
+<div class="reply">
+<a aria-label="Reply to Anu" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420123#respond" onclick='return addComment.moveForm( "comment-420123", "420123", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-420181">
+<div class="comment-container" id="li-comment-420181">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 16, 2017 at 10:31 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420181" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can impute with the mode in this case.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420181#respond" onclick='return addComment.moveForm( "comment-420181", "420181", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-420696">
+<div class="comment-container" id="li-comment-420696">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f714a7f83a900d11895da571a8456823?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f714a7f83a900d11895da571a8456823?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">DEB</span>
+<span class="date">November 21, 2017 at 12:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420696" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Since the number of columns created for a categorical column after applying OneHotEncoding is equal to the number of unique values in that categorical column; often it happens that the number of features in the tested model is not equal to the number of features on the dataset to be predicted after applying OHE similarly on the categorical fields. In such cases model throws an error while predicting since it expects equal number of features both in the training and to be predicted dataset. Can you please advise how to handle such situation ?</p>
+<div class="reply">
+<a aria-label="Reply to DEB" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420696#respond" onclick='return addComment.moveForm( "comment-420696", "420696", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-420800">
+<div class="comment-container" id="li-comment-420800">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 22, 2017 at 10:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420800" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The same transform object used for training is then used for test or any other data. It can be saved to disk if need be.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420800#respond" onclick='return addComment.moveForm( "comment-420800", "420800", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-420849">
+<div class="comment-container" id="li-comment-420849">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f714a7f83a900d11895da571a8456823?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f714a7f83a900d11895da571a8456823?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">DEB</span>
+<span class="date">November 22, 2017 at 4:28 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420849" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I couldn’t get what do you mean by “same transform object”. ? The training dataset structure (number of initial features) is same both for Training and Testing/to-be-predict dataset. But the uniqueness of values under each feature/column may differ which is quite natural. Therefore OneHotEncoding or pandas get_dummies create different number of encoded features in Test/to-be-predict dataset than the training dataset. How to deal with this issue – that is what my question.</p>
+<p>Need your advise please.</p>
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to DEB" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420849#respond" onclick='return addComment.moveForm( "comment-420849", "420849", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-420941">
+<div class="comment-container" id="li-comment-420941">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 23, 2017 at 10:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-420941" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry. To be clearer, you can train the transform objects on the training data and use them on the test set and other new data.</p>
+<p>The transform objects may be the label encoder and the one hot encoder. </p>
+<p>The training data should be such that it covers all possible labels for a given feature.</p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=420941#respond" onclick='return addComment.moveForm( "comment-420941", "420941", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-421945">
+<div class="comment-container" id="li-comment-421945">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/68759ceb26e2f5447005c10e50cf3084?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/68759ceb26e2f5447005c10e50cf3084?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Emily</span>
+<span class="date">December 2, 2017 at 5:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-421945" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>should I do one-hot encode for two level categorical variables? like variable only contains (yes. no) converts to two variable (0,1) and (1,0)</p>
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Emily" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=421945#respond" onclick='return addComment.moveForm( "comment-421945", "421945", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-421990">
+<div class="comment-container" id="li-comment-421990">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 3, 2017 at 5:24 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-421990" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Generally, this is not needed.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=421990#respond" onclick='return addComment.moveForm( "comment-421990", "421990", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-422241">
+<div class="comment-container" id="li-comment-422241">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f0d39d18b6f8f1f0843d3181dd924131?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f0d39d18b6f8f1f0843d3181dd924131?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Edward Bujak</span>
+<span class="date">December 6, 2017 at 8:58 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-422241" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>For One-Hot Encoding (OHE) of a categorical variable State with 4 values: NJ, NY, PA, DE</p>
+<p>We can remove one of them, say DE, to reduce complexity.<br/>
+So if NJ=0, and NY=0, and PA=0, then it is DE</p>
+<p>Is removing one recommended?</p>
+<p>This becomes more obvious in the case of a binary categorical variable.</p>
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Edward Bujak" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=422241#respond" onclick='return addComment.moveForm( "comment-422241", "422241", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-422257">
+<div class="comment-container" id="li-comment-422257">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 6, 2017 at 9:09 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-422257" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>If you can simplify the data, then I would recommend doing that.</p>
+<p>Always test the change on model skill though.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=422257#respond" onclick='return addComment.moveForm( "comment-422257", "422257", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-422967">
+<div class="comment-container" id="li-comment-422967">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6584ef3895606b7ec10327de4eafcb32?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6584ef3895606b7ec10327de4eafcb32?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mike Dilger</span>
+<span class="date">December 13, 2017 at 8:16 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-422967" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>One Hot Encoding via pd.get_dummies() works when training a data set however this same approach does NOT work when predicting on a single data row using a saved trained model.</p>
+<p>For example, if you have a ‘Sex’ in your train set then pd.get_dummies() will create two columns, one for ‘Male’ and one for ‘Female’. Once you save a model (say via pickle for example) and you want to predict based on a single row you can only have either ‘Male’ or ‘Female’ in the row and therefore pd.get_dummies() will only create one column. When this occurs the number of columns no longer matching the number of columns you trained your model on and errors out.</p>
+<p>Do you know a solution to this issue? My actual need uses Zip Code rather than Sex which is more complex.</p>
+<div class="reply">
+<a aria-label="Reply to Mike Dilger" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=422967#respond" onclick='return addComment.moveForm( "comment-422967", "422967", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-422998">
+<div class="comment-container" id="li-comment-422998">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 13, 2017 at 4:12 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-422998" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I recommend using LabelEncoder and OneHotEncoders from sklearn on a reasonable sample of your data (all cases covered) and then pickle the encoders for later use.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=422998#respond" onclick='return addComment.moveForm( "comment-422998", "422998", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-423029">
+<div class="comment-container" id="li-comment-423029">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6584ef3895606b7ec10327de4eafcb32?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6584ef3895606b7ec10327de4eafcb32?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mike Dilger</span>
+<span class="date">December 14, 2017 at 2:07 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-423029" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you!!!</p>
+<div class="reply">
+<a aria-label="Reply to Mike Dilger" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=423029#respond" onclick='return addComment.moveForm( "comment-423029", "423029", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-426209">
+<div class="comment-container" id="li-comment-426209">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d2dee4b940bfd3f1b49c9cc5b7070402?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d2dee4b940bfd3f1b49c9cc5b7070402?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">FriendofFriend</span>
+<span class="date">January 11, 2018 at 2:40 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-426209" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I am piggybacking on some of the other questions re: n-1 encoding and n encoding. I have a dataset where I predict price based on day of week using sklearn LinearRegression (also playing with Ridge). I used DictVectorizer in sklearn to prep my data and I end up with 7 columns for day of week, rather than 6. In some of the questions above, you indicate simpler is better…though you do say to “test the change on model skill.” Could you elaborate on that – for example, what are the practical implications of using one or the other for a dataset like mine (features = days of week; target = price)? My model seems to spit out a reasonable y-intercept, though I’m not sure exactly what the y-intercept is because my model has no [0, 0, 0, 0, 0, 0, 0] for day (i.e., no “reference” day). </p>
+<p>Is there a mathematical reason to use n-1 vs n encoding? I hope this makes sense. I’ve Googled like 50 times and can’t find an article that really gets into this. Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to FriendofFriend" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=426209#respond" onclick='return addComment.moveForm( "comment-426209", "426209", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-426253">
+<div class="comment-container" id="li-comment-426253">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 12, 2018 at 5:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-426253" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>If your goal is the best model skill, then use whatever works to improve that skill.</p>
+<p>No need for idealized justifications.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=426253#respond" onclick='return addComment.moveForm( "comment-426253", "426253", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-426322">
+<div class="comment-container" id="li-comment-426322">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3f10142871c2faed28482d99d5da0f25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">gezmi</span>
+<span class="date">January 12, 2018 at 7:59 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-426322" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very helpful, thanks.</p>
+<p>May I ask that if I have 4 possible letters in a string that I would like to encode (let’s say A B C D), what is better for neural networks? One-ho or integer encoding. The groups have no order, so I would say one-hot but I do not know whether neural network could deal with integer encoding in this case (it would mean a quarter of the features as one-hot encoding).</p>
+<p>Thank you!</p>
+<div class="reply">
+<a aria-label="Reply to gezmi" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=426322#respond" onclick='return addComment.moveForm( "comment-426322", "426322", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-426365">
+<div class="comment-container" id="li-comment-426365">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 13, 2018 at 5:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/#comment-426365" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>One hot if there is no ordinal relationship between the labels.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/?replytocom=426365#respond" onclick='return addComment.moveForm( "comment-426365", "426365", "respond", "4160" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/why-one-hot-encode-data-in-machine-learning/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="4160"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="bae7570c12"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="240"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-5"> <div class="textwidget"><p></p><center>
+<h3>You’re a Professional (and you need results)!</h3>
+<p><em>The field moves quickly…</em><br/>
+<strong>How Long Can You Afford To Wait?</strong></p>
+<p>Take Action Now!</p>
+<p><a class="woo-sc-button teal" href="/products/"><span class="woo-">Get The Training You Need</span></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

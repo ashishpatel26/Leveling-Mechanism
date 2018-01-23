@@ -1,0 +1,1135 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>What is Machine Learning: A Tour of Authoritative Definitions and a Handy One-Liner You Can Use - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/what-is-machine-learning/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="What is Machine Learning: A Tour of Authoritative Definitions and a Handy One-Liner You Can Use - Machine Learning Mastery" property="og:title"/>
+<meta content="In this post I want to address the simple question: What is Machine Learning?  So you’re interested in Machine Learning and maybe you dabble in it a little. If you talk about Machine Learning with a friend or colleague one day and  run the risk of someone actually asking you “So, what is machine learning?“. …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/what-is-machine-learning/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Start Machine Learning" property="article:section"/>
+<meta content="2013-11-17T00:05:14+11:00" property="article:published_time"/>
+<meta content="2016-06-07T12:38:04+11:00" property="article:modified_time"/>
+<meta content="2016-06-07T12:38:04+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Data_Science_VD.png" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Data_Science_VD.png" property="og:image:secure_url"/>
+<meta content="528" property="og:image:width"/>
+<meta content="504" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/what-is-machine-learning\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/what-is-machine-learning/feed/" rel="alternate" title="Machine Learning Mastery » What is Machine Learning: A Tour of Authoritative Definitions and a Handy One-Liner You Can Use Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=37" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhat-is-machine-learning%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhat-is-machine-learning%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-37 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-18"> <div class="textwidget"><p>Need help with machine learning? <a href="https://machinelearningmastery.leadpages.co/machine-learning-resource-guide/">Take the FREE Crash-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-37 post type-post status-publish format-standard has-post-thumbnail hentry category-start-machine-learning">
+<header>
+<h1 class="title entry-title">What is Machine Learning: A Tour of Authoritative Definitions and a Handy One-Liner You Can Use</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2013-11-17T00:05:14+1100">November 17, 2013</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/start-machine-learning/" title="View all items in Start Machine Learning">Start Machine Learning</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=What%20is%20Machine%20Learning%3A%20A%20Tour%20of%20Authoritative%20Definitions%20and%20a%20Handy%20One-Liner%20You%20Can%20Use&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhat-is-machine-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/what-is-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/what-is-machine-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=What%20is%20Machine%20Learning%3A%20A%20Tour%20of%20Authoritative%20Definitions%20and%20a%20Handy%20One-Liner%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/what-is-machine-learning/&amp;summary=In+this+post+I+want+to+address+the+simple+question%3A+What+is+Machine+Learning%3F%C2%A0%0D%0A%0D%0ASo+you%27re+interes..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=What%20is%20Machine%20Learning%3A%20A%20Tour%20of%20Authoritative%20Definitions%20and%20a%20Handy%20One-Liner%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/what-is-machine-learning/&amp;summary=In+this+post+I+want+to+address+the+simple+question%3A+What+is+Machine+Learning%3F%C2%A0%0D%0A%0D%0ASo+you%27re+interes...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/what-is-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/what-is-machine-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>In this post I want to address the simple question: <em><strong>What is Machine Learning? </strong></em></p>
+<p>So you’re interested in Machine Learning and maybe you dabble in it a little. If you talk about Machine Learning with a friend or colleague one day and  run the risk of someone actually asking you “<em>So, what is machine learning?</em>“. The goal of this post is to give you a few definitions to think about and a handy one-liner definition that is easy to remember.</p>
+<p>We will start out by getting a feeling for the standard definitions of Machine Learning taken from authoritative textbooks in the field. We’ll finish up by working out a programmers definition of machine learning and a handy one-liner that we can use anytime we’re asked: <em>What is Machine Learning?</em></p>
+<h2>Authoritative Definitions</h2>
+<p>Let’s start out by looking at four textbooks on Machine Learning that are commonly used in university level courses. These are our authoritative definitions and lay our foundation for deeper thought on the subject. I chose these four definitions to highlight some useful and varied perspectives on the field. Through experience we’ll learn that the field really is a mess of methods and choosing a perspective is key to making progress.</p>
+<h3>Mitchell’s Machine Learning</h3>
+<p>Tom Mitchell in his book <a class="easyazon-link" href="http://www.amazon.com/dp/0070428077?tag=inspiredalgor-20">Machine Learning</a> (affiliate link) provides a definition in the opening line of the preface:</p>
+<blockquote><p>The field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience.</p></blockquote>
+<p>I like this short and sweet definition and it is the basis for the programmers definition we come up with at the end of the post. Note the mention of “computer programs” and the reference to “automated improvement”. <em>Write programs that improve themselves</em>, it’s provocative!</p>
+<p>In his introduction he provides a short formalism that you’ll see much repeated:</p>
+<div class="woo-sc-box info ">A computer program is said to <strong>learn</strong> from experience <em>E</em> with respect to some class of tasks <em>T</em> and performance measure <em>P</em>, if its performance at tasks in <em>T</em>, as measured by <em>P</em>, improves with experience <em>E</em>.</div>
+<p>Don’t let the definition of terms scare you off, this is a very useful formalism. We can use this formalism as a template and put E, T, and P at the top of columns in a table and list out complex problems with less ambiguity. It could be used as a design tool to help us think clearly about what data to collect (<strong>E</strong>), what decisions the software needs to make (<strong>T</strong>) and how we will evaluate it’s results (<strong>P</strong>). This power is why it is oft repeated as a standard definition. Keep it in your back pocket.</p>
+<h3>Elements of Statistical Learning</h3>
+<p><a class="easyazon-link" href="http://www.amazon.com/dp/0387848576?tag=inspiredalgor-20">The Elements of Statistical Learning: Data Mining, Inference, and Prediction</a> (affiliate link) was written by three Stanford statisticians and self-described as a statistical framework to organize their field of inquiry. In the preface is written:</p>
+<blockquote><p>Vast amounts of data are being generated in many fields, and the statisticians’s job is to make sense of it all: to extract important patterns and trends, and to understand “what the data says”. We call this <em>learning from data.</em></p></blockquote>
+<p>I understand the job of a statistician is to use the tools of statistics to interpret data in the context of the domain. The authors seem to include all of the field of Machine Learning as aids in that pursuit. Interestingly, they chose to include “Data Mining” in the subtitle of the book.</p>
+<p>Statisticians learn from data, but software does too and we learn from the things that the software learns. From the decisions made and the results achieved by various machine learning methods.</p>
+<h3>Pattern Recognition</h3>
+<p>Bishop in the preface of his book <a class="easyazon-link" href="http://www.amazon.com/dp/0387310738?tag=inspiredalgor-20">Pattern Recognition and Machine Learning</a> (affiliate link) comments:</p>
+<blockquote><p>Pattern recognition has its origins in engineering, whereas machine learning grew out of computer science. However, these activities can be viewed as two facets of the same field…</p></blockquote>
+<p>Reading this, you get the impression that Bishop came at the field from an engineering perspective and later learned and leveraged the Computer Science take on the same methods. This is a mature approach and one we should emulate. More broadly, regardless of the field that lays claim to a method, if it suits our needs by getting us closer to an insight or a result by “learning from data”, then we can decide to call it machine learning.</p>
+<h3>An Algorithmic Perspective</h3>
+<p>Marsland provides adopts the Mitchell definition of Machine Learning in his book <a class="easyazon-link" href="http://www.amazon.com/dp/B005H6YE18?tag=inspiredalgor-20">Machine Learning: An Algorithmic Perspective</a> (affiliate link). He provides a cogent note in his prologue that motives his writing the book:</p>
+<blockquote><p>One of the most interesting features of machine learning is that it lies on the boundary of several different academic disciplines, principally computer science, statistics, mathematics, and engineering. …machine learning is usually studied as part of artificial intelligence, which puts it firmly into computer science …understanding why these algorithms work requires a certain amount of statistical and mathematical sophistication that is often missing from computer science undergraduates.</p></blockquote>
+<p>This is insightful and instructive. Firstly, he underscores the multidisciplinary nature of the field. We were getting a feeling for that from the above definition, but he draws a big red underline for us. Machine Learning draws from all manner of information sciences. Secondly, he underscores the danger of sticking to a given perspective too tightly. Specifically, the case of a the algorithm-ist who shies away from the mathematical inner workings of a method. No doubt, the counter case of the statistician that shies away from the practical concerns of implementation and deployment is just as limiting.</p>
+<h3>Venn Diagram</h3>
+<p><span style="font-size: 13px;">Drew Conway </span><a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram" style="font-size: 13px;">created a nice Venn Diagram</a><span style="font-size: 13px;"> in September 2010 that might help. I find it helpful. In his explanation he comments Machine Learning is <em>Hacking</em> + <em>Math &amp; Statistics</em>. </span></p>
+<div class="wp-caption aligncenter" id="attachment_54" style="max-width: 310px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Data_Science_VD.png"><img alt="Data Science Venn Diagram" class="size-medium wp-image-54" height="286" sizes="(max-width: 300px) 100vw, 300px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Data_Science_VD-300x286.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Data_Science_VD-300x286.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Data_Science_VD.png 528w" width="300"/></a><p class="wp-caption-text">Data Science Venn Diagram. Credited to Drew Conway,  Creative Commons licensed as Attribution-NonCommercial.</p></div>
+<p>He also describes the <em>Danger Zone</em> as <em>Hacking Skills</em> + <em>Expertise</em>. Here, he is referring those people that know enough to be dangerous. They can access and structure data, they know the domain and they can run a method and present results, but don’t understand what the results mean. I think this is what Marsland may have been hinting at.</p>
+<h2>Programmers Definition</h2>
+<p>We now turn to the need to break all of this down to nuts and bolts for us programmers. We first look at complex problems that resist our decomposition and procedural solutions. This frames the power of machine learning. We then work out a definition that sits well with us programmers that we can use whenever we’re asked, “<em>So, What is Machine Learning?</em>” by other programmers.</p>
+<h3>Complex Problems</h3>
+<p>As a programmer, you will eventually encounter classes of problems that stubbornly resist a logical and procedural solution. What I mean is, there are classes of problems were it is not feasible or cost effective to sit down and write out all the if statements needed to solve the problem.</p>
+<p>“<em>Sacrilege!</em>” I hear your programmer brain shout.</p>
+<p>It’s true. Take the every-day case of the decision problem of discriminating spam email from non-spam email. This is an example used all the time when introducing machine learning. How would you write a program to filter emails as they come into your email account and decide to put them in the spam folder or the inbox folder?</p>
+<p>You’d probably start out by collecting some examples and having a look at them and a deep think about them. You’d look for patterns in the emails that are spam and those that are not. You’d think about abstracting those patterns so that your heuristics would work with new cases in the future. You’d ignore odd emails that will never be seen again. You’d go for easy wins to get your accuracy up and craft special things for the edge cases. You’d review the email frequently over time and think about abstracting new patterns to improve the decision making</p>
+<p>There’s a machine learning algorithm in there, amongst all that, except it was executed by you the programmer rather than the computer. This manually derived hard coded system would only be as good as the programmers ability to extract rules from the data and implement them in the program.</p>
+<p>It could be done, but it would take a lot of resources and be a maintenance nightmare.</p>
+<h3>Machine Learning</h3>
+<p>In the example above, I’m sure your programmer brain, that part of your brain that ruthlessly seeks to automate, could see the opportunity for automating and optimizing the meta process of extracting patterns from examples. Machine learning methods are this automated process.</p>
+<p>In our spam/non-spam example, the examples (E) are emails we have collected. The task (T) was a decision problem (called classification) of marking each email as spam or not, and putting it in the correct folder. Our performance measure would be something like accuracy as a percentage (correct decisions divided by total decisions made multiplied by 100) between 0% (worst) and 100% (best).</p>
+<p>Preparing a decision making program like this is typically called training, where collected examples are called the training set and the program is referred to as a model, as in a model of the problem of classifying spam from non-spam. As programmers, we like this terminology, a model has state and needs to be persisted, training is a process that is performed once and is maybe rerun as needed, classification is the task performed. It all makes sense to us.</p>
+<p>We can see that some of the terminology used in the above definitions does not sit well for programmers. Technically, all the programs we write are automations, commenting that machine learning automatically learns is not meaningful.</p>
+<h3>Handy One-liner</h3>
+<p>So, let’s see if we can use these pieces and construct a programmers definition of machine learning. How about:</p>
+<blockquote><p><strong>Machine Learning is the training of a model from data that generalizes a decision against a performance measure.</strong></p></blockquote>
+<p><em>Training a model</em> suggests training examples. A <em>model</em> suggests state acquired through experience. <em>Generalizes a decision</em> suggests the capability to make a decision based on inputs and anticipating unseen inputs in the future for which a decision will be required. Finally, <em>against a performance measure</em> suggests a targeted need and directed quality to the model being prepared.</p>
+<p>I’m no poet, can you come up with a more accurate or more succinct programmers definition of Machine Learning? Leave a comment.</p>
+<h2>Resources</h2>
+<p>I’ve linked to resources throughout this post, but I have listed some useful resources below if you thirst for more reading.</p>
+<h3>Books</h3>
+<p>The following are the four textbooks from which definitions were taken. These book links are Amazon affiliate links, which means I will get a few cents if you decide to buy one.</p>
+<ul>
+<li><a class="easyazon-link" href="http://www.amazon.com/dp/0070428077?tag=inspiredalgor-20">Machine Learning</a> by Mitchell</li>
+<li><a class="easyazon-link" href="http://www.amazon.com/dp/0387848576?tag=inspiredalgor-20">The Elements of Statistical Learning: Data Mining, Inference, and Prediction</a> by Hastie, Tibshirani and Friedman</li>
+<li><a class="easyazon-link" href="http://www.amazon.com/dp/0387310738?tag=inspiredalgor-20">Pattern Recognition and Machine Learning</a> by Bishop</li>
+<li><a class="easyazon-link" href="http://www.amazon.com/dp/1420067184?tag=inspiredalgor-20">Machine Learning: An Algorithmic Perspective</a> by Marsland.</li>
+</ul>
+<p>Also, Drew Conway has a book in collaboration with John Myles White that is practical and fun to read titled <a class="easyazon-link" href="http://www.amazon.com/dp/1449303714?tag=inspiredalgor-20">Machine Learning for Hackers</a></p>
+<h3>Question and Answer Sites</h3>
+<p>There are some interesting discussions on Q&amp;A websites about what exactly machine learning is, below are some picks.</p>
+<ul>
+<li><strong>Quora</strong> is well suited to high-level questions like this, have a browse through some. My picks are: <a href="http://www.quora.com/Machine-Learning/What-is-machine-learning-in-laymans-terms">What is machine learning in layman’s terms?</a> and <a href="http://www.quora.com/Data-Science/What-is-data-science">What is data science?</a></li>
+<li><strong>Cross Validated</strong> has some great discussions on this higher-level question. See <a href="http://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning">The Two Cultures: statistics vs. machine learning?</a> Two resources mentioned in this discussion are the blog post <a href="http://brenocon.com/blog/2008/12/statistics-vs-machine-learning-fight/">Statistics vs. Machine Learning, fight!</a> and the paper <a href="http://projecteuclid.org/DPubS?service=UI&amp;version=1.0&amp;verb=Display&amp;handle=euclid.ss/1009213726">Statistical Modeling: The Two Cultures</a>.</li>
+<li><strong>Stack Overflow</strong> also has some discussion, for example checkout <a href="http://stackoverflow.com/questions/2620343/what-is-machine-learning">What is machine learning?</a></li>
+</ul>
+<p>I’ve thought hard about all of this, and my definition is coloured by the books I’ve read and the experiences I’ve had. Let me know if it’s useful.</p>
+<p>Leave a comment and let us all know how you understand the field. What is Machine Learning to you? Do you know of any further resources we could fall back to? Leave a note.</p>
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=What%20is%20Machine%20Learning%3A%20A%20Tour%20of%20Authoritative%20Definitions%20and%20a%20Handy%20One-Liner%20You%20Can%20Use&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fwhat-is-machine-learning%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/what-is-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/what-is-machine-learning/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=What%20is%20Machine%20Learning%3A%20A%20Tour%20of%20Authoritative%20Definitions%20and%20a%20Handy%20One-Liner%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/what-is-machine-learning/&amp;summary=In+this+post+I+want+to+address+the+simple+question%3A+What+is+Machine+Learning%3F%C2%A0%0D%0A%0D%0ASo+you%27re+interes..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=What%20is%20Machine%20Learning%3A%20A%20Tour%20of%20Authoritative%20Definitions%20and%20a%20Handy%20One-Liner%20You%20Can%20Use&amp;url=https://machinelearningmastery.com/what-is-machine-learning/&amp;summary=In+this+post+I+want+to+address+the+simple+question%3A+What+is+Machine+Learning%3F%C2%A0%0D%0A%0D%0ASo+you%27re+interes...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/what-is-machine-learning/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/what-is-machine-learning/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/practical-machine-learning-problems/" rel="next">Practical Machine Learning Problems <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">34 Responses to <em>What is Machine Learning: A Tour of Authoritative Definitions and a Handy One-Liner You Can Use</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-176">
+<div class="comment-container" id="li-comment-176">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5c9e7435e16efeb67f72a1c60d6f7045?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5c9e7435e16efeb67f72a1c60d6f7045?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vikash</span>
+<span class="date">January 2, 2014 at 12:50 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-176" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for collecting the quotes and coming up with your own in the process. Insightful and enjoyed it. Thanks for posting.</p>
+<div class="reply">
+<a aria-label="Reply to Vikash" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=176#respond" onclick='return addComment.moveForm( "comment-176", "176", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-322">
+<div class="comment-container" id="li-comment-322">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3badde9c84c2323c733bceabbb2b3cae?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3badde9c84c2323c733bceabbb2b3cae?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://qnatech.wordpress.com" rel="external nofollow">qnaguru</a></span>
+<span class="date">February 17, 2014 at 12:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-322" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Wonderful introduction to Machine Learning – Programmers get that!</p>
+<div class="reply">
+<a aria-label="Reply to qnaguru" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=322#respond" onclick='return addComment.moveForm( "comment-322", "322", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-305829">
+<div class="comment-container" id="li-comment-305829">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0f50ee502a165d71e5b9c641c1af9c75?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0f50ee502a165d71e5b9c641c1af9c75?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">hugo</span>
+<span class="date">June 30, 2015 at 1:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-305829" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Muito bom ter pessoas que gostem de compartilhar conhecimento.Obrigado</p>
+<div class="reply">
+<a aria-label="Reply to hugo" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=305829#respond" onclick='return addComment.moveForm( "comment-305829", "305829", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-305830">
+<div class="comment-container" id="li-comment-305830">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0f50ee502a165d71e5b9c641c1af9c75?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0f50ee502a165d71e5b9c641c1af9c75?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">hugo</span>
+<span class="date">June 30, 2015 at 1:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-305830" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Só mais uma coisa.Qual a relação entre aprendizado de máquina e estatística?</p>
+<div class="reply">
+<a aria-label="Reply to hugo" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=305830#respond" onclick='return addComment.moveForm( "comment-305830", "305830", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-2" id="comment-426905">
+<div class="comment-container" id="li-comment-426905">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ee3a381bb67990a2669ef14accc27861?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ee3a381bb67990a2669ef14accc27861?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://lucaslopes.me" rel="external nofollow">Lucas Lopes</a></span>
+<span class="date">January 19, 2018 at 10:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-426905" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Como descrito na parte do diagrama de Venn, é possível desenvolver aplicações que aprendem através de dados, sem necessariamente dominar estatística. Mas as chances de criar um modelo que não extrai a real informação dos dados, é alta.</p>
+<div class="reply">
+<a aria-label="Reply to Lucas Lopes" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=426905#respond" onclick='return addComment.moveForm( "comment-426905", "426905", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-3" id="comment-426975">
+<div class="comment-container" id="li-comment-426975">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 20, 2018 at 8:15 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-426975" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Not sure I agree. </p>
+<p>I think you can drive a car without understanding how an engine works, or solve a business problem with code without understanding the theory of computation.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=426975#respond" onclick='return addComment.moveForm( "comment-426975", "426975", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-346471">
+<div class="comment-container" id="li-comment-346471">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/07c149b6a9a8e547b84279b12147aa57?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/07c149b6a9a8e547b84279b12147aa57?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.upm.edu.my" rel="external nofollow">Idrees</a></span>
+<span class="date">April 2, 2016 at 1:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-346471" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The stress of PhD research and research assistantship had taken me off- guard. I took my time ti go through your post today. Honestly this piece lighten my head to gift of knowledge. Thank Dr Jason.</p>
+<div class="reply">
+<a aria-label="Reply to Idrees" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=346471#respond" onclick='return addComment.moveForm( "comment-346471", "346471", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-347439">
+<div class="comment-container" id="li-comment-347439">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 8, 2016 at 1:38 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-347439" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You’re very welcome.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=347439#respond" onclick='return addComment.moveForm( "comment-347439", "347439", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-350351">
+<div class="comment-container" id="li-comment-350351">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/893a092dd2b0ad577dbe114fd55f7fd7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/893a092dd2b0ad577dbe114fd55f7fd7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://twitter.com/analyticascent" rel="external nofollow">AnalyticAscent</a></span>
+<span class="date">May 7, 2016 at 3:51 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-350351" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This is good to know, been struggling to explain to my family what my career path is in terms they can understand 🙂</p>
+<div class="reply">
+<a aria-label="Reply to AnalyticAscent" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=350351#respond" onclick='return addComment.moveForm( "comment-350351", "350351", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-350736">
+<div class="comment-container" id="li-comment-350736">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/282865eadd5ccc5a801ac7b1fa519855?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/282865eadd5ccc5a801ac7b1fa519855?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.iworkwithdata.com" rel="external nofollow">Yap</a></span>
+<span class="date">May 11, 2016 at 8:51 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-350736" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Here is mine handy one-liner: ML is a decision problem that needs to be explored from data  against a measure outcome.</p>
+<div class="reply">
+<a aria-label="Reply to Yap" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=350736#respond" onclick='return addComment.moveForm( "comment-350736", "350736", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-357379">
+<div class="comment-container" id="li-comment-357379">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e459aeedf7dbb6c5ee79484f5864f5c1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e459aeedf7dbb6c5ee79484f5864f5c1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MozartFlow.com" rel="external nofollow">Jim Kitzmiller</a></span>
+<span class="date">July 19, 2016 at 4:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-357379" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Machine learning is the art and science of creating computer software that gets more accurate results after being used repeatedly.</p>
+<div class="reply">
+<a aria-label="Reply to Jim Kitzmiller" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=357379#respond" onclick='return addComment.moveForm( "comment-357379", "357379", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-357383">
+<div class="comment-container" id="li-comment-357383">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 19, 2016 at 5:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-357383" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jim</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=357383#respond" onclick='return addComment.moveForm( "comment-357383", "357383", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-367552">
+<div class="comment-container" id="li-comment-367552">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a45bb4c214675bd67de0abb4466990f3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a45bb4c214675bd67de0abb4466990f3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Yasmina</span>
+<span class="date">October 20, 2016 at 8:04 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-367552" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>it’s very well explain Dr Jason, I work on prediction of crbonation depth of concrete by using artificial neural natwork, Ive prepared algorithm with collaboration of my collegue, but computer programming is not easy for civil engineer. I’ll read your course in future, thanks</p>
+<div class="reply">
+<a aria-label="Reply to Yasmina" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=367552#respond" onclick='return addComment.moveForm( "comment-367552", "367552", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-367564">
+<div class="comment-container" id="li-comment-367564">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 20, 2016 at 8:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-367564" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad you found it useful Yasmina.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=367564#respond" onclick='return addComment.moveForm( "comment-367564", "367564", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-369779">
+<div class="comment-container" id="li-comment-369779">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/cf41acfc911e6f184652848281ce7bfa?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/cf41acfc911e6f184652848281ce7bfa?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Van-Hau Nguyen</span>
+<span class="date">November 7, 2016 at 5:17 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-369779" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the great posts. You have been doing a lot of interesting works.<br/>
+How could you keep your enthusiasm in ML?</p>
+<div class="reply">
+<a aria-label="Reply to Van-Hau Nguyen" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=369779#respond" onclick='return addComment.moveForm( "comment-369779", "369779", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-369864">
+<div class="comment-container" id="li-comment-369864">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 8, 2016 at 9:51 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-369864" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Van-Hau Nguyen.</p>
+<p>It keeps me interested because every day is a new challenge. There are no “right” answers and there are always more things to learn and improve upon. </p>
+<p>Also, I love to help beginners get started and see how easy it is to apply.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=369864#respond" onclick='return addComment.moveForm( "comment-369864", "369864", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-393745">
+<div class="comment-container" id="li-comment-393745">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/54d93f5a27e30826bd84d8b385da7454?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/54d93f5a27e30826bd84d8b385da7454?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Julien</span>
+<span class="date">March 22, 2017 at 1:22 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-393745" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This great! As a non-programmer, my one-liner might be something like: Machine Learning is using data to create a model and then use that model to make predictions. </p>
+<p>Am I understanding it correctly or is there something missing in my one-liner?</p>
+<div class="reply">
+<a aria-label="Reply to Julien" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=393745#respond" onclick='return addComment.moveForm( "comment-393745", "393745", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-393843">
+<div class="comment-container" id="li-comment-393843">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 23, 2017 at 8:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-393843" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I love it Julien. Clear, simple and useful.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=393843#respond" onclick='return addComment.moveForm( "comment-393843", "393843", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-394494">
+<div class="comment-container" id="li-comment-394494">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a174a2ddd4540349060ee4ef5085bc9c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a174a2ddd4540349060ee4ef5085bc9c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Gokul Krishnaraj</span>
+<span class="date">March 28, 2017 at 11:08 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-394494" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Solid ML material for references, started with a search on predictive analytics query and I am here motivated to look all the way to the 101 of your posts. Great work, Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Gokul Krishnaraj" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=394494#respond" onclick='return addComment.moveForm( "comment-394494", "394494", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-394559">
+<div class="comment-container" id="li-comment-394559">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 29, 2017 at 9:07 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-394559" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=394559#respond" onclick='return addComment.moveForm( "comment-394559", "394559", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-396357">
+<div class="comment-container" id="li-comment-396357">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2e85d9988a0cb002624b6dedbff41c61?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2e85d9988a0cb002624b6dedbff41c61?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Bolanle</span>
+<span class="date">April 14, 2017 at 12:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-396357" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>my one-liner will be making a better prediction by using computer algorithms to train data for maximum accuracy.</p>
+<div class="reply">
+<a aria-label="Reply to Bolanle" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=396357#respond" onclick='return addComment.moveForm( "comment-396357", "396357", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-396392">
+<div class="comment-container" id="li-comment-396392">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 14, 2017 at 8:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-396392" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Nice Bolanle.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=396392#respond" onclick='return addComment.moveForm( "comment-396392", "396392", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-400292">
+<div class="comment-container" id="li-comment-400292">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f22eb975a9fc62f934961e2de81f500e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f22eb975a9fc62f934961e2de81f500e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Avornyo Charles</span>
+<span class="date">May 23, 2017 at 5:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-400292" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank for very much! I love it.<br/>
+I will like to know if you need to be a very good python programming in other to use  machine learning techniques.<br/>
+I realize, when I was doing my Masters thesis. My supervise asked to implement a model my self and I needed to modify a package in python to make the model work. However, I struggle allot because of the fact that, I am not good at object oriented programming in python.<br/>
+I like to do a PhD in Machine Learning applied to Health. However, I am current thinking if I will survive because of my mediocre programming skills.<br/>
+What do you think I should do?</p>
+<div class="reply">
+<a aria-label="Reply to Avornyo Charles" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=400292#respond" onclick='return addComment.moveForm( "comment-400292", "400292", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-400308">
+<div class="comment-container" id="li-comment-400308">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 23, 2017 at 8:00 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-400308" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I do not think you need to be an excellent programmer to be able to deliver useful and valuable results with applied machine learning.</p>
+<p>See this post:<br/>
+<a href="http://machinelearningmastery.com/machine-learning-for-programmers/" rel="nofollow">http://machinelearningmastery.com/machine-learning-for-programmers/</a></p>
+<p>Generally, I would recommend you focus on learning how to get good at working through predictive modeling problems end to end and delivering a result using libraries like sklearn and tools like Weka.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=400308#respond" onclick='return addComment.moveForm( "comment-400308", "400308", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even depth-2" id="comment-410745">
+<div class="comment-container" id="li-comment-410745">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2695341e47d97aeef56f7e4e517798ad?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2695341e47d97aeef56f7e4e517798ad?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Rafael Espericueta</span>
+<span class="date">August 23, 2017 at 8:53 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-410745" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Practice your Python programming skills, and they will improve.<br/>
+And it’s even fun!  🙂</p>
+<div class="reply">
+<a aria-label="Reply to Rafael Espericueta" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=410745#respond" onclick='return addComment.moveForm( "comment-410745", "410745", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-3" id="comment-410809">
+<div class="comment-container" id="li-comment-410809">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 24, 2017 at 6:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-410809" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Seconded.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=410809#respond" onclick='return addComment.moveForm( "comment-410809", "410809", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-403246">
+<div class="comment-container" id="li-comment-403246">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/13b2c41683b9d4136da4afe8e686a7d4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/13b2c41683b9d4136da4afe8e686a7d4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Phillip</span>
+<span class="date">June 21, 2017 at 6:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-403246" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you Jason,<br/>
+I’m just starting my journey in ML and your articles are very enlightening and easy to understand.</p>
+<div class="reply">
+<a aria-label="Reply to Phillip" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=403246#respond" onclick='return addComment.moveForm( "comment-403246", "403246", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-403271">
+<div class="comment-container" id="li-comment-403271">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 21, 2017 at 8:19 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-403271" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Phillip, I’m glad to hear that.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=403271#respond" onclick='return addComment.moveForm( "comment-403271", "403271", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-410693">
+<div class="comment-container" id="li-comment-410693">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c4abed51e223c5aed631eeeaab4ffad4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c4abed51e223c5aed631eeeaab4ffad4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ankit Mistry</span>
+<span class="date">August 23, 2017 at 12:30 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-410693" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Checkout this video on layman  understanding of machine learning : </p>
+<p><a href="https://www.youtube.com/watch?v=RaDFiMd-Amg" rel="nofollow">https://www.youtube.com/watch?v=RaDFiMd-Amg</a></p>
+<div class="reply">
+<a aria-label="Reply to Ankit Mistry" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=410693#respond" onclick='return addComment.moveForm( "comment-410693", "410693", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-410716">
+<div class="comment-container" id="li-comment-410716">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 23, 2017 at 4:24 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-410716" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for sharing.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=410716#respond" onclick='return addComment.moveForm( "comment-410716", "410716", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-422448">
+<div class="comment-container" id="li-comment-422448">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/bc94abee23c1821676b873cd50386f2c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/bc94abee23c1821676b873cd50386f2c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Gaurav Jain</span>
+<span class="date">December 8, 2017 at 3:14 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-422448" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for such a beautiful blog! 🙂</p>
+<div class="reply">
+<a aria-label="Reply to Gaurav Jain" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=422448#respond" onclick='return addComment.moveForm( "comment-422448", "422448", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422465">
+<div class="comment-container" id="li-comment-422465">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 8, 2017 at 5:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-422465" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You’re welcome.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=422465#respond" onclick='return addComment.moveForm( "comment-422465", "422465", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-422929">
+<div class="comment-container" id="li-comment-422929">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a510b7d47e31af4ac327d445d4dc7179?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a510b7d47e31af4ac327d445d4dc7179?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.datasmarts.net" rel="external nofollow">Jesús</a></span>
+<span class="date">December 13, 2017 at 2:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-422929" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What a great article, Jason! Congratulations!</p>
+<div class="reply">
+<a aria-label="Reply to Jesús" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=422929#respond" onclick='return addComment.moveForm( "comment-422929", "422929", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-422954">
+<div class="comment-container" id="li-comment-422954">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 13, 2017 at 5:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/what-is-machine-learning/#comment-422954" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/what-is-machine-learning/?replytocom=422954#respond" onclick='return addComment.moveForm( "comment-422954", "422954", "respond", "37" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/what-is-machine-learning/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="37"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="c8fd4188ab"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="219"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-5"> <div class="textwidget"><p></p><center>
+<h3>You’re a Professional (and you need results)!</h3>
+<p><em>The field moves quickly…</em><br/>
+<strong>How Long Can You Afford To Wait?</strong></p>
+<p>Take Action Now!</p>
+<p><a class="woo-sc-button teal" href="/products/"><span class="woo-">Get The Training You Need</span></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

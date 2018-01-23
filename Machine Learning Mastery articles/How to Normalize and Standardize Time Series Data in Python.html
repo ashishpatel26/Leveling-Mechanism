@@ -1,0 +1,1713 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How to Normalize and Standardize Time Series Data in Python - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How to Normalize and Standardize Time Series Data in Python - Machine Learning Mastery" property="og:title"/>
+<meta content="Some machine learning algorithms will achieve better performance if your time series data has a consistent scale or distribution. Two techniques that you can use to consistently rescale your time series data are normalization and standardization. In this tutorial, you will discover how you can apply normalization and standardization rescaling to your time series data …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Time Series" property="article:section"/>
+<meta content="2016-12-12T05:00:18+11:00" property="article:published_time"/>
+<meta content="2017-02-21T16:52:55+11:00" property="article:modified_time"/>
+<meta content="2017-02-21T16:52:55+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Normalize-and-Standardize-Time-Series-Data-in-Python.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Normalize-and-Standardize-Time-Series-Data-in-Python.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="513" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/normalize-standardize-time-series-data-python\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/feed/" rel="alternate" title="Machine Learning Mastery » How to Normalize and Standardize Time Series Data in Python Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=3507" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fnormalize-standardize-time-series-data-python%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fnormalize-standardize-time-series-data-python%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-3507 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-3507 post type-post status-publish format-standard has-post-thumbnail hentry category-time-series">
+<header>
+<h1 class="title entry-title">How to Normalize and Standardize Time Series Data in Python</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2016-12-12T05:00:18+1100">December 12, 2016</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/time-series/" title="View all items in Time Series">Time Series</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Normalize%20and%20Standardize%20Time%20Series%20Data%20in%20Python&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fnormalize-standardize-time-series-data-python%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Normalize%20and%20Standardize%20Time%20Series%20Data%20in%20Python&amp;url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/&amp;summary=Some+machine+learning+algorithms+will+achieve+better+performance+if+your+time+series+data+has+a+cons..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Normalize%20and%20Standardize%20Time%20Series%20Data%20in%20Python&amp;url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/&amp;summary=Some+machine+learning+algorithms+will+achieve+better+performance+if+your+time+series+data+has+a+cons...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>Some machine learning algorithms will achieve better performance if your time series data has a consistent scale or distribution.</p>
+<p>Two techniques that you can use to consistently rescale your time series data are normalization and standardization.</p>
+<p>In this tutorial, you will discover how you can apply normalization and standardization rescaling to your time series data in Python.</p>
+<p>After completing this tutorial, you will know:</p>
+<ul>
+<li>The limitations of normalization and expectations of your data for using standardization.</li>
+<li>What parameters are required and how to manually calculate normalized and standardized values.</li>
+<li>How to normalize and standardize your time series data using scikit-learn in Python.</li>
+</ul>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_3509" style="max-width: 650px"><img alt="How to Normalize and Standardize Time Series Data in Python" class="size-full wp-image-3509" height="513" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Normalize-and-Standardize-Time-Series-Data-in-Python.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Normalize-and-Standardize-Time-Series-Data-in-Python.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Normalize-and-Standardize-Time-Series-Data-in-Python-300x240.jpg 300w" width="640"/><p class="wp-caption-text">How to Normalize and Standardize Time Series Data in Python<br/>Photo by <a href="https://www.flickr.com/photos/ragesoss/5773993299/">Sage Ross</a>, some rights reserved.</p></div>
+<h2>Minimum Daily Temperatures Dataset</h2>
+<p>This dataset describes the minimum daily temperatures over 10 years (1981-1990) in the city Melbourne, Australia.</p>
+<p>The units are in degrees Celsius and there are 3,650 observations. The source of the data is credited as the Australian Bureau of Meteorology.</p>
+<p>Below is a sample of the first 5 rows of data, including the header row.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c6e892224024" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+"Date","Temperatures"
+"1981-01-01",20.7
+"1981-01-02",17.9
+"1981-01-03",18.8
+"1981-01-04",14.6
+"1981-01-05",15.8</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c6e892224024-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c6e892224024-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c6e892224024-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c6e892224024-4">4</div><div class="crayon-num" data-line="crayon-5a659304e2c6e892224024-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c6e892224024-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c6e892224024-1">"Date","Temperatures"</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c6e892224024-2">"1981-01-01",20.7</div><div class="crayon-line" id="crayon-5a659304e2c6e892224024-3">"1981-01-02",17.9</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c6e892224024-4">"1981-01-03",18.8</div><div class="crayon-line" id="crayon-5a659304e2c6e892224024-5">"1981-01-04",14.6</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c6e892224024-6">"1981-01-05",15.8</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>Below is a plot of the entire dataset taken from Data Market.</p>
+<div class="wp-caption aligncenter" id="attachment_3486" style="max-width: 723px"><img alt="Minimum Daily Temperatures" class="size-full wp-image-3486" height="375" sizes="(max-width: 713px) 100vw, 713px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Minimum-Daily-Temperatures.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Minimum-Daily-Temperatures.png 713w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Minimum-Daily-Temperatures-300x158.png 300w" width="713"/><p class="wp-caption-text">Minimum Daily Temperatures</p></div>
+<p>The dataset shows a strong seasonality component and has a nice, fine-grained detail to work with.</p>
+<p><a href="https://datamarket.com/data/set/2324/daily-minimum-temperatures-in-melbourne-australia-1981-1990">Download and learn more about the dataset here</a>.</p>
+<p>This tutorial assumes that the dataset is in your current working directory with the filename “<strong>daily-minimum-temperatures-in-me.csv</strong>“.</p>
+<p><strong>Note</strong>: The downloaded file contains some question mark (“?”) characters that must be removed before you can use the dataset. Open the file in a text editor and remove the “?” characters. Also remove any footer information in the file.</p>
+<!-- Start shortcoder --><p></p><div class="woo-sc-hr"></div>
+<center>
+<h3>Stop learning Time Series Forecasting the <em>slow way</em>!</h3>
+<p>Take my free 7-day email course and discover data prep, modeling and more (with sample code).</p>
+<p>Click to sign-up and also get a free PDF Ebook version of the course.</p>
+<p><a href="https://machinelearningmastery.leadpages.co/leadbox/14158d173f72a2%3A164f8be4f346dc/5760744339537920/" style="background: #ffce0a; color: #ffffff; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 3px inset, rgba(0, 0, 0, 0.498039) 0px 1px 3px;" target="_blank">Start Your FREE Mini-Course Now!</a><script data-config="%7B%7D" data-leadbox="14158d173f72a2:164f8be4f346dc" data-url="https://machinelearningmastery.leadpages.co/leadbox/14158d173f72a2%3A164f8be4f346dc/5760744339537920/" src="https://machinelearningmastery.leadpages.co/leadbox-1487347410.js" type="text/javascript"></script></p>
+</center>
+<p></p><div class="woo-sc-hr"></div><!-- End shortcoder v4.1.5-->
+<h2>Normalize Time Series Data</h2>
+<p>Normalization is a rescaling of the data from the original range so that all values are within the range of 0 and 1.</p>
+<p>Normalization can be useful, and even required in some machine learning algorithms when your time series data has input values with differing scales.It may be required for algorithms, like k-Nearest neighbors, which uses distance calculations and Linear Regression and Artificial Neural Networks that weight input values.</p>
+<p>Normalization requires that you know or are able to accurately estimate the minimum and maximum observable values. You may be able to estimate these values from your available data. If your time series is trending up or down, estimating these expected values may be difficult and normalization may not be the best method to use on your problem.</p>
+<p>A value is normalized as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c78671059902" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+y = (x - min) / (max - min)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c78671059902-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c78671059902-1">y = (x - min) / (max - min)</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>Where the minimum and maximum values pertain to the value <strong>x</strong> being normalized.</p>
+<p>For example, for the temperature data, we could guesstimate the min and max observable values as 30 and -10, which are greatly over and under-estimated. We can then normalize any value like 18.8 as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c7b912443092" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+y = (x - min) / (max - min)
+y = (18.8 - -10) / (30 - -10)
+y = 28.8 / 40
+y = 0.72</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c7b912443092-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7b912443092-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c7b912443092-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7b912443092-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c7b912443092-1">y = (x - min) / (max - min)</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7b912443092-2">y = (18.8 - -10) / (30 - -10)</div><div class="crayon-line" id="crayon-5a659304e2c7b912443092-3">y = 28.8 / 40</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7b912443092-4">y = 0.72</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>You can see that if an <strong>x</strong> value is provided that is outside the bounds of the minimum and maximum values, that the resulting value will not be in the range of 0 and 1. You could check for these observations prior to making predictions and either remove them from the dataset or limit them to the pre-defined maximum or minimum values.</p>
+<p>You can normalize your dataset using the scikit-learn object <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html">MinMaxScaler</a>.</p>
+<p>Good practice usage with the <em>MinMaxScaler</em> and other rescaling techniques is as follows:</p>
+<ol>
+<li><strong>Fit the scaler using available training data</strong>. For normalization, this means the training data will be used to estimate the minimum and maximum observable values. This is done by calling the <em>fit()</em> function,</li>
+<li><strong>Apply the scale to training data</strong>. This means you can use the normalized data to train your model. This is done by calling the <em>transform()</em> function</li>
+<li><strong>Apply the scale to data going forward</strong>. This means you can prepare new data in the future on which you want to make predictions.</li>
+</ol>
+<p>If needed, the transform can be inverted. This is useful for converting predictions back into their original scale for reporting or plotting. This can be done by calling the <em>inverse_transform()</em> function.</p>
+<p>Below is an example of normalizing the Minimum Daily Temperatures dataset.</p>
+<p>The scaler requires data to be provided as a matrix of rows and columns. The loaded time series data is loaded as a Pandas <em>Series</em>. It must then be reshaped into a matrix of one column with 3,650 rows.</p>
+<p>The reshaped dataset is then used to fit the scaler, the dataset is normalized, then the normalization transform is inverted to show the original values again.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c7f487508856" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# Normalize time series data
+from pandas import Series
+from sklearn.preprocessing import MinMaxScaler
+# load the dataset and print the first 5 rows
+series = Series.from_csv('daily-minimum-temperatures-in-me.csv', header=0)
+print(series.head())
+# prepare data for normalization
+values = series.values
+values = values.reshape((len(values), 1))
+# train the normalization
+scaler = MinMaxScaler(feature_range=(0, 1))
+scaler = scaler.fit(values)
+print('Min: %f, Max: %f' % (scaler.data_min_, scaler.data_max_))
+# normalize the dataset and print the first 5 rows
+normalized = scaler.transform(values)
+for i in range(5):
+	print(normalized[i])
+# inverse transform and print the first 5 rows
+inversed = scaler.inverse_transform(normalized)
+for i in range(5):
+	print(inversed[i])</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-4">4</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-6">6</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-8">8</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-10">10</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-12">12</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-14">14</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-16">16</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-18">18</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c7f487508856-20">20</div><div class="crayon-num" data-line="crayon-5a659304e2c7f487508856-21">21</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c7f487508856-1"><span class="crayon-p"># Normalize time series data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-3"><span class="crayon-e">from </span><span class="crayon-v">sklearn</span><span class="crayon-sy">.</span><span class="crayon-e">preprocessing </span><span class="crayon-e">import </span><span class="crayon-v">MinMaxScaler</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-4"><span class="crayon-p"># load the dataset and print the first 5 rows</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-5"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures-in-me.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-6"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-7"><span class="crayon-p"># prepare data for normalization</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-8"><span class="crayon-v">values</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-9"><span class="crayon-v">values</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">values</span><span class="crayon-sy">.</span><span class="crayon-e">reshape</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-10"><span class="crayon-p"># train the normalization</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-11"><span class="crayon-v">scaler</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">MinMaxScaler</span><span class="crayon-sy">(</span><span class="crayon-v">feature_range</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-12"><span class="crayon-v">scaler</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-e">fit</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-13"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Min: %f, Max: %f'</span><span class="crayon-h"> </span><span class="crayon-o">%</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-v">data_min_</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-v">data_max_</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-14"><span class="crayon-p"># normalize the dataset and print the first 5 rows</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-15"><span class="crayon-v">normalized</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-e">transform</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-16"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">5</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-17"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">normalized</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-18"><span class="crayon-p"># inverse transform and print the first 5 rows</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-19"><span class="crayon-v">inversed</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-e">inverse_transform</span><span class="crayon-sy">(</span><span class="crayon-v">normalized</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c7f487508856-20"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">5</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a659304e2c7f487508856-21"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">inversed</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0023 seconds] -->
+<p>Running the example prints the first 5 rows from the loaded dataset, shows the same 5 values in their normalized form, then the values back in their original scale using the inverse transform.</p>
+<p>We can also see that the minimum and maximum values of the dataset are 0 and 26.3 respectively.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c82545969588" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Date
+1981-01-01 20.7
+1981-01-02 17.9
+1981-01-03 18.8
+1981-01-04 14.6
+1981-01-05 15.8
+Name: Temp, dtype: float64
+Min: 0.000000, Max: 26.300000
+[ 0.78707224]
+[ 0.68060837]
+[ 0.7148289]
+[ 0.55513308]
+[ 0.60076046]
+[ 20.7]
+[ 17.9]
+[ 18.8]
+[ 14.6]
+[ 15.8]</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-4">4</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-6">6</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-8">8</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-10">10</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-12">12</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-14">14</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-16">16</div><div class="crayon-num" data-line="crayon-5a659304e2c82545969588-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c82545969588-18">18</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c82545969588-1">Date</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-2">1981-01-01 20.7</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-3">1981-01-02 17.9</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-4">1981-01-03 18.8</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-5">1981-01-04 14.6</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-6">1981-01-05 15.8</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-7">Name: Temp, dtype: float64</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-8">Min: 0.000000, Max: 26.300000</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-9">[ 0.78707224]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-10">[ 0.68060837]</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-11">[ 0.7148289]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-12">[ 0.55513308]</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-13">[ 0.60076046]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-14">[ 20.7]</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-15">[ 17.9]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-16">[ 18.8]</div><div class="crayon-line" id="crayon-5a659304e2c82545969588-17">[ 14.6]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c82545969588-18">[ 15.8]</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>There is another type of rescaling that is more robust to new values being outside the range of expected values; this is called Standardization. We will look at that next.</p>
+<h2>Standardize Time Series Data</h2>
+<p>Standardizing a dataset involves rescaling the distribution of values so that the mean of observed values is 0 and the standard deviation is 1.</p>
+<p>This can be thought of as subtracting the mean value or centering the data.</p>
+<p>Like normalization, standardization can be useful, and even required in some machine learning algorithms when your time series data has input values with differing scales.</p>
+<p>Standardization assumes that your observations fit a Gaussian distribution (bell curve) with a well behaved mean and standard deviation. You can still standardize your time series data if this expectation is not met, but you may not get reliable results.</p>
+<p>This includes algorithms like Support Vector Machines, Linear and Logistic Regression, and other algorithms that assume or have improved performance with Gaussian data.</p>
+<p>Standardization requires that you know or are able to accurately estimate the mean and standard deviation of observable values. You may be able to estimate these values from your training data.</p>
+<p>A value is standardized as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c85616152803" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+y = (x - mean) / standard_deviation</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c85616152803-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c85616152803-1">y = (x - mean) / standard_deviation</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>Where the <em>mean</em> is calculated as:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c87281501603" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+mean = sum(x) / count(x)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c87281501603-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c87281501603-1">mean = sum(x) / count(x)</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>And the <em>standard_deviation</em> is calculated as:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c8a814588589" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+standard_deviation = sqrt( sum( (x - mean)^2 ) / count(x))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c8a814588589-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c8a814588589-1">standard_deviation = sqrt( sum( (x - mean)^2 ) / count(x))</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>For example, we can plot a histogram of the Minimum Daily Temperatures dataset as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c8c141183843" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+series = Series.from_csv('daily-minimum-temperatures-in-me.csv', header=0)
+series.hist()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c8c141183843-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c8c141183843-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c8c141183843-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c8c141183843-4">4</div><div class="crayon-num" data-line="crayon-5a659304e2c8c141183843-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c8c141183843-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c8c141183843-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a659304e2c8c141183843-3"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures-in-me.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c8c141183843-4"><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">hist</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c8c141183843-5"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>Running the code gives the following plot that shows a Gaussian distribution of the dataset, as assumed by standardization.</p>
+<div class="wp-caption aligncenter" id="attachment_3508" style="max-width: 810px"><img alt="Minimum Daily Temperatures Histogram" class="size-full wp-image-3508" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperatures-Histogram.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperatures-Histogram.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperatures-Histogram-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperatures-Histogram-768x576.png 768w" width="800"/><p class="wp-caption-text">Minimum Daily Temperatures Histogram</p></div>
+<p>We can guesstimate a mean temperature of 10 and a standard deviation of about 5. Using these values, we can standardize the first value in the dataset of 20.7 as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c8e589841285" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+y = (x - mean) / standard_deviation
+y = (20.7 - 10) / 5
+y = (10.7) / 5
+y = 2.14</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c8e589841285-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c8e589841285-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c8e589841285-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c8e589841285-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c8e589841285-1">y = (x - mean) / standard_deviation</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c8e589841285-2">y = (20.7 - 10) / 5</div><div class="crayon-line" id="crayon-5a659304e2c8e589841285-3">y = (10.7) / 5</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c8e589841285-4">y = 2.14</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>The mean and standard deviation estimates of a dataset can be more robust to new data than the minimum and maximum.</p>
+<p>You can standardize your dataset using the scikit-learn object <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html">StandardScaler</a>.</p>
+<p>Below is an example of standardizing the Minimum Daily Temperatures dataset.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c91060310701" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# Standardize time series data
+from pandas import Series
+from sklearn.preprocessing import StandardScaler
+from math import sqrt
+# load the dataset and print the first 5 rows
+series = Series.from_csv('daily-minimum-temperatures-in-me.csv', header=0)
+print(series.head())
+# prepare data for standardization
+values = series.values
+values = values.reshape((len(values), 1))
+# train the standardization
+scaler = StandardScaler()
+scaler = scaler.fit(values)
+print('Mean: %f, StandardDeviation: %f' % (scaler.mean_, sqrt(scaler.var_)))
+# standardization the dataset and print the first 5 rows
+normalized = scaler.transform(values)
+for i in range(5):
+	print(normalized[i])
+# inverse transform and print the first 5 rows
+inversed = scaler.inverse_transform(normalized)
+for i in range(5):
+	print(inversed[i])</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-4">4</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-6">6</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-8">8</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-10">10</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-12">12</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-14">14</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-16">16</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-18">18</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-20">20</div><div class="crayon-num" data-line="crayon-5a659304e2c91060310701-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c91060310701-22">22</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c91060310701-1"><span class="crayon-p"># Standardize time series data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-3"><span class="crayon-e">from </span><span class="crayon-v">sklearn</span><span class="crayon-sy">.</span><span class="crayon-e">preprocessing </span><span class="crayon-e">import </span><span class="crayon-e">StandardScaler</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-4"><span class="crayon-e">from </span><span class="crayon-e">math </span><span class="crayon-e">import </span><span class="crayon-v">sqrt</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-5"><span class="crayon-p"># load the dataset and print the first 5 rows</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-6"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures-in-me.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-7"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-8"><span class="crayon-p"># prepare data for standardization</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-9"><span class="crayon-v">values</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-10"><span class="crayon-v">values</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">values</span><span class="crayon-sy">.</span><span class="crayon-e">reshape</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-11"><span class="crayon-p"># train the standardization</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-12"><span class="crayon-v">scaler</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">StandardScaler</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-13"><span class="crayon-v">scaler</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-e">fit</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-14"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Mean: %f, StandardDeviation: %f'</span><span class="crayon-h"> </span><span class="crayon-o">%</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-v">mean_</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">sqrt</span><span class="crayon-sy">(</span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-v">var_</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-15"><span class="crayon-p"># standardization the dataset and print the first 5 rows</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-16"><span class="crayon-v">normalized</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-e">transform</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-17"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">5</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-18"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">normalized</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-19"><span class="crayon-p"># inverse transform and print the first 5 rows</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-20"><span class="crayon-v">inversed</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">scaler</span><span class="crayon-sy">.</span><span class="crayon-e">inverse_transform</span><span class="crayon-sy">(</span><span class="crayon-v">normalized</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a659304e2c91060310701-21"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">5</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c91060310701-22"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">inversed</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0018 seconds] -->
+<p>Running the example prints the first 5 rows of the dataset, prints the same values standardized, then prints the values back in their original scale.</p>
+<p>We can see that the estimated mean and standard deviation were 11.1 and 4.0 respectively.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a659304e2c95843453902" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Date
+1981-01-01 20.7
+1981-01-02 17.9
+1981-01-03 18.8
+1981-01-04 14.6
+1981-01-05 15.8
+Name: Temp, dtype: float64
+Mean: 11.177753, StandardDeviation: 4.071279
+[ 2.33888328]
+[ 1.65113873]
+[ 1.87219948]
+[ 0.84058266]
+[ 1.13533032]
+[ 20.7]
+[ 17.9]
+[ 18.8]
+[ 14.6]
+[ 15.8]</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-2">2</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-4">4</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-6">6</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-8">8</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-10">10</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-12">12</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-14">14</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-16">16</div><div class="crayon-num" data-line="crayon-5a659304e2c95843453902-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a659304e2c95843453902-18">18</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a659304e2c95843453902-1">Date</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-2">1981-01-01 20.7</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-3">1981-01-02 17.9</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-4">1981-01-03 18.8</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-5">1981-01-04 14.6</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-6">1981-01-05 15.8</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-7">Name: Temp, dtype: float64</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-8">Mean: 11.177753, StandardDeviation: 4.071279</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-9">[ 2.33888328]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-10">[ 1.65113873]</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-11">[ 1.87219948]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-12">[ 0.84058266]</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-13">[ 1.13533032]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-14">[ 20.7]</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-15">[ 17.9]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-16">[ 18.8]</div><div class="crayon-line" id="crayon-5a659304e2c95843453902-17">[ 14.6]</div><div class="crayon-line crayon-striped-line" id="crayon-5a659304e2c95843453902-18">[ 15.8]</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p>
+<h2>Summary</h2>
+<p>In this tutorial, you discovered how to normalize and standardize time series data in Python.</p>
+<p>Specifically, you learned:</p>
+<ul>
+<li>That some machine learning algorithms perform better or even require rescaled data when modeling.</li>
+<li>How to manually calculate the parameters required for normalization and standardization.</li>
+<li>How to normalize and standardize time series data using scikit-learn in Python.</li>
+</ul>
+<p>Do you have any questions about rescaling time series data or about this post?<br/>
+Ask your questions in the comments and I will do my best to answer.</p>
+<div class="awac-wrapper"><div class="awac widget text-26"> <div class="textwidget"><p></p><center>
+<div class="woo-sc-hr"></div>
+<h2>Want to Develop Time Series Forecasts with Python?</h2>
+<p><a href="/introduction-to-time-series-forecasting-with-python/"><img align="left" alt="Introduction to Time Series Forecasting With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Introduction-to-Time-Series-Forecasting-With-Python-220.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own Forecasts in Minutes</h4>
+<p>...with just a few lines of python code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/introduction-to-time-series-forecasting-with-python/">Introduction to Time Series Forecasting With Python</a></p>
+<p>It covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> on topics like:<br/>
+<em>Loading data, visualization, modeling, algorithm tuning,</em> and much more...</p>
+<h4>Finally Bring Time Series Forecasting to<br/>
+Your Own Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/">Click to learn more</a>.</p>
+<div class="woo-sc-hr"></div>
+<p></p></center>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Normalize%20and%20Standardize%20Time%20Series%20Data%20in%20Python&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fnormalize-standardize-time-series-data-python%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Normalize%20and%20Standardize%20Time%20Series%20Data%20in%20Python&amp;url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/&amp;summary=Some+machine+learning+algorithms+will+achieve+better+performance+if+your+time+series+data+has+a+cons..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Normalize%20and%20Standardize%20Time%20Series%20Data%20in%20Python&amp;url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/&amp;summary=Some+machine+learning+algorithms+will+achieve+better+performance+if+your+time+series+data+has+a+cons...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/normalize-standardize-time-series-data-python/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/load-explore-time-series-data-python/" rel="prev"><i class="fa fa-angle-left"></i> How to Load and Explore Time Series Data in Python</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/basic-feature-engineering-time-series-data-python/" rel="next">Basic Feature Engineering With Time Series Data in Python <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">43 Responses to <em>How to Normalize and Standardize Time Series Data in Python</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-375015">
+<div class="comment-container" id="li-comment-375015">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/41270bdd05b94ac7eb47a082d83cf2c9?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/41270bdd05b94ac7eb47a082d83cf2c9?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Marek</span>
+<span class="date">December 13, 2016 at 8:48 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375015" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I assume that this works like a treat for data sets that you can fit into memory … But what about very large data sets that simply would never fit into a single machine. Would you recommend other techniques?</p>
+<div class="reply">
+<a aria-label="Reply to Marek" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375015#respond" onclick='return addComment.moveForm( "comment-375015", "375015", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-375135">
+<div class="comment-container" id="li-comment-375135">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 14, 2016 at 8:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375135" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question Marek.</p>
+<p>I would suggest estimating the parameters required (min/max for normalization and mean/stdev for standardization) and using those parameters to prepare data just in time prior to use in a model.</p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375135#respond" onclick='return addComment.moveForm( "comment-375135", "375135", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even depth-2" id="comment-375154">
+<div class="comment-container" id="li-comment-375154">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/43b016ed69e86a3d10e55dda755a961c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/43b016ed69e86a3d10e55dda755a961c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://gonzalopla.com/" rel="external nofollow">Gonzalo</a></span>
+<span class="date">December 14, 2016 at 10:06 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375154" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>IMO</p>
+<p>If you have kind of stream data, you need to define a range of data to evaluate.</p>
+<p>If you just have distributed data, you need to mapreduce.</p>
+<div class="reply">
+<a aria-label="Reply to Gonzalo" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375154#respond" onclick='return addComment.moveForm( "comment-375154", "375154", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-375123">
+<div class="comment-container" id="li-comment-375123">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6a1c54a7ba87f7c6072dc7ae19c2c0ca?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6a1c54a7ba87f7c6072dc7ae19c2c0ca?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Fabio</span>
+<span class="date">December 14, 2016 at 5:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375123" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello Jason,</p>
+<p>thank you for your example. I am learning Python und Pandas. Why do you need to reshape the Series.values?</p>
+<p># prepare data for standardization<br/>
+values = series.values<br/>
+values = values.reshape((len(values), 1))</p>
+<p>Bye</p>
+<div class="reply">
+<a aria-label="Reply to Fabio" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375123#respond" onclick='return addComment.moveForm( "comment-375123", "375123", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-375141">
+<div class="comment-container" id="li-comment-375141">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 14, 2016 at 8:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375141" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question, it’s because the sklearn tools prefer a 2D matrix and the series is 1D. </p>
+<p>We just need to be explicit in the numpy array about the number of rows and cols and sklearn will then not throw out a warning.</p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375141#respond" onclick='return addComment.moveForm( "comment-375141", "375141", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-375212">
+<div class="comment-container" id="li-comment-375212">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6a1c54a7ba87f7c6072dc7ae19c2c0ca?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6a1c54a7ba87f7c6072dc7ae19c2c0ca?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Fabio</span>
+<span class="date">December 15, 2016 at 12:26 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375212" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yep! Thank you Jason 🙂</p>
+<div class="reply">
+<a aria-label="Reply to Fabio" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375212#respond" onclick='return addComment.moveForm( "comment-375212", "375212", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-375256">
+<div class="comment-container" id="li-comment-375256">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a62f2e941ac806582f087f6aa418ca73?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a62f2e941ac806582f087f6aa418ca73?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Barnett</span>
+<span class="date">December 15, 2016 at 8:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375256" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>In relation to this topic, how do you usually handle variables of mixed types (e.g. a mixture of categorical, continuous, ordinal variables) in a classifier (e.g. logistic regression, SVM, etc.)? I first perform dummy coding on categorical variables, followed by mixing them with the other variables (after normalizing them to [0, 1]); not sure if this is the best practice. On the other hand, the same question for applying clustering algorithms (say, k-means, spectral clusterings). Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to Barnett" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375256#respond" onclick='return addComment.moveForm( "comment-375256", "375256", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-375367">
+<div class="comment-container" id="li-comment-375367">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 16, 2016 at 5:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-375367" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Barnett, yes exactly as you describe.</p>
+<p>I try integer encodings if there is an ordinal relationship.</p>
+<p>For categorical variables, I use dummy (binary) variables.</p>
+<p>I try to make many different views/perspectives of a prediction problem, including transforms, projections and feature selection filters. I then test them all on a suite of methods and see which representations are generally better at exposing the structure of the problem. While that is running, I do the traditional careful analysis, but this automated method is often faster and results in non-intuitive results.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=375367#respond" onclick='return addComment.moveForm( "comment-375367", "375367", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-380152">
+<div class="comment-container" id="li-comment-380152">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6526772b1e3b3e564630bbed3c2cbdcc?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6526772b1e3b3e564630bbed3c2cbdcc?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Magnus</span>
+<span class="date">January 5, 2017 at 2:02 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-380152" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I was not able to run this using the data set as is. In the csv file, there is a footer with 3 columns and some data contains questions marks. However, after removing this and replacing it works )</p>
+<div class="reply">
+<a aria-label="Reply to Magnus" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=380152#respond" onclick='return addComment.moveForm( "comment-380152", "380152", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-380255">
+<div class="comment-container" id="li-comment-380255">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 5, 2017 at 9:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-380255" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the tip Magnus.</p>
+<p>Yes, the tutorial does assume a well-formed CSV file. </p>
+<p>A raw download from DataMarket does contain footer info that must be deleted.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=380255#respond" onclick='return addComment.moveForm( "comment-380255", "380255", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-381527">
+<div class="comment-container" id="li-comment-381527">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/96b3c1bc0db482f2517dee1e67f77f52?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/96b3c1bc0db482f2517dee1e67f77f52?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kensu</span>
+<span class="date">January 12, 2017 at 1:30 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-381527" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What is the mathmatical function to denormalize if the function<br/>
+y = (x – min) / (max – min) is our normalize function.</p>
+<div class="reply">
+<a aria-label="Reply to Kensu" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=381527#respond" onclick='return addComment.moveForm( "comment-381527", "381527", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-385239">
+<div class="comment-container" id="li-comment-385239">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/af515b5263c194f5fb1cccbfc8ea512b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/af515b5263c194f5fb1cccbfc8ea512b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">sevenless</span>
+<span class="date">January 31, 2017 at 8:53 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-385239" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for the nice tutorial.<br/>
+I wonder how you would normalize the standard deviation for replicate measurements?<br/>
+Let’s assume that we have three measurements for each day instead of only one and that you would want to plot the temperature normalized to its mean as a time series for a single month. Would the standard deviation for each day have to be normalized as well?</p>
+<div class="reply">
+<a aria-label="Reply to sevenless" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=385239#respond" onclick='return addComment.moveForm( "comment-385239", "385239", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-385419">
+<div class="comment-container" id="li-comment-385419">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 1, 2017 at 10:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-385419" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question,</p>
+<p>Generally, this is a problem specific question and you can choose the period over which to standardize or normalize.</p>
+<p>I would prefer to pick min/max or mean/stdev that are suitable for the entire modeling period per variable. </p>
+<p>Try other approaches, and see how they fair on your dataset.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=385419#respond" onclick='return addComment.moveForm( "comment-385419", "385419", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-388471">
+<div class="comment-container" id="li-comment-388471">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d2d0dadc3e4cd520f14f70264094f8f1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d2d0dadc3e4cd520f14f70264094f8f1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Magnus</span>
+<span class="date">February 17, 2017 at 3:24 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-388471" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Let’s say I have a time series and normalize the data in the range 0,1. I train the model and run my predictions in real time. Later, an “extreme event” occur with values higher than the max value in my training set. The prediction for that event might then saturate, giving me a lower forecast compared to the observation. How to deal with this?</p>
+<p>I suppose one possibility is to use e.g. extreme event analysis to estimate a future max value and use this as my max value for normalization. However, then my training data will be in a narrower range, e.g. 0 to 0.9. Of course, I can do this anyway without an analysis. My question is related to e.g. forecasts of extreme weather phenomena or earthquakes etc. </p>
+<p>How is it possible to forecast, accurately, an extreme event, when we don’t have this in the training set? After all, extreme events are often very important to be able to forecast.</p>
+<div class="reply">
+<a aria-label="Reply to Magnus" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=388471#respond" onclick='return addComment.moveForm( "comment-388471", "388471", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-388548">
+<div class="comment-container" id="li-comment-388548">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 17, 2017 at 9:56 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-388548" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question Magnus.</p>
+<p>This is an important consideration when scaling. </p>
+<p>Standardization will be more robust. Normalization will require you to estimate the limits of expected values, to detect when new input data exceeds those limits and handle that accordingly (report an error, clip, issue a warning, re-train the model with new limits, etc.).</p>
+<p>As for the “best” thing to do, that really depends on the domain and your project requirements.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=388548#respond" onclick='return addComment.moveForm( "comment-388548", "388548", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-389271">
+<div class="comment-container" id="li-comment-389271">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d2d0dadc3e4cd520f14f70264094f8f1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d2d0dadc3e4cd520f14f70264094f8f1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Magnus</span>
+<span class="date">February 20, 2017 at 10:41 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-389271" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What about if the data is highly asymmetric with a negative (or positive) skew, and therefore far from being Gaussian? </p>
+<p>If I choose a NN, I assume that my data should be normalised. If I standardise the data it will still be skewed, so when using a NN is it better to transform the data to remove the skew? Or is neural networks a bad choice with skewed data?</p>
+<div class="reply">
+<a aria-label="Reply to Magnus" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=389271#respond" onclick='return addComment.moveForm( "comment-389271", "389271", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-389337">
+<div class="comment-container" id="li-comment-389337">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 21, 2017 at 9:36 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-389337" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Consider a power transform like a box-cox to make the data more Gaussian, then standardize.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=389337#respond" onclick='return addComment.moveForm( "comment-389337", "389337", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-395084">
+<div class="comment-container" id="li-comment-395084">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c4f8f50f92e330ee072d436478f512e4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c4f8f50f92e330ee072d436478f512e4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Seine Yumnam</span>
+<span class="date">April 2, 2017 at 6:36 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-395084" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I don’t think this way of scaling time series works. For instance, the standardization method in python calculates the mean and standard deviation using the whole data set you provide. But in reality, we won’t have that. As a result, scaling this way will have look ahead bias as it uses both past and future data to calculate the mean and std. So we need to figure out a way to calculate the mean and the std based on the data we have at a given point in time.</p>
+<div class="reply">
+<a aria-label="Reply to Seine Yumnam" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=395084#respond" onclick='return addComment.moveForm( "comment-395084", "395084", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-395317">
+<div class="comment-container" id="li-comment-395317">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 4, 2017 at 9:04 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-395317" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, you might be better off estimating the coefficients needed for scaling based on domain knowledge.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=395317#respond" onclick='return addComment.moveForm( "comment-395317", "395317", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-395374">
+<div class="comment-container" id="li-comment-395374">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d161cb9ca4b0a059d373b315f07cb2ad?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d161cb9ca4b0a059d373b315f07cb2ad?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">DharaPJ</span>
+<span class="date">April 4, 2017 at 8:18 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-395374" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What if the code shows “NO module named sklearn.preprocessing”. I already downloaded scipy 0.18.1 version.</p>
+<div class="reply">
+<a aria-label="Reply to DharaPJ" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=395374#respond" onclick='return addComment.moveForm( "comment-395374", "395374", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-395775">
+<div class="comment-container" id="li-comment-395775">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:30 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-395775" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It sounds like sklearn is not installed.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=395775#respond" onclick='return addComment.moveForm( "comment-395775", "395775", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-395390">
+<div class="comment-container" id="li-comment-395390">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/491b706b68d04115e827a07b5c12e9b7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/491b706b68d04115e827a07b5c12e9b7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Riccardo</span>
+<span class="date">April 5, 2017 at 1:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-395390" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, thanks for your great work.<br/>
+I have a question: how to properly normalize train, validation and test dataset for trading forex? Those datasets are splitted in order of time, so training is before validation that is before test. I don’t want to use future data for normalization since i don’t have to use future information for preprocessing my data…<br/>
+Now my results using Reinforcement Learning are not great but i think that great part of the work is done by normalize well my datasets.<br/>
+My strategy now is doing standardization for every episode(one week of data) of training/test/validation with mean and standard deviation of 3 weeks before…</p>
+<div class="reply">
+<a aria-label="Reply to Riccardo" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=395390#respond" onclick='return addComment.moveForm( "comment-395390", "395390", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-395776">
+<div class="comment-container" id="li-comment-395776">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:31 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-395776" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I would recommend estimating the min/max or mean/stdev from training data and domain knowledge and scaling the data manually.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=395776#respond" onclick='return addComment.moveForm( "comment-395776", "395776", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-396947">
+<div class="comment-container" id="li-comment-396947">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/491b706b68d04115e827a07b5c12e9b7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/491b706b68d04115e827a07b5c12e9b7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Riccardo</span>
+<span class="date">April 20, 2017 at 1:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-396947" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the reply. It’s exactly what i’m doing now. Probably there is no other standard possibility than domain knowledge. Would be interesting to find something standard but it seems impossible.</p>
+<div class="reply">
+<a aria-label="Reply to Riccardo" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=396947#respond" onclick='return addComment.moveForm( "comment-396947", "396947", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-397428">
+<div class="comment-container" id="li-comment-397428">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Seo Young Jae</span>
+<span class="date">April 24, 2017 at 12:45 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-397428" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for good information!</p>
+<p>And.. Can i standardize &amp; normalize a nominal(categorical) variable?</p>
+<div class="reply">
+<a aria-label="Reply to Seo Young Jae" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=397428#respond" onclick='return addComment.moveForm( "comment-397428", "397428", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-397518">
+<div class="comment-container" id="li-comment-397518">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 25, 2017 at 7:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-397518" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad you found it useful.</p>
+<p>You can encode a nominal variable as integers and then use a one hot encoding.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=397518#respond" onclick='return addComment.moveForm( "comment-397518", "397518", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-402595">
+<div class="comment-container" id="li-comment-402595">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/386e045a0e4d93015c96c09679c0749f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/386e045a0e4d93015c96c09679c0749f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">GEORGIOS PLIGOROPOULOS</span>
+<span class="date">June 15, 2017 at 11:02 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-402595" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What if all my time series have a trend upwards. Or even worse what if half of my time series have a trend upwards and the rest half of them have a trend downwards?</p>
+<p>Would detrending the time series be helpful? (“removing” the slope and subtracting the mean)<br/>
+If yes, what kind of detrending would be useful? Should I detrend each sequence separately from all the others or detrend them all together or detrend them in groups?</p>
+<p>But this does not seem like normalization/standardization because you cannot revert the process if you do it separately for each sequence you have lost information.</p>
+<p>What are your thoughts on this approach? Thank you</p>
+<div class="reply">
+<a aria-label="Reply to GEORGIOS PLIGOROPOULOS" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=402595#respond" onclick='return addComment.moveForm( "comment-402595", "402595", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-402686">
+<div class="comment-container" id="li-comment-402686">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 16, 2017 at 7:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-402686" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, treat each series separately, make each stationary.</p>
+<p>Use differencing:<br/>
+<a href="http://machinelearningmastery.com/difference-time-series-dataset-python/" rel="nofollow">http://machinelearningmastery.com/difference-time-series-dataset-python/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=402686#respond" onclick='return addComment.moveForm( "comment-402686", "402686", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-405675">
+<div class="comment-container" id="li-comment-405675">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c2f9508572917259dc0cc6d709295df5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c2f9508572917259dc0cc6d709295df5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Marianico</span>
+<span class="date">July 12, 2017 at 10:51 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405675" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>But if you normalize by this way, you are using information from future, therefore the model will overfit. Let’s say you normalize the columns to train my model with the mean and the std of their content, but a new input data cannot be normalized following the old criteria, and neither the new one (the mean and the std of the last N rows) because of the trend, or the std…</p>
+<p>What about using this instead: <a href="http://scikit-learn.org/stable/modules/preprocessing.html#custom-transformers" rel="nofollow">http://scikit-learn.org/stable/modules/preprocessing.html#custom-transformers</a></p>
+<div class="reply">
+<a aria-label="Reply to Marianico" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405675#respond" onclick='return addComment.moveForm( "comment-405675", "405675", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-405724">
+<div class="comment-container" id="li-comment-405724">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 13, 2017 at 9:55 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405724" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, I would recommend estimating the normalization coefficients (min/max) using training data only.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405724#respond" onclick='return addComment.moveForm( "comment-405724", "405724", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-405776">
+<div class="comment-container" id="li-comment-405776">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c2f9508572917259dc0cc6d709295df5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c2f9508572917259dc0cc6d709295df5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Marianico</span>
+<span class="date">July 13, 2017 at 8:15 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405776" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Ok, that makes sense. But even with your training data you’d have the same problem: working with a timeseries dataset, if you normalize/scale using the min/max of whole training dataset, you are taking into account values of future data as well, and in a real prediction you won’t have this information, right? </p>
+<p>Moreover, how would you normalize/scale future data? Using the same saved preprocessing model of your training data, or creating a new MinMaxScaler() using the last N rows? What if the new values are slightly different of the training ones? </p>
+<p>That’s why I’ve posted the log1p solution, which is the same as log(1+x) and which will thus work on (-1;∞). Or what about this one:<br/>
+<a href="http://timvieira.github.io/blog/post/2014/02/11/exp-normalize-trick/" rel="nofollow">http://timvieira.github.io/blog/post/2014/02/11/exp-normalize-trick/</a></p>
+<p>I think would be very interesting that you pointing this out in the post because I’m afraid it can affect dramatically to model’s accuracy…</p>
+<div class="reply">
+<a aria-label="Reply to Marianico" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405776#respond" onclick='return addComment.moveForm( "comment-405776", "405776", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-405843">
+<div class="comment-container" id="li-comment-405843">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 14, 2017 at 8:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405843" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This was my point. If normalizing you need to select min/max values based on available data and domain knowledge (to guestimate the expected max/min that will ever be seen).</p>
+<p>Same idea with estimating the mean/stdev for standardization.</p>
+<p>If evaluating a model, these estimates should be drawn from the training data only and/or domain expertise.</p>
+<p>I hope that is clearer.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405843#respond" onclick='return addComment.moveForm( "comment-405843", "405843", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-405781">
+<div class="comment-container" id="li-comment-405781">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c2f9508572917259dc0cc6d709295df5?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c2f9508572917259dc0cc6d709295df5?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Marianico</span>
+<span class="date">July 13, 2017 at 9:27 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405781" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I think the best approach would be the following:</p>
+<p>scaler = StandardScaler() # or MinMaxScaler()</p>
+<p>scaler_train = scaler.fit(X_train)<br/>
+X_train = scaler_train.transform(X_train)</p>
+<p>scaler_full = scaler.fit(X) # X_train + X_test<br/>
+X_test = scaler_full.transform(X_test)</p>
+<p>Further reading:</p>
+<p><a href="https://www.researchgate.net/post/If_I_used_data_normalization_x-meanx_stdx_for_training_data_would_I_use_train_Mean_and_Standard_Deviation_to_normalize_test_data" rel="nofollow">https://www.researchgate.net/post/If_I_used_data_normalization_x-meanx_stdx_for_training_data_would_I_use_train_Mean_and_Standard_Deviation_to_normalize_test_data</a><br/>
+<a href="https://stats.stackexchange.com/questions/267012/difference-between-preprocessing-train-and-test-set-before-and-after-splitting/270284" rel="nofollow">https://stats.stackexchange.com/questions/267012/difference-between-preprocessing-train-and-test-set-before-and-after-splitting/270284</a><br/>
+<a href="http://sebastianraschka.com/Articles/2014_about_feature_scaling.html" rel="nofollow">http://sebastianraschka.com/Articles/2014_about_feature_scaling.html</a></p>
+<div class="reply">
+<a aria-label="Reply to Marianico" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405781#respond" onclick='return addComment.moveForm( "comment-405781", "405781", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-405821">
+<div class="comment-container" id="li-comment-405821">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2b8ec5d1400ccb143ff0fc3db4cca4df?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2b8ec5d1400ccb143ff0fc3db4cca4df?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">pranav</span>
+<span class="date">July 14, 2017 at 5:30 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405821" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, thank you for your post.<br/>
+I have question.<br/>
+I have timestamp and system-up-time where up-time is # of hrs system has been up in its lifetime.<br/>
+Now I have to predict system failure based on the age of the system or system-up-time hrs.<br/>
+# of failures might grow based on the age of the system or how many hrs its been running.<br/>
+I have limited training data and the max up-time hrs in the training data is 1,000 hrs and age is 1,200 hrs. But in real time it could go beyond 100,000 hrs and age could go beyond 150,000 hrs.<br/>
+How do I standardize timestamp and up-time hrs.</p>
+<div class="reply">
+<a aria-label="Reply to pranav" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405821#respond" onclick='return addComment.moveForm( "comment-405821", "405821", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-405852">
+<div class="comment-container" id="li-comment-405852">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 14, 2017 at 8:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-405852" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Consider looking into survival analysis:<br/>
+<a href="https://en.wikipedia.org/wiki/Survival_analysis" rel="nofollow">https://en.wikipedia.org/wiki/Survival_analysis</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=405852#respond" onclick='return addComment.moveForm( "comment-405852", "405852", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-410733">
+<div class="comment-container" id="li-comment-410733">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/006c61c41a832ba65adee6e81cdc6436?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/006c61c41a832ba65adee6e81cdc6436?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kyana</span>
+<span class="date">August 23, 2017 at 7:17 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-410733" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Thank you for your comprehensive explanation. I have a noisy time series with missing data and outliers. Not even sure if the data is normal. Does standardization works in my case? My sample size can be quite big. Looking forward to your feedback.</p>
+<div class="reply">
+<a aria-label="Reply to Kyana" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=410733#respond" onclick='return addComment.moveForm( "comment-410733", "410733", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-410806">
+<div class="comment-container" id="li-comment-410806">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 24, 2017 at 6:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-410806" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hmm, perhaps not. But I generally recommend testing and getting data rather than using opinions/advice. I’m often wrong.</p>
+<p>Perhaps try to patch the missing data and trim the outliers as secondary steps and see if that impacts model skill.</p>
+<p>Let me know how you go.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=410806#respond" onclick='return addComment.moveForm( "comment-410806", "410806", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-410737">
+<div class="comment-container" id="li-comment-410737">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1f8a16d47557a679ca1707b74045e036?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1f8a16d47557a679ca1707b74045e036?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sebastian</span>
+<span class="date">August 23, 2017 at 7:45 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-410737" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi! I did not manage to max the MinMaxScaler work for my tensors of rank 5. Someone knows how to  scale across all dimensions of a tensor? I guess you could flatten it scale it and then reshape it back. but I prefer not to get lost with all the dimensions. What I did for now is to make my own normalize to scale numpy tensors if someone bumps into the same problem. </p>
+<p><code></code><code>class normalize():</code></p>
+<p>    def fit(self, train, interval=(0,1)):<br/>
+        self.min, self.max = train.min(), train.max()<br/>
+        self.interval = interval</p>
+<p>        return self</p>
+<p>    def transform(self, train, val, test):</p>
+<p>        def trans(x):<br/>
+            y = ((self.interval[1]-self.interval[0])*x + \<br/>
+                 (self.interval[0]*self.max-self.interval[1]*self.min)) / \<br/>
+                 (self.max-self.min)<br/>
+            return y</p>
+<p>        train_norm = trans(train)<br/>
+        val_norm = trans(val)<br/>
+        test_norm = trans(test)</p>
+<p>        return train_norm, val_norm, test_norm</p>
+<p>    def inverse_transform(self, train_norm, val_norm, test_norm):</p>
+<p>        def inv_trans(y):<br/>
+            x = ((self.max-self.min)*y + \<br/>
+                 (self.interval[1]*self.min-self.interval[0]*self.max)) / \<br/>
+                 (self.interval[1]-self.interval[0])<br/>
+            return x</p>
+<p>        train = inv_trans(train_norm)<br/>
+        val = inv_trans(val_norm)<br/>
+        test = inv_trans(test_norm)</p>
+<p>        return train, val, test<code></code></p>
+<div class="reply">
+<a aria-label="Reply to Sebastian" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=410737#respond" onclick='return addComment.moveForm( "comment-410737", "410737", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-410807">
+<div class="comment-container" id="li-comment-410807">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 24, 2017 at 6:29 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-410807" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The sklearn tools will apply across all columns of your data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=410807#respond" onclick='return addComment.moveForm( "comment-410807", "410807", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-418188">
+<div class="comment-container" id="li-comment-418188">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5b1544a95c1789c85d4f3598d6fc6ae7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5b1544a95c1789c85d4f3598d6fc6ae7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Joel Bernstein</span>
+<span class="date">October 28, 2017 at 8:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-418188" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi,</p>
+<p>Would it also be a valid approach to convert the time series to unit vectors before a machine operation such as clustering?</p>
+<p>Thanks,<br/>
+Joel</p>
+<div class="reply">
+<a aria-label="Reply to Joel Bernstein" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=418188#respond" onclick='return addComment.moveForm( "comment-418188", "418188", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-418283">
+<div class="comment-container" id="li-comment-418283">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 29, 2017 at 5:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-418283" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps, try it and see how it impacts model skill.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=418283#respond" onclick='return addComment.moveForm( "comment-418283", "418283", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-421077">
+<div class="comment-container" id="li-comment-421077">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/44856db00fb4b27a5649b31a913db457?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/44856db00fb4b27a5649b31a913db457?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">nson28</span>
+<span class="date">November 24, 2017 at 5:04 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-421077" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+I just  would like to ask if the  normalization of  data only happens during training? During testing where no output data is provide do I need still to normalize data? Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to nson28" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=421077#respond" onclick='return addComment.moveForm( "comment-421077", "421077", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-421129">
+<div class="comment-container" id="li-comment-421129">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 25, 2017 at 10:13 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/#comment-421129" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question.</p>
+<p>Any transforms performed to data prior to training must also be performed to test or any other data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/normalize-standardize-time-series-data-python/?replytocom=421129#respond" onclick='return addComment.moveForm( "comment-421129", "421129", "respond", "3507" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/normalize-standardize-time-series-data-python/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="3507"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="2a10f25a81"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="36"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-27"> <div class="textwidget"><p></p><center>
+<h3>Get Good at Time Series Forecasting</h3>
+<p>Need visualizations and forecast models?<br/>
+Looking for step-by-step tutorials?<br/>
+Want end-to-end projects?</p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/">Get Started with Time Series Forecasting in Python!</a></p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/"><img alt="Introduction to Time Series Forecasting With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Introduction-to-Time-Series-Forecasting-With-Python-220.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

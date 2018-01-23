@@ -1,0 +1,2053 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>Supervised and Unsupervised Machine Learning Algorithms - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="Supervised and Unsupervised Machine Learning Algorithms - Machine Learning Mastery" property="og:title"/>
+<meta content="What is supervised machine learning and how does it relate to unsupervised machine learning? In this post you will discover supervised learning, unsupervised learning and semis-supervised learning. After reading this post you will know: About the classification and regression supervised learning problems. About the clustering and association unsupervised learning problems. Example algorithms used for supervised and …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Machine Learning Algorithms" property="article:section"/>
+<meta content="2016-03-16T05:00:21+11:00" property="article:published_time"/>
+<meta content="2016-09-22T11:02:45+11:00" property="article:modified_time"/>
+<meta content="2016-09-22T11:02:45+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/Supervised-Vs-Unsupervised-Machine-Learning-Algorithms.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/Supervised-Vs-Unsupervised-Machine-Learning-Algorithms.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="427" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/supervised-and-unsupervised-machine-learning-algorithms\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/feed/" rel="alternate" title="Machine Learning Mastery » Supervised and Unsupervised Machine Learning Algorithms Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=2324" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fsupervised-and-unsupervised-machine-learning-algorithms%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fsupervised-and-unsupervised-machine-learning-algorithms%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-2324 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-12"> <div class="textwidget"><p>Want help with algorithms? <a href="https://machinelearningmastery.leadpages.co/machine-learning-algorithms-mini-course/">Take the FREE Mini-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-2324 post type-post status-publish format-standard has-post-thumbnail hentry category-machine-learning-algorithms">
+<header>
+<h1 class="title entry-title">Supervised and Unsupervised Machine Learning Algorithms</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2016-03-16T05:00:21+1100">March 16, 2016</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/machine-learning-algorithms/" title="View all items in Machine Learning Algorithms">Machine Learning Algorithms</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Supervised%20and%20Unsupervised%20Machine%20Learning%20Algorithms&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fsupervised-and-unsupervised-machine-learning-algorithms%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Supervised%20and%20Unsupervised%20Machine%20Learning%20Algorithms&amp;url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/&amp;summary=What+is+supervised+machine+learning+and+how+does+it+relate+to+unsupervised+machine%C2%A0learning%3F%0D%0A%0D%0AIn+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Supervised%20and%20Unsupervised%20Machine%20Learning%20Algorithms&amp;url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/&amp;summary=What+is+supervised+machine+learning+and+how+does+it+relate+to+unsupervised+machine%C2%A0learning%3F%0D%0A%0D%0AIn+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>What is supervised machine learning and how does it relate to unsupervised machine learning?</p>
+<p>In this post you will discover supervised learning, unsupervised learning and semis-supervised learning. After reading this post you will know:</p>
+<ul>
+<li>About the classification and regression supervised learning problems.</li>
+<li>About the clustering and association unsupervised learning problems.</li>
+<li>Example algorithms used for supervised and unsupervised problems.</li>
+<li>A problem that sits in between supervised and unsupervised learning called semi-supervised learning.</li>
+</ul>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_2325" style="max-width: 650px"><img alt="Supervised and Unsupervised Machine Learning Algorithms" class="size-full wp-image-2325" height="427" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/Supervised-Vs-Unsupervised-Machine-Learning-Algorithms.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/Supervised-Vs-Unsupervised-Machine-Learning-Algorithms.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/Supervised-Vs-Unsupervised-Machine-Learning-Algorithms-300x200.jpg 300w" width="640"/><p class="wp-caption-text">Supervised and Unsupervised Machine Learning Algorithms<br/>Photo by <a href="https://www.flickr.com/photos/departmentofed/9599312337/">US Department of Education</a>, some rights reserved.</p></div>
+<h2>Supervised Machine Learning</h2>
+<p>The majority of practical machine learning uses supervised learning.</p>
+<p>Supervised learning is where you have input variables (x) and an output variable (Y) and you use an algorithm to learn the mapping function from the input to the output.</p>
+<p style="text-align: center;">Y = f(X)</p>
+<p>The goal is to approximate the mapping function so well that when you have new input data (x) that you can predict the output variables (Y) for that data.</p>
+<p>It is called supervised learning because the process of an algorithm learning from the training dataset can be thought of as a teacher supervising the learning process. We know the correct answers, the algorithm iteratively makes predictions on the training data and is corrected by the teacher. Learning stops when the algorithm achieves an acceptable level of performance.</p>
+<!-- Start shortcoder --><h2 style="text-align: center;">Get your FREE Algorithms Mind Map</h2>
+<div class="wp-caption alignleft" id="attachment_2021" style="max-width: 395px"><img alt="Machine Learning Algorithms Mind Map" class="wp-image-2021 size-full" height="248" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2013/11/Machine-Learning-Algorithms-Mindmap-Sample.png" width="385"/><p class="wp-caption-text">Sample of the handy machine learning algorithms mind map.</p></div>
+<p>I've created a handy mind map of 60+ algorithms organized by type.</p>
+<p>Download it, print it and use it. </p>
+<center><a href="https://machinelearningmastery.leadpages.co/leadbox/147764973f72a2%3A164f8be4f346dc/5752754626625536/" style="color: #ffffff; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 3px inset, rgba(0, 0, 0, 0.498039) 0px 1px 3px; background: #ffce0a;" target="_blank">Download For Free</a>
+<p><br/>Also get exclusive access to the machine learning algorithms email mini-course.</p>
+</center>
+<p> </p>
+<p> </p><!-- End shortcoder v4.1.5-->
+<p>Supervised learning problems can be further grouped into regression and classification problems.</p>
+<ul>
+<li><strong>Classification</strong>: A classification problem is when the output variable is a category, such as “red” or “blue” or “disease” and “no disease”.</li>
+<li><strong>Regression</strong>: A regression problem is when the output variable is a real value, such as “dollars” or “weight”.</li>
+</ul>
+<p>Some common types of problems built on top of classification and regression include recommendation and time series prediction respectively.</p>
+<p>Some popular examples of supervised machine learning algorithms are:</p>
+<ul>
+<li>Linear regression for regression problems.</li>
+<li>Random forest for classification and regression problems.</li>
+<li>Support vector machines for classification problems.</li>
+</ul>
+<h2>Unsupervised Machine Learning</h2>
+<p>Unsupervised learning is where you only have input data (X) and no corresponding output variables.</p>
+<p>The goal for unsupervised learning is to model the underlying structure or distribution in the data in order to learn more about the data.</p>
+<p>These are called unsupervised learning because unlike supervised learning above there is no correct answers and there is no teacher. Algorithms are left to their own devises to discover and present the interesting structure in the data.</p>
+<p>Unsupervised learning problems can be further grouped into clustering and association problems.</p>
+<ul>
+<li><strong>Clustering</strong>: A clustering problem is where you want to discover the inherent groupings in the data, such as grouping customers by purchasing behavior.</li>
+<li><strong>Association</strong>:  An association rule learning problem is where you want to discover rules that describe large portions of your data, such as people that buy X also tend to buy Y.</li>
+</ul>
+<p>Some popular examples of unsupervised learning algorithms are:</p>
+<ul>
+<li>k-means for clustering problems.</li>
+<li>Apriori algorithm for association rule learning problems.</li>
+</ul>
+<h2>Semi-Supervised Machine Learning</h2>
+<p>Problems where you have a large amount of input data (X) and only some of the data is labeled (Y) are called semi-supervised learning problems.</p>
+<p>These problems sit in between both supervised and unsupervised learning.</p>
+<p>A good example is a photo archive where only some of the images are labeled, (e.g. dog, cat, person) and the majority are unlabeled.</p>
+<p>Many real world machine learning problems fall into this area. This is because it can be expensive or time-consuming to label data as it may require access to domain experts. Whereas unlabeled data is cheap and easy to collect and store.</p>
+<p>You can use unsupervised learning techniques to discover and learn the structure in the input variables.</p>
+<p>You can also use supervised learning techniques to make best guess predictions for the unlabeled data, feed that data back into the supervised learning algorithm as training data and use the model to make predictions on new unseen data.</p>
+<h2>Summary</h2>
+<p>In this post you learned the difference between supervised, unsupervised and semi-supervised learning. You now know that:</p>
+<ul>
+<li><strong>Supervised</strong>: All data is labeled and the algorithms learn to predict the output from the input data.</li>
+<li><strong>Unsupervised</strong>: All data is unlabeled and the algorithms learn to inherent structure from the input data.</li>
+<li><strong>Semi-supervised</strong>: Some data is labeled but most of it is unlabeled and a mixture of supervised and unsupervised techniques can be used.</li>
+</ul>
+<p>Do you have any questions about supervised, unsupervised or semi-supervised learning? Leave a comment and ask your question and I will do my best to answer it.</p>
+<!-- Shortcoder conditions not met -->
+<div class="awac-wrapper"><div class="awac widget text-36"> <div class="textwidget"><p></p><div class="woo-sc-hr"></div><br/>
+<center>
+<h2 style="text-align: center;">Frustrated With Machine Learning Math?</h2>
+<p><a href="/master-machine-learning-algorithms/"><img align="left" alt="Mater Machine Learning Algorithms" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/MasterMachineLearningAlgorithms-small.png" style="border: 0;"/></a></p>
+<h4 style="text-align: center;">See How Algorithms Work in Minutes</h4>
+<p style="text-align: center;">…with just arithmetic and simple examples</p>
+<p style="text-align: center;">Discover how in my new Ebook: <a href="/master-machine-learning-algorithms/">Master Machine Learning Algorithms</a></p>
+<p style="text-align: center;">It covers <strong>explanations</strong> and <strong>examples</strong> of <strong>10 top algorithms</strong>, like:<br/><em>Linear Regression</em>, <em>k-Nearest Neighbors</em>, <em>Support Vector Machines</em> and much more…</p>
+<h4 style="text-align: center;">Finally, Pull Back the Curtain on <br/>Machine Learning Algorithms</h4>
+<p style="text-align: center;">Skip the Academics. Just Results.</p>
+<p style="text-align: center;"><a href="/master-machine-learning-algorithms/">Click to learn more</a>.</p>
+<p></p></center><br/>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Supervised%20and%20Unsupervised%20Machine%20Learning%20Algorithms&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fsupervised-and-unsupervised-machine-learning-algorithms%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Supervised%20and%20Unsupervised%20Machine%20Learning%20Algorithms&amp;url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/&amp;summary=What+is+supervised+machine+learning+and+how+does+it+relate+to+unsupervised+machine%C2%A0learning%3F%0D%0A%0D%0AIn+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Supervised%20and%20Unsupervised%20Machine%20Learning%20Algorithms&amp;url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/&amp;summary=What+is+supervised+machine+learning+and+how+does+it+relate+to+unsupervised+machine%C2%A0learning%3F%0D%0A%0D%0AIn+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/parametric-and-nonparametric-machine-learning-algorithms/" rel="prev"><i class="fa fa-angle-left"></i> Parametric and Nonparametric Machine Learning Algorithms</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/gentle-introduction-to-the-bias-variance-trade-off-in-machine-learning/" rel="next">Gentle Introduction to the Bias-Variance Trade-Off in Machine Learning <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">82 Responses to <em>Supervised and Unsupervised Machine Learning Algorithms</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-360620">
+<div class="comment-container" id="li-comment-360620">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/219a3c0741e05f1c071008cc02121cda?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/219a3c0741e05f1c071008cc02121cda?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Omot</span>
+<span class="date">August 20, 2016 at 2:32 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-360620" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for this post. That was helpful. My question is how does one determine the correct algorithm to use for a particular problem in supervised learning? Also,can a network trained by unsupervised learning be tested with new set of data (testing data) or its just for the purpose of grouping?</p>
+<div class="reply">
+<a aria-label="Reply to Omot" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=360620#respond" onclick='return addComment.moveForm( "comment-360620", "360620", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-360698">
+<div class="comment-container" id="li-comment-360698">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 21, 2016 at 6:15 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-360698" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Omot, it is a good idea to try a suite of standard algorithms on your problem and discover what algorithm performs best.</p>
+<p>Normally, an unsupervised method is applied to all data available in order to learn something about that data and the broader problem. You could say cluster a “training” dataset and later see what clusters new data is closest to if you wanted to avoid re-clustering the data.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=360698#respond" onclick='return addComment.moveForm( "comment-360698", "360698", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even depth-2" id="comment-371509">
+<div class="comment-container" id="li-comment-371509">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d13b199a4ffaaf8f1c224573cbb6754d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d13b199a4ffaaf8f1c224573cbb6754d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">angel</span>
+<span class="date">November 22, 2016 at 9:58 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-371509" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I need help in solving a problem. I have utilized all resources available and the school can’t find a tutor in this subject.  My question is this: What is the best method to choose if you want to train an algorithm that can discriminate between patients with hypertension and patients with hypertension and diabetes. Please help me understand!</p>
+<div class="reply">
+<a aria-label="Reply to angel" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=371509#respond" onclick='return addComment.moveForm( "comment-371509", "371509", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-3" id="comment-371678">
+<div class="comment-container" id="li-comment-371678">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 23, 2016 at 8:48 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-371678" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Angel, this sounds like a problem specific problem. </p>
+<p>In general, we cannot know which data representation is best or which algorithm is best, they must be discovered empirically:<br/>
+<a href="http://machinelearningmastery.com/a-data-driven-approach-to-machine-learning/" rel="nofollow">http://machinelearningmastery.com/a-data-driven-approach-to-machine-learning/</a></p>
+<p>I teach a process for working through predictive modeling problems methodically that you may find useful:<br/>
+<a href="http://machinelearningmastery.com/start-here/#process" rel="nofollow">http://machinelearningmastery.com/start-here/#process</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=371678#respond" onclick='return addComment.moveForm( "comment-371678", "371678", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-361176">
+<div class="comment-container" id="li-comment-361176">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/cb5c7bdffeb2d10477eb77c18296661d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/cb5c7bdffeb2d10477eb77c18296661d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Pragya Poonia</span>
+<span class="date">August 23, 2016 at 1:08 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-361176" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This content is really helpful. Can you give some examples of all these techniques with best description?? or a brief introduction of Reinforcement learning with example??</p>
+<div class="reply">
+<a aria-label="Reply to Pragya Poonia" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=361176#respond" onclick='return addComment.moveForm( "comment-361176", "361176", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-361358">
+<div class="comment-container" id="li-comment-361358">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 24, 2016 at 8:19 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-361358" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Take a look at this post for a good list of algorithms:<br/>
+<a href="http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/" rel="nofollow">http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=361358#respond" onclick='return addComment.moveForm( "comment-361358", "361358", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-366762">
+<div class="comment-container" id="li-comment-366762">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c1fd0b79c2225e1c2f0331cdaa15d29a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c1fd0b79c2225e1c2f0331cdaa15d29a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Naveen</span>
+<span class="date">October 10, 2016 at 8:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-366762" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, </p>
+<p>Thank you for summary on types of ML algorithms<br/>
+How can one use clustering or unsupervised learning for prediction on a new data. I have clustered the input data into clusters using hierarchical clustering, Now I want to check the membership of new data with the identified clusters. How is it possible. Is there an algorithm available in R?</p>
+<div class="reply">
+<a aria-label="Reply to Naveen" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=366762#respond" onclick='return addComment.moveForm( "comment-366762", "366762", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-366860">
+<div class="comment-container" id="li-comment-366860">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 11, 2016 at 7:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-366860" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Naveen, generally I don’t use unsupervised methods much as I don’t get much value from them in practice.</p>
+<p>You can use the cluster number, cluster centroid or other details as an input for modeling.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=366860#respond" onclick='return addComment.moveForm( "comment-366860", "366860", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-368153">
+<div class="comment-container" id="li-comment-368153">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e3524dfa341d8f1cf3c514e385db1510?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e3524dfa341d8f1cf3c514e385db1510?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Tashrif</span>
+<span class="date">October 25, 2016 at 9:03 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-368153" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Could you please give me a real world example of supervised, unsupervised, and semi supervised learning?</p>
+<div class="reply">
+<a aria-label="Reply to Tashrif" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=368153#respond" onclick='return addComment.moveForm( "comment-368153", "368153", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-368250">
+<div class="comment-container" id="li-comment-368250">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 26, 2016 at 8:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-368250" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Tashrif,</p>
+<p>Supervised would be when you have a ton of labeled pictures of dogs and cats and you want to automatically label new pictures of dogs and cats.</p>
+<p>Unsupervised would be when you want to see how the pictures structurally relate to each other by color or scene or whatever.</p>
+<p>Semi-supervised is where you have a ton of pictures and only some are labelled and you want to use the unlabeled and the labelled to help you in turn label new pictures in the future.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=368250#respond" onclick='return addComment.moveForm( "comment-368250", "368250", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-370344">
+<div class="comment-container" id="li-comment-370344">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7b528920c698dd048642da28fd4c686e?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7b528920c698dd048642da28fd4c686e?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Frank M</span>
+<span class="date">November 12, 2016 at 7:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-370344" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This was a really good read, so thanks for writing and publishing it.</p>
+<p>Question for you.  I have constructed a Random Forest model, so I’m using supervised learning, and I’m being asked to run an unlabeled data set through it.  But I won’t have the actual results of this model, so I can’t determine accuracy on it until I have the actual result of it.</p>
+<p>So my question is… how can I run a set of data through a ML model if I don’t have labels for it?  </p>
+<p>For further clarity and context, I’m running a random forest model to predict a binary classification label.  I get the first few data points relatively quickly, but the label takes 30 days to become clear.</p>
+<p>Maybe none of this makes sense, but I appreciate any direction you could possibly give.</p>
+<p>Many thanks,</p>
+<p>Frank</p>
+<div class="reply">
+<a aria-label="Reply to Frank M" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=370344#respond" onclick='return addComment.moveForm( "comment-370344", "370344", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-370491">
+<div class="comment-container" id="li-comment-370491">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 14, 2016 at 7:30 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-370491" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Frank. Great question.</p>
+<p>You will need to collect historical data to develop and evaluate your model.</p>
+<p>Once created, it sounds like you will need to wait 30 days before you can evaluate the ongoing performance of the model’s predictions.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=370491#respond" onclick='return addComment.moveForm( "comment-370491", "370491", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-370979">
+<div class="comment-container" id="li-comment-370979">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/454f6e036c0a45ffd552daaf6f8449c8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/454f6e036c0a45ffd552daaf6f8449c8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ann</span>
+<span class="date">November 17, 2016 at 8:29 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-370979" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+Have done a program to classify if a customer(client) will subscribe for term deposit or not..<br/>
+dataset used: bank dataset from uci machine learning repository<br/>
+algorithm used: 1. random forest algorithm with CART to generate decision trees and 2.random forest algorithm with HAC4.5 to generate decision trees.</p>
+<p>my question is how do i determine the accuracy of 1 and 2 and find the best one???</p>
+<p>am really new to this field..please ignore my stupidity<br/>
+thanks in advance</p>
+<div class="reply">
+<a aria-label="Reply to Ann" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=370979#respond" onclick='return addComment.moveForm( "comment-370979", "370979", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-371040">
+<div class="comment-container" id="li-comment-371040">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 18, 2016 at 8:21 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-371040" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Ann, great work!</p>
+<p>You can compare each algorithm using a consistent testing methodology. For example k-fold cross validation with the same random number seeds (so each algorithm gets the same folds).</p>
+<p>Here is more info on comparing algorithms:<br/>
+<a href="http://machinelearningmastery.com/how-to-evaluate-machine-learning-algorithms/" rel="nofollow">http://machinelearningmastery.com/how-to-evaluate-machine-learning-algorithms/</a></p>
+<p>I hope that helps as a start.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=371040#respond" onclick='return addComment.moveForm( "comment-371040", "371040", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-373229">
+<div class="comment-container" id="li-comment-373229">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/aead7e0b806ac2b5fbdacdd72183c748?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/aead7e0b806ac2b5fbdacdd72183c748?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://RakzConsultancies" rel="external nofollow">Nihad Almahrooq</a></span>
+<span class="date">December 1, 2016 at 6:17 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-373229" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, greater work you are making I wish you the best you deserving it.</p>
+<p>My question: I want to use ML to solve problems of network infrastructure data information. You know missing, typo, discrepancy. Fundamentals in knowledge and expertise are essential though need some ML direction and research more. Can you provide or shed light off that? And how? If you prefer we can communicate directly at <a href="mailto:nkmahrooq@hotmail.com">nkmahrooq@hotmail.com</a> </p>
+<p>Thanks and please forgive me if the approach seems awkward as startup and recently joint your connections it’s may be rushing!</p>
+<div class="reply">
+<a aria-label="Reply to Nihad Almahrooq" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=373229#respond" onclick='return addComment.moveForm( "comment-373229", "373229", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-373341">
+<div class="comment-container" id="li-comment-373341">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 2, 2016 at 8:14 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-373341" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Nihad, that is an interesting application.</p>
+<p>Machine learning might not be the best approach for fixing typos and such. Nevertheless, the first step would be to collect a dataset and try to deeply understand the types of examples the algorithm would have to learn.</p>
+<p>This post might help you dive deeper into your problem:<br/>
+<a href="http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/" rel="nofollow">http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/</a></p>
+<p>I hope this helps as a start, best of luck.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=373341#respond" onclick='return addComment.moveForm( "comment-373341", "373341", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-377239">
+<div class="comment-container" id="li-comment-377239">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ec9306d7b8902a34a7e1a4f207522ba1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ec9306d7b8902a34a7e1a4f207522ba1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nischay</span>
+<span class="date">December 24, 2016 at 8:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-377239" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Splendid work! A helpful measure for my semester exams. Thanks!!</p>
+<div class="reply">
+<a aria-label="Reply to Nischay" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=377239#respond" onclick='return addComment.moveForm( "comment-377239", "377239", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-377640">
+<div class="comment-container" id="li-comment-377640">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 26, 2016 at 7:37 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-377640" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Nischay.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=377640#respond" onclick='return addComment.moveForm( "comment-377640", "377640", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-379149">
+<div class="comment-container" id="li-comment-379149">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/52f04c2da08bb6c763678c76eb6353d0?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/52f04c2da08bb6c763678c76eb6353d0?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sam</span>
+<span class="date">January 1, 2017 at 4:11 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-379149" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>hello Jason, greater work you are making I wish you the best you deserving it.<br/>
+I want to find an online algorithm to cluster scientific workflow data to minimize run time and system overhead so it can map these workflow tasks to a distributed resources like clouds .The clustered data should be mapped to these available resources in a balanced way that  guarantees no resource is over utilized while other resource is idle. </p>
+<p>I came a cross a horizontal clustering ,vertical clustering but these technique  are static and user should determine the number of clusters and number of tasks in each cluster in advance …</p>
+<div class="reply">
+<a aria-label="Reply to Sam" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=379149#respond" onclick='return addComment.moveForm( "comment-379149", "379149", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-379166">
+<div class="comment-container" id="li-comment-379166">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 1, 2017 at 5:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-379166" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Sam, </p>
+<p>Thanks for your support.</p>
+<p>Off-the-cuff, this sounds like a dynamic programming or constraint satisfaction problem rather than machine learning.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=379166#respond" onclick='return addComment.moveForm( "comment-379166", "379166", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-380482">
+<div class="comment-container" id="li-comment-380482">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/390c7b268819a790f09e40b5ac3a8331?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/390c7b268819a790f09e40b5ac3a8331?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Marcus</span>
+<span class="date">January 6, 2017 at 6:55 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-380482" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, this post is really helpful for my Cognitive Neural Network revision!</p>
+<p>I have a question of a historical nature, relating to how supervised learning algorithms evolved:<br/>
+Some early supervised learning methods allowed the threshold to be adjusted during learning. Why is that not necessary with the newer supervised learning algorithms?</p>
+<p>Is this because they (e.g. the Delta Rule) adjust the weights on a running basis to minimize error, which supersedes the need for threshold adjustment? Or is there something more subtle going on in the newer algorithms that eliminates the need for threshold adjustment? Thank you in advance for any insight you can provide on this.</p>
+<div class="reply">
+<a aria-label="Reply to Marcus" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=380482#respond" onclick='return addComment.moveForm( "comment-380482", "380482", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-380512">
+<div class="comment-container" id="li-comment-380512">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 6, 2017 at 9:14 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-380512" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I don’t think I have enough context Marcus. It sounds like you may be referring specifically to stochastic gradient descent.</p>
+<p>I’m not really an algorithm historian, I’d refer you to the seminal papers on the topic.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=380512#respond" onclick='return addComment.moveForm( "comment-380512", "380512", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-388477">
+<div class="comment-container" id="li-comment-388477">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7bd939d1b5356b8a0eab4beadc4f67f6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7bd939d1b5356b8a0eab4beadc4f67f6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">David Lehmann</span>
+<span class="date">February 17, 2017 at 3:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-388477" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason – Thanks so much for the informative post.  I think I am missing something basic.  Once a model is trained with labeled data (supervised), how does additional unlabeled data help improve the model?  For example, how do newly uploaded pictures (presumably unlabeled) to Google Photos help further improve the model (assuming it does so)?  Or how does new voice data (again unlabeled) help make a machine learning-based voice recognition system better? i understand conceptually how labeled data could drive a model but unclear how it helps if you don’t really know what the data represents.   </p>
+<p>Thanks! Dave</p>
+<div class="reply">
+<a aria-label="Reply to David Lehmann" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=388477#respond" onclick='return addComment.moveForm( "comment-388477", "388477", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-388552">
+<div class="comment-container" id="li-comment-388552">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 17, 2017 at 10:01 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-388552" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question Dave.</p>
+<p>Generally, we can use unlabelled data to help initialize large models, like deep neural networks.</p>
+<p>More specifically, we can label unlabelled data, have it corroborate the prediction if needed, and use that as input to update or retrain a model to make be better for future predictions.</p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=388552#respond" onclick='return addComment.moveForm( "comment-388552", "388552", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-388725">
+<div class="comment-container" id="li-comment-388725">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7bd939d1b5356b8a0eab4beadc4f67f6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7bd939d1b5356b8a0eab4beadc4f67f6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Dave Lehmann</span>
+<span class="date">February 18, 2017 at 2:50 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-388725" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>yes thanks.  So the data ultimately needs to be labeled to be useful in improving the model?  Keeping with the Google Photos use case, all the millions of photos uploaded everyday then doesn’t help the model unless someone manually labels them and then runs those through the training?  Guess I was hoping there was some way intelligence could be discerned from the unlabeled data (unsupervised) to improve on the original model but that does not appear to be the case right?  thanks again for the help – Dave</p>
+<div class="reply">
+<a aria-label="Reply to Dave Lehmann" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=388725#respond" onclick='return addComment.moveForm( "comment-388725", "388725", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-388798">
+<div class="comment-container" id="li-comment-388798">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">February 18, 2017 at 8:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-388798" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>There very well may be, I’m just not across it.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=388798#respond" onclick='return addComment.moveForm( "comment-388798", "388798", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-393446">
+<div class="comment-container" id="li-comment-393446">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/c07b0b0ff896f5a31d2a4bd6d10472fc?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/c07b0b0ff896f5a31d2a4bd6d10472fc?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Rohit Thakur</span>
+<span class="date">March 20, 2017 at 10:48 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-393446" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Can you write a blog post on Reinforcement Learning explaining how does it work, in context of Robotics ?</p>
+<div class="reply">
+<a aria-label="Reply to Rohit Thakur" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=393446#respond" onclick='return addComment.moveForm( "comment-393446", "393446", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-393516">
+<div class="comment-container" id="li-comment-393516">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">March 21, 2017 at 8:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-393516" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I hope to cover the topic in the future Rohit.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=393516#respond" onclick='return addComment.moveForm( "comment-393516", "393516", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-396219">
+<div class="comment-container" id="li-comment-396219">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/200df179557579a0c0ede6dfe86872cf?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/200df179557579a0c0ede6dfe86872cf?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hansa</span>
+<span class="date">April 12, 2017 at 8:05 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-396219" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I am trying to solve machine learning problem for Incidents in Health &amp; safety industry.<br/>
+I want to recommend the corrective or preventive actions based on the Incident happening at given site.<br/>
+I am trying to understand which algorithm works best for this.<br/>
+Could you please share your thoughts.</p>
+<p>Regards,<br/>
+Hansa</p>
+<div class="reply">
+<a aria-label="Reply to Hansa" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=396219#respond" onclick='return addComment.moveForm( "comment-396219", "396219", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-396283">
+<div class="comment-container" id="li-comment-396283">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 13, 2017 at 9:59 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-396283" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This framework may help you frame your problem:<br/>
+<a href="http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/" rel="nofollow">http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/</a></p>
+<p>This process will help you work through it:<br/>
+<a href="http://machinelearningmastery.com/start-here/#process" rel="nofollow">http://machinelearningmastery.com/start-here/#process</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=396283#respond" onclick='return addComment.moveForm( "comment-396283", "396283", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-396842">
+<div class="comment-container" id="li-comment-396842">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ccd083573c07e86816b0b46acac90071?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ccd083573c07e86816b0b46acac90071?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Aigerim</span>
+<span class="date">April 18, 2017 at 11:08 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-396842" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I need help in solving a problem. I am writing thesis about Unsupervised Learning of Morphology of Turkish language. It is my first thesis about this area.  My question is this: I have to write math model of morphology and I am trying to understand which algorithm works best for this. Could you please give me same important information. Please help me understand!</p>
+<div class="reply">
+<a aria-label="Reply to Aigerim" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=396842#respond" onclick='return addComment.moveForm( "comment-396842", "396842", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-396878">
+<div class="comment-container" id="li-comment-396878">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 19, 2017 at 7:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-396878" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You must answer this question empirically.</p>
+<p>See this post:<br/>
+<a href="http://machinelearningmastery.com/a-data-driven-approach-to-machine-learning/" rel="nofollow">http://machinelearningmastery.com/a-data-driven-approach-to-machine-learning/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=396878#respond" onclick='return addComment.moveForm( "comment-396878", "396878", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-397339">
+<div class="comment-container" id="li-comment-397339">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/b66f54d7b355c9c4cd255d914b997a70?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/b66f54d7b355c9c4cd255d914b997a70?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">lilya</span>
+<span class="date">April 23, 2017 at 7:06 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-397339" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>please I need help in solving my problem which is : i want  to do supervised clustering of regions ( classify regions having as response variable : frequence of accidents ( numeric response) and explanatory variables like : density of population , density of the trafic) i want to do this using Random forest is it possible ?</p>
+<div class="reply">
+<a aria-label="Reply to lilya" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=397339#respond" onclick='return addComment.moveForm( "comment-397339", "397339", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-397384">
+<div class="comment-container" id="li-comment-397384">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 24, 2017 at 5:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-397384" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I do not have clustering examples sorry.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=397384#respond" onclick='return addComment.moveForm( "comment-397384", "397384", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-397757">
+<div class="comment-container" id="li-comment-397757">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9937a25d3f87f8f57ed9fa80597ec6af?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9937a25d3f87f8f57ed9fa80597ec6af?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://mrudukanga.com/" rel="external nofollow">Nuwan C</a></span>
+<span class="date">April 27, 2017 at 12:14 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-397757" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Json,<br/>
+Thnc for the article and it is wonderful help for a beginner and I have a little clarification about the categorization.</p>
+<p>I saw some articles devide supervice learning and unsupervise and reinforcement.</p>
+<p>Is that same meaning of semi supervising and reinforcement gives?</p>
+<div class="reply">
+<a aria-label="Reply to Nuwan C" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=397757#respond" onclick='return addComment.moveForm( "comment-397757", "397757", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-397836">
+<div class="comment-container" id="li-comment-397836">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 28, 2017 at 7:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-397836" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>No, reinforcement learning is something different again.</p>
+<p>See more here:<br/>
+<a href="https://en.wikipedia.org/wiki/Reinforcement_learning" rel="nofollow">https://en.wikipedia.org/wiki/Reinforcement_learning</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=397836#respond" onclick='return addComment.moveForm( "comment-397836", "397836", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-398632">
+<div class="comment-container" id="li-comment-398632">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/fbda363c79911e3ff1d5e961db92433b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/fbda363c79911e3ff1d5e961db92433b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">violet</span>
+<span class="date">May 5, 2017 at 3:09 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-398632" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Good one! Thanks a lot. Jason, you did great!It was so simplified. But I will love to have an insight as simplified as this on Linear regression algorithm in supervised machine. Thanks once more</p>
+<div class="reply">
+<a aria-label="Reply to violet" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=398632#respond" onclick='return addComment.moveForm( "comment-398632", "398632", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-398732">
+<div class="comment-container" id="li-comment-398732">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 6, 2017 at 7:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-398732" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad to hear that.</p>
+<p>Here is a simplified description of linear regression and other algorithms:<br/>
+<a href="http://machinelearningmastery.com/start-here/#algorithms" rel="nofollow">http://machinelearningmastery.com/start-here/#algorithms</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=398732#respond" onclick='return addComment.moveForm( "comment-398732", "398732", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-400372">
+<div class="comment-container" id="li-comment-400372">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/450b3400e07d7064477a4d04c856f0a8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/450b3400e07d7064477a4d04c856f0a8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Anubhav</span>
+<span class="date">May 23, 2017 at 8:00 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-400372" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Good one!  I an novice to ML. So Timeseries based predictive model will fall under which category Supervised, Unsupervised or Sem-supervised? and why?</p>
+<div class="reply">
+<a aria-label="Reply to Anubhav" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=400372#respond" onclick='return addComment.moveForm( "comment-400372", "400372", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-400400">
+<div class="comment-container" id="li-comment-400400">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 24, 2017 at 4:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-400400" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Time series forecasting is supervised learning.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=400400#respond" onclick='return addComment.moveForm( "comment-400400", "400400", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-403083">
+<div class="comment-container" id="li-comment-403083">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5ebf65f278b386e2c5e1a1c3b4af098c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5ebf65f278b386e2c5e1a1c3b4af098c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Balaji</span>
+<span class="date">June 20, 2017 at 2:36 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-403083" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>HI Jasan<br/>
+simple and easy to understand contents.<br/>
+I am an ML enthusiast looking for material that groups important and most used algorithms in to supervised and unsupervised. </p>
+<p>e.g<br/>
+Supervised – Regression, Classification, Decision tree etc..<br/>
+Unsupervised – Cluster, etc..</p>
+<p>do you  have ?</p>
+<div class="reply">
+<a aria-label="Reply to Balaji" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=403083#respond" onclick='return addComment.moveForm( "comment-403083", "403083", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-403131">
+<div class="comment-container" id="li-comment-403131">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 20, 2017 at 6:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-403131" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This might help:<br/>
+<a href="http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/" rel="nofollow">http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=403131#respond" onclick='return addComment.moveForm( "comment-403131", "403131", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-404403">
+<div class="comment-container" id="li-comment-404403">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/0e97bac5ca5776ec10b476543b89c907?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/0e97bac5ca5776ec10b476543b89c907?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Eashan Roy</span>
+<span class="date">July 1, 2017 at 5:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-404403" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Given data on how 1000 medical patients respond to an experiment drug( such as effectiveness of treatment, side effects) discover whether there are different categories or types of patients in terms of how they respond to the drug and if so what these categories are. </p>
+<p>Is this supervised or unsupervised learning ?</p>
+<div class="reply">
+<a aria-label="Reply to Eashan Roy" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=404403#respond" onclick='return addComment.moveForm( "comment-404403", "404403", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-404418">
+<div class="comment-container" id="li-comment-404418">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 1, 2017 at 6:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-404418" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sounds like unsupervised to me.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=404418#respond" onclick='return addComment.moveForm( "comment-404418", "404418", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-404631">
+<div class="comment-container" id="li-comment-404631">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/fb838065131f73e6e33186c8350c6c6b?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/fb838065131f73e6e33186c8350c6c6b?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">David</span>
+<span class="date">July 3, 2017 at 5:37 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-404631" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I have over 1million sample input queries.. I want to classify into genuine or malicious query.. Every query consist of keywords but there are some specific keywords that may help identify malicious query or not. However not every of the possible malicious keyword may consider the whole query malicious… I’m not sure how to present my problem here but Let me ask this first… Is it possible to have 2 levels of classification(supervised) and 1 level of clustering(unsupervised) in solving a problem like this..?</p>
+<div class="reply">
+<a aria-label="Reply to David" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=404631#respond" onclick='return addComment.moveForm( "comment-404631", "404631", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-404865">
+<div class="comment-container" id="li-comment-404865">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 6, 2017 at 9:59 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-404865" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You need a high-quality training dataset first.</p>
+<p>Then this process may help:<br/>
+<a href="http://machinelearningmastery.com/start-here/#process" rel="nofollow">http://machinelearningmastery.com/start-here/#process</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=404865#respond" onclick='return addComment.moveForm( "comment-404865", "404865", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-408169">
+<div class="comment-container" id="li-comment-408169">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/8261a989bc9e95536f637c508c72c85a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/8261a989bc9e95536f637c508c72c85a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sana</span>
+<span class="date">August 2, 2017 at 12:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-408169" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Jason it is really helpful me in my semester exam</p>
+<div class="reply">
+<a aria-label="Reply to Sana" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=408169#respond" onclick='return addComment.moveForm( "comment-408169", "408169", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-408225">
+<div class="comment-container" id="li-comment-408225">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 2, 2017 at 7:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-408225" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad to hear that.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=408225#respond" onclick='return addComment.moveForm( "comment-408225", "408225", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-409389">
+<div class="comment-container" id="li-comment-409389">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/4de7cd3a39a6267d6d12e0af6b1ac679?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/4de7cd3a39a6267d6d12e0af6b1ac679?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Blessing</span>
+<span class="date">August 12, 2017 at 11:59 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-409389" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, thank you for the post. I have a question. Does an unsupervised algorithm search for a final hypothesis and if so, what is the hypothesis used for. Are target functions involved in unsupervised learning? What does an unsupervised algorithm actually do?<br/>
+I understand supervised learning as an approach where training data is fed into an algorithm to learn the hypothesis that estimates the target function. However, for an unsupervised learning, for example, clustering, what does the clustering algorithm actually do? what does “concept learning” mean when it comes to unsupervised machine learning? I noticed that most books define concept learning with respect to supervised learning. Thank you</p>
+<div class="reply">
+<a aria-label="Reply to Blessing" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=409389#respond" onclick='return addComment.moveForm( "comment-409389", "409389", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-409461">
+<div class="comment-container" id="li-comment-409461">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 13, 2017 at 9:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-409461" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I don’t like unsupervised methods in general – I don’t find their results objective – I don’t think they are falsifiable therefore I can’t judge if they’re useful.</p>
+<p>They work by applying a methodology/process to data to get an outcome, then it is up to the practitioner to interpret the results – hopefully objectively.</p>
+<p>You’ll notice that I don’t cover unsupervised learning algorithms on my blog – this is the reason.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=409461#respond" onclick='return addComment.moveForm( "comment-409461", "409461", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-411749">
+<div class="comment-container" id="li-comment-411749">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7dac827c074f2e38e299f5a0238318b6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7dac827c074f2e38e299f5a0238318b6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">abhi</span>
+<span class="date">August 30, 2017 at 2:25 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-411749" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I am following your Tutorials from Last couple of weeks. Thanks for such awesome Tutorials for beginners. </p>
+<p>I have one problem for which I want to use ML algorithm. I tried Cats and Dogs for small dataset and I can predict correct output with Binary Cross entropy.</p>
+<p>Now To apply to my own dataset problem I want to classify images as Weather they are Cat or Dog or any other(if I provide Lion image). But all I get is only 0 &amp; 1 for cat and dog class.</p>
+<p>Model.predict should give me different output if image is not cat or dog.<br/>
+Also , How Can I get % prediction that says. Yes this image is quite similar to cat/dot with test result accuracy  as 80% or more. If I provide mountain/lion image then it should give me output as it is 10% or less than 50% so I can say it is not cat or dog but something other??</p>
+<div class="reply">
+<a aria-label="Reply to abhi" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=411749#respond" onclick='return addComment.moveForm( "comment-411749", "411749", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-411762">
+<div class="comment-container" id="li-comment-411762">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 30, 2017 at 4:19 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-411762" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You will need to change your model from a binary classification model to a multiclass classification model.</p>
+<p>See this model as an example:<br/>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" rel="nofollow">https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=411762#respond" onclick='return addComment.moveForm( "comment-411762", "411762", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-413817">
+<div class="comment-container" id="li-comment-413817">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9c07eafc6ffde468cd67cb516ea962d6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9c07eafc6ffde468cd67cb516ea962d6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Keval</span>
+<span class="date">September 15, 2017 at 12:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-413817" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I am wondering where does a scoring model fit into this structure? I am trying to define my problem as an ML problem, however, I do not have any labeled data as I am just starting to work with the data. The output variable in my case is a score that is calculated based on select features from the dataset. How would you classify this problem and what techniques would you suggest exploring?</p>
+<div class="reply">
+<a aria-label="Reply to Keval" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=413817#respond" onclick='return addComment.moveForm( "comment-413817", "413817", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-413898">
+<div class="comment-container" id="li-comment-413898">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 15, 2017 at 12:14 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-413898" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This post will help you define your predictive modeling problem:<br/>
+<a href="http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/" rel="nofollow">http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=413898#respond" onclick='return addComment.moveForm( "comment-413898", "413898", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-414634">
+<div class="comment-container" id="li-comment-414634">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f304237f702a5a26c1e2f7198a469901?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f304237f702a5a26c1e2f7198a469901?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ares</span>
+<span class="date">September 23, 2017 at 3:02 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-414634" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hii Jason .. Thank you for the post… I am new to Machine Learning…How should i start with Machine learning.. Should i study all the concepts first or should   i code algorithms which i study simultaneously ??? Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Ares" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=414634#respond" onclick='return addComment.moveForm( "comment-414634", "414634", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-414681">
+<div class="comment-container" id="li-comment-414681">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 24, 2017 at 5:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-414681" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>My best advice for getting started is here:<br/>
+<a href="https://machinelearningmastery.com/start-here/#getstarted" rel="nofollow">https://machinelearningmastery.com/start-here/#getstarted</a></p>
+<p>It is not for everyone, but seems to work well for developers that learn by doing.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=414681#respond" onclick='return addComment.moveForm( "comment-414681", "414681", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-414882">
+<div class="comment-container" id="li-comment-414882">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/36e2a00f440883fa1a8bf9f1976938e7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/36e2a00f440883fa1a8bf9f1976938e7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://havn't%20web" rel="external nofollow">Ahmed Fathy</a></span>
+<span class="date">September 27, 2017 at 3:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-414882" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>i have some of images about mango diseases. i want to make segmentation, feature extraction, classification … what is the best and common algorithms for this issue ??</p>
+<div class="reply">
+<a aria-label="Reply to Ahmed Fathy" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=414882#respond" onclick='return addComment.moveForm( "comment-414882", "414882", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-414903">
+<div class="comment-container" id="li-comment-414903">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 27, 2017 at 5:48 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-414903" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps you can use feature selection methods to find out:<br/>
+<a href="http://machinelearningmastery.com/an-introduction-to-feature-selection/" rel="nofollow">http://machinelearningmastery.com/an-introduction-to-feature-selection/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=414903#respond" onclick='return addComment.moveForm( "comment-414903", "414903", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-416510">
+<div class="comment-container" id="li-comment-416510">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/fd6f9e670f3945573f2fbfed1f19bebe?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/fd6f9e670f3945573f2fbfed1f19bebe?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">scott</span>
+<span class="date">October 13, 2017 at 9:51 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-416510" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey there, Jason – Good high-level info. Truthfully, I found the grammar and spelling errors distracting. They make software for that. 😉</p>
+<div class="reply">
+<a aria-label="Reply to scott" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=416510#respond" onclick='return addComment.moveForm( "comment-416510", "416510", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-416529">
+<div class="comment-container" id="li-comment-416529">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 13, 2017 at 2:54 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-416529" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the feedback Scott.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=416529#respond" onclick='return addComment.moveForm( "comment-416529", "416529", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-418982">
+<div class="comment-container" id="li-comment-418982">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/523c948874b1ada3df94bd88febe8bf8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/523c948874b1ada3df94bd88febe8bf8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">SANDEEP S KUMAR</span>
+<span class="date">November 4, 2017 at 12:14 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-418982" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>what are the examples of semi supervised learning algorithms</p>
+<div class="reply">
+<a aria-label="Reply to SANDEEP S KUMAR" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=418982#respond" onclick='return addComment.moveForm( "comment-418982", "418982", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-419114">
+<div class="comment-container" id="li-comment-419114">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/872dca8960810b789a26496d99c87827?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/872dca8960810b789a26496d99c87827?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Aditi Kadam</span>
+<span class="date">November 6, 2017 at 5:57 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-419114" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you! It was a great explanation</p>
+<div class="reply">
+<a aria-label="Reply to Aditi Kadam" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=419114#respond" onclick='return addComment.moveForm( "comment-419114", "419114", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-419187">
+<div class="comment-container" id="li-comment-419187">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 7, 2017 at 9:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-419187" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks, I’m glad it helped.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=419187#respond" onclick='return addComment.moveForm( "comment-419187", "419187", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-422407">
+<div class="comment-container" id="li-comment-422407">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3cb9bd51778870808404e126c003aec2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3cb9bd51778870808404e126c003aec2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vinu Nair</span>
+<span class="date">December 7, 2017 at 5:07 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-422407" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+Good work.Could you please help me to find a algorithm for below mentioned problem .<br/>
+ We have number of  record groups  which have been grouped manually . We needs to automate these grouping by analysis on this history data.</p>
+<div class="reply">
+<a aria-label="Reply to Vinu Nair" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=422407#respond" onclick='return addComment.moveForm( "comment-422407", "422407", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-422453">
+<div class="comment-container" id="li-comment-422453">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 8, 2017 at 5:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-422453" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This post will help you frame your data as a predictive modeling problem:<br/>
+<a href="http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/" rel="nofollow">http://machinelearningmastery.com/how-to-define-your-machine-learning-problem/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=422453#respond" onclick='return addComment.moveForm( "comment-422453", "422453", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-422434">
+<div class="comment-container" id="li-comment-422434">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3cb9bd51778870808404e126c003aec2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3cb9bd51778870808404e126c003aec2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Vinu Nair</span>
+<span class="date">December 7, 2017 at 10:12 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-422434" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Could you please share some algorithm for finding matching patterns</p>
+<div class="reply">
+<a aria-label="Reply to Vinu Nair" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=422434#respond" onclick='return addComment.moveForm( "comment-422434", "422434", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-422459">
+<div class="comment-container" id="li-comment-422459">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 8, 2017 at 5:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-422459" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the suggestion.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=422459#respond" onclick='return addComment.moveForm( "comment-422459", "422459", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-424217">
+<div class="comment-container" id="li-comment-424217">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ee75fea796dbeb174918f15fddfe3f0c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ee75fea796dbeb174918f15fddfe3f0c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Haneen</span>
+<span class="date">December 20, 2017 at 9:52 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-424217" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>you are amazing, Thank you so match</p>
+<div class="reply">
+<a aria-label="Reply to Haneen" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=424217#respond" onclick='return addComment.moveForm( "comment-424217", "424217", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-424250">
+<div class="comment-container" id="li-comment-424250">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 21, 2017 at 5:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-424250" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You’re welcome.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=424250#respond" onclick='return addComment.moveForm( "comment-424250", "424250", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-424337">
+<div class="comment-container" id="li-comment-424337">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/bb1a2ead21ffb364991b43c113324a25?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/bb1a2ead21ffb364991b43c113324a25?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ali</span>
+<span class="date">December 21, 2017 at 10:44 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-424337" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What is supervised and unsupervised learning? Which learning techniques could be better in particular machine learning domain? Which technique has limitations and why?</p>
+<div class="reply">
+<a aria-label="Reply to Ali" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=424337#respond" onclick='return addComment.moveForm( "comment-424337", "424337", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-424374">
+<div class="comment-container" id="li-comment-424374">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 22, 2017 at 5:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-424374" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Did this post help explain the difference?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=424374#respond" onclick='return addComment.moveForm( "comment-424374", "424374", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-424968">
+<div class="comment-container" id="li-comment-424968">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/019e9583836e5bc46095e2576b3a1e3a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/019e9583836e5bc46095e2576b3a1e3a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Krishna</span>
+<span class="date">December 27, 2017 at 3:31 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-424968" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very helpful to understand what is supervised and unsupervised learning. Its very better when you explain with real time applications lucidly.</p>
+<div class="reply">
+<a aria-label="Reply to Krishna" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=424968#respond" onclick='return addComment.moveForm( "comment-424968", "424968", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-425002">
+<div class="comment-container" id="li-comment-425002">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 28, 2017 at 5:18 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-425002" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=425002#respond" onclick='return addComment.moveForm( "comment-425002", "425002", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-425055">
+<div class="comment-container" id="li-comment-425055">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/4eb108f59e3804734e859a8fba3542c3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/4eb108f59e3804734e859a8fba3542c3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Pulkit Aggarwal</span>
+<span class="date">December 28, 2017 at 11:00 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-425055" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hello, Sir Jason I’m new to Machine Learning and want to learn it from the scratch.Please guide me to do so.</p>
+<div class="reply">
+<a aria-label="Reply to Pulkit Aggarwal" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=425055#respond" onclick='return addComment.moveForm( "comment-425055", "425055", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-425077">
+<div class="comment-container" id="li-comment-425077">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 29, 2017 at 5:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-425077" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can start here:<br/>
+<a href="https://machinelearningmastery.com/start-here/" rel="nofollow">https://machinelearningmastery.com/start-here/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=425077#respond" onclick='return addComment.moveForm( "comment-425077", "425077", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-426325">
+<div class="comment-container" id="li-comment-426325">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3ed34e011c63795b61f967baea1633b3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3ed34e011c63795b61f967baea1633b3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">MUHAMMAD OMER</span>
+<span class="date">January 12, 2018 at 10:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-426325" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>hello,<br/>
+What kind of data we use reinforcement learning?<br/>
+guide me.</p>
+<div class="reply">
+<a aria-label="Reply to MUHAMMAD OMER" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=426325#respond" onclick='return addComment.moveForm( "comment-426325", "426325", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-426367">
+<div class="comment-container" id="li-comment-426367">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 13, 2018 at 5:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-426367" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I hope to cover RL in detail this year.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=426367#respond" onclick='return addComment.moveForm( "comment-426367", "426367", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-426380">
+<div class="comment-container" id="li-comment-426380">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d6b9d938b4fd1668838a19c44f5da4e2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d6b9d938b4fd1668838a19c44f5da4e2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://www.gtu.ac.in" rel="external nofollow">Ritesh K. Patel (PhD)</a></span>
+<span class="date">January 13, 2018 at 6:25 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-426380" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>SPEECHLESS LEARNING, MACHINE LEARNING EXPLANATIONS ARE SO EASYILY COVERED, EVEN A HISTORY PROFESSOR CAN USE IT. THANKING YOU FOR YOUR TIME AND CONSIDERATION. DR. RITESH PATEL GTU MBA SECTION HEAD GUJARAT TECHNOLOGICAL UNIVERSITY AHMEDABAD 9909944890 CUG PERSONAL 9687100199 <a href="mailto:AP_CGS@GTU.EDU.IN">AP_CGS@GTU.EDU.IN</a></p>
+<div class="reply">
+<a aria-label="Reply to Ritesh K. Patel (PhD)" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=426380#respond" onclick='return addComment.moveForm( "comment-426380", "426380", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-426393">
+<div class="comment-container" id="li-comment-426393">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 13, 2018 at 7:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-426393" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=426393#respond" onclick='return addComment.moveForm( "comment-426393", "426393", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-426783">
+<div class="comment-container" id="li-comment-426783">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3b9616c3e1cc61f714d8d7d9cc11a7ea?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3b9616c3e1cc61f714d8d7d9cc11a7ea?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Glad</span>
+<span class="date">January 18, 2018 at 8:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-426783" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Nice one,  but I need more explanation on unsupervised learning please</p>
+<div class="reply">
+<a aria-label="Reply to Glad" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=426783#respond" onclick='return addComment.moveForm( "comment-426783", "426783", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-426812">
+<div class="comment-container" id="li-comment-426812">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 18, 2018 at 10:15 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-426812" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What questions do you have about unsupervised learning exactly?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=426812#respond" onclick='return addComment.moveForm( "comment-426812", "426812", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-427097">
+<div class="comment-container" id="li-comment-427097">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3b9616c3e1cc61f714d8d7d9cc11a7ea?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3b9616c3e1cc61f714d8d7d9cc11a7ea?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Glad</span>
+<span class="date">January 22, 2018 at 6:58 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/#comment-427097" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Examples of unsupervised machine learning</p>
+<div class="reply">
+<a aria-label="Reply to Glad" class="comment-reply-link" href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/?replytocom=427097#respond" onclick='return addComment.moveForm( "comment-427097", "427097", "respond", "2324" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/supervised-and-unsupervised-machine-learning-algorithms/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="2324"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="a09e9f06e6"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="40"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-9"><h3>Understand Machine Learning Algorithms!</h3> <div class="textwidget"><center>
+Sick of all the advanced math?<br/>
+Need step-by-step explainations for top algorithms?<br/>
+Want worked examples in spreadsheets?<br/>
+<br/>
+<a href="/master-machine-learning-algorithms/">Finally Understand Machine Learning Algorithms! </a>
+<a href="/master-machine-learning-algorithms/"><img alt="Master Machine Learning Algorithms" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/MasterMachineLearningAlgorithms-small.png"/></a>
+<br/>
+</center></div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

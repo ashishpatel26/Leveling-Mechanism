@@ -1,0 +1,1342 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How to Identify and Remove Seasonality from Time Series Data with Python - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/time-series-seasonality-with-python/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How to Identify and Remove Seasonality from Time Series Data with Python - Machine Learning Mastery" property="og:title"/>
+<meta content="Time series datasets can contain a seasonal component. This is a cycle that repeats over time, such as monthly or yearly. This repeating cycle may obscure the signal that we wish to model when forecasting, and in turn may provide a strong signal to our predictive models. In this tutorial, you will discover how to …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/time-series-seasonality-with-python/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Time Series" property="article:section"/>
+<meta content="2016-12-23T05:00:56+11:00" property="article:published_time"/>
+<meta content="2017-02-21T16:51:12+11:00" property="article:modified_time"/>
+<meta content="2017-02-21T16:51:12+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Identify-and-Remove-Seasonality-from-Time-Series-Data-with-Python.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Identify-and-Remove-Seasonality-from-Time-Series-Data-with-Python.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="480" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/time-series-seasonality-with-python\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/time-series-seasonality-with-python/feed/" rel="alternate" title="Machine Learning Mastery » How to Identify and Remove Seasonality from Time Series Data with Python Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=3535" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Ftime-series-seasonality-with-python%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Ftime-series-seasonality-with-python%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-3535 single-format-standard safari alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-3535 post type-post status-publish format-standard has-post-thumbnail hentry category-time-series">
+<header>
+<h1 class="title entry-title">How to Identify and Remove Seasonality from Time Series Data with Python</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2016-12-23T05:00:56+1100">December 23, 2016</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/time-series/" title="View all items in Time Series">Time Series</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Identify%20and%20Remove%20Seasonality%20from%20Time%20Series%20Data%20with%20Python&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Ftime-series-seasonality-with-python%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/time-series-seasonality-with-python/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/time-series-seasonality-with-python/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Identify%20and%20Remove%20Seasonality%20from%20Time%20Series%20Data%20with%20Python&amp;url=https://machinelearningmastery.com/time-series-seasonality-with-python/&amp;summary=Time+series+datasets+can+contain+a+seasonal+component.%0D%0A%0D%0AThis+is+a+cycle+that+repeats+over+time%2C+su..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Identify%20and%20Remove%20Seasonality%20from%20Time%20Series%20Data%20with%20Python&amp;url=https://machinelearningmastery.com/time-series-seasonality-with-python/&amp;summary=Time+series+datasets+can+contain+a+seasonal+component.%0D%0A%0D%0AThis+is+a+cycle+that+repeats+over+time%2C+su...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/time-series-seasonality-with-python/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/time-series-seasonality-with-python/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>Time series datasets can contain a seasonal component.</p>
+<p>This is a cycle that repeats over time, such as monthly or yearly. This repeating cycle may obscure the signal that we wish to model when forecasting, and in turn may provide a strong signal to our predictive models.</p>
+<p>In this tutorial, you will discover how to identify and correct for seasonality in time series data with Python.</p>
+<p>After completing this tutorial, you will know:</p>
+<ul>
+<li>The definition of seasonality in time series and the opportunity it provides for forecasting with machine learning methods.</li>
+<li>How to use the difference method to create a seasonally adjusted time series of daily temperature data.</li>
+<li>How to model the seasonal component directly and explicitly subtract it from observations.</li>
+</ul>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_3543" style="max-width: 650px"><img alt="How to Identify and Remove Seasonality from Time Series Data with Python" class="size-full wp-image-3543" height="480" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Identify-and-Remove-Seasonality-from-Time-Series-Data-with-Python.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Identify-and-Remove-Seasonality-from-Time-Series-Data-with-Python.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/How-to-Identify-and-Remove-Seasonality-from-Time-Series-Data-with-Python-300x225.jpg 300w" width="640"/><p class="wp-caption-text">How to Identify and Remove Seasonality from Time Series Data with Python<br/>Photo by <a href="https://www.flickr.com/photos/vizpix/6550049695/">naturalflow</a>, some rights reserved.</p></div>
+<h2>Seasonality in Time Series</h2>
+<p>Time series data may contain seasonal variation.</p>
+<p>Seasonal variation, or seasonality, are cycles that repeat regularly over time.</p>
+<blockquote><p>A repeating pattern within each year is known as seasonal variation, although the term is applied more generally to repeating patterns within any fixed period.</p></blockquote>
+<p>— Page 6, <a class="easyazon-link" href="http://www.amazon.com/dp/0387886974?tag=inspiredalgor-20">Introductory Time Series with R</a></p>
+<p>A cycle structure in a time series may or may not be seasonal. If it consistently repeats at the same frequency, it is seasonal, otherwise it is not seasonal and is called a cycle.</p>
+<h3>Benefits to Machine Learning</h3>
+<p>Understanding the seasonal component in time series can improve the performance of modeling with machine learning.</p>
+<p>This can happen in two main ways:</p>
+<ul>
+<li><strong>Clearer Signal</strong>: Identifying and removing the seasonal component from the time series can result in a clearer relationship between input and output variables.</li>
+<li><strong>More Information</strong>: Additional information about the seasonal component of the time series can provide new information to improve model performance.</li>
+</ul>
+<p>Both approaches may be useful on a project. Modeling seasonality and removing it from the time series may occur during data cleaning and preparation.</p>
+<p>Extracting seasonal information and providing it as input features, either directly or in summary form, may occur during feature extraction and feature engineering activities.</p>
+<h3>Types of Seasonality</h3>
+<p>There are many types of seasonality; for example:</p>
+<ul>
+<li>Time of Day.</li>
+<li>Daily.</li>
+<li>Weekly.</li>
+<li>Monthly.</li>
+<li>Yearly.</li>
+</ul>
+<p>As such, identifying whether there is a seasonality component in your time series problem is subjective.</p>
+<p>The simplest approach to determining if there is an aspect of seasonality is to plot and review your data, perhaps at different scales and with the addition of trend lines.</p>
+<h3>Removing Seasonality</h3>
+<p>Once seasonality is identified, it can be modeled.</p>
+<p>The model of seasonality can be removed from the time series. This process is called <a href="https://en.wikipedia.org/wiki/Seasonal_adjustment">Seasonal Adjustment</a>, or Deseasonalizing.</p>
+<p>A time series where the seasonal component has been removed is called seasonal stationary. A time series with a clear seasonal component is referred to as non-stationary.</p>
+<p>There are sophisticated methods to study and extract seasonality from time series in the field of Time Series Analysis. As we are primarily interested in predictive modeling and time series forecasting, we are limited to methods that can be developed on historical data and available when making predictions on new data.</p>
+<p>In this tutorial, we will look at two methods for making seasonal adjustments on a classical meteorological-type problem of daily temperatures with a strong additive seasonal component. Next, let’s take a look at the dataset we will use in this tutorial.</p>
+<!-- Start shortcoder --><p></p><div class="woo-sc-hr"></div>
+<center>
+<h3>Stop learning Time Series Forecasting the <em>slow way</em>!</h3>
+<p>Take my free 7-day email course and discover data prep, modeling and more (with sample code).</p>
+<p>Click to sign-up and also get a free PDF Ebook version of the course.</p>
+<p><a href="https://machinelearningmastery.leadpages.co/leadbox/14158d173f72a2%3A164f8be4f346dc/5760744339537920/" style="background: #ffce0a; color: #ffffff; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 3px inset, rgba(0, 0, 0, 0.498039) 0px 1px 3px;" target="_blank">Start Your FREE Mini-Course Now!</a><script data-config="%7B%7D" data-leadbox="14158d173f72a2:164f8be4f346dc" data-url="https://machinelearningmastery.leadpages.co/leadbox/14158d173f72a2%3A164f8be4f346dc/5760744339537920/" src="https://machinelearningmastery.leadpages.co/leadbox-1487347410.js" type="text/javascript"></script></p>
+</center>
+<p></p><div class="woo-sc-hr"></div><!-- End shortcoder v4.1.5-->
+<h2>Minimum Daily Temperatures Dataset</h2>
+<p>This dataset describes the minimum daily temperatures over 10 years (1981-1990) in the city Melbourne, Australia.</p>
+<p>The units are in degrees Celsius and there are 3,650 observations. The source of the data is credited as the Australian Bureau of Meteorology.</p>
+<p>Below is a sample of the first 5 rows of data, including the header row.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157140666845649" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+"Date","Temperature"
+"1981-01-01",20.7
+"1981-01-02",17.9
+"1981-01-03",18.8
+"1981-01-04",14.6
+"1981-01-05",15.8</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157140666845649-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157140666845649-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157140666845649-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157140666845649-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157140666845649-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157140666845649-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157140666845649-1">"Date","Temperature"</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157140666845649-2">"1981-01-01",20.7</div><div class="crayon-line" id="crayon-5a6590a157140666845649-3">"1981-01-02",17.9</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157140666845649-4">"1981-01-03",18.8</div><div class="crayon-line" id="crayon-5a6590a157140666845649-5">"1981-01-04",14.6</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157140666845649-6">"1981-01-05",15.8</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Below is a plot of the entire dataset taken from <a href="https://datamarket.com/data/set/2324/daily-minimum-temperatures-in-melbourne-australia-1981-1990">Data Market</a> where you can download the dataset and learn more about it.</p>
+<div class="wp-caption aligncenter" id="attachment_3486" style="max-width: 723px"><img alt="Minimum Daily Temperatures" class="size-full wp-image-3486" height="375" sizes="(max-width: 713px) 100vw, 713px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Minimum-Daily-Temperatures.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Minimum-Daily-Temperatures.png 713w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Minimum-Daily-Temperatures-300x158.png 300w" width="713"/><p class="wp-caption-text">Minimum Daily Temperatures</p></div>
+<p>The dataset shows a strong seasonality component and has a nice, fine-grained detail to work with.</p>
+<h2>Load the Minimum Daily Temperatures Dataset</h2>
+<p>Download the Minimum Daily Temperatures dataset and place it in the current working directory with the filename “<em>daily-minimum-temperatures.csv</em>“.</p>
+<p><strong>Note</strong>: The downloaded file contains some question mark (“?”) characters that must be removed before you can use the dataset. Open the file in a text editor and remove the “?” characters. Also remove any footer information in the file.</p>
+<p>The code below will load and plot the dataset.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a15714d109447485" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+series.plot()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a15714d109447485-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15714d109447485-2">2</div><div class="crayon-num" data-line="crayon-5a6590a15714d109447485-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15714d109447485-4">4</div><div class="crayon-num" data-line="crayon-5a6590a15714d109447485-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a15714d109447485-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15714d109447485-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a15714d109447485-3"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15714d109447485-4"><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a15714d109447485-5"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>Running the example creates the following plot of the dataset.</p>
+<div class="wp-caption aligncenter" id="attachment_3536" style="max-width: 810px"><img alt="Minimum Daily Temperature Dataset" class="size-full wp-image-3536" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperature-Dataset.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperature-Dataset.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperature-Dataset-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Daily-Temperature-Dataset-768x576.png 768w" width="800"/><p class="wp-caption-text">Minimum Daily Temperature Dataset</p></div>
+<h2>Seasonal Adjustment with Differencing</h2>
+<p>A simple way to correct for a seasonal component is to use differencing.</p>
+<p>If there is a seasonal component at the level of one week, then we can remove it on an observation today by subtracting the value from last week.</p>
+<p>In the case of the Minimum Daily Temperatures dataset, it looks like we have a seasonal component each year showing swing from summer to winter.</p>
+<p>We can subtract the daily minimum temperature from the same day last year to correct for seasonality. This would require special handling of February 29th in <a href="https://en.wikipedia.org/wiki/Leap_year">leap years</a> and would mean that the first year of data would not be available for modeling.</p>
+<p>Below is an example of using the difference method on the daily data in Python.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157151900156730" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+X = series.values
+diff = list()
+days_in_year = 365
+for i in range(days_in_year, len(X)):
+	value = X[i] - X[i - days_in_year]
+	diff.append(value)
+pyplot.plot(diff)
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157151900156730-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157151900156730-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157151900156730-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157151900156730-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157151900156730-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157151900156730-6">6</div><div class="crayon-num" data-line="crayon-5a6590a157151900156730-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157151900156730-8">8</div><div class="crayon-num" data-line="crayon-5a6590a157151900156730-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157151900156730-10">10</div><div class="crayon-num" data-line="crayon-5a6590a157151900156730-11">11</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157151900156730-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157151900156730-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a157151900156730-3"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157151900156730-4"><span class="crayon-v">X</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line" id="crayon-5a6590a157151900156730-5"><span class="crayon-v">diff</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157151900156730-6"><span class="crayon-v">days_in_year</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">365</span></div><div class="crayon-line" id="crayon-5a6590a157151900156730-7"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-v">days_in_year</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157151900156730-8"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">X</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">X</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">days_in_year</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157151900156730-9"><span class="crayon-h"> </span><span class="crayon-v">diff</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157151900156730-10"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">diff</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157151900156730-11"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Running this example creates a new seasonally adjusted dataset and plots the result.</p>
+<div class="wp-caption aligncenter" id="attachment_3537" style="max-width: 810px"><img alt="Differencing Sesaonal Adjusted Minimum Daily Temperature" class="size-full wp-image-3537" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Sesaonal-Adjusted-Minimum-Daily-Temperature.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Sesaonal-Adjusted-Minimum-Daily-Temperature.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Sesaonal-Adjusted-Minimum-Daily-Temperature-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Sesaonal-Adjusted-Minimum-Daily-Temperature-768x576.png 768w" width="800"/><p class="wp-caption-text">Differencing Sesaonal Adjusted Minimum Daily Temperature</p></div>
+<p>There are two leap years in our dataset (1984 and 1988). They are not explicitly handled; this means that observations in March 1984 onwards the offset are wrong by one day, and after March 1988, the offsets are wrong by two days.</p>
+<p>One option is to update the code example to be leap-day aware.</p>
+<p>Another option is to consider that the temperature within any given period of the year is probably stable. Perhaps over a few weeks. We can shortcut this idea and consider all temperatures within a calendar month to be stable.</p>
+<p>An improved model may be to subtract the average temperature from the same calendar month in the previous year, rather than the same day.</p>
+<p>We can start off by resampling the dataset to a monthly average minimum temperature.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157154933897127" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+resample = series.resample('M')
+monthly_mean = resample.mean()
+print(monthly_mean.head(13))
+monthly_mean.plot()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157154933897127-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157154933897127-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157154933897127-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157154933897127-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157154933897127-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157154933897127-6">6</div><div class="crayon-num" data-line="crayon-5a6590a157154933897127-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157154933897127-8">8</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157154933897127-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157154933897127-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a157154933897127-3"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157154933897127-4"><span class="crayon-v">resample</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'M'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157154933897127-5"><span class="crayon-v">monthly_mean</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">resample</span><span class="crayon-sy">.</span><span class="crayon-e">mean</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157154933897127-6"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">monthly_mean</span><span class="crayon-sy">.</span><span class="crayon-e">head</span><span class="crayon-sy">(</span><span class="crayon-cn">13</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157154933897127-7"><span class="crayon-v">monthly_mean</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157154933897127-8"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>Running this example prints the first 13 months of average monthly minimum temperatures.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157159184979028" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Date
+1981-01-31 17.712903
+1981-02-28 17.678571
+1981-03-31 13.500000
+1981-04-30 12.356667
+1981-05-31 9.490323
+1981-06-30 7.306667
+1981-07-31 7.577419
+1981-08-31 7.238710
+1981-09-30 10.143333
+1981-10-31 10.087097
+1981-11-30 11.890000
+1981-12-31 13.680645
+1982-01-31 16.567742</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157159184979028-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157159184979028-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157159184979028-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-6">6</div><div class="crayon-num" data-line="crayon-5a6590a157159184979028-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-8">8</div><div class="crayon-num" data-line="crayon-5a6590a157159184979028-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-10">10</div><div class="crayon-num" data-line="crayon-5a6590a157159184979028-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-12">12</div><div class="crayon-num" data-line="crayon-5a6590a157159184979028-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157159184979028-14">14</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157159184979028-1">Date</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-2">1981-01-31 17.712903</div><div class="crayon-line" id="crayon-5a6590a157159184979028-3">1981-02-28 17.678571</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-4">1981-03-31 13.500000</div><div class="crayon-line" id="crayon-5a6590a157159184979028-5">1981-04-30 12.356667</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-6">1981-05-31 9.490323</div><div class="crayon-line" id="crayon-5a6590a157159184979028-7">1981-06-30 7.306667</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-8">1981-07-31 7.577419</div><div class="crayon-line" id="crayon-5a6590a157159184979028-9">1981-08-31 7.238710</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-10">1981-09-30 10.143333</div><div class="crayon-line" id="crayon-5a6590a157159184979028-11">1981-10-31 10.087097</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-12">1981-11-30 11.890000</div><div class="crayon-line" id="crayon-5a6590a157159184979028-13">1981-12-31 13.680645</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157159184979028-14">1982-01-31 16.567742</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>It also plots the monthly data, clearly showing the seasonality of the dataset.</p>
+<div class="wp-caption aligncenter" id="attachment_3538" style="max-width: 810px"><img alt="Minimum Monthly Temperature Dataset" class="size-full wp-image-3538" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Monthly-Temperature-Dataset.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Monthly-Temperature-Dataset.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Monthly-Temperature-Dataset-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Minimum-Monthly-Temperature-Dataset-768x576.png 768w" width="800"/><p class="wp-caption-text">Minimum Monthly Temperature Dataset</p></div>
+<p>We can test the same differencing method on the monthly data and confirm that the seasonally adjusted dataset does indeed remove the yearly cycles.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a15715c486069591" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+resample = series.resample('M')
+monthly_mean = resample.mean()
+X = series.values
+diff = list()
+months_in_year = 12
+for i in range(months_in_year, len(monthly_mean)):
+	value = monthly_mean[i] - monthly_mean[i - months_in_year]
+	diff.append(value)
+pyplot.plot(diff)
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15715c486069591-2">2</div><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15715c486069591-4">4</div><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15715c486069591-6">6</div><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15715c486069591-8">8</div><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15715c486069591-10">10</div><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a15715c486069591-12">12</div><div class="crayon-num" data-line="crayon-5a6590a15715c486069591-13">13</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a15715c486069591-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15715c486069591-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a15715c486069591-3"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15715c486069591-4"><span class="crayon-v">resample</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">resample</span><span class="crayon-sy">(</span><span class="crayon-s">'M'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a15715c486069591-5"><span class="crayon-v">monthly_mean</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">resample</span><span class="crayon-sy">.</span><span class="crayon-e">mean</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15715c486069591-6"><span class="crayon-v">X</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line" id="crayon-5a6590a15715c486069591-7"><span class="crayon-v">diff</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15715c486069591-8"><span class="crayon-v">months_in_year</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">12</span></div><div class="crayon-line" id="crayon-5a6590a15715c486069591-9"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-v">months_in_year</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">monthly_mean</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15715c486069591-10"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">monthly_mean</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">monthly_mean</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">months_in_year</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a15715c486069591-11"><span class="crayon-h"> </span><span class="crayon-v">diff</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a15715c486069591-12"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">diff</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a15715c486069591-13"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>Running the example creates a new seasonally adjusted monthly minimum temperature dataset, skipping the first year of data in order to create the adjustment. The adjusted dataset is then plotted.</p>
+<div class="wp-caption aligncenter" id="attachment_3539" style="max-width: 810px"><img alt="Seasonal Adjusted Minimum Monthly Temperature Dataset" class="size-full wp-image-3539" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset-768x576.png 768w" width="800"/><p class="wp-caption-text">Seasonally Adjusted Minimum Monthly Temperature Dataset</p></div>
+<p>Next, we can use the monthly average minimum temperatures from the same month in the previous year to adjust the daily minimum temperature dataset.</p>
+<p>Again, we just skip the first year of data, but the correction using the monthly rather than the daily data may be a more stable approach.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157161195759981" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+X = series.values
+diff = list()
+days_in_year = 365
+for i in range(days_in_year, len(X)):
+	month_str = str(series.index[i].year-1)+'-'+str(series.index[i].month)
+	month_mean_last_year = series[month_str].mean()
+	value = X[i] - month_mean_last_year
+	diff.append(value)
+pyplot.plot(diff)
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157161195759981-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157161195759981-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157161195759981-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157161195759981-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157161195759981-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157161195759981-6">6</div><div class="crayon-num" data-line="crayon-5a6590a157161195759981-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157161195759981-8">8</div><div class="crayon-num" data-line="crayon-5a6590a157161195759981-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157161195759981-10">10</div><div class="crayon-num" data-line="crayon-5a6590a157161195759981-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157161195759981-12">12</div><div class="crayon-num" data-line="crayon-5a6590a157161195759981-13">13</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157161195759981-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157161195759981-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a157161195759981-3"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157161195759981-4"><span class="crayon-v">X</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line" id="crayon-5a6590a157161195759981-5"><span class="crayon-v">diff</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157161195759981-6"><span class="crayon-v">days_in_year</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">365</span></div><div class="crayon-line" id="crayon-5a6590a157161195759981-7"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-v">days_in_year</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157161195759981-8"><span class="crayon-h"> </span><span class="crayon-v">month_str</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">str</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-v">index</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">year</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-o">+</span><span class="crayon-s">'-'</span><span class="crayon-o">+</span><span class="crayon-e">str</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-v">index</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">month</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157161195759981-9"><span class="crayon-h"> </span><span class="crayon-v">month_mean_last_year</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">[</span><span class="crayon-v">month_str</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-e">mean</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157161195759981-10"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">X</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">month_mean_last_year</span></div><div class="crayon-line" id="crayon-5a6590a157161195759981-11"><span class="crayon-e"> </span><span class="crayon-v">diff</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157161195759981-12"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">diff</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157161195759981-13"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>Running the example again creates the seasonally adjusted dataset and plots the results.</p>
+<p>This example is robust to daily fluctuations in the previous year and to offset errors creeping in due to February 29 days in leap years.</p>
+<div class="wp-caption aligncenter" id="attachment_3540" style="max-width: 810px"><img alt="More Stable Seasonal Adjusted Minimum Monthly Temperature Dataset With" class="size-full wp-image-3540" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/More-Stable-Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset-With.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/More-Stable-Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset-With.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/More-Stable-Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset-With-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/More-Stable-Seasonal-Adjusted-Minimum-Monthly-Temperature-Dataset-With-768x576.png 768w" width="800"/><p class="wp-caption-text">More Stable Seasonally Adjusted Minimum Monthly Temperature Dataset</p></div>
+<p>The edge of calendar months provides a hard boundary that may not make sense for temperature data.</p>
+<p>More flexible approaches that take the average from one week either side of the same date in the previous year may again be a better approach.</p>
+<p>Additionally, there is likely to be seasonality in temperature data at multiple scales that may be corrected for directly or indirectly, such as:</p>
+<ul>
+<li>Day level.</li>
+<li>Multiple day level, such as a week or weeks.</li>
+<li>Multiple week level, such as a month.</li>
+<li>Multiple month level, such as a quarter or season.</li>
+</ul>
+<h2>Seasonal Adjustment with Modeling</h2>
+<p>We can model the seasonal component directly, then subtract it from the observations.</p>
+<p>The seasonal component in a given time series is likely a sine wave over a generally fixed period and amplitude. This can be approximated easily using a curve-fitting method.</p>
+<p>A dataset can be constructed with the time index of the sine wave as an input, or x-axis, and the observation as the output, or y-axis.</p>
+<p>For example:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157165533902259" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+Time Index, Observation
+1, obs1
+2, obs2
+3, obs3
+4, obs4
+5, obs5</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157165533902259-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157165533902259-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157165533902259-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157165533902259-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157165533902259-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157165533902259-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157165533902259-1">Time Index, Observation</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157165533902259-2">1, obs1</div><div class="crayon-line" id="crayon-5a6590a157165533902259-3">2, obs2</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157165533902259-4">3, obs3</div><div class="crayon-line" id="crayon-5a6590a157165533902259-5">4, obs4</div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157165533902259-6">5, obs5</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Once fit, the model can then be used to calculate a seasonal component for any time index.</p>
+<p>In the case of the temperature data, the time index would be the day of the year. We can then estimate the seasonal component for the day of the year for any historical observations or any new observations in the future.</p>
+<p>The curve can then be used as a new input for modeling with supervised learning algorithms, or subtracted from observations to create a seasonally adjusted series.</p>
+<p>Let’s start off by fitting a curve to the Minimum Daily Temperatures dataset. The NumPy library provides the <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html">polyfit()</a> function that can be used to fit a polynomial of a chosen order to a dataset.</p>
+<p>First, we can create a dataset of time index (day in this case) to observation. We could take a single year of data or all the years. Ideally, we would try both and see which model resulted in a better fit. We could also smooth the observations using a moving average centered on each value. This too may result in a model with a better fit.</p>
+<p>Once the dataset is prepared, we can create the fit by calling the polyfit() function passing the x-axis values (integer day of year), y-axis values (temperature observations), and the order of the polynomial. The order controls the number of terms, and in turn the complexity of the curve used to fit the data.</p>
+<p>Ideally, we want the simplest curve that describes the seasonality of the dataset. For consistent sine wave-like seasonality, a 4th order or 5th order polynomial will be sufficient.</p>
+<p>In this case, I chose an order of 4 by trial and error. The resulting model takes the form:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157169426415569" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+y = x^4*b1 + x^3*b2 + x^2*b3 + x^1*b4 + b5</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157169426415569-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157169426415569-1">y = x^4*b1 + x^3*b2 + x^2*b3 + x^1*b4 + b5</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>Where <em>y</em> is the fit value, <em>x</em> is the time index (day of the year), and <em>b1</em> to <em>b5</em> are the coefficients found by the curve-fitting optimization algorithm.</p>
+<p>Once fit, we will have a set of coefficients that represent our model. We can then use this model to calculate the curve for one observation, one year of observations, or the entire dataset.</p>
+<p>The complete example is listed below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157175429256735" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+from numpy import polyfit
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+# fit polynomial: x^2*b1 + x*b2 + ... + bn
+X = [i%365 for i in range(0, len(series))]
+y = series.values
+degree = 4
+coef = polyfit(X, y, degree)
+print('Coefficients: %s' % coef)
+# create curve
+curve = list()
+for i in range(len(X)):
+	value = coef[-1]
+	for d in range(degree):
+		value += X[i]**(degree-d) * coef[d]
+	curve.append(value)
+# plot curve over original data
+pyplot.plot(series.values)
+pyplot.plot(curve, color='red', linewidth=3)
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157175429256735-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-6">6</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-8">8</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-10">10</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-12">12</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-14">14</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-16">16</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-18">18</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157175429256735-20">20</div><div class="crayon-num" data-line="crayon-5a6590a157175429256735-21">21</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157175429256735-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-3"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-e">polyfit</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-4"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-5"><span class="crayon-p"># fit polynomial: x^2*b1 + x*b2 + ... + bn</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-6"><span class="crayon-v">X</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-o">%</span><span class="crayon-cn">365</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-7"><span class="crayon-v">y</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-8"><span class="crayon-v">degree</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">4</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-9"><span class="crayon-v">coef</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">polyfit</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">y</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">degree</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-10"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Coefficients: %s'</span><span class="crayon-h"> </span><span class="crayon-o">%</span><span class="crayon-h"> </span><span class="crayon-v">coef</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-11"><span class="crayon-p"># create curve</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-12"><span class="crayon-v">curve</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-13"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-14"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">coef</span><span class="crayon-sy">[</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-15"><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">d</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-v">degree</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-16"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">+=</span><span class="crayon-h"> </span><span class="crayon-v">X</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-o">*</span><span class="crayon-o">*</span><span class="crayon-sy">(</span><span class="crayon-v">degree</span><span class="crayon-o">-</span><span class="crayon-v">d</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-v">coef</span><span class="crayon-sy">[</span><span class="crayon-v">d</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-17"><span class="crayon-h"> </span><span class="crayon-v">curve</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-18"><span class="crayon-p"># plot curve over original data</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-19"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157175429256735-20"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">curve</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">color</span><span class="crayon-o">=</span><span class="crayon-s">'red'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">linewidth</span><span class="crayon-o">=</span><span class="crayon-cn">3</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157175429256735-21"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0017 seconds] -->
+<p>Running the example creates the dataset, fits the curve, predicts the value for each day in the dataset, and then plots the resulting seasonal model (red) over the top of the original dataset (blue).</p>
+<p>One limitation of this model is that it does not take into account of leap days, adding small offset noise that could easily be corrected with an update to the approach.</p>
+<p>For example, we could just remove the two February 29 observations from the dataset when creating the seasonal model.</p>
+<div class="wp-caption aligncenter" id="attachment_3541" style="max-width: 810px"><img alt="Curve Fit Seasonal Model of Daily Minimum Temperature" class="size-full wp-image-3541" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Model-of-Daily-Minimum-Temperature.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Model-of-Daily-Minimum-Temperature.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Model-of-Daily-Minimum-Temperature-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Model-of-Daily-Minimum-Temperature-768x576.png 768w" width="800"/><p class="wp-caption-text">Curve Fit Seasonal Model of Daily Minimum Temperature</p></div>
+<p>The curve appears to be a good fit for the seasonal structure in the dataset.</p>
+<p>We can now use this model to create a seasonally adjusted version of the dataset.</p>
+<p>The complete example is listed below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590a157179166305801" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import Series
+from matplotlib import pyplot
+from numpy import polyfit
+series = Series.from_csv('daily-minimum-temperatures.csv', header=0)
+# fit polynomial: x^2*b1 + x*b2 + ... + bn
+X = [i%365 for i in range(0, len(series))]
+y = series.values
+degree = 4
+coef = polyfit(X, y, degree)
+print('Coefficients: %s' % coef)
+# create curve
+curve = list()
+for i in range(len(X)):
+	value = coef[-1]
+	for d in range(degree):
+		value += X[i]**(degree-d) * coef[d]
+	curve.append(value)
+# create seasonally adjusted
+values = series.values
+diff = list()
+for i in range(len(values)):
+	value = values[i] - curve[i]
+	diff.append(value)
+pyplot.plot(diff)
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590a157179166305801-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-2">2</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-4">4</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-6">6</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-8">8</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-10">10</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-12">12</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-14">14</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-16">16</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-18">18</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-20">20</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-22">22</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590a157179166305801-24">24</div><div class="crayon-num" data-line="crayon-5a6590a157179166305801-25">25</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590a157179166305801-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">Series</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-2"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-3"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-e">polyfit</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-4"><span class="crayon-v">series</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Series</span><span class="crayon-sy">.</span><span class="crayon-e">from_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'daily-minimum-temperatures.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-5"><span class="crayon-p"># fit polynomial: x^2*b1 + x*b2 + ... + bn</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-6"><span class="crayon-v">X</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-o">%</span><span class="crayon-cn">365</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">series</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-7"><span class="crayon-v">y</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-8"><span class="crayon-v">degree</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">4</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-9"><span class="crayon-v">coef</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">polyfit</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">y</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">degree</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-10"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Coefficients: %s'</span><span class="crayon-h"> </span><span class="crayon-o">%</span><span class="crayon-h"> </span><span class="crayon-v">coef</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-11"><span class="crayon-p"># create curve</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-12"><span class="crayon-v">curve</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-13"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-14"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">coef</span><span class="crayon-sy">[</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-15"><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">d</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-v">degree</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-16"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">+=</span><span class="crayon-h"> </span><span class="crayon-v">X</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-o">*</span><span class="crayon-o">*</span><span class="crayon-sy">(</span><span class="crayon-v">degree</span><span class="crayon-o">-</span><span class="crayon-v">d</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-v">coef</span><span class="crayon-sy">[</span><span class="crayon-v">d</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-17"><span class="crayon-h"> </span><span class="crayon-v">curve</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-18"><span class="crayon-p"># create seasonally adjusted</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-19"><span class="crayon-v">values</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">series</span><span class="crayon-sy">.</span><span class="crayon-e">values</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-20"><span class="crayon-v">diff</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-21"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">values</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-22"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">curve</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-23"><span class="crayon-h"> </span><span class="crayon-v">diff</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590a157179166305801-24"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">diff</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590a157179166305801-25"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0020 seconds] -->
+<p>Running the example subtracts the values predicted by the seasonal model from the original observations. The</p>
+<p>The seasonally adjusted dataset is then plotted.</p>
+<div class="wp-caption aligncenter" id="attachment_3542" style="max-width: 810px"><img alt="Curve Fit Seasonal Adjusted Daily Minimum Temperature" class="size-full wp-image-3542" height="600" sizes="(max-width: 800px) 100vw, 800px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Adjusted-Daily-Minimum-Temperature.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Adjusted-Daily-Minimum-Temperature.png 800w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Adjusted-Daily-Minimum-Temperature-300x225.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Curve-Fit-Seasonal-Adjusted-Daily-Minimum-Temperature-768x576.png 768w" width="800"/><p class="wp-caption-text">Curve Fit Seasonally Adjusted Daily Minimum Temperature</p></div>
+<h2>Summary</h2>
+<p>In this tutorial, you discovered how to create seasonally adjusted time series datasets in Python.</p>
+<p>Specifically, you learned:</p>
+<ul>
+<li>The importance of seasonality in time series and the opportunities for data preparation and feature engineering it provides.</li>
+<li>How to use the difference method to create a seasonally adjusted time series.</li>
+<li>How to model the seasonal component directly and subtract it from observations.</li>
+</ul>
+<p>Do you have any questions about deseasonalizing time series, or about this post?<br/>
+Ask your questions in the comments below and I will do my best to answer.</p>
+<div class="awac-wrapper"><div class="awac widget text-26"> <div class="textwidget"><p></p><center>
+<div class="woo-sc-hr"></div>
+<h2>Want to Develop Time Series Forecasts with Python?</h2>
+<p><a href="/introduction-to-time-series-forecasting-with-python/"><img align="left" alt="Introduction to Time Series Forecasting With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Introduction-to-Time-Series-Forecasting-With-Python-220.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own Forecasts in Minutes</h4>
+<p>...with just a few lines of python code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/introduction-to-time-series-forecasting-with-python/">Introduction to Time Series Forecasting With Python</a></p>
+<p>It covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> on topics like:<br/>
+<em>Loading data, visualization, modeling, algorithm tuning,</em> and much more...</p>
+<h4>Finally Bring Time Series Forecasting to<br/>
+Your Own Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/">Click to learn more</a>.</p>
+<div class="woo-sc-hr"></div>
+<p></p></center>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Identify%20and%20Remove%20Seasonality%20from%20Time%20Series%20Data%20with%20Python&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Ftime-series-seasonality-with-python%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/time-series-seasonality-with-python/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/time-series-seasonality-with-python/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Identify%20and%20Remove%20Seasonality%20from%20Time%20Series%20Data%20with%20Python&amp;url=https://machinelearningmastery.com/time-series-seasonality-with-python/&amp;summary=Time+series+datasets+can+contain+a+seasonal+component.%0D%0A%0D%0AThis+is+a+cycle+that+repeats+over+time%2C+su..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Identify%20and%20Remove%20Seasonality%20from%20Time%20Series%20Data%20with%20Python&amp;url=https://machinelearningmastery.com/time-series-seasonality-with-python/&amp;summary=Time+series+datasets+can+contain+a+seasonal+component.%0D%0A%0D%0AThis+is+a+cycle+that+repeats+over+time%2C+su...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/time-series-seasonality-with-python/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/time-series-seasonality-with-python/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/time-series-trends-in-python/" rel="prev"><i class="fa fa-angle-left"></i> How to Use and Remove Trend Information from Time Series Data in Python</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/persistence-time-series-forecasting-with-python/" rel="next">How to Make Baseline Predictions for Time Series Forecasting with Python <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">23 Responses to <em>How to Identify and Remove Seasonality from Time Series Data with Python</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-376990">
+<div class="comment-container" id="li-comment-376990">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7ba4926f88e4f26d994d7b71882e1242?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7ba4926f88e4f26d994d7b71882e1242?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">augmentale</span>
+<span class="date">December 23, 2016 at 9:10 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-376990" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is it right that after substracting sine which represents year cycle impact we’ve got values of deviation of daily temperature from its average? I just trying to understand what this result values mean. like your posts!</p>
+<div class="reply">
+<a aria-label="Reply to augmentale" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=376990#respond" onclick='return addComment.moveForm( "comment-376990", "376990", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-376997">
+<div class="comment-container" id="li-comment-376997">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 23, 2016 at 10:17 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-376997" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>That is correct.</p>
+<p>These first order difference values can then be used to fit a model. The model can then be used to make predictions, and the seasonal component added back to the prediction for a final usable value.</p>
+<p>Does that help?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=376997#respond" onclick='return addComment.moveForm( "comment-376997", "376997", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-377079">
+<div class="comment-container" id="li-comment-377079">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7ba4926f88e4f26d994d7b71882e1242?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7ba4926f88e4f26d994d7b71882e1242?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">augmentale</span>
+<span class="date">December 23, 2016 at 5:36 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-377079" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Definitely! Thanks. I think another possible method for feature engineering would be using empirical mode decomposition algorythm to extract different signal components to be used in fitting model, will test it.</p>
+<div class="reply">
+<a aria-label="Reply to augmentale" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=377079#respond" onclick='return addComment.moveForm( "comment-377079", "377079", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt depth-3" id="comment-413055">
+<div class="comment-container" id="li-comment-413055">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1baaa3ece6d979bfc085ff652e559664?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1baaa3ece6d979bfc085ff652e559664?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Jisun Kang</span>
+<span class="date">September 8, 2017 at 7:05 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-413055" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Can you be more specific how to add the seasonal component back..? I couldn’t see how to preserve this seasonal component during deseasonalizing… Or I missed something… if so, please indicate where it is. Thank you…!</p>
+<div class="reply">
+<a aria-label="Reply to Jisun Kang" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=413055#respond" onclick='return addComment.moveForm( "comment-413055", "413055", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-413212">
+<div class="comment-container" id="li-comment-413212">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 9, 2017 at 11:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-413212" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>If you seasonally adjust by subtracting data from 1 year ago, you can reverse it by adding the subtracted value back again.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=413212#respond" onclick='return addComment.moveForm( "comment-413212", "413212", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-377117">
+<div class="comment-container" id="li-comment-377117">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/7ba4926f88e4f26d994d7b71882e1242?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/7ba4926f88e4f26d994d7b71882e1242?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">augmentale</span>
+<span class="date">December 23, 2016 at 7:59 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-377117" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>By the way there is a usefull library for EMD on github: <a href="https://github.com/jaidevd/pyhht" rel="nofollow">https://github.com/jaidevd/pyhht</a></p>
+<div class="reply">
+<a aria-label="Reply to augmentale" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=377117#respond" onclick='return addComment.moveForm( "comment-377117", "377117", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-377205">
+<div class="comment-container" id="li-comment-377205">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 24, 2016 at 4:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-377205" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for the link augmentale.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=377205#respond" onclick='return addComment.moveForm( "comment-377205", "377205", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-378057">
+<div class="comment-container" id="li-comment-378057">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/8f1a58bf8ab8937c0c1d0ba0fc7015ef?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/8f1a58bf8ab8937c0c1d0ba0fc7015ef?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Amit</span>
+<span class="date">December 28, 2016 at 9:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-378057" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I have seen where people use decomposition and take error/residual part to remove trend and seasonality. How to choose which method/technique to use to remove seasonality/trend?</p>
+<div class="reply">
+<a aria-label="Reply to Amit" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=378057#respond" onclick='return addComment.moveForm( "comment-378057", "378057", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-378278">
+<div class="comment-container" id="li-comment-378278">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 29, 2016 at 7:13 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-378278" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Amit,</p>
+<p>Decomposition is good for time series analysis, but generally unusable for time series forecasting. At least as I understand it.</p>
+<p>I would suggest trying a suite of methods and see what works best – results in models with the most accurate forecasts.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=378278#respond" onclick='return addComment.moveForm( "comment-378278", "378278", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-404913">
+<div class="comment-container" id="li-comment-404913">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a62ca3792ac83e18e2c55a5ea3080f42?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a62ca3792ac83e18e2c55a5ea3080f42?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://same%20website" rel="external nofollow">Mrs David</a></span>
+<span class="date">July 6, 2017 at 12:26 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-404913" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>how to deseasonalize time series when some of the data have seasonal effect and others does nit</p>
+<div class="reply">
+<a aria-label="Reply to Mrs David" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=404913#respond" onclick='return addComment.moveForm( "comment-404913", "404913", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-405216">
+<div class="comment-container" id="li-comment-405216">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 9, 2017 at 10:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-405216" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Prepare each series separatly.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=405216#respond" onclick='return addComment.moveForm( "comment-405216", "405216", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-406763">
+<div class="comment-container" id="li-comment-406763">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ef9cd147bef03ddba244058f55602f59?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ef9cd147bef03ddba244058f55602f59?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://www.kaggle.com/Varun_dixit112" rel="external nofollow">Varun</a></span>
+<span class="date">July 21, 2017 at 8:39 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-406763" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I have to predict 3 day household electricity demand @ 12 hour interval for next 3 days (6 data points). I have ~ 3 years of data at 12 hours interval. On face of it, it looks as if there could be multiple seasonal patterns.How can I identify complex seasonal periods?What could be the best approach in that case?</p>
+<div class="reply">
+<a aria-label="Reply to Varun" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=406763#respond" onclick='return addComment.moveForm( "comment-406763", "406763", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-406830">
+<div class="comment-container" id="li-comment-406830">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 22, 2017 at 8:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-406830" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sounds fun.</p>
+<p>Try fitting some polynomials perhaps?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=406830#respond" onclick='return addComment.moveForm( "comment-406830", "406830", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-408537">
+<div class="comment-container" id="li-comment-408537">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d4bc28dcd8441a3b45c3a3d885af123f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d4bc28dcd8441a3b45c3a3d885af123f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">marta</span>
+<span class="date">August 4, 2017 at 9:51 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-408537" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I cannot see the benefits from deseasonalization if i want to predict certain value. Im missing this information if i do it.</p>
+<div class="reply">
+<a aria-label="Reply to marta" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=408537#respond" onclick='return addComment.moveForm( "comment-408537", "408537", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-408572">
+<div class="comment-container" id="li-comment-408572">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 5, 2017 at 5:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-408572" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The model for the seasonality is easy, so we model it and remove it. Then, we want to add more value on top of that.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=408572#respond" onclick='return addComment.moveForm( "comment-408572", "408572", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-410374">
+<div class="comment-container" id="li-comment-410374">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/57f5b65e7c7f47b815f26b4618500a19?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/57f5b65e7c7f47b815f26b4618500a19?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Bawza</span>
+<span class="date">August 21, 2017 at 1:07 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-410374" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>if i have a seasonal time series and its general trend. Can it be AR,MA,ARMA or ARIMA and if I can show you th data plz. Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Bawza" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=410374#respond" onclick='return addComment.moveForm( "comment-410374", "410374", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-410391">
+<div class="comment-container" id="li-comment-410391">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">August 21, 2017 at 6:09 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-410391" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I don’t understand your question. Perhaps you can restate it?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=410391#respond" onclick='return addComment.moveForm( "comment-410391", "410391", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-422296">
+<div class="comment-container" id="li-comment-422296">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/e5de6a3caad10abc82fbc34fdfeee395?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e5de6a3caad10abc82fbc34fdfeee395?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">JT90</span>
+<span class="date">December 6, 2017 at 9:49 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-422296" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. Great post! So easy to follow 🙂</p>
+<p>I’m pretty new to python so excuse the basic-ness of this question. How do you ‘keep’ the seasonally adjusted values. Such as write to ascii or some other technique, so that I am able to use this data in other scripts. Many thanks</p>
+<div class="reply">
+<a aria-label="Reply to JT90" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=422296#respond" onclick='return addComment.moveForm( "comment-422296", "422296", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-422350">
+<div class="comment-container" id="li-comment-422350">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 7, 2017 at 7:56 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-422350" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Good question, you can save the data to a CSV file.</p>
+<p>This post has a few options you can try:<br/>
+<a href="https://stackoverflow.com/questions/6081008/dump-a-numpy-array-into-a-csv-file" rel="nofollow">https://stackoverflow.com/questions/6081008/dump-a-numpy-array-into-a-csv-file</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=422350#respond" onclick='return addComment.moveForm( "comment-422350", "422350", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-423014">
+<div class="comment-container" id="li-comment-423014">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/9c37b7771957d86b66842021b7cbc6cc?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/9c37b7771957d86b66842021b7cbc6cc?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Arunraj</span>
+<span class="date">December 13, 2017 at 6:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-423014" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>can we use this technique to compare signals with different lengths? For eg. Signal A is recorded for 5 sec, signal B is recorded for 1 min. If we want to compare these 2 signals, can I use your idea to remove the seasonal components of the longest signal?</p>
+<div class="reply">
+<a aria-label="Reply to Arunraj" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=423014#respond" onclick='return addComment.moveForm( "comment-423014", "423014", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-423057">
+<div class="comment-container" id="li-comment-423057">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 14, 2017 at 5:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-423057" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Sorry, I’m not sure I follow. Perhaps try it and see.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=423057#respond" onclick='return addComment.moveForm( "comment-423057", "423057", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-426777">
+<div class="comment-container" id="li-comment-426777">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/134ea2ff4a1c3ed0c90161e8725b75ce?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/134ea2ff4a1c3ed0c90161e8725b75ce?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">sophie</span>
+<span class="date">January 18, 2018 at 7:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-426777" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great post. Thank you very much Jason. I also followed your ARIMA post and wondering if ARIMA can handle it all (including seasonality) so we don’t necessarily have to isolate out and handle seasonality and do ARIMA on the seasonality-adjusted data. Because technically seasonality is a special form of auto-correlation and can be handled by differencing. am I thinking correctly?</p>
+<div class="reply">
+<a aria-label="Reply to sophie" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=426777#respond" onclick='return addComment.moveForm( "comment-426777", "426777", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-426811">
+<div class="comment-container" id="li-comment-426811">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 18, 2018 at 10:14 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/time-series-seasonality-with-python/#comment-426811" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Your models will perform better if you remove systematic patterns from the data such as trends and seasonality.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/time-series-seasonality-with-python/?replytocom=426811#respond" onclick='return addComment.moveForm( "comment-426811", "426811", "respond", "3535" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/time-series-seasonality-with-python/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="3535"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="796ed0be4d"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="165"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-27"> <div class="textwidget"><p></p><center>
+<h3>Get Good at Time Series Forecasting</h3>
+<p>Need visualizations and forecast models?<br/>
+Looking for step-by-step tutorials?<br/>
+Want end-to-end projects?</p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/">Get Started with Time Series Forecasting in Python!</a></p>
+<p><a href="/introduction-to-time-series-forecasting-with-python/"><img alt="Introduction to Time Series Forecasting With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Introduction-to-Time-Series-Forecasting-With-Python-220.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

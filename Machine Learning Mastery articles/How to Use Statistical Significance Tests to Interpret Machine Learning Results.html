@@ -1,0 +1,1282 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How to Use Statistical Significance Tests to Interpret Machine Learning Results - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How to Use Statistical Significance Tests to Interpret Machine Learning Results - Machine Learning Mastery" property="og:title"/>
+<meta content="It is good practice to gather a population of results when comparing two different machine learning algorithms or when comparing the same algorithm with different configurations. Repeating each experimental run 30 or more times gives you a population of results from which you can calculate the mean expected performance, given the stochastic nature of most …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Python Machine Learning" property="article:section"/>
+<meta content="2017-05-03T05:00:54+11:00" property="article:published_time"/>
+<meta content="2017-05-07T05:38:12+11:00" property="article:modified_time"/>
+<meta content="2017-05-07T05:38:12+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/How-to-Use-Statistical-Significance-Tests-to-Interpret-Machine-Learning-Results.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/How-to-Use-Statistical-Significance-Tests-to-Interpret-Machine-Learning-Results.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="360" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/use-statistical-significance-tests-interpret-machine-learning-results\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/feed/" rel="alternate" title="Machine Learning Mastery » How to Use Statistical Significance Tests to Interpret Machine Learning Results Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=3972" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fuse-statistical-significance-tests-interpret-machine-learning-results%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fuse-statistical-significance-tests-interpret-machine-learning-results%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-3972 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-33"> <div class="textwidget"><p>Need help with Python Machine Learning? <a href="https://machinelearningmastery.lpages.co/python-machine-learning-mini-course/">Take the FREE Mini-Course</a></p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-3972 post type-post status-publish format-standard has-post-thumbnail hentry category-python-machine-learning">
+<header>
+<h1 class="title entry-title">How to Use Statistical Significance Tests to Interpret Machine Learning Results</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2017-05-03T05:00:54+1100">May 3, 2017</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/python-machine-learning/" title="View all items in Python Machine Learning">Python Machine Learning</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Use%20Statistical%20Significance%20Tests%20to%20Interpret%20Machine%20Learning%20Results&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fuse-statistical-significance-tests-interpret-machine-learning-results%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Use%20Statistical%20Significance%20Tests%20to%20Interpret%20Machine%20Learning%20Results&amp;url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/&amp;summary=It+is+good+practice+to+gather+a+population+of+results+when+comparing+two+different+machine+learning+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Use%20Statistical%20Significance%20Tests%20to%20Interpret%20Machine%20Learning%20Results&amp;url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/&amp;summary=It+is+good+practice+to+gather+a+population+of+results+when+comparing+two+different+machine+learning+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>It is good practice to gather a population of results when comparing two different machine learning algorithms or when comparing the same algorithm with different configurations.</p>
+<p>Repeating each experimental run 30 or more times gives you a population of results from which you can calculate the mean expected performance, given the stochastic nature of most machine learning algorithms.</p>
+<p>If the mean expected performance from two algorithms or configurations are different, how do you know that the difference is significant, and how significant?</p>
+<p>Statistical significance tests are an important tool to help to interpret the results from machine learning experiments. Additionally, the findings from these tools can help you better and more confidently present your experimental results and choose the right algorithms and configurations for your predictive modeling problem.</p>
+<p>In this tutorial, you will discover how you can investigate and interpret machine learning experimental results using statistical significance tests in Python.</p>
+<p>After completing this tutorial, you will know:</p>
+<ul>
+<li>How to apply normality tests to confirm that your data is (or is not) normally distributed.</li>
+<li>How to apply parametric statistical significance tests for normally distributed results.</li>
+<li>How to apply nonparametric statistical significance tests for more complex distributions of results.</li>
+</ul>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_3977" style="max-width: 650px"><img alt="How to Use Statistical Significance Tests to Interpret Machine Learning Results" class="wp-image-3977 size-full" height="360" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/How-to-Use-Statistical-Significance-Tests-to-Interpret-Machine-Learning-Results.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/How-to-Use-Statistical-Significance-Tests-to-Interpret-Machine-Learning-Results.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/How-to-Use-Statistical-Significance-Tests-to-Interpret-Machine-Learning-Results-300x169.jpg 300w" width="640"/><p class="wp-caption-text">How to Use Statistical Significance Tests to Interpret Machine Learning Results<br/>Photo by <a href="https://www.flickr.com/photos/oatsy40/14477068362/">oatsy40</a>, some rights reserved.</p></div>
+<h2>Tutorial Overview</h2>
+<p>This tutorial is broken down into 6 parts. They are:</p>
+<ol>
+<li>Generate Sample Data</li>
+<li>Summary Statistics</li>
+<li>Normality Test</li>
+<li>Compare Means for Gaussian Results</li>
+<li>Compare Means for Gaussian Results with Different Variance</li>
+<li>Compare Means for Non-Gaussian Results</li>
+</ol>
+<p>This tutorial assumes Python 2 or 3 and a SciPy environment with NumPy, Pandas, and Matplotlib.</p>
+<h2>Generate Sample Data</h2>
+<p>The situation is that you have experimental results from two algorithms or two different configurations of the same algorithm.</p>
+<p>Each algorithm has been trialed multiple times on the test dataset and a skill score has been collected. We are left with two populations of skill scores.</p>
+<p>We can simulate this by generating two populations of Gaussian random numbers distributed around slightly different means.</p>
+<p>The code below generates the results from the first algorithm. A total of 1000 results are stored in a file named <em>results1.csv</em>. The results are drawn from a Gaussian distribution with the mean of 50 and the standard deviation of 10.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef13464084310" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from numpy.random import seed
+from numpy.random import normal
+from numpy import savetxt
+# define underlying distribution of results
+mean = 50
+stev = 10
+# generate samples from ideal distribution
+seed(1)
+results = normal(mean, stev, 1000)
+# save to ASCII file
+savetxt('results1.csv', results)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef13464084310-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef13464084310-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef13464084310-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef13464084310-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef13464084310-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef13464084310-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef13464084310-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef13464084310-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef13464084310-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef13464084310-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef13464084310-11">11</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef13464084310-1"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">seed</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef13464084310-2"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">normal</span></div><div class="crayon-line" id="crayon-5a658705aef13464084310-3"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-v">savetxt</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef13464084310-4"><span class="crayon-p"># define underlying distribution of results</span></div><div class="crayon-line" id="crayon-5a658705aef13464084310-5"><span class="crayon-v">mean</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">50</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef13464084310-6"><span class="crayon-v">stev</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">10</span></div><div class="crayon-line" id="crayon-5a658705aef13464084310-7"><span class="crayon-p"># generate samples from ideal distribution</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef13464084310-8"><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef13464084310-9"><span class="crayon-v">results</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normal</span><span class="crayon-sy">(</span><span class="crayon-v">mean</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">stev</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1000</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef13464084310-10"><span class="crayon-p"># save to ASCII file</span></div><div class="crayon-line" id="crayon-5a658705aef13464084310-11"><span class="crayon-e">savetxt</span><span class="crayon-sy">(</span><span class="crayon-s">'results1.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">results</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Below is a snippet of the first 5 rows of data from <em>results1.csv</em>.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef1e466673028" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+6.624345363663240960e+01
+4.388243586349924641e+01
+4.471828247736544171e+01
+3.927031377843829318e+01
+5.865407629324678851e+01
+...</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef1e466673028-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef1e466673028-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef1e466673028-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef1e466673028-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef1e466673028-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef1e466673028-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef1e466673028-1">6.624345363663240960e+01</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef1e466673028-2">4.388243586349924641e+01</div><div class="crayon-line" id="crayon-5a658705aef1e466673028-3">4.471828247736544171e+01</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef1e466673028-4">3.927031377843829318e+01</div><div class="crayon-line" id="crayon-5a658705aef1e466673028-5">5.865407629324678851e+01</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef1e466673028-6">...</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>We can now generate the results for the second algorithm. We will use the same method and draw the results from a slightly different Gaussian distribution (mean of 60 with the same standard deviation). Results are written to <em>results2.csv</em>.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef20353918906" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from numpy.random import seed
+from numpy.random import normal
+from numpy import savetxt
+# define underlying distribution of results
+mean = 60
+stev = 10
+# generate samples from ideal distribution
+seed(1)
+results = normal(mean, stev, 1000)
+# save to ASCII file
+savetxt('results2.csv', results)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef20353918906-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef20353918906-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef20353918906-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef20353918906-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef20353918906-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef20353918906-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef20353918906-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef20353918906-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef20353918906-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef20353918906-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef20353918906-11">11</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef20353918906-1"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">seed</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef20353918906-2"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">normal</span></div><div class="crayon-line" id="crayon-5a658705aef20353918906-3"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-v">savetxt</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef20353918906-4"><span class="crayon-p"># define underlying distribution of results</span></div><div class="crayon-line" id="crayon-5a658705aef20353918906-5"><span class="crayon-v">mean</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">60</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef20353918906-6"><span class="crayon-v">stev</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">10</span></div><div class="crayon-line" id="crayon-5a658705aef20353918906-7"><span class="crayon-p"># generate samples from ideal distribution</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef20353918906-8"><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef20353918906-9"><span class="crayon-v">results</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normal</span><span class="crayon-sy">(</span><span class="crayon-v">mean</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">stev</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1000</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef20353918906-10"><span class="crayon-p"># save to ASCII file</span></div><div class="crayon-line" id="crayon-5a658705aef20353918906-11"><span class="crayon-e">savetxt</span><span class="crayon-sy">(</span><span class="crayon-s">'results2.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">results</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>Below is a sample of the first 5 rows from <em>results2.csv</em>.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef23699344775" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+7.624345363663240960e+01
+5.388243586349924641e+01
+5.471828247736544171e+01
+4.927031377843829318e+01
+6.865407629324678851e+01
+...</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef23699344775-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef23699344775-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef23699344775-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef23699344775-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef23699344775-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef23699344775-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef23699344775-1">7.624345363663240960e+01</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef23699344775-2">5.388243586349924641e+01</div><div class="crayon-line" id="crayon-5a658705aef23699344775-3">5.471828247736544171e+01</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef23699344775-4">4.927031377843829318e+01</div><div class="crayon-line" id="crayon-5a658705aef23699344775-5">6.865407629324678851e+01</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef23699344775-6">...</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Going forward, we will pretend that we don’t know the underlying distribution of either set of results.</p>
+<p>I chose populations of 1000 results per experiment arbitrarily. It is more realistic to use populations of 30 or 100 results to achieve a suitably good estimate (e.g. low standard error).</p>
+<p>Don’t worry if your results are not Gaussian; we will look at how the methods break down for non-Gaussian data and what alternate methods to use instead.</p>
+<h2>Summary Statistics</h2>
+<p>The first step after collecting results is to review some summary statistics and learn more about the distribution of the data.</p>
+<p>This includes reviewing summary statistics and plots of the data.</p>
+<p>Below is a complete code listing to review some summary statistics for the two sets of results.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef25298393761" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import DataFrame
+from pandas import read_csv
+from matplotlib import pyplot
+# load results file
+results = DataFrame()
+results['A'] = read_csv('results1.csv', header=None).values[:, 0]
+results['B'] = read_csv('results2.csv', header=None).values[:, 0]
+# descriptive stats
+print(results.describe())
+# box and whisker plot
+results.boxplot()
+pyplot.show()
+# histogram
+results.hist()
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef25298393761-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-12">12</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef25298393761-14">14</div><div class="crayon-num" data-line="crayon-5a658705aef25298393761-15">15</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef25298393761-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">DataFrame</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-2"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-v">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-4"><span class="crayon-p"># load results file</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-5"><span class="crayon-v">results</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">DataFrame</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-6"><span class="crayon-v">results</span><span class="crayon-sy">[</span><span class="crayon-s">'A'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'results1.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-v">None</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-7"><span class="crayon-v">results</span><span class="crayon-sy">[</span><span class="crayon-s">'B'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'results2.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-v">None</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-8"><span class="crayon-p"># descriptive stats</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-9"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">results</span><span class="crayon-sy">.</span><span class="crayon-e">describe</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-10"><span class="crayon-p"># box and whisker plot</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-11"><span class="crayon-v">results</span><span class="crayon-sy">.</span><span class="crayon-e">boxplot</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-12"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-13"><span class="crayon-p"># histogram</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef25298393761-14"><span class="crayon-v">results</span><span class="crayon-sy">.</span><span class="crayon-e">hist</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef25298393761-15"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>The example loads both sets of results and starts off by printing summary statistics. Data in <em>results1.csv</em> is called “A” and data in <em>results2.csv</em> is called “B” for brevity.</p>
+<p>We will assume that the data represents an error score on a test dataset and that minimizing the score is the goal.</p>
+<p>We can see that on average A (50.388125) was better than B (60.388125). We can also see the same story in the median (50th percentile). Looking at the standard deviations, we can also see that it appears both distributions have a similar (identical) spread.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef28939307556" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+                 A            B
+count  1000.000000  1000.000000
+mean     50.388125    60.388125
+std       9.814950     9.814950
+min      19.462356    29.462356
+25%      43.998396    53.998396
+50%      50.412926    60.412926
+75%      57.039989    67.039989
+max      89.586027    99.586027</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef28939307556-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef28939307556-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef28939307556-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef28939307556-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef28939307556-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef28939307556-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef28939307556-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef28939307556-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef28939307556-9">9</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef28939307556-1">                 A            B</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef28939307556-2">count  1000.000000  1000.000000</div><div class="crayon-line" id="crayon-5a658705aef28939307556-3">mean     50.388125    60.388125</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef28939307556-4">std       9.814950     9.814950</div><div class="crayon-line" id="crayon-5a658705aef28939307556-5">min      19.462356    29.462356</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef28939307556-6">25%      43.998396    53.998396</div><div class="crayon-line" id="crayon-5a658705aef28939307556-7">50%      50.412926    60.412926</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef28939307556-8">75%      57.039989    67.039989</div><div class="crayon-line" id="crayon-5a658705aef28939307556-9">max      89.586027    99.586027</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>Next, a box and whisker plot is created comparing both sets of results. The box captures the middle 50% of the data, outliers are shown as dots and the green line shows the median. We can see the data indeed has a similar spread from both distributions and appears to be symmetrical around the median.</p>
+<p>The results for A look better than B.</p>
+<div class="wp-caption aligncenter" id="attachment_3973" style="max-width: 650px"><img alt="Box and Whisker Plots of Both Sets of Results" class="size-full wp-image-3973" height="480" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Box-and-Whisker-Plots-of-Both-Sets-of-Results.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Box-and-Whisker-Plots-of-Both-Sets-of-Results.png 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Box-and-Whisker-Plots-of-Both-Sets-of-Results-300x225.png 300w" width="640"/><p class="wp-caption-text">Box and Whisker Plots of Both Sets of Results</p></div>
+<p>Finally, histograms of both sets of results are plotted.</p>
+<p>The plots strongly suggest that both sets of results are drawn from a Gaussian distribution.</p>
+<div class="wp-caption aligncenter" id="attachment_3974" style="max-width: 650px"><img alt="Histogram Plots of Both Sets of Results" class="size-full wp-image-3974" height="480" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Histogram-Plots-of-Both-Sets-of-Results.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Histogram-Plots-of-Both-Sets-of-Results.png 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Histogram-Plots-of-Both-Sets-of-Results-300x225.png 300w" width="640"/><p class="wp-caption-text">Histogram Plots of Both Sets of Results</p></div>
+<h2>Normality Test</h2>
+<p>Data drawn from a Gaussian distribution can be easier to work with as there are many tools and techniques specifically designed for this case.</p>
+<p>We can use a statistical test to confirm that the results drawn from both distributions are Gaussian (also called the normal distribution).</p>
+<p>In SciPy, this is the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html">normaltest()</a> function.</p>
+<p>From the documentation, the test is described as:</p>
+<blockquote><p>Tests whether a sample differs from a normal distribution.</p></blockquote>
+<p>The null hypothesis of the test (H0), or the default expectation, is that the statistic describes a normal distribution.</p>
+<p>We accept this hypothesis if the p-value is greater than 0.05. We reject this hypothesis if the p-value &lt;= 0.05. In this case, we would believe the distribution is not normal with 95% confidence.</p>
+<p>The code below loads <em>results1.csv</em> and determines whether it is likely that the data is Gaussian.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef2d444903445" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from scipy.stats import normaltest
+from matplotlib import pyplot
+result1 = read_csv('results1.csv', header=None)
+value, p = normaltest(result1.values[:,0])
+print(value, p)
+if p &gt;= 0.05:
+	print('It is likely that result1 is normal')
+else:
+	print('It is unlikely that result1 is normal')</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef2d444903445-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef2d444903445-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef2d444903445-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef2d444903445-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef2d444903445-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef2d444903445-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef2d444903445-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef2d444903445-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef2d444903445-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef2d444903445-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef2d444903445-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef2d444903445-2"><span class="crayon-e">from </span><span class="crayon-v">scipy</span><span class="crayon-sy">.</span><span class="crayon-e">stats </span><span class="crayon-e">import </span><span class="crayon-e">normaltest</span></div><div class="crayon-line" id="crayon-5a658705aef2d444903445-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef2d444903445-4"><span class="crayon-v">result1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'results1.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-v">None</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef2d444903445-5"><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normaltest</span><span class="crayon-sy">(</span><span class="crayon-v">result1</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-sy">,</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef2d444903445-6"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef2d444903445-7"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-h"> </span><span class="crayon-o">&gt;=</span><span class="crayon-h"> </span><span class="crayon-cn">0.05</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef2d444903445-8"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'It is likely that result1 is normal'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef2d444903445-9"><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef2d444903445-10"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'It is unlikely that result1 is normal'</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>Running the example first prints the calculated statistic and the p-value that the statistic was calculated from a Gaussian distribution.</p>
+<p>We can see that it is very likely that <em>results1.csv</em> is Gaussian.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef30244949130" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+2.99013078116 0.224233941463
+It is likely that result1 is normal</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef30244949130-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef30244949130-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef30244949130-1">2.99013078116 0.224233941463</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef30244949130-2">It is likely that result1 is normal</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>We can repeat this same test with data from <em>results2.csv</em>.</p>
+<p>The complete code listing is provided below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef33753073944" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from scipy.stats import normaltest
+from matplotlib import pyplot
+result2 = read_csv('results2.csv', header=None)
+value, p = normaltest(result2.values[:,0])
+print(value, p)
+if p &gt;= 0.05:
+	print('It is likely that result2 is normal')
+else:
+	print('It is unlikely that result2 is normal')</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef33753073944-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef33753073944-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef33753073944-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef33753073944-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef33753073944-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef33753073944-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef33753073944-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef33753073944-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef33753073944-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef33753073944-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef33753073944-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef33753073944-2"><span class="crayon-e">from </span><span class="crayon-v">scipy</span><span class="crayon-sy">.</span><span class="crayon-e">stats </span><span class="crayon-e">import </span><span class="crayon-e">normaltest</span></div><div class="crayon-line" id="crayon-5a658705aef33753073944-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-e">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef33753073944-4"><span class="crayon-v">result2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'results2.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-v">None</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef33753073944-5"><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normaltest</span><span class="crayon-sy">(</span><span class="crayon-v">result2</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-sy">,</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef33753073944-6"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef33753073944-7"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-h"> </span><span class="crayon-o">&gt;=</span><span class="crayon-h"> </span><span class="crayon-cn">0.05</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef33753073944-8"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'It is likely that result2 is normal'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef33753073944-9"><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef33753073944-10"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'It is unlikely that result2 is normal'</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>Running the example provides the same statistic p-value and outcome.</p>
+<p>Both sets of results are Gaussian.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef35635413526" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+2.99013078116 0.224233941463
+It is likely that result2 is normal</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef35635413526-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef35635413526-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef35635413526-1">2.99013078116 0.224233941463</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef35635413526-2">It is likely that result2 is normal</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p>
+<h2>Compare Means for Gaussian Results</h2>
+<p>Both sets of results are Gaussian and have the same variance; this means we can use the Student t-test to see if the difference between the means of the two distributions is statistically significant or not.</p>
+<p>In SciPy, we can use the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html">ttest_ind()</a> function.</p>
+<p>The test is described as:</p>
+<blockquote><p>Calculates the T-test for the means of two independent samples of scores.</p></blockquote>
+<p>The null hypothesis of the test (H0) or the default expectation is that both samples were drawn from the same population. If we accept this hypothesis, it means that there is no significant difference between the means.</p>
+<p>If we get a p-value of &lt;= 0.05, it means that we can reject the null hypothesis and that the means are significantly different with a 95% confidence. That means for 95 similar samples out of 100, the means would be significantly different, and not so in 5 out of 100 cases.</p>
+<p>An important assumption of this statistical test, besides the data being Gaussian, is that both distributions have the same variance. We know this to be the case from reviewing the descriptive statistics in a previous step.</p>
+<p>The complete code listing is provided below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef38940534429" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from pandas import read_csv
+from scipy.stats import ttest_ind
+from matplotlib import pyplot
+# load results1
+result1 = read_csv('results1.csv', header=None)
+values1 = result1.values[:,0]
+# load results2
+result2 = read_csv('results2.csv', header=None)
+values2 = result2.values[:,0]
+# calculate the significance
+value, pvalue = ttest_ind(values1, values2, equal_var=True)
+print(value, pvalue)
+if pvalue &gt; 0.05:
+	print('Samples are likely drawn from the same distributions (accept H0)')
+else:
+	print('Samples are likely drawn from different distributions (reject H0)')</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef38940534429-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-12">12</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-14">14</div><div class="crayon-num" data-line="crayon-5a658705aef38940534429-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef38940534429-16">16</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef38940534429-1"><span class="crayon-e">from </span><span class="crayon-e">pandas </span><span class="crayon-e">import </span><span class="crayon-e">read_csv</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-2"><span class="crayon-e">from </span><span class="crayon-v">scipy</span><span class="crayon-sy">.</span><span class="crayon-e">stats </span><span class="crayon-e">import </span><span class="crayon-e">ttest_ind</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-3"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-v">pyplot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-4"><span class="crayon-p"># load results1</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-5"><span class="crayon-v">result1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'results1.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-v">None</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-6"><span class="crayon-v">values1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">result1</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-sy">,</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-7"><span class="crayon-p"># load results2</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-8"><span class="crayon-v">result2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'results2.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-v">None</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-9"><span class="crayon-v">values2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">result2</span><span class="crayon-sy">.</span><span class="crayon-v">values</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-sy">,</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-10"><span class="crayon-p"># calculate the significance</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-11"><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">ttest_ind</span><span class="crayon-sy">(</span><span class="crayon-v">values1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">values2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">equal_var</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-12"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-13"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-cn">0.05</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-14"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Samples are likely drawn from the same distributions (accept H0)'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef38940534429-15"><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef38940534429-16"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Samples are likely drawn from different distributions (reject H0)'</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>Running the example prints the statistic and the p-value. We can see that the p-value is much lower than 0.05.</p>
+<p>In fact, it is so small that we have a near certainty that the difference between the means is statistically significant.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef3b202113710" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+-22.7822655028 2.5159901708e-102
+Samples are likely drawn from different distributions (reject H0)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef3b202113710-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3b202113710-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef3b202113710-1">-22.7822655028 2.5159901708e-102</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3b202113710-2">Samples are likely drawn from different distributions (reject H0)</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p>
+<h2>Compare Means for Gaussian Results with Different Variance</h2>
+<p>What if the means were the same for the two sets of results, but the variance was different?</p>
+<p>We would not be able to use the Student t-test as is. In fact, we would have to use a modified version of the test called Welch’s t-test.</p>
+<p>In SciPy, this is the same <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html">ttest_ind()</a> function, but we must set the “<em>equal_var</em>” argument to “<em>False</em>” to indicate the variances are not equal.</p>
+<p>We can demonstrate this with an example where we generate two sets of results with means that are very similar (50 vs 51) and very different standard deviations (1 vs 10). We will generate 100 samples.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef3e589677447" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from numpy.random import seed
+from numpy.random import normal
+from scipy.stats import ttest_ind
+# generate results
+seed(1)
+n = 100
+values1 = normal(50, 1, n)
+values2 = normal(51, 10, n)
+# calculate the significance
+value, pvalue = ttest_ind(values1, values2, equal_var=False)
+print(value, pvalue)
+if pvalue &gt; 0.05:
+	print('Samples are likely drawn from the same distributions (accept H0)')
+else:
+	print('Samples are likely drawn from different distributions (reject H0)')</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-12">12</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef3e589677447-14">14</div><div class="crayon-num" data-line="crayon-5a658705aef3e589677447-15">15</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef3e589677447-1"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">seed</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-2"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">normal</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-3"><span class="crayon-e">from </span><span class="crayon-v">scipy</span><span class="crayon-sy">.</span><span class="crayon-e">stats </span><span class="crayon-e">import </span><span class="crayon-v">ttest_ind</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-4"><span class="crayon-p"># generate results</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-5"><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-6"><span class="crayon-v">n</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">100</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-7"><span class="crayon-v">values1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normal</span><span class="crayon-sy">(</span><span class="crayon-cn">50</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-8"><span class="crayon-v">values2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normal</span><span class="crayon-sy">(</span><span class="crayon-cn">51</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-9"><span class="crayon-p"># calculate the significance</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-10"><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">ttest_ind</span><span class="crayon-sy">(</span><span class="crayon-v">values1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">values2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">equal_var</span><span class="crayon-o">=</span><span class="crayon-t">False</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-11"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-12"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-cn">0.05</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-13"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Samples are likely drawn from the same distributions (accept H0)'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef3e589677447-14"><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a658705aef3e589677447-15"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Samples are likely drawn from different distributions (reject H0)'</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>Running the example prints the test statistic and the p-value.</p>
+<p>We can see that there is good evidence (nearly 99%) that the samples were drawn from different distributions, that the means are significantly different.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef40733596417" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+-2.62233137406 0.0100871483783
+Samples are likely drawn from different distributions (reject H0)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef40733596417-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef40733596417-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef40733596417-1">-2.62233137406 0.0100871483783</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef40733596417-2">Samples are likely drawn from different distributions (reject H0)</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>The closer the distributions are, the larger the sample that is required to tell them apart.</p>
+<p>We can demonstrate this by calculating the statistical test on different sized sub-samples of each set of results and plotting the p-values against the sample size.</p>
+<p>We would expect the p-value to get smaller with the increase sample size. We can also draw a line at the 95% level (0.05) and show at what point the sample size is large enough to indicate these two populations are significantly different.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef43599555777" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from numpy.random import seed
+from numpy.random import normal
+from scipy.stats import ttest_ind
+from matplotlib import pyplot
+# generate results
+seed(1)
+n = 100
+values1 = normal(50, 1, n)
+values2 = normal(51, 10, n)
+# calculate p-values for different subsets of results
+pvalues = list()
+for i in range(1, n+1):
+	value, p = ttest_ind(values1[0:i], values2[0:i], equal_var=False)
+	pvalues.append(p)
+# plot p-values vs number of results in sample
+pyplot.plot(pvalues)
+# draw line at 95%, below which we reject H0
+pyplot.plot([0.05 for x in range(len(pvalues))], color='red')
+pyplot.show()</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef43599555777-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-12">12</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-14">14</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-16">16</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef43599555777-18">18</div><div class="crayon-num" data-line="crayon-5a658705aef43599555777-19">19</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef43599555777-1"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">seed</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-2"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">normal</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-3"><span class="crayon-e">from </span><span class="crayon-v">scipy</span><span class="crayon-sy">.</span><span class="crayon-e">stats </span><span class="crayon-e">import </span><span class="crayon-e">ttest_ind</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-4"><span class="crayon-e">from </span><span class="crayon-e">matplotlib </span><span class="crayon-e">import </span><span class="crayon-v">pyplot</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-5"><span class="crayon-p"># generate results</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-6"><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-7"><span class="crayon-v">n</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">100</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-8"><span class="crayon-v">values1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normal</span><span class="crayon-sy">(</span><span class="crayon-cn">50</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-9"><span class="crayon-v">values2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">normal</span><span class="crayon-sy">(</span><span class="crayon-cn">51</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-10"><span class="crayon-p"># calculate p-values for different subsets of results</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-11"><span class="crayon-v">pvalues</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-12"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-o">+</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-13"><span class="crayon-h"> </span><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">ttest_ind</span><span class="crayon-sy">(</span><span class="crayon-v">values1</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-o">:</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">values2</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-o">:</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">equal_var</span><span class="crayon-o">=</span><span class="crayon-t">False</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-14"><span class="crayon-h"> </span><span class="crayon-v">pvalues</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-v">p</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-15"><span class="crayon-p"># plot p-values vs number of results in sample</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-16"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">pvalues</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-17"><span class="crayon-p"># draw line at 95%, below which we reject H0</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef43599555777-18"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-cn">0.05</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">x</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">range</span><span class="crayon-sy">(</span><span class="crayon-e">len</span><span class="crayon-sy">(</span><span class="crayon-v">pvalues</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">color</span><span class="crayon-o">=</span><span class="crayon-s">'red'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef43599555777-19"><span class="crayon-v">pyplot</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p>Running the example creates a line plot of p-value vs sample size.</p>
+<p>We can see that for these two sets of results, the sample size must be about 90 before we have a 95% confidence that the means are significantly different (where the blue line intersects the red line).</p>
+<div class="wp-caption aligncenter" id="attachment_3975" style="max-width: 650px"><img alt="Line Plot of p-values for Datasets with a Differing Variance" class="size-full wp-image-3975" height="480" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Line-Plot-of-p-values-for-Datasets-with-a-Differing-Variance.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Line-Plot-of-p-values-for-Datasets-with-a-Differing-Variance.png 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/Line-Plot-of-p-values-for-Datasets-with-a-Differing-Variance-300x225.png 300w" width="640"/><p class="wp-caption-text">Line Plot of p-value vs Sample Sizes</p></div>
+<h2>Compare Means for Non-Gaussian Results</h2>
+<p>We cannot use the Student t-test or the Welch’s t-test if our data is not Gaussian.</p>
+<p>An alternative statistical significance test we can use for non-Gaussian data is called the Kolmogorov-Smirnov test.</p>
+<p>In SciPy, this is called the <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html">ks_2samp()</a> function.</p>
+<p>In the documentation, this test is described as:</p>
+<blockquote><p>This is a two-sided test for the null hypothesis that 2 independent samples are drawn from the same continuous distribution.</p></blockquote>
+<p>This test can be used on Gaussian data, but will have less statistical power and may require large samples.</p>
+<p>We can demonstrate the calculation of statistical significance on two sets of results with non-Gaussian distributions. We can generate two sets of results with overlapping uniform distributions (50 to 60 and 55 to 65). These sets of results will have different mean values of about 55 and 60 respectively.</p>
+<p>The code below generates the two sets of 100 results and uses the Kolmogorov-Smirnov test to demonstrate that the difference between the population means is statistically significant.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef46270316626" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from numpy.random import seed
+from numpy.random import randint
+from scipy.stats import ks_2samp
+# generate results
+seed(1)
+n = 100
+values1 = randint(50, 60, n)
+values2 = randint(55, 65, n)
+# calculate the significance
+value, pvalue = ks_2samp(values1, values2)
+print(value, pvalue)
+if pvalue &gt; 0.05:
+	print('Samples are likely drawn from the same distributions (accept H0)')
+else:
+	print('Samples are likely drawn from different distributions (reject H0)')</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef46270316626-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-2">2</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-4">4</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-6">6</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-8">8</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-10">10</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-12">12</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef46270316626-14">14</div><div class="crayon-num" data-line="crayon-5a658705aef46270316626-15">15</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef46270316626-1"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">seed</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-2"><span class="crayon-e">from </span><span class="crayon-v">numpy</span><span class="crayon-sy">.</span><span class="crayon-e">random </span><span class="crayon-e">import </span><span class="crayon-e">randint</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-3"><span class="crayon-e">from </span><span class="crayon-v">scipy</span><span class="crayon-sy">.</span><span class="crayon-e">stats </span><span class="crayon-e">import </span><span class="crayon-v">ks_2samp</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-4"><span class="crayon-p"># generate results</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-5"><span class="crayon-e">seed</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-6"><span class="crayon-v">n</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">100</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-7"><span class="crayon-v">values1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">randint</span><span class="crayon-sy">(</span><span class="crayon-cn">50</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">60</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-8"><span class="crayon-v">values2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">randint</span><span class="crayon-sy">(</span><span class="crayon-cn">55</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">65</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">n</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-9"><span class="crayon-p"># calculate the significance</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-10"><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">ks_2samp</span><span class="crayon-sy">(</span><span class="crayon-v">values1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">values2</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-11"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">value</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-12"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">pvalue</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-cn">0.05</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-13"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Samples are likely drawn from the same distributions (accept H0)'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef46270316626-14"><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5a658705aef46270316626-15"><span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Samples are likely drawn from different distributions (reject H0)'</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Running the example prints the statistic and the p-value.</p>
+<p>The p-value is very small, suggesting a near certainty that the difference between the two populations is significant.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a658705aef49741057613" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+0.47 2.16825856737e-10
+Samples are likely drawn from different distributions (reject H0)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a658705aef49741057613-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a658705aef49741057613-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a658705aef49741057613-1">0.47 2.16825856737e-10</div><div class="crayon-line crayon-striped-line" id="crayon-5a658705aef49741057613-2">Samples are likely drawn from different distributions (reject H0)</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p>
+<h2>Further Reading</h2>
+<p>This section lists some articles and resources to dive deeper into the area of statistical significance testing for applied machine learning.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Normality_test">Normality test on Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Student's_t-test">Student’s t-test on Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Welch%27s_t-test">Welch’s t-test on Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">Kolmogorov–Smirnov test on Wikipedia</a></li>
+</ul>
+<h2>Summary</h2>
+<p>In this tutorial, you discovered how you can use statistical significance tests to interpret machine learning results.</p>
+<p>You can use these tests to help you confidently choose one machine learning algorithm over another or one set of configuration parameters over another for the same algorithm.</p>
+<p>You learned:</p>
+<ul>
+<li>How to use normality tests to check if your experimental results are Gaussian or not.</li>
+<li>How to use statistical tests to check if the difference between mean results is significant for Gaussian data with the same and different variance.</li>
+<li>How to use statistical tests to check if the difference between mean results is significant for non-Gaussian data.</li>
+</ul>
+<p>Do you have any questions about this post or statistical significance tests?<br/>
+Ask your questions in the comments below and I will do my best to answer.</p>
+<div class="awac-wrapper"><div class="awac widget text-38"> <div class="textwidget"><p></p><div class="woo-sc-hr"></div><br/>
+<center>
+<h2>Frustrated With Python Machine Learning?</h2>
+<p><a href="/machine-learning-with-python/"><img align="left" alt="Master Machine Learning With Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/07/MachineLearningMasteryWithPython-220px.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own Models in Minutes</h4>
+<p>…with just a few lines of scikit-learn code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/machine-learning-with-python/">Machine Learning Mastery With Python</a></p>
+<p>Covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> like:<br/><em>Loading data</em>, <em>visualization</em>, <em>modeling</em>, <em>tuning</em>, and much more…</p>
+<h4>Finally Bring Machine Learning To<br/>Your Own Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/machine-learning-with-python/">Click to learn more</a>.</p>
+<p></p></center><br/>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20to%20Use%20Statistical%20Significance%20Tests%20to%20Interpret%20Machine%20Learning%20Results&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fuse-statistical-significance-tests-interpret-machine-learning-results%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Use%20Statistical%20Significance%20Tests%20to%20Interpret%20Machine%20Learning%20Results&amp;url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/&amp;summary=It+is+good+practice+to+gather+a+population+of+results+when+comparing+two+different+machine+learning+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20to%20Use%20Statistical%20Significance%20Tests%20to%20Interpret%20Machine%20Learning%20Results&amp;url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/&amp;summary=It+is+good+practice+to+gather+a+population+of+results+when+comparing+two+different+machine+learning+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/estimate-number-experiment-repeats-stochastic-machine-learning-algorithms/" rel="prev"><i class="fa fa-angle-left"></i> Estimate the Number of Experiment Repeats for Stochastic Machine Learning Algorithms</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/use-weight-regularization-lstm-networks-time-series-forecasting/" rel="next">How to Use Weight Regularization with LSTM Networks for Time Series Forecasting <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">12 Responses to <em>How to Use Statistical Significance Tests to Interpret Machine Learning Results</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-398382">
+<div class="comment-container" id="li-comment-398382">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/37110d77706ad08a2eb0eabad162f789?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/37110d77706ad08a2eb0eabad162f789?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">David</span>
+<span class="date">May 3, 2017 at 12:28 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398382" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This is fantastic. Very clear and detailed explanation, and including the full code is much appreciated. </p>
+<p>One question — do you know the corresponding functions in R? Specifically, what’s the best way in R to test of a sample is normally distributed? </p>
+<p>Thanks again for a great article</p>
+<div class="reply">
+<a aria-label="Reply to David" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398382#respond" onclick='return addComment.moveForm( "comment-398382", "398382", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-398483">
+<div class="comment-container" id="li-comment-398483">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 4, 2017 at 8:00 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398483" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks David.</p>
+<p>Yes, R can do this. I do not know the functions off-hand sorry.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398483#respond" onclick='return addComment.moveForm( "comment-398483", "398483", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-398699">
+<div class="comment-container" id="li-comment-398699">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/74d24ef58f81a0174d4dc4b1845eb0e1?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/74d24ef58f81a0174d4dc4b1845eb0e1?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Greg</span>
+<span class="date">May 6, 2017 at 2:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398699" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You state when considering the boxplots that  “The results for A look better than B” can you explain what is better about A than B. To me that two plots are identical just offset by the difference in the mean.</p>
+<div class="reply">
+<a aria-label="Reply to Greg" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398699#respond" onclick='return addComment.moveForm( "comment-398699", "398699", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-398742">
+<div class="comment-container" id="li-comment-398742">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 6, 2017 at 7:48 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398742" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Exactly, the means are different and we are assuming an error score, so a lower mean value means a better result.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398742#respond" onclick='return addComment.moveForm( "comment-398742", "398742", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-398811">
+<div class="comment-container" id="li-comment-398811">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1a02ca17b8e63c4f9153556bada1e5ba?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1a02ca17b8e63c4f9153556bada1e5ba?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Andrew Kostandy</span>
+<span class="date">May 6, 2017 at 8:21 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398811" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Dr. Jason for the informative post. I have learned a lot from many of your posts!</p>
+<p>I have a few comments and questions below.</p>
+<p>1) I noticed that in both the sections “Compare Means for Gaussian Results” and “Compare Means for Gaussian Results with Different Variance” you have in the code: ‘pvalue = ttest_ind(values1, values2, equal_var=False’). Shouldn’t it be: ‘equal_var=True’ for the first section?</p>
+<p>2) Also, in the section “Compare Means for Non-Gaussian Results”, you are using the Two-sample Kolmogorov-Smirnov test which according to Page 3 of the following document (<a href="http://www.mit.edu/~6.s085/notes/lecture5.pdf" rel="nofollow">http://www.mit.edu/~6.s085/notes/lecture5.pdf</a>): “is sensitive to any differences at all in two distributions: two distributions with the same mean but significantly different shapes will produce a large value of Dn” [a significant result]. Therefore, getting a significant result only tells us they have different distributions but would not tell us which group is superior to the other as we’re not really comparing means as the section title indicates.</p>
+<p>Instead of the Two-sample Kolmogorov-Smirnov test, wouldn’t it be better to do the Mann-Whitney U Test (aka Wilcoxon rank-sum test)? Similar to the Two-sample Kolmogorov-Smirnov test it is used to compare whether two groups have the same distribution. However, Page 3 of (<a href="http://www.mit.edu/~6.s085/notes/lecture5.pdf" rel="nofollow">http://www.mit.edu/~6.s085/notes/lecture5.pdf</a>) states: “In contrast to the Kolmogorov-Smirnov test earlier, this test [referring to Wilcoxon’s signed-rank test] (like its unpaired cousin the Mann-Whitney U) is only sensitive to changes in the median, and not to changes in the shape”. Additionally, In R, you can add the ‘conf.int=TRUE’ argument to the Mann-Whitney U Test (‘wilcox.test’ in R) which would allow you to determine which group is superior in our case from a “median of pairwise differences” perspective (<a href="https://stats.stackexchange.com/questions/215764/significant-two-sided-wilcoxon-rank-sum-test-which-group-has-higher-median" rel="nofollow">https://stats.stackexchange.com/questions/215764/significant-two-sided-wilcoxon-rank-sum-test-which-group-has-higher-median</a>). There doesn’t seem to be a similar argument with the Two-sample Kolmogorov-Smirnov test (‘ks.test()’ in R).</p>
+<p>3) When we are “comparing two different machine learning algorithms or when comparing the same algorithm with different configurations”. If we use the same group of 30 or 100 resamples for both algorithms or configurations, shouldn’t we use a paired t-test (for gaussian results) and a Wilcoxon signed-rank test (for non-gaussian results) instead? Effectively, we would be making 2 measurements (1 from each algorithm on the same subjects (resamples)). According to (<a href="http://emerald.tufts.edu/~gdallal/paired.htm" rel="nofollow">http://emerald.tufts.edu/~gdallal/paired.htm</a>): “When both measurements are made on the same subject, the between-subjects variability is eliminated from the comparison. The difference between treatments is compared to the way the difference changes from subject to subject. If this difference is roughly the same for each subject, small treatment effects can be detected even if different subjects respond quite differently.” This also gives us the ability to have a more powerful test using a smaller number of samples (algorithm runs on resamples) which saves computational time.</p>
+<div class="reply">
+<a aria-label="Reply to Andrew Kostandy" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398811#respond" onclick='return addComment.moveForm( "comment-398811", "398811", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-398868">
+<div class="comment-container" id="li-comment-398868">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 7, 2017 at 5:38 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398868" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Andrew,</p>
+<p>Yes, that was a typo re the equal_var argument. Fixed.</p>
+<p>Yes great suggestion. I am a big fan of reporting medians and using the Man-whitney U test.</p>
+<p>Perhaps.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398868#respond" onclick='return addComment.moveForm( "comment-398868", "398868", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-398842">
+<div class="comment-container" id="li-comment-398842">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/77c76f4035fe6a69922fb89014ef21b7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/77c76f4035fe6a69922fb89014ef21b7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://www.npmjs.com/~campvit" rel="external nofollow">Viktor</a></span>
+<span class="date">May 7, 2017 at 1:02 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398842" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very informative, thank you!</p>
+<div class="reply">
+<a aria-label="Reply to Viktor" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398842#respond" onclick='return addComment.moveForm( "comment-398842", "398842", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-398872">
+<div class="comment-container" id="li-comment-398872">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 7, 2017 at 5:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-398872" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m glad you found it useful Viktor.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=398872#respond" onclick='return addComment.moveForm( "comment-398872", "398872", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-399394">
+<div class="comment-container" id="li-comment-399394">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/ba8040529bb034a2ee7539145ba168ff?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/ba8040529bb034a2ee7539145ba168ff?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Roberto</span>
+<span class="date">May 11, 2017 at 7:37 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-399394" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason! Really useful article. Many thanks.</p>
+<p>I want to ask: how exactly can you use this to select between models? I guess you use k-fold cross-validation, and the same folds are used in every model to make the comparison, but usually you don’t create too many folds (5 or 10, maybe). Are these tests still useful even if the sample is small?</p>
+<p>Thanks again!</p>
+<div class="reply">
+<a aria-label="Reply to Roberto" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=399394#respond" onclick='return addComment.moveForm( "comment-399394", "399394", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-399439">
+<div class="comment-container" id="li-comment-399439">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 12, 2017 at 7:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-399439" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question Roberto.</p>
+<p>Regardless of your resampling method (train/test or CV), evaluate your model many times (30+). Repeat with another algorithm or configuration, then compare the two populations of results.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=399439#respond" onclick='return addComment.moveForm( "comment-399439", "399439", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-423041">
+<div class="comment-container" id="li-comment-423041">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/fed0fe7bad661c036e5fafcc8db8543a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/fed0fe7bad661c036e5fafcc8db8543a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Waleed</span>
+<span class="date">December 14, 2017 at 2:45 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-423041" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Dr. Brownlee!</p>
+<p>Again a great and very informative tutorial!</p>
+<p>I trained a LeNet on MNIST using Keras. Now on inference I get an accuracy of 98.7 over 10k images. I introduce some changes to network during inference and accuracy drops to 96.5. How should I run a significance test to prove that the changes introduced cause a significant effect on the network?<br/>
+I was thinking of making 100 sets of test data with 100 images each and run baseline and modified network over it. Then I should use the techniques you described above to prove my hypothesis.</p>
+<p>Is this the correct way to approach this?<br/>
+Thanks</p>
+<div class="reply">
+<a aria-label="Reply to Waleed" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=423041#respond" onclick='return addComment.moveForm( "comment-423041", "423041", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-423063">
+<div class="comment-container" id="li-comment-423063">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">December 14, 2017 at 5:41 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/#comment-423063" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Good question.</p>
+<p>One way would be to keep the model and train/test data constant and re-train n times, say 30 to get 30 accuracy scores, then repeat for another model. You can then compare the two populations of results to see if the mean is different and whether this difference is significant or not.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/use-statistical-significance-tests-interpret-machine-learning-results/?replytocom=423063#respond" onclick='return addComment.moveForm( "comment-423063", "423063", "respond", "3972" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/use-statistical-significance-tests-interpret-machine-learning-results/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="3972"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="e95d3adb33"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="220"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-10"> <div class="textwidget"><p></p><center>
+<h3>Develop Predictive Models With Python</h3>
+<p>Want to develop your own models in scikit-learn?<br/>
+Want step-by-step tutorials?<br/>
+Looking for sample code and templates?</p>
+<p><a href="https://machinelearningmastery.com/machine-learning-with-python/">Get Started With Machine Learning in Python Today!</a><br/>
+<a href="https://machinelearningmastery.com/machine-learning-with-python/"><img src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/07/MachineLearningMasteryWithPython-220px.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

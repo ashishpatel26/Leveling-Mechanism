@@ -1,0 +1,1357 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>Understand the Difference Between Return Sequences and Return States for LSTMs in Keras - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="Understand the Difference Between Return Sequences and Return States for LSTMs in Keras - Machine Learning Mastery" property="og:title"/>
+<meta content="The Keras deep learning library provides an implementation of the Long Short-Term Memory, or LSTM, recurrent neural network. As part of this implementation, the Keras API provides access to both return sequences and return state. The use and difference between these data can be confusing when designing sophisticated recurrent neural network models, such as the …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="Long Short-Term Memory Networks" property="article:section"/>
+<meta content="2017-10-24T05:00:22+11:00" property="article:published_time"/>
+<meta content="2017-10-17T07:55:23+11:00" property="article:modified_time"/>
+<meta content="2017-10-17T07:55:23+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/Understand-the-Difference-Between-Return-Sequences-and-Return-States-for-LSTMs-in-Keras.jpg" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/Understand-the-Difference-Between-Return-Sequences-and-Return-States-for-LSTMs-in-Keras.jpg" property="og:image:secure_url"/>
+<meta content="640" property="og:image:width"/>
+<meta content="480" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/return-sequences-and-return-states-for-lstms-in-keras\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/feed/" rel="alternate" title="Machine Learning Mastery » Understand the Difference Between Return Sequences and Return States for LSTMs in Keras Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=4560" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Freturn-sequences-and-return-states-for-lstms-in-keras%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Freturn-sequences-and-return-states-for-lstms-in-keras%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-4560 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-31"> <div class="textwidget"><p>Need help with LSTMs in Python? <a href="https://machinelearningmastery.lpages.co/lnwp-mini-course/">Take the FREE Mini-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-4560 post type-post status-publish format-standard has-post-thumbnail hentry category-lstm">
+<header>
+<h1 class="title entry-title">Understand the Difference Between Return Sequences and Return States for LSTMs in Keras</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2017-10-24T05:00:22+1100">October 24, 2017</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/lstm/" title="View all items in Long Short-Term Memory Networks">Long Short-Term Memory Networks</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Understand%20the%20Difference%20Between%20Return%20Sequences%20and%20Return%20States%20for%20LSTMs%20in%20Keras&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Freturn-sequences-and-return-states-for-lstms-in-keras%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Understand%20the%20Difference%20Between%20Return%20Sequences%20and%20Return%20States%20for%20LSTMs%20in%20Keras&amp;url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/&amp;summary=The+Keras+deep+learning+library+provides+an+implementation+of+the+Long+Short-Term+Memory%2C+or+LSTM%2C+r..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Understand%20the%20Difference%20Between%20Return%20Sequences%20and%20Return%20States%20for%20LSTMs%20in%20Keras&amp;url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/&amp;summary=The+Keras+deep+learning+library+provides+an+implementation+of+the+Long+Short-Term+Memory%2C+or+LSTM%2C+r...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>The Keras deep learning library provides an implementation of the Long Short-Term Memory, or LSTM, recurrent neural network.</p>
+<p>As part of this implementation, the Keras API provides access to both return sequences and return state. The use and difference between these data can be confusing when designing sophisticated recurrent neural network models, such as the encoder-decoder model.</p>
+<p>In this tutorial, you will discover the difference and result of return sequences and return states for LSTM layers in the Keras deep learning library.</p>
+<p>After completing this tutorial, you will know:</p>
+<ul>
+<li>That return sequences return the hidden state output for each input time step.</li>
+<li>That return state returns the hidden state output and cell state for the last input time step.</li>
+<li>That return sequences and return state can be used at the same time.</li>
+</ul>
+<p>Let’s get started.</p>
+<div class="wp-caption aligncenter" id="attachment_4561" style="max-width: 650px"><img alt="Understand the Difference Between Return Sequences and Return States for LSTMs in Keras" class="size-full wp-image-4561" height="480" sizes="(max-width: 640px) 100vw, 640px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/Understand-the-Difference-Between-Return-Sequences-and-Return-States-for-LSTMs-in-Keras.jpg" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/Understand-the-Difference-Between-Return-Sequences-and-Return-States-for-LSTMs-in-Keras.jpg 640w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/Understand-the-Difference-Between-Return-Sequences-and-Return-States-for-LSTMs-in-Keras-300x225.jpg 300w" width="640"/><p class="wp-caption-text">Understand the Difference Between Return Sequences and Return States for LSTMs in Keras<br/>Photo by <a href="https://www.flickr.com/photos/12327992@N06/33431042255/">Adrian Curt Dannemann</a>, some rights reserved.</p></div>
+<h2>Tutorial Overview</h2>
+<p>This tutorial is divided into 4 parts; they are:</p>
+<ol>
+<li>Long Short-Term Memory</li>
+<li>Return Sequences</li>
+<li>Return States</li>
+<li>Return States and Sequences</li>
+</ol>
+<h2>Long Short-Term Memory</h2>
+<p>The Long Short-Term Memory, or LSTM, is a recurrent neural network that is comprised of internal gates.</p>
+<p>Unlike other recurrent neural networks, the network’s internal gates allow the model to be trained successfully using <a href="https://machinelearningmastery.com/gentle-introduction-backpropagation-time/">backpropagation through time</a>, or BPTT, and avoid the vanishing gradients problem.</p>
+<p>In the Keras deep learning library, LSTM layers can be created using the <a href="https://keras.io/layers/recurrent/#lstm">LSTM() class</a>.</p>
+<p>Creating a layer of LSTM memory units allows you to specify the number of memory units within the layer.</p>
+<p>Each unit or cell within the layer has an internal cell state, often abbreviated as “<em>c</em>“, and outputs a hidden state, often abbreviated as “<em>h</em>“.</p>
+<p>The Keras API allows you to access these data, which can be useful or even required when developing sophisticated recurrent neural network architectures, such as the encoder-decoder model.</p>
+<p>For the rest of this tutorial, we will look at the API for access these data.</p>
+<h2>Return Sequences</h2>
+<p>Each LSTM cell will output one hidden state <em>h</em> for each input.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e3f292259715" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+h = LSTM(X)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e3f292259715-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e3f292259715-1"><span class="crayon-v">h</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-v">X</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>We can demonstrate this in Keras with a very small model with a single LSTM layer that itself contains a single LSTM cell.</p>
+<p>In this example, we will have one input sample with 3 time steps and one feature observed at each time step:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e49215796577" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+t1 = 0.1
+t2 = 0.2
+t3 = 0.3</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e49215796577-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e49215796577-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e49215796577-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e49215796577-1">t1 = 0.1</div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e49215796577-2">t2 = 0.2</div><div class="crayon-line" id="crayon-5a6584a2b2e49215796577-3">t3 = 0.3</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>The complete example is listed below.</p>
+<p>Note: all examples in this post use the <a href="https://keras.io/getting-started/functional-api-guide/">Keras functional API</a>.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e4c097353964" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from keras.models import Model
+from keras.layers import Input
+from keras.layers import LSTM
+from numpy import array
+# define model
+inputs1 = Input(shape=(3, 1))
+lstm1 = LSTM(1)(inputs1)
+model = Model(inputs=inputs1, outputs=lstm1)
+# define input data
+data = array([0.1, 0.2, 0.3]).reshape((1,3,1))
+# make and show prediction
+print(model.predict(data))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e4c097353964-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e4c097353964-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e4c097353964-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e4c097353964-4">4</div><div class="crayon-num" data-line="crayon-5a6584a2b2e4c097353964-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e4c097353964-6">6</div><div class="crayon-num" data-line="crayon-5a6584a2b2e4c097353964-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e4c097353964-8">8</div><div class="crayon-num" data-line="crayon-5a6584a2b2e4c097353964-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e4c097353964-10">10</div><div class="crayon-num" data-line="crayon-5a6584a2b2e4c097353964-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e4c097353964-12">12</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e4c097353964-1"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">models </span><span class="crayon-e">import </span><span class="crayon-e">Model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e4c097353964-2"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">Input</span></div><div class="crayon-line" id="crayon-5a6584a2b2e4c097353964-3"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">LSTM</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e4c097353964-4"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-t">array</span></div><div class="crayon-line" id="crayon-5a6584a2b2e4c097353964-5"><span class="crayon-p"># define model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e4c097353964-6"><span class="crayon-v">inputs1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Input</span><span class="crayon-sy">(</span><span class="crayon-v">shape</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e4c097353964-7"><span class="crayon-v">lstm1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">(</span><span class="crayon-v">inputs1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e4c097353964-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Model</span><span class="crayon-sy">(</span><span class="crayon-v">inputs</span><span class="crayon-o">=</span><span class="crayon-v">inputs1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">outputs</span><span class="crayon-o">=</span><span class="crayon-v">lstm1</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e4c097353964-9"><span class="crayon-p"># define input data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e4c097353964-10"><span class="crayon-v">data</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">array</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-cn">0.1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.3</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">reshape</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e4c097353964-11"><span class="crayon-p"># make and show prediction</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e4c097353964-12"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">predict</span><span class="crayon-sy">(</span><span class="crayon-v">data</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>Running the example outputs a single hidden state for the input sequence with 3 time steps.</p>
+<p>Your specific output value will differ given the random initialization of the LSTM weights and cell state.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e4f124016558" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+[[-0.0953151]]</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e4f124016558-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e4f124016558-1">[[-0.0953151]]</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>It is possible to access the hidden state output for each input time step.</p>
+<p>This can be done by setting the <em>return_sequences</em> attribute to <em>True</em> when defining the LSTM layer, as follows:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e51312356630" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+LSTM(1, return_sequences=True)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e51312356630-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e51312356630-1"><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_sequences</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>We can update the previous example with this change.</p>
+<p>The full code listing is provided below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e54542642604" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from keras.models import Model
+from keras.layers import Input
+from keras.layers import LSTM
+from numpy import array
+# define model
+inputs1 = Input(shape=(3, 1))
+lstm1 = LSTM(1, return_sequences=True)(inputs1)
+model = Model(inputs=inputs1, outputs=lstm1)
+# define input data
+data = array([0.1, 0.2, 0.3]).reshape((1,3,1))
+# make and show prediction
+print(model.predict(data))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e54542642604-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e54542642604-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e54542642604-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e54542642604-4">4</div><div class="crayon-num" data-line="crayon-5a6584a2b2e54542642604-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e54542642604-6">6</div><div class="crayon-num" data-line="crayon-5a6584a2b2e54542642604-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e54542642604-8">8</div><div class="crayon-num" data-line="crayon-5a6584a2b2e54542642604-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e54542642604-10">10</div><div class="crayon-num" data-line="crayon-5a6584a2b2e54542642604-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e54542642604-12">12</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e54542642604-1"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">models </span><span class="crayon-e">import </span><span class="crayon-e">Model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e54542642604-2"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">Input</span></div><div class="crayon-line" id="crayon-5a6584a2b2e54542642604-3"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">LSTM</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e54542642604-4"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-t">array</span></div><div class="crayon-line" id="crayon-5a6584a2b2e54542642604-5"><span class="crayon-p"># define model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e54542642604-6"><span class="crayon-v">inputs1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Input</span><span class="crayon-sy">(</span><span class="crayon-v">shape</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e54542642604-7"><span class="crayon-v">lstm1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_sequences</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span><span class="crayon-sy">(</span><span class="crayon-v">inputs1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e54542642604-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Model</span><span class="crayon-sy">(</span><span class="crayon-v">inputs</span><span class="crayon-o">=</span><span class="crayon-v">inputs1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">outputs</span><span class="crayon-o">=</span><span class="crayon-v">lstm1</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e54542642604-9"><span class="crayon-p"># define input data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e54542642604-10"><span class="crayon-v">data</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">array</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-cn">0.1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.3</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">reshape</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e54542642604-11"><span class="crayon-p"># make and show prediction</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e54542642604-12"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">predict</span><span class="crayon-sy">(</span><span class="crayon-v">data</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>Running the example returns a sequence of 3 values, one hidden state output for each input time step for the single LSTM cell in the layer.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e56123759557" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+[[[-0.02243521]
+  [-0.06210149]
+  [-0.11457888]]]</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e56123759557-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e56123759557-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e56123759557-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e56123759557-1">[[[-0.02243521]</div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e56123759557-2">  [-0.06210149]</div><div class="crayon-line" id="crayon-5a6584a2b2e56123759557-3">  [-0.11457888]]]</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>You must set <em>return_sequences=True</em> when stacking LSTM layers so that the second LSTM layer has a three-dimensional sequence input. For more details, see the post:</p>
+<ul>
+<li><a href="https://machinelearningmastery.com/stacked-long-short-term-memory-networks/">Stacked Long Short-Term Memory Networks</a></li>
+</ul>
+<p>You may also need to access the sequence of hidden state outputs when predicting a sequence of outputs with a <em>Dense</em> output layer wrapped in a TimeDistributed layer. See this post for more details:</p>
+<ul>
+<li><a href="https://machinelearningmastery.com/timedistributed-layer-for-long-short-term-memory-networks-in-python/">How to Use the TimeDistributed Layer for Long Short-Term Memory Networks in Python</a></li>
+</ul>
+<h2>Return States</h2>
+<p>The output of an LSTM cell or layer of cells is called the hidden state.</p>
+<p>This is confusing, because each LSTM cell retains an internal state that is not output, called the cell state, or <em>c</em>.</p>
+<p>Generally, we do not need to access the cell state unless we are developing sophisticated models where subsequent layers may need to have their cell state initialized with the final cell state of another layer, such as in an encoder-decoder model.</p>
+<p>Keras provides the return_state argument to the LSTM layer that will provide access to the hidden state output (<em>state_h</em>) and the cell state (<em>state_c</em>). For example:</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e59075307159" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+lstm1, state_h, state_c = LSTM(1, return_state=True)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e59075307159-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e59075307159-1"><span class="crayon-v">lstm1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_h</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_c</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_state</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>This may look confusing because both lstm1 and <em>state_h</em> refer to the same hidden state output. The reason for these two tensors being separate will become clear in the next section.</p>
+<p>We can demonstrate access to the hidden and cell states of the cells in the LSTM layer with a worked example listed below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e5e372585524" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from keras.models import Model
+from keras.layers import Input
+from keras.layers import LSTM
+from numpy import array
+# define model
+inputs1 = Input(shape=(3, 1))
+lstm1, state_h, state_c = LSTM(1, return_state=True)(inputs1)
+model = Model(inputs=inputs1, outputs=[lstm1, state_h, state_c])
+# define input data
+data = array([0.1, 0.2, 0.3]).reshape((1,3,1))
+# make and show prediction
+print(model.predict(data))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e5e372585524-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e5e372585524-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e5e372585524-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e5e372585524-4">4</div><div class="crayon-num" data-line="crayon-5a6584a2b2e5e372585524-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e5e372585524-6">6</div><div class="crayon-num" data-line="crayon-5a6584a2b2e5e372585524-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e5e372585524-8">8</div><div class="crayon-num" data-line="crayon-5a6584a2b2e5e372585524-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e5e372585524-10">10</div><div class="crayon-num" data-line="crayon-5a6584a2b2e5e372585524-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e5e372585524-12">12</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e5e372585524-1"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">models </span><span class="crayon-e">import </span><span class="crayon-e">Model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e5e372585524-2"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">Input</span></div><div class="crayon-line" id="crayon-5a6584a2b2e5e372585524-3"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">LSTM</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e5e372585524-4"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-t">array</span></div><div class="crayon-line" id="crayon-5a6584a2b2e5e372585524-5"><span class="crayon-p"># define model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e5e372585524-6"><span class="crayon-v">inputs1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Input</span><span class="crayon-sy">(</span><span class="crayon-v">shape</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e5e372585524-7"><span class="crayon-v">lstm1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_h</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_c</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_state</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span><span class="crayon-sy">(</span><span class="crayon-v">inputs1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e5e372585524-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Model</span><span class="crayon-sy">(</span><span class="crayon-v">inputs</span><span class="crayon-o">=</span><span class="crayon-v">inputs1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">outputs</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-v">lstm1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_h</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_c</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e5e372585524-9"><span class="crayon-p"># define input data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e5e372585524-10"><span class="crayon-v">data</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">array</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-cn">0.1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.3</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">reshape</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e5e372585524-11"><span class="crayon-p"># make and show prediction</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e5e372585524-12"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">predict</span><span class="crayon-sy">(</span><span class="crayon-v">data</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>Running the example returns 3 arrays:</p>
+<ol>
+<li>The LSTM hidden state output for the last time step.</li>
+<li>The LSTM hidden state output for the last time step (again).</li>
+<li>The LSTM cell state for the last time step.</li>
+</ol>
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e60600377328" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+[array([[ 0.10951342]], dtype=float32),
+ array([[ 0.10951342]], dtype=float32),
+ array([[ 0.24143776]], dtype=float32)]</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e60600377328-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e60600377328-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e60600377328-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e60600377328-1">[array([[ 0.10951342]], dtype=float32),</div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e60600377328-2"> array([[ 0.10951342]], dtype=float32),</div><div class="crayon-line" id="crayon-5a6584a2b2e60600377328-3"> array([[ 0.24143776]], dtype=float32)]</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p>The hidden state and the cell state could in turn be used to initialize the states of another LSTM layer with the same number of cells.</p>
+<h2>Return States and Sequences</h2>
+<p>We can access both the sequence of hidden state and the cell states at the same time.</p>
+<p>This can be done by configuring the LSTM layer to both return sequences and return states.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e63329130923" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+lstm1, state_h, state_c = LSTM(1, return_sequences=True, return_state=True)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e63329130923-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e63329130923-1"><span class="crayon-v">lstm1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_h</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_c</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_sequences</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_state</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>The complete example is listed below.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e65002323025" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+from keras.models import Model
+from keras.layers import Input
+from keras.layers import LSTM
+from numpy import array
+# define model
+inputs1 = Input(shape=(3, 1))
+lstm1, state_h, state_c = LSTM(1, return_sequences=True, return_state=True)(inputs1)
+model = Model(inputs=inputs1, outputs=[lstm1, state_h, state_c])
+# define input data
+data = array([0.1, 0.2, 0.3]).reshape((1,3,1))
+# make and show prediction
+print(model.predict(data))</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e65002323025-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e65002323025-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e65002323025-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e65002323025-4">4</div><div class="crayon-num" data-line="crayon-5a6584a2b2e65002323025-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e65002323025-6">6</div><div class="crayon-num" data-line="crayon-5a6584a2b2e65002323025-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e65002323025-8">8</div><div class="crayon-num" data-line="crayon-5a6584a2b2e65002323025-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e65002323025-10">10</div><div class="crayon-num" data-line="crayon-5a6584a2b2e65002323025-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e65002323025-12">12</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e65002323025-1"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">models </span><span class="crayon-e">import </span><span class="crayon-e">Model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e65002323025-2"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">Input</span></div><div class="crayon-line" id="crayon-5a6584a2b2e65002323025-3"><span class="crayon-e">from </span><span class="crayon-v">keras</span><span class="crayon-sy">.</span><span class="crayon-e">layers </span><span class="crayon-e">import </span><span class="crayon-e">LSTM</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e65002323025-4"><span class="crayon-e">from </span><span class="crayon-e">numpy </span><span class="crayon-e">import </span><span class="crayon-t">array</span></div><div class="crayon-line" id="crayon-5a6584a2b2e65002323025-5"><span class="crayon-p"># define model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e65002323025-6"><span class="crayon-v">inputs1</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Input</span><span class="crayon-sy">(</span><span class="crayon-v">shape</span><span class="crayon-o">=</span><span class="crayon-sy">(</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e65002323025-7"><span class="crayon-v">lstm1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_h</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_c</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">LSTM</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_sequences</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">return_state</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span><span class="crayon-sy">(</span><span class="crayon-v">inputs1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e65002323025-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Model</span><span class="crayon-sy">(</span><span class="crayon-v">inputs</span><span class="crayon-o">=</span><span class="crayon-v">inputs1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">outputs</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-v">lstm1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_h</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">state_c</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e65002323025-9"><span class="crayon-p"># define input data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e65002323025-10"><span class="crayon-v">data</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">array</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-cn">0.1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.2</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0.3</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">reshape</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-cn">3</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6584a2b2e65002323025-11"><span class="crayon-p"># make and show prediction</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e65002323025-12"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">.</span><span class="crayon-e">predict</span><span class="crayon-sy">(</span><span class="crayon-v">data</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>Running the example, we can see now why the LSTM output tensor and hidden state output tensor are declared separably.</p>
+<p>The layer returns the hidden state for each input time step, then separately, the hidden state output for the last time step and the cell state for the last input time step.</p>
+<p>This can be confirmed by seeing that the last value in the returned sequences (first array) matches the value in the hidden state (second array).</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6584a2b2e68107712801" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+[array([[[-0.02145359],
+        [-0.0540871 ],
+        [-0.09228823]]], dtype=float32),
+ array([[-0.09228823]], dtype=float32),
+ array([[-0.19803026]], dtype=float32)]</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6584a2b2e68107712801-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e68107712801-2">2</div><div class="crayon-num" data-line="crayon-5a6584a2b2e68107712801-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6584a2b2e68107712801-4">4</div><div class="crayon-num" data-line="crayon-5a6584a2b2e68107712801-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6584a2b2e68107712801-1">[array([[[-0.02145359],</div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e68107712801-2">        [-0.0540871 ],</div><div class="crayon-line" id="crayon-5a6584a2b2e68107712801-3">        [-0.09228823]]], dtype=float32),</div><div class="crayon-line crayon-striped-line" id="crayon-5a6584a2b2e68107712801-4"> array([[-0.09228823]], dtype=float32),</div><div class="crayon-line" id="crayon-5a6584a2b2e68107712801-5"> array([[-0.19803026]], dtype=float32)]</div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p></p>
+<h2>Further Reading</h2>
+<p>This section provides more resources on the topic if you are looking to go deeper.</p>
+<ul>
+<li><a href="https://keras.io/getting-started/functional-api-guide/">Keras Functional API</a></li>
+<li><a href="https://keras.io/layers/recurrent/#lstm">LSTM API in Keras</a></li>
+<li><a href="http://www.bioinf.jku.at/publications/older/2604.pdf">Long Short-Term Memory</a>, 1997.</li>
+<li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Understanding LSTM Networks</a>, 2015.</li>
+<li><a href="https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html">A ten-minute introduction to sequence-to-sequence learning in Keras</a></li>
+</ul>
+<h2>Summary</h2>
+<p>In this tutorial, you discovered the difference and result of return sequences and return states for LSTM layers in the Keras deep learning library.</p>
+<p>Specifically, you learned:</p>
+<ul>
+<li>That return sequences return the hidden state output for each input time step.</li>
+<li>That return state returns the hidden state output and cell state for the last input time step.</li>
+<li>That return sequences and return state can be used at the same time.</li>
+</ul>
+<p>Do you have any questions?<br/>
+Ask your questions in the comments below and I will do my best to answer.</p>
+<div class="awac-wrapper"><div class="awac widget text-30"> <div class="textwidget"><div class="woo-sc-hr"></div>
+<p></p><center>
+<h2>Develop LSTMs for Sequence Prediction Today!</h2>
+<p><a href="/lstms-with-python/"><img align="left" alt="Long Short-Term Memory Networks with Python" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Cover-220.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own LSTM models in Minutes</h4>
+<p>…with just a few lines of python code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/lstms-with-python/">Long Short-Term Memory Networks with Python</a></p>
+<p>It provides <strong>self-study tutorials</strong> on topics like:<br/>
+<em>CNN LSTMs, Encoder-Decoder LSTMs, generative models, data preparation, making predictions</em> and much more…</p>
+<h4>Finally Bring LSTM Recurrent Neural Networks to<br/>
+Your Sequence Predictions Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/lstms-with-python/">Click to learn more</a>.<br/>
+</p></center><br/>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=Understand%20the%20Difference%20Between%20Return%20Sequences%20and%20Return%20States%20for%20LSTMs%20in%20Keras&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Freturn-sequences-and-return-states-for-lstms-in-keras%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Understand%20the%20Difference%20Between%20Return%20Sequences%20and%20Return%20States%20for%20LSTMs%20in%20Keras&amp;url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/&amp;summary=The+Keras+deep+learning+library+provides+an+implementation+of+the+Long+Short-Term+Memory%2C+or+LSTM%2C+r..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=Understand%20the%20Difference%20Between%20Return%20Sequences%20and%20Return%20States%20for%20LSTMs%20in%20Keras&amp;url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/&amp;summary=The+Keras+deep+learning+library+provides+an+implementation+of+the+Long+Short-Term+Memory%2C+or+LSTM%2C+r...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/best-practices-document-classification-deep-learning/" rel="prev"><i class="fa fa-angle-left"></i> Best Practices for Document Classification with Deep Learning</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/index-slice-reshape-numpy-arrays-machine-learning-python/" rel="next">How to Index, Slice and Reshape NumPy Arrays for Machine Learning in Python <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">24 Responses to <em>Understand the Difference Between Return Sequences and Return States for LSTMs in Keras</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-417750">
+<div class="comment-container" id="li-comment-417750">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1e8ced31df9006f997fd7004189bb1af?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1e8ced31df9006f997fd7004189bb1af?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nikeita</span>
+<span class="date">October 24, 2017 at 5:22 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-417750" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for this!</p>
+<p>To help people understand some applications of the output sequence and state visually, a picture like in the following stats overflow answer is great! </p>
+<p><a href="https://stats.stackexchange.com/a/181544/37863" rel="nofollow">https://stats.stackexchange.com/a/181544/37863</a></p>
+<div class="reply">
+<a aria-label="Reply to Nikeita" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=417750#respond" onclick='return addComment.moveForm( "comment-417750", "417750", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-417820">
+<div class="comment-container" id="li-comment-417820">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 25, 2017 at 6:39 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-417820" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=417820#respond" onclick='return addComment.moveForm( "comment-417820", "417820", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-417790">
+<div class="comment-container" id="li-comment-417790">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5789ddd0a76af869ed4079213d68c9b4?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5789ddd0a76af869ed4079213d68c9b4?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Thabet Ali</span>
+<span class="date">October 25, 2017 at 12:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-417790" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>Do you have plans to use more of the function API in your blog series?<br/>
+if so, why? </p>
+<p>Best regards<br/>
+Thabet</p>
+<div class="reply">
+<a aria-label="Reply to Thabet Ali" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=417790#respond" onclick='return addComment.moveForm( "comment-417790", "417790", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-417830">
+<div class="comment-container" id="li-comment-417830">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 25, 2017 at 6:48 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-417830" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, it is needed for more advanced model development.</p>
+<p>I will have a “how to…” post on the functional API soon. It is scheduled.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=417830#respond" onclick='return addComment.moveForm( "comment-417830", "417830", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-418042">
+<div class="comment-container" id="li-comment-418042">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/8e1b745128d324ae58800448c40f5df6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/8e1b745128d324ae58800448c40f5df6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Alex</span>
+<span class="date">October 27, 2017 at 1:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418042" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, is it possible to access the internal states through return_state = True and return_sequences = True with the Sequencial API? Moreover, is it possible to set the hidden state through a function like set_state() ?</p>
+<p>Thanks!</p>
+<div class="reply">
+<a aria-label="Reply to Alex" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418042#respond" onclick='return addComment.moveForm( "comment-418042", "418042", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-418057">
+<div class="comment-container" id="li-comment-418057">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 27, 2017 at 5:24 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418057" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps, but not as far as I know or have tested.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418057#respond" onclick='return addComment.moveForm( "comment-418057", "418057", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-418065">
+<div class="comment-container" id="li-comment-418065">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/bc889007e6e9189126206d30e2955460?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/bc889007e6e9189126206d30e2955460?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Eldar</span>
+<span class="date">October 27, 2017 at 6:43 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418065" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hey Jason, I wanted to show you this cool new RNN cell I’ve been trying out called “Recurrent Weighted Average” – it implements attention into the recurrent neural network – the keras implementation is available at <a href="https://github.com/keisuke-nakata/rwa" rel="nofollow">https://github.com/keisuke-nakata/rwa</a> and the whitepaper is at <a href="https://arxiv.org/pdf/1703.01253.pdf" rel="nofollow">https://arxiv.org/pdf/1703.01253.pdf</a></p>
+<p>I’ve also seen that GRU is often a better choice unless the LSTM’s bias is initialized to ones, and it’s baked into Keras now (whitepaper for that at <a href="http://proceedings.mlr.press/v37/jozefowicz15.pdf" rel="nofollow">http://proceedings.mlr.press/v37/jozefowicz15.pdf</a> )</p>
+<div class="reply">
+<a aria-label="Reply to Eldar" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418065#respond" onclick='return addComment.moveForm( "comment-418065", "418065", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-418103">
+<div class="comment-container" id="li-comment-418103">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 27, 2017 at 2:53 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418103" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very cool!</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418103#respond" onclick='return addComment.moveForm( "comment-418103", "418103", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-418169">
+<div class="comment-container" id="li-comment-418169">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/37f269b69eab2be9f8d4901b202336b2?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/37f269b69eab2be9f8d4901b202336b2?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Alex</span>
+<span class="date">October 28, 2017 at 5:13 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418169" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Just a note to say that return_state seems to be a recent addition to keras (since tensorflow 1.3 – if you are using keras in tensorflow contrib).</p>
+<p>Shame it’s not available in earlier versions – I was looking forward to playing around with it 🙂</p>
+<p>Alex</p>
+<div class="reply">
+<a aria-label="Reply to Alex" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418169#respond" onclick='return addComment.moveForm( "comment-418169", "418169", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-418176">
+<div class="comment-container" id="li-comment-418176">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 28, 2017 at 5:16 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418176" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Alex.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418176#respond" onclick='return addComment.moveForm( "comment-418176", "418176", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-418488">
+<div class="comment-container" id="li-comment-418488">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/8e1b745128d324ae58800448c40f5df6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/8e1b745128d324ae58800448c40f5df6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Alex</span>
+<span class="date">October 30, 2017 at 9:54 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418488" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, in these example you don’t fit.<br/>
+When you define the model like this:  model = Model(inputs=inputs1, outputs=[lstm1, state_h, state_c])   and then fit, the fit() function expects three values for the output instead of 1. How to correctly print the states (o see they change during training and/or prediction ?</p>
+<div class="reply">
+<a aria-label="Reply to Alex" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418488#respond" onclick='return addComment.moveForm( "comment-418488", "418488", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-418527">
+<div class="comment-container" id="li-comment-418527">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 31, 2017 at 5:33 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-418527" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>For a model that takes 2 inputs, they must be provided to fit() as an array.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=418527#respond" onclick='return addComment.moveForm( "comment-418527", "418527", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-419352">
+<div class="comment-container" id="li-comment-419352">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2fc5807f17b50de68e58a803e8173a56?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2fc5807f17b50de68e58a803e8173a56?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">MT</span>
+<span class="date">November 8, 2017 at 9:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-419352" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Jason, </p>
+<p>Brilliant post as usual. I am also going to buy your LSTM book. </p>
+<p>I however had a question on Keras LSTM error I have been getting and was hoping if you could help that? </p>
+<p>Getting an error like this </p>
+<p>“You must feed a value for placeholder tensor ’embedding_layer_input'”</p>
+<p>/usr/local/lib/python3.5/site-packages/tensorflow/python/framework/errors_impl.py in raise_exception_on_not_ok_status()<br/>
+    465           compat.as_text(pywrap_tensorflow.TF_Message(status)),<br/>
+–&gt; 466           pywrap_tensorflow.TF_GetCode(status))<br/>
+    467   finally:</p>
+<p>InvalidArgumentError: You must feed a value for placeholder tensor ’embedding_layer_input’ with dtype float<br/>
+     [[Node: embedding_layer_input = Placeholder[dtype=DT_FLOAT, shape=[], _device=”/job:localhost/replica:0/task:0/gpu:0″]()]]<br/>
+     [[Node: output_layer_2/bias/read/_237 = _Recv[client_terminated=false, recv_device=”/job:localhost/replica:0/task:0/cpu:0″, send_device=”/job:localhost/replica:0/task:0/gpu:0″, send_device_incarnation=1, tensor_name=”edge_1546_output_layer_2/bias/read”, tensor_type=DT_FLOAT, _device=”/job:localhost/replica:0/task:0/cpu:0″]()]]</p>
+<p>During handling of the above exception, another exception occurred:</p>
+<p>Here is the code I wrote for this: </p>
+<p>def model_param(self): </p>
+<p>        # Method to do deep learning</p>
+<p>        from keras.models import Sequential<br/>
+        from keras.layers import Dense, Flatten, Dropout, Activation<br/>
+        from keras.layers import LSTM<br/>
+        from keras.layers.embeddings import Embedding<br/>
+        from keras.initializers import TruncatedNormal</p>
+<p>        tn=TruncatedNormal(mean=0.0, stddev=1/sqrt(self.x_train.shape[1]*self.x_train.shape[1]), seed=2)</p>
+<p>        self.model = Sequential()<br/>
+        self.model.add(Embedding(self.len_vocab,300,input_length=self.x_train.shape[1]))</p>
+<p>        # Adding LSTM cell<br/>
+        self.model.add(LSTM(self.num_units,dropout=0.30,kernel_initializer=tn,name=”lstm_1″))<br/>
+        # Adding the dense output layer for Output<br/>
+        self.model.add(Dense(1,activation=”sigmoid”,name=”output_layer”))</p>
+<p>        #sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)<br/>
+        self.model.compile(loss=’binary_crossentropy’,<br/>
+              optimizer=”adam”,<br/>
+              metrics=[‘accuracy’])</p>
+<p>        self.model.summary()</p>
+<p>    def fit(self):<br/>
+        # Training the deep learning network on the training data</p>
+<p>        # Adding the callbacks for Logging </p>
+<p>        import keras<br/>
+        logger_tb=keras.callbacks.TensorBoard(<br/>
+        log_dir=”logs_sentiment_lstm”,<br/>
+        write_graph=True,<br/>
+        histogram_freq=5<br/>
+        )</p>
+<p>        self.model.fit(self.x_train, self.y_train,validation_split=0.20,<br/>
+          epochs=10,<br/>
+          batch_size=128,callbacks=[logger_tb]<br/>
+        )</p>
+<div class="reply">
+<a aria-label="Reply to MT" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=419352#respond" onclick='return addComment.moveForm( "comment-419352", "419352", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-419477">
+<div class="comment-container" id="li-comment-419477">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 9, 2017 at 9:51 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-419477" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Ouch, I have not seen this fault before.</p>
+<p>Perhaps try simplifying the example to flush out the cause?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=419477#respond" onclick='return addComment.moveForm( "comment-419477", "419477", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-419784">
+<div class="comment-container" id="li-comment-419784">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/63898708b1689be659154d2ece424ca8?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/63898708b1689be659154d2ece424ca8?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Julian</span>
+<span class="date">November 12, 2017 at 8:27 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-419784" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>This is another great Post Jason! I am a fan of all your RRNs posts. 😉 Thanks!</p>
+<p>In case anyone was wondering the difference between c (Internal state) and h (Hidden state) in a LSTM, this answer was very helpful for me:</p>
+<p><a href="https://www.quora.com/What-is-the-difference-between-states-and-outputs-in-LSTM" rel="nofollow">https://www.quora.com/What-is-the-difference-between-states-and-outputs-in-LSTM</a></p>
+<p>Would be correct to say that in a GRU and SimpleRNN, the c=h?</p>
+<p>Thanks in advance!</p>
+<div class="reply">
+<a aria-label="Reply to Julian" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=419784#respond" onclick='return addComment.moveForm( "comment-419784", "419784", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-419799">
+<div class="comment-container" id="li-comment-419799">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 12, 2017 at 9:10 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-419799" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks Julian.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=419799#respond" onclick='return addComment.moveForm( "comment-419799", "419799", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-421001">
+<div class="comment-container" id="li-comment-421001">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/98d5d3be44f3ff4eed559d7f70940500?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/98d5d3be44f3ff4eed559d7f70940500?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kaushal Shetty</span>
+<span class="date">November 24, 2017 at 12:21 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-421001" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,<br/>
+In the implementation of encoder-decoder in keras we do a return state in the encoder network which means that we get state_h and state_c after which the [state_h,state_c] is set as initial state of the decoder network. What does setting the initial state mean for a LSTM network? Is it that the state_h of decoder = [state_h,state_c].</p>
+<p>Thanks in advance.</p>
+<div class="reply">
+<a aria-label="Reply to Kaushal Shetty" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=421001#respond" onclick='return addComment.moveForm( "comment-421001", "421001", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-421045">
+<div class="comment-container" id="li-comment-421045">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 24, 2017 at 9:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-421045" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great question, here is an example:<br/>
+<a href="https://machinelearningmastery.com/develop-encoder-decoder-model-sequence-sequence-prediction-keras/" rel="nofollow">https://machinelearningmastery.com/develop-encoder-decoder-model-sequence-sequence-prediction-keras/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=421045#respond" onclick='return addComment.moveForm( "comment-421045", "421045", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-421098">
+<div class="comment-container" id="li-comment-421098">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/98d5d3be44f3ff4eed559d7f70940500?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/98d5d3be44f3ff4eed559d7f70940500?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kaushal Shetty</span>
+<span class="date">November 24, 2017 at 9:37 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-421098" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Great. I think i get it now. Basically when we give return_state=True for a LSTM then the LSTM will accept three inputs that is decoder_actual_input,state_h,state_c. And during inference we again reset the state_c and state_h with state_h and state_c of previous prediction. Am i correct on my assumption ? </p>
+<p>I am still a little bit  confused why we use three keras models (model,encoder_model and decoder_model). </p>
+<p>Thank You.</p>
+<div class="reply">
+<a aria-label="Reply to Kaushal Shetty" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=421098#respond" onclick='return addComment.moveForm( "comment-421098", "421098", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-421139">
+<div class="comment-container" id="li-comment-421139">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 25, 2017 at 10:19 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-421139" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The return_state argument only controls whether the state is returned. A different argument is used to initialize state for an LSTM (e.g. during the definition of the model with the functional API).</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=421139#respond" onclick='return addComment.moveForm( "comment-421139", "421139", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-5" id="comment-421340">
+<div class="comment-container" id="li-comment-421340">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/98d5d3be44f3ff4eed559d7f70940500?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/98d5d3be44f3ff4eed559d7f70940500?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Kaushal Shetty</span>
+<span class="date">November 27, 2017 at 4:57 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-421340" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Got it. Its initial_state. Thank You Jason.</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-5" id="comment-421422">
+<div class="comment-container" id="li-comment-421422">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 28, 2017 at 8:36 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-421422" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Glad to hear it.</p>
+<div class="reply">
+</div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-425896">
+<div class="comment-container" id="li-comment-425896">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/cc63d6185199d1aaab7e8ca973f0a59f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/cc63d6185199d1aaab7e8ca973f0a59f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nathan D.</span>
+<span class="date">January 9, 2018 at 1:17 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-425896" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason,</p>
+<p>I do enjoy reading your blog. I have 2 short questions for this post and hope you could kindly address them briefly:</p>
+<p>1. Can we return the sequence of cell states (a sort of variable similar to *lstm1*)?</p>
+<p>2. No matter the dimension (I mean #features) of the input sequence, as we place 1 LSTMcell in the layer, both the hidden and cell states are always a scalar, right? As such, the kernel_ and recurrent_kernel_ properties in Keras (at each gate) are not in the matrix form. However, I believe your standpoint on viewing each LSTM cell having 1Dim hidden state/cell makes sense in the case of dropout in deep learning. </p>
+<p>Please correct me if I misunderstood your post.  Thank you.</p>
+<div class="reply">
+<a aria-label="Reply to Nathan D." class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=425896#respond" onclick='return addComment.moveForm( "comment-425896", "425896", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-425920">
+<div class="comment-container" id="li-comment-425920">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 9, 2018 at 5:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/#comment-425920" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Not directly, perhaps by calling the model recursively.</p>
+<p>I think you’re right.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/return-sequences-and-return-states-for-lstms-in-keras/?replytocom=425920#respond" onclick='return addComment.moveForm( "comment-425920", "425920", "respond", "4560" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/return-sequences-and-return-states-for-lstms-in-keras/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="4560"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="08a99c1df9"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="118"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-29"> <div class="textwidget"><p></p><center>
+<h3>Deep Learning for Sequence Prediction</h3>
+<p>Cut through the math and research papers.<br/>
+Discover 4 Models, 6 Architectures, and 14 Tutorials.</p>
+<p><a href="/lstms-with-python/">Get Started With LSTMs in Python Today!</a><br/>
+<a href="/lstms-with-python/"><img src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Cover-220.png"/></a><br/>
+</p></center>
+</div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

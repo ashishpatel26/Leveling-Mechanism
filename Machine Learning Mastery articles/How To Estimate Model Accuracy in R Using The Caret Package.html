@@ -1,0 +1,1851 @@
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<meta charset="utf-8"/>
+<title>How To Estimate Model Accuracy in R Using The Caret Package - Machine Learning Mastery</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php" rel="pingback"/>
+<!--  Mobile viewport scale -->
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport"/>
+<!-- This site is optimized with the Yoast SEO plugin v6.1.1 - https://yoa.st/1yg?utm_content=6.1.1 -->
+<link href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/" rel="canonical"/>
+<link href="https://plus.google.com/u/0/b/117073416089354242117/+MachinelearningmasteryHome/" rel="publisher"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="How To Estimate Model Accuracy in R Using The Caret Package - Machine Learning Mastery" property="og:title"/>
+<meta content="When you are building a predictive model, you need a way to evaluate the capability of the model on unseen data. This is typically done by estimating accuracy using data that was not used to train the model such as a test set, or using cross validation. The caret package in R provides a number …" property="og:description"/>
+<meta content="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/" property="og:url"/>
+<meta content="Machine Learning Mastery" property="og:site_name"/>
+<meta content="https://www.facebook.com/Machine-Learning-Mastery-1429846323896563/" property="article:publisher"/>
+<meta content="R Machine Learning" property="article:section"/>
+<meta content="2014-09-03T05:00:17+11:00" property="article:published_time"/>
+<meta content="2016-09-22T10:25:06+11:00" property="article:modified_time"/>
+<meta content="2016-09-22T10:25:06+11:00" property="og:updated_time"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R.png" property="og:image"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R.png" property="og:image:secure_url"/>
+<meta content="1331" property="og:image:width"/>
+<meta content="360" property="og:image:height"/>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/machinelearningmastery.com\/","name":"Machine Learning Mastery","potentialAction":{"@type":"SearchAction","target":"https:\/\/machinelearningmastery.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Organization","url":"https:\/\/machinelearningmastery.com\/how-to-estimate-model-accuracy-in-r-using-the-caret-package\/","sameAs":["https:\/\/www.facebook.com\/Machine-Learning-Mastery-1429846323896563\/","https:\/\/www.linkedin.com\/in\/jasonbrownlee","https:\/\/plus.google.com\/u\/0\/b\/117073416089354242117\/+MachinelearningmasteryHome\/","https:\/\/twitter.com\/TeachTheMachine"],"@id":"#organization","name":"Machine Learning Mastery","logo":"https:\/\/machinelearningmastery.com\/wp-content\/uploads\/2016\/09\/cropped-icon.png"}</script>
+<!-- / Yoast SEO plugin. -->
+<link href="//cdnjs.cloudflare.com" rel="dns-prefetch"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+<link href="https://feeds.feedburner.com/MachineLearningMastery" rel="alternate" title="Machine Learning Mastery » Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/comments/feed/" rel="alternate" title="Machine Learning Mastery » Comments Feed" type="application/rss+xml"/>
+<link href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/feed/" rel="alternate" title="Machine Learning Mastery » How To Estimate Model Accuracy in R Using The Caret Package Comments Feed" type="application/rss+xml"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/machinelearningmastery.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta" id="crayon-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css?ver=_2.7.2_beta" id="crayon-theme-classic-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=_2.7.2_beta" id="crayon-font-monaco-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.9.2" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-font-awesome-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com/css?family=Open+Sans&amp;ver=4.9.2" id="apss-font-opensans-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/css/frontend.css?ver=4.2.2.0.iis7_supports_permalinks" id="apss-frontend-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/integrations/testimonials/css/testimonials.css?ver=4.9.2" id="woo-testimonials-css-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/style.css?ver=5.9.21" id="theme-stylesheet-css" media="all" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/css/non-responsive.css" rel="stylesheet" type="text/css" />
+<style type="text/css">.col-full, #wrapper { width: 960px; max-width: 960px; } #inner-wrapper { padding: 0; } body.full-width #header, #nav-container, body.full-width #content, body.full-width #footer-widgets, body.full-width #footer { padding-left: 0; padding-right: 0; } body.fixed-mobile #top, body.fixed-mobile #header-container, body.fixed-mobile #footer-container, body.fixed-mobile #nav-container, body.fixed-mobile #footer-widgets-container { min-width: 960px; padding: 0 1em; } body.full-width #content { width: auto; padding: 0 1em;}</style>
+<![endif]-->
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery.js?ver=1.12.4" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/third-party.min.js?ver=4.9.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/modernizr.min.js?ver=2.6.2" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/includes/js/general.min.js?ver=4.9.2" type="text/javascript"></script>
+<link href="https://machinelearningmastery.com/wp-json/" rel="https://api.w.org/"/>
+<link href="https://machinelearningmastery.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<link href="https://machinelearningmastery.com/?p=1729" rel="shortlink"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fhow-to-estimate-model-accuracy-in-r-using-the-caret-package%2F" rel="alternate" type="application/json+oembed"/>
+<link href="https://machinelearningmastery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearningmastery.com%2Fhow-to-estimate-model-accuracy-in-r-using-the-caret-package%2F&amp;format=xml" rel="alternate" type="text/xml+oembed"/>
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44039733-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '296263687421164');
+fbq('track', "PageView");</script>
+<noscript><img height="1" src="https://www.facebook.com/tr?id=296263687421164&amp;ev=PageView&amp;noscript=1" style="display:none" width="1"/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Custom CSS Styling -->
+<style type="text/css">
+#logo .site-title, #logo .site-description { display:none; }
+body {background-repeat:no-repeat;background-position:top left;background-attachment:scroll;border-top:0px solid #000000;}
+#header {background-repeat:no-repeat;background-position:left top;margin-top:0px;margin-bottom:0px;padding-top:10px;padding-bottom:10px;border:0px solid ;}
+#logo .site-title a {font:bold 40px/1em Helvetica Neue, Helvetica, sans-serif;color:#222222;}
+#logo .site-description {font:300 13px/1em Helvetica Neue, Helvetica, sans-serif;color:#999999;}
+body, p { font:300 14px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+h1 { font:bold 28px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h2 { font:bold 24px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h3 { font:bold 20px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h4 { font:bold 16px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h5 { font:bold 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }h6 { font:bold 12px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+.page-title, .post .title, .page .title {font:bold 28px/1.1em "Helvetica Neue", Helvetica, sans-serif;color:#222222;}
+.post .title a:link, .post .title a:visited, .page .title a:link, .page .title a:visited {color:#222222}
+.post-meta { font:300 12px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#999999; }
+.entry, .entry p{ font:300 15px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:#555555; }
+.post-more {font:300 13px/1.5em "Helvetica Neue", Helvetica, sans-serif;color:;border-top:0px solid #e6e6e6;border-bottom:0px solid #e6e6e6;}
+#post-author, #connect {border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#fafafa}
+.nav-entries a, .woo-pagination { font:300 13px/1em "Helvetica Neue", Helvetica, sans-serif;color:#888; }
+.woo-pagination a, .woo-pagination a:hover {color:#888!important}
+.widget h3 {font:bold 14px/1.2em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-bottom:1px solid #e6e6e6;}
+.widget_recent_comments li, #twitter li { border-color: #e6e6e6;}
+.widget p, .widget .textwidget { font:300 13px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+.widget {font:300 13px/1.5em &quot;Helvetica Neue&quot;, Helvetica, sans-serif;color:#555555;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}
+#tabs .inside li a, .widget_woodojo_tabs .tabbable .tab-pane li a { font:bold 12px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#555555; }
+#tabs .inside li span.meta, .widget_woodojo_tabs .tabbable .tab-pane li span.meta { font:300 11px/1.5em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#tabs ul.wooTabs li a, .widget_woodojo_tabs .tabbable .nav-tabs li a { font:300 11px/2em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+@media only screen and (min-width:768px) {
+ul.nav li a, #navigation ul.rss a, #navigation ul.cart a.cart-contents, #navigation .cart-contents #navigation ul.rss, #navigation ul.nav-search, #navigation ul.nav-search a { font:300 14px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#666666; } #navigation ul.rss li a:before, #navigation ul.nav-search a.search-contents:before { color:#666666;}
+#navigation ul.nav li ul, #navigation ul.cart > li > ul > div  { border: 0px solid #dbdbdb; }
+#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation ul.nav > li  { border-right: 0px solid #dbdbdb; }#navigation ul.nav > li:hover > ul  { left: 0; }
+#navigation { box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }#navigation ul li:first-child, #navigation ul li:first-child a { border-radius:0px 0 0 0px; -moz-border-radius:0px 0 0 0px; -webkit-border-radius:0px 0 0 0px; }
+#navigation {border-top:0px solid #dbdbdb;border-bottom:0px solid #dbdbdb;border-left:0px solid #dbdbdb;border-right:0px solid #dbdbdb;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+#top ul.nav li a { font:300 12px/1.6em Helvetica Neue, Helvetica, sans-serif;color:#ddd; }
+}
+#footer, #footer p { font:300 13px/1.4em Helvetica Neue, Helvetica, sans-serif;color:#999999; }
+#footer {border-top:1px solid #dbdbdb;border-bottom:0px solid ;border-left:0px solid ;border-right:0px solid ;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;}
+.magazine #loopedSlider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-magazine .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.magazine #loopedSlider .content .excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-magazine .slide-content p, .wooslider-theme-magazine .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.magazine .block .post .title a {font:bold 18px/1.2em Helvetica Neue, Helvetica, sans-serif;color:#222222; }
+#loopedSlider.business-slider .content h2 { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#loopedSlider.business-slider .content h2.title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+.wooslider-theme-business .has-featured-image .slide-title a { font:bold 24px/1em Arial, sans-serif;color:#ffffff; }
+#wrapper #loopedSlider.business-slider .content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-content p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.wooslider-theme-business .has-featured-image .slide-excerpt p { font:300 13px/1.5em Arial, sans-serif;color:#cccccc; }
+.archive_header { font:bold 18px/1em Arial, sans-serif;color:#222222; }
+.archive_header {border-bottom:1px solid #e6e6e6;}
+.archive_header .catrss { display:none; }
+</style>
+<!-- Woo Shortcodes CSS -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/functions/css/shortcodes.css" rel="stylesheet" type="text/css"/>
+<!-- Custom Stylesheet -->
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/themes/canvas-new/custom.css" rel="stylesheet" type="text/css"/>
+<!-- Theme version -->
+<meta content="Canvas 5.9.21" name="generator"/>
+<meta content="WooFramework 6.2.9" name="generator"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-192x192.png" rel="icon" sizes="192x192"/>
+<link href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-180x180.png" rel="apple-touch-icon-precomposed"/>
+<meta content="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/cropped-icon-270x270.png" name="msapplication-TileImage"/>
+</head>
+<body class="post-template-default single single-post postid-1729 single-format-standard chrome alt-style-default two-col-left width-960 two-col-left-960">
+<div id="wrapper">
+<div id="inner-wrapper">
+<h3 class="nav-toggle icon"><a href="#navigation">Navigation</a></h3>
+<header class="col-full" id="header">
+<div id="logo">
+<a href="https://machinelearningmastery.com/" title="Making developers awesome at machine learning"><img alt="Machine Learning Mastery" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/MachineLearningMastery.png"/></a>
+<span class="site-title"><a href="https://machinelearningmastery.com/">Machine Learning Mastery</a></span>
+<span class="site-description">Making developers awesome at machine learning</span>
+</div>
+<div class="header-widget">
+<div class="widget widget_text" id="text-3"> <div class="textwidget"><br/>
+<div style="font-size:12pt;">
+<a href="/start-here"><strong>Start Here</strong></a>
+     
+<a href="/blog">Blog</a>
+     
+<a href="/products">Books</a>
+     
+<a href="/about">About</a>
+     
+<a href="/contact">Contact</a>
+</div></div>
+</div><div class="widget widget_search" id="search-3"><div class="search_main">
+<form action="https://machinelearningmastery.com/" class="searchform" method="get">
+<input class="field s" name="s" onblur="if (this.value == '') {this.value = 'Search...';}" onfocus="if (this.value == 'Search...') {this.value = '';}" type="text" value="Search..."/>
+<button class="fa fa-search submit" name="submit" type="submit" value="Search"></button>
+</form>
+<div class="fix"></div>
+</div></div><div class="widget widget_text" id="text-15"> <div class="textwidget"><p>Want help with R machine learning? <a href="https://machinelearningmastery.leadpages.co/r-machine-learning-mini-course/">Take the FREE Mini-Course</a>.</p>
+</div>
+</div> </div>
+</header>
+<nav class="col-full" id="navigation" role="navigation">
+<section class="menus">
+<a class="nav-home" href="https://machinelearningmastery.com"><span>Home</span></a>
+<h3>Empty Menu</h3> <div class="side-nav">
+</div><!-- /#side-nav -->
+</section><!-- /.menus -->
+<a class="nav-close" href="#top"><span>Return to Content</span></a>
+</nav>
+<!-- #content Starts -->
+<div class="col-full" id="content">
+<div id="main-sidebar-container">
+<!-- #main Starts -->
+<section id="main">
+<article class="post-1729 post type-post status-publish format-standard has-post-thumbnail hentry category-r-machine-learning">
+<header>
+<h1 class="title entry-title">How To Estimate Model Accuracy in R Using The Caret Package</h1> </header>
+<div class="post-meta"><span class="small">By</span> <span class="author vcard"><span class="fn"><a href="https://machinelearningmastery.com/author/jasonb/" rel="author" title="Posts by Jason Brownlee">Jason Brownlee</a></span></span> <span class="small">on</span> <abbr class="date time published updated" title="2014-09-03T05:00:17+1100">September 3, 2014</abbr> <span class="small">in</span> <span class="categories"><a href="https://machinelearningmastery.com/category/r-machine-learning/" title="View all items in R Machine Learning">R Machine Learning</a></span> </div>
+<section class="entry">
+<div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20To%20Estimate%20Model%20Accuracy%20in%20R%20Using%20The%20Caret%20Package&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fhow-to-estimate-model-accuracy-in-r-using-the-caret-package%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Estimate%20Model%20Accuracy%20in%20R%20Using%20The%20Caret%20Package&amp;url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/&amp;summary=When+you+are+building+a+predictive+model%2C+you+need+a+way+to+evaluate+the+capability+of+the+model+on+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Estimate%20Model%20Accuracy%20in%20R%20Using%20The%20Caret%20Package&amp;url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/&amp;summary=When+you+are+building+a+predictive+model%2C+you+need+a+way+to+evaluate+the+capability+of+the+model+on+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div><p>When you are building a predictive model, you need a way to evaluate the capability of the model on unseen data.</p>
+<p>This is typically done by estimating accuracy using data that was not used to train the model such as a test set, or using cross validation. The <a href="http://caret.r-forge.r-project.org/">caret package in R</a> provides a number of methods to estimate the accuracy of a machines learning algorithm.</p>
+<p>In this post you discover 5 approaches for estimating model performance on unseen data. You will also have access to recipes in R using the caret package for each method, that you can copy and paste into your own project, right now.</p>
+<div class="wp-caption aligncenter" id="attachment_1730" style="max-width: 1034px"><a href="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R.png"><img alt="Caret package in R" class="wp-image-1730 size-large" height="276" sizes="(max-width: 1024px) 100vw, 1024px" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R-1024x276.png" srcset="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R-1024x276.png 1024w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R-300x81.png 300w, https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2014/09/Caret-package-in-R.png 1331w" width="1024"/></a><p class="wp-caption-text">Caret package in R, <a href="http://caret.r-forge.r-project.org/">from the caret homepage</a></p></div>
+<h2>Estimating Model Accuracy</h2>
+<p>We have considered model accuracy before in the configuration of test options in a test harness. You can read more in the post: <a href="http://machinelearningmastery.com/how-to-choose-the-right-test-options-when-evaluating-machine-learning-algorithms/" title="How To Choose The Right Test Options When Evaluating Machine Learning Algorithms">How To Choose The Right Test Options When Evaluating Machine Learning Algorithms</a>.</p>
+<p>In this post you can going to discover 5 different methods that you can use to estimate model accuracy.</p>
+<p>They are as follows and each will be described in turn:</p>
+<ul>
+<li>Data Split</li>
+<li>Bootstrap</li>
+<li>k-fold Cross Validation</li>
+<li>Repeated k-fold Cross Validation</li>
+<li>Leave One Out Cross Validation</li>
+</ul>
+<p>Generally, I would recommend Repeated k-fold Cross Validation, but each method has its features and benefits, especially when the amount of data or space and time complexity are considered. Consider which approach best suits your problem.</p>
+<!-- Start shortcoder --><p></p><div class="woo-sc-hr"></div>
+<center>
+<h3>Need more elp with R for Machine Learning?</h3>
+<p>Take my free 14-day email course and discover how to use R on your project (with sample code).</p>
+<p>Click to sign-up and also get a free PDF Ebook version of the course.</p>
+<p><a href="https://machinelearningmastery.lpages.co/leadbox/141caac73f72a2%3A164f8be4f346dc/5734055144325120/" style="background: rgb(255, 206, 10); color: rgb(255, 255, 255); text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; line-height: 20px; padding: 10px; display: inline-block; max-width: 300px; border-radius: 5px; text-shadow: rgba(0, 0, 0, 0.25) 0px -1px 1px; box-shadow: rgba(255, 255, 255, 0.5) 0px 1px 3px inset, rgba(0, 0, 0, 0.5) 0px 1px 3px;" target="_blank">Start Your FREE Mini-Course Now!</a><script data-config="%7B%7D" data-leadbox="141caac73f72a2:164f8be4f346dc" data-url="https://machinelearningmastery.lpages.co/leadbox/141caac73f72a2%3A164f8be4f346dc/5734055144325120/" src="https://machinelearningmastery.lpages.co/leadbox-1500583721.js" type="text/javascript"></script></p>
+</center>
+<p></p><div class="woo-sc-hr"></div><!-- End shortcoder v4.1.5-->
+<h2>Data Split</h2>
+<p>Data splitting involves partitioning the data into an explicit training dataset used to prepare the model and an unseen test dataset used to evaluate the models performance on unseen data.</p>
+<p>It is useful when you have a very large dataset so that the test dataset can provide a meaningful estimation of performance, or for when you are using slow methods and need a quick approximation of performance.</p>
+<p>The example below splits the iris dataset so that 80% is used for training a Naive Bayes model and 20% is used to evaluate the models performance.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590fa7e2bd714877549" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">Data Split in R</span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">R</span></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# load the libraries
+library(caret)
+library(klaR)
+# load the iris dataset
+data(iris)
+# define an 80%/20% train/test split of the dataset
+split=0.80
+trainIndex &lt;- createDataPartition(iris$Species, p=split, list=FALSE)
+data_train &lt;- iris[ trainIndex,]
+data_test &lt;- iris[-trainIndex,]
+# train a naive bayes model
+model &lt;- NaiveBayes(Species~., data=data_train)
+# make predictions
+x_test &lt;- data_test[,1:4]
+y_test &lt;- data_test[,5]
+predictions &lt;- predict(model, x_test)
+# summarize results
+confusionMatrix(predictions$class, y_test)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-2">2</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-4">4</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-6">6</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-8">8</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-10">10</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-12">12</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-14">14</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-16">16</div><div class="crayon-num" data-line="crayon-5a6590fa7e2bd714877549-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2bd714877549-18">18</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-1"><span class="crayon-c"># load the libraries</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-2"><span class="crayon-r">library</span><span class="crayon-sy">(</span><span class="crayon-v">caret</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-3"><span class="crayon-r">library</span><span class="crayon-sy">(</span><span class="crayon-v">klaR</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-4"><span class="crayon-c"># load the iris dataset</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-5"><span class="crayon-e">data</span><span class="crayon-sy">(</span><span class="crayon-v">iris</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-6"><span class="crayon-c"># define an 80%/20% train/test split of the dataset</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-7"><span class="crayon-v">split</span><span class="crayon-o">=</span><span class="crayon-cn">0.80</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-8"><span class="crayon-v">trainIndex</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">createDataPartition</span><span class="crayon-sy">(</span><span class="crayon-v">iris</span><span class="crayon-sy">$</span><span class="crayon-v">Species</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">p</span><span class="crayon-o">=</span><span class="crayon-v">split</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">list</span><span class="crayon-o">=</span><span class="crayon-t">FALSE</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-9"><span class="crayon-v">data_train</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">iris</span><span class="crayon-sy">[</span><span class="crayon-h"> </span><span class="crayon-v">trainIndex</span><span class="crayon-sy">,</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-10"><span class="crayon-v">data_test</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">iris</span><span class="crayon-sy">[</span><span class="crayon-o">-</span><span class="crayon-v">trainIndex</span><span class="crayon-sy">,</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-11"><span class="crayon-c"># train a naive bayes model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-12"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">NaiveBayes</span><span class="crayon-sy">(</span><span class="crayon-v">Species</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">data_train</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-13"><span class="crayon-c"># make predictions</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-14"><span class="crayon-v">x_test</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">data_test</span><span class="crayon-sy">[</span><span class="crayon-sy">,</span><span class="crayon-cn">1</span><span class="crayon-o">:</span><span class="crayon-cn">4</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-15"><span class="crayon-v">y_test</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">data_test</span><span class="crayon-sy">[</span><span class="crayon-sy">,</span><span class="crayon-cn">5</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-16"><span class="crayon-v">predictions</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">predict</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">x_test</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2bd714877549-17"><span class="crayon-c"># summarize results</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2bd714877549-18"><span class="crayon-e">confusionMatrix</span><span class="crayon-sy">(</span><span class="crayon-v">predictions</span><span class="crayon-sy">$</span><span class="crayon-t">class</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">y_test</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0018 seconds] -->
+<p></p>
+<h2>Bootstrap</h2>
+<p><a href="http://en.wikipedia.org/wiki/Bootstrapping_(statistics)">Bootstrap resampling</a> involves taking random samples from the dataset (with re-selection) against which to evaluate the model. In aggregate, the results provide an indication of the variance of the models performance. Typically, large number of resampling iterations are performed (thousands or tends of thousands).</p>
+<p>The following example uses a bootstrap with 10 resamples to prepare a Naive Bayes model.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590fa7e2c9484022725" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">Data Bootstrap in R</span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">R</span></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# load the library
+library(caret)
+# load the iris dataset
+data(iris)
+# define training control
+train_control &lt;- trainControl(method="boot", number=100)
+# train the model
+model &lt;- train(Species~., data=iris, trControl=train_control, method="nb")
+# summarize results
+print(model)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590fa7e2c9484022725-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2c9484022725-2">2</div><div class="crayon-num" data-line="crayon-5a6590fa7e2c9484022725-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2c9484022725-4">4</div><div class="crayon-num" data-line="crayon-5a6590fa7e2c9484022725-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2c9484022725-6">6</div><div class="crayon-num" data-line="crayon-5a6590fa7e2c9484022725-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2c9484022725-8">8</div><div class="crayon-num" data-line="crayon-5a6590fa7e2c9484022725-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2c9484022725-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590fa7e2c9484022725-1"><span class="crayon-c"># load the library</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2c9484022725-2"><span class="crayon-r">library</span><span class="crayon-sy">(</span><span class="crayon-v">caret</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2c9484022725-3"><span class="crayon-c"># load the iris dataset</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2c9484022725-4"><span class="crayon-e">data</span><span class="crayon-sy">(</span><span class="crayon-v">iris</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2c9484022725-5"><span class="crayon-c"># define training control</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2c9484022725-6"><span class="crayon-v">train_control</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">trainControl</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"boot"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">number</span><span class="crayon-o">=</span><span class="crayon-cn">100</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2c9484022725-7"><span class="crayon-c"># train the model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2c9484022725-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">Species</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">iris</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">train_control</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"nb"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2c9484022725-9"><span class="crayon-c"># summarize results</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2c9484022725-10"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p></p>
+<h2>k-fold Cross Validation</h2>
+<p>The <a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)">k-fold cross validation</a> method involves splitting the dataset into k-subsets. For each subset is held out while the model is trained on all other subsets. This process is completed until accuracy is determine for each instance in the dataset, and an overall accuracy estimate is provided.</p>
+<p>It is a robust method for estimating accuracy, and the size of k and tune the amount of bias in the estimate, with popular values set to 3, 5, 7 and 10.</p>
+<p>The following example uses 10-fold cross validation to estimate Naive Bayes on the iris dataset.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590fa7e2cc983990882" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">k-fold Cross Validation in R</span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">R</span></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# load the library
+library(caret)
+# load the iris dataset
+data(iris)
+# define training control
+train_control &lt;- trainControl(method="cv", number=10)
+# fix the parameters of the algorithm
+grid &lt;- expand.grid(.fL=c(0), .usekernel=c(FALSE))
+# train the model
+model &lt;- train(Species~., data=iris, trControl=train_control, method="nb", tuneGrid=grid)
+# summarize results
+print(model)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590fa7e2cc983990882-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cc983990882-2">2</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cc983990882-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cc983990882-4">4</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cc983990882-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cc983990882-6">6</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cc983990882-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cc983990882-8">8</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cc983990882-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cc983990882-10">10</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cc983990882-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cc983990882-12">12</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590fa7e2cc983990882-1"><span class="crayon-c"># load the library</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cc983990882-2"><span class="crayon-r">library</span><span class="crayon-sy">(</span><span class="crayon-v">caret</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cc983990882-3"><span class="crayon-c"># load the iris dataset</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cc983990882-4"><span class="crayon-e">data</span><span class="crayon-sy">(</span><span class="crayon-v">iris</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cc983990882-5"><span class="crayon-c"># define training control</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cc983990882-6"><span class="crayon-v">train_control</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">trainControl</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"cv"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">number</span><span class="crayon-o">=</span><span class="crayon-cn">10</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cc983990882-7"><span class="crayon-c"># fix the parameters of the algorithm</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cc983990882-8"><span class="crayon-v">grid</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">expand</span><span class="crayon-sy">.</span><span class="crayon-e">grid</span><span class="crayon-sy">(</span><span class="crayon-sy">.</span><span class="crayon-v">fL</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-v">usekernel</span><span class="crayon-o">=</span><span class="crayon-e">c</span><span class="crayon-sy">(</span><span class="crayon-t">FALSE</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cc983990882-9"><span class="crayon-c"># train the model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cc983990882-10"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">Species</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">iris</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">train_control</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"nb"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">tuneGrid</span><span class="crayon-o">=</span><span class="crayon-v">grid</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cc983990882-11"><span class="crayon-c"># summarize results</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cc983990882-12"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<h2>Repeated k-fold Cross Validation</h2>
+<p>The process of splitting the data into k-folds can be repeated a number of times, this is called Repeated k-fold Cross Validation. The final model accuracy is taken as the mean from the number of repeats.</p>
+<p>The following example uses 10-fold cross validation with 3 repeats to estimate Naive Bayes on the iris dataset.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590fa7e2cf193753253" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">Repeated k-fold Cross Validation in R</span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">R</span></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# load the library
+library(caret)
+# load the iris dataset
+data(iris)
+# define training control
+train_control &lt;- trainControl(method="repeatedcv", number=10, repeats=3)
+# train the model
+model &lt;- train(Species~., data=iris, trControl=train_control, method="nb")
+# summarize results
+print(model)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590fa7e2cf193753253-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cf193753253-2">2</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cf193753253-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cf193753253-4">4</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cf193753253-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cf193753253-6">6</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cf193753253-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cf193753253-8">8</div><div class="crayon-num" data-line="crayon-5a6590fa7e2cf193753253-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2cf193753253-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590fa7e2cf193753253-1"><span class="crayon-c"># load the library</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cf193753253-2"><span class="crayon-r">library</span><span class="crayon-sy">(</span><span class="crayon-v">caret</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cf193753253-3"><span class="crayon-c"># load the iris dataset</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cf193753253-4"><span class="crayon-e">data</span><span class="crayon-sy">(</span><span class="crayon-v">iris</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cf193753253-5"><span class="crayon-c"># define training control</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cf193753253-6"><span class="crayon-v">train_control</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">trainControl</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"repeatedcv"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">number</span><span class="crayon-o">=</span><span class="crayon-cn">10</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">repeats</span><span class="crayon-o">=</span><span class="crayon-cn">3</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cf193753253-7"><span class="crayon-c"># train the model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cf193753253-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">Species</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">iris</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">train_control</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"nb"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2cf193753253-9"><span class="crayon-c"># summarize results</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2cf193753253-10"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p></p>
+<h2>Leave One Out Cross Validation</h2>
+<p>In <a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)">Leave One Out Cross Validation</a> (LOOCV), a data instance is left out and a model constructed on all other data instances in the training set. This is repeated for all data instances.</p>
+<p>The following example demonstrates LOOCV to estimate Naive Bayes on the iris dataset.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<div class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" id="crayon-5a6590fa7e2d3656386805" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">Leave One Out Cross Validation in R</span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">R</span></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;" wrap="soft">
+# load the library
+library(caret)
+# load the iris dataset
+data(iris)
+# define training control
+train_control &lt;- trainControl(method="LOOCV")
+# train the model
+model &lt;- train(Species~., data=iris, trControl=train_control, method="nb")
+# summarize results
+print(model)</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5a6590fa7e2d3656386805-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2d3656386805-2">2</div><div class="crayon-num" data-line="crayon-5a6590fa7e2d3656386805-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2d3656386805-4">4</div><div class="crayon-num" data-line="crayon-5a6590fa7e2d3656386805-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2d3656386805-6">6</div><div class="crayon-num" data-line="crayon-5a6590fa7e2d3656386805-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2d3656386805-8">8</div><div class="crayon-num" data-line="crayon-5a6590fa7e2d3656386805-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a6590fa7e2d3656386805-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a6590fa7e2d3656386805-1"><span class="crayon-c"># load the library</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2d3656386805-2"><span class="crayon-r">library</span><span class="crayon-sy">(</span><span class="crayon-v">caret</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2d3656386805-3"><span class="crayon-c"># load the iris dataset</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2d3656386805-4"><span class="crayon-e">data</span><span class="crayon-sy">(</span><span class="crayon-v">iris</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2d3656386805-5"><span class="crayon-c"># define training control</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2d3656386805-6"><span class="crayon-v">train_control</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">trainControl</span><span class="crayon-sy">(</span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"LOOCV"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2d3656386805-7"><span class="crayon-c"># train the model</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2d3656386805-8"><span class="crayon-v">model</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-e">train</span><span class="crayon-sy">(</span><span class="crayon-v">Species</span><span class="crayon-o">~</span><span class="crayon-sy">.</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">data</span><span class="crayon-o">=</span><span class="crayon-v">iris</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">trControl</span><span class="crayon-o">=</span><span class="crayon-v">train_control</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">method</span><span class="crayon-o">=</span><span class="crayon-s">"nb"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a6590fa7e2d3656386805-9"><span class="crayon-c"># summarize results</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a6590fa7e2d3656386805-10"><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">model</span><span class="crayon-sy">)</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p></p>
+<h2>Summary</h2>
+<p>In this post you discovered 5 different methods that you can use to estimate the accuracy of your model on unseen data.</p>
+<p>Those methods were: Data Split, Bootstrap, k-fold Cross Validation, Repeated k-fold Cross Validation, and Leave One Out Cross Validation.</p>
+<p>You can learn more about the caret package in R at the <a href="http://caret.r-forge.r-project.org/">caret package homepage</a> and the <a href="http://cran.r-project.org/web/packages/caret/index.html">caret package CRAN page</a>. If you would like to master the caret package, I would recommend the book written by the author of the package, titled: <a class="easyazon-link" href="http://www.amazon.com/dp/1461468485?tag=inspiredalgor-20">Applied Predictive Modeling</a>, especially Chapter 4 on overfitting models.</p>
+<!-- Shortcoder conditions not met -->
+<div class="awac-wrapper"><div class="awac widget text-39"> <div class="textwidget"><p></p><div class="woo-sc-hr"></div><br/>
+<center>
+<h2>Frustrated With Your Progress In R Machine Learning?</h2>
+<p><a href="/machine-learning-with-r/"><img align="left" alt="Master Machine Learning With R" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/MachineLearningMasteryWithR-small.png" style="border: 0;"/></a></p>
+<h4>Develop Your Own Models in Minutes</h4>
+<p>…with just a few lines of R code</p>
+<p>Discover how in my new Ebook:<br/>
+<a href="/machine-learning-with-r/">Machine Learning Mastery With R</a></p>
+<p>Covers <strong>self-study tutorials</strong> and <strong>end-to-end projects</strong> like:<br/>Loading data, visualization, build models, tuning, and much more…</p>
+<h4>Finally Bring Machine Learning To<br/>Your Own Projects</h4>
+<p>Skip the Academics. Just Results.</p>
+<p><a href="/machine-learning-with-r/">Click to learn more</a>.</p>
+<p></p></center><br/>
+<div class="woo-sc-hr"></div>
+</div>
+</div></div><div class="apss-social-share apss-theme-4 clearfix">
+<div class="apss-twitter apss-single-icon">
+<a href="javascript:void(0);" onclick="apss_open_in_popup_window(event, 'https://twitter.com/intent/tweet?text=How%20To%20Estimate%20Model%20Accuracy%20in%20R%20Using%20The%20Caret%20Package&amp;url=https%3A%2F%2Fmachinelearningmastery.com%2Fhow-to-estimate-model-accuracy-in-r-using-the-caret-package%2F&amp;');" rel="nofollow" target="" title="Share on Twitter">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-twitter"></i>
+<span class="apss-social-text">Share on Twitter</span><span class="apss-share">Tweet</span>
+</div>
+</a>
+</div>
+<div class="apss-facebook apss-single-icon">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/" onclick="apss_open_in_popup_window(event, 'https://www.facebook.com/sharer/sharer.php?u=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/');" rel="nofollow" target="" title="Share on Facebook">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-facebook"></i>
+<span class="apss-social-text">Share on Facebook</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-linkedin apss-single-icon">
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Estimate%20Model%20Accuracy%20in%20R%20Using%20The%20Caret%20Package&amp;url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/&amp;summary=When+you+are+building+a+predictive+model%2C+you+need+a+way+to+evaluate+the+capability+of+the+model+on+..." onclick="apss_open_in_popup_window(event, 'http://www.linkedin.com/shareArticle?mini=true&amp;title=How%20To%20Estimate%20Model%20Accuracy%20in%20R%20Using%20The%20Caret%20Package&amp;url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/&amp;summary=When+you+are+building+a+predictive+model%2C+you+need+a+way+to+evaluate+the+capability+of+the+model+on+...');" rel="nofollow" target="" title="Share on LinkedIn">
+<div class="apss-icon-block clearfix"><i class="fa fa-linkedin"></i>
+<span class="apss-social-text">Share on LinkedIn</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+<div class="apss-google-plus apss-single-icon">
+<a href="https://plus.google.com/share?url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/" onclick="apss_open_in_popup_window(event, 'https://plus.google.com/share?url=https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/');" rel="nofollow" target="" title="Share on Google Plus">
+<div class="apss-icon-block clearfix">
+<i class="fa fa-google-plus"></i>
+<span class="apss-social-text">Share on Google Plus</span>
+<span class="apss-share">Share</span>
+</div>
+</a>
+</div>
+</div> </section><!-- /.entry -->
+<div class="fix"></div>
+<aside id="post-author">
+<div class="profile-image"><img alt="" class="avatar avatar-80 photo" height="80" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=160&amp;d=mm&amp;r=g 2x" width="80"/></div>
+<div class="profile-content">
+<h4>About Jason Brownlee</h4>
+		Dr. Jason Brownlee is a husband, proud father, academic researcher, author, professional developer and a machine learning practitioner. He is dedicated to helping developers get started and get good at applied machine learning.
+<a href="/about">Learn more</a>.				<div class="profile-link">
+<a href="https://machinelearningmastery.com/author/jasonb/">
+				View all posts by Jason Brownlee <span class="meta-nav">→</span> </a>
+</div><!--#profile-link-->
+</div>
+<div class="fix"></div>
+</aside>
+<div class="post-utility"></div>
+</article><!-- /.post -->
+<div class="post-entries">
+<div class="nav-prev fl"><a href="https://machinelearningmastery.com/machine-learning-newsletters/" rel="prev"><i class="fa fa-angle-left"></i> Machine Learning Newsletters</a></div>
+<div class="nav-next fr"><a href="https://machinelearningmastery.com/how-to-get-started-with-machine-learning-algorithms-in-r/" rel="next">How To Get Started With Machine Learning Algorithms in R <i class="fa fa-angle-right"></i></a></div>
+<div class="fix"></div>
+</div>
+<div id="comments"> <h3 id="comments-title">57 Responses to <em>How To Estimate Model Accuracy in R Using The Caret Package</em></h3>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-102596">
+<div class="comment-container" id="li-comment-102596">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/da20c24b8d1540e736ecad9242d245aa?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/da20c24b8d1540e736ecad9242d245aa?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">kumaran</span>
+<span class="date">November 11, 2014 at 4:16 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-102596" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Sir,<br/>
+Could you provide the full code for the bayes classifier and bootstrap resampling<br/>
+i’ll use that as my model for my engineering project work….</p>
+<div class="reply">
+<a aria-label="Reply to kumaran" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=102596#respond" onclick='return addComment.moveForm( "comment-102596", "102596", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-357193">
+<div class="comment-container" id="li-comment-357193">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f79419381b9f83b15a1072f64f36ca4d?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f79419381b9f83b15a1072f64f36ca4d?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">hima</span>
+<span class="date">July 17, 2016 at 9:32 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-357193" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>confusionMatrix(predictions$class,y_test)</p>
+<p>Error in predictions$class : $ operator is invalid for atomic vectors</p>
+<p>  i am getting an error message while implementing R code for Confusion matrix…</p>
+<div class="reply">
+<a aria-label="Reply to hima" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=357193#respond" onclick='return addComment.moveForm( "comment-357193", "357193", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-408065">
+<div class="comment-container" id="li-comment-408065">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/04bb862c55a3da65615797ed9187d86c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/04bb862c55a3da65615797ed9187d86c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">somia</span>
+<span class="date">August 1, 2017 at 4:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-408065" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>did you solve this problem?????</p>
+<div class="reply">
+<a aria-label="Reply to somia" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=408065#respond" onclick='return addComment.moveForm( "comment-408065", "408065", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-308606">
+<div class="comment-container" id="li-comment-308606">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a15e3de87678cf75ed0bf68fd7288825?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a15e3de87678cf75ed0bf68fd7288825?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Romeo</span>
+<span class="date">July 23, 2015 at 3:58 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-308606" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You’re a great teacher! Others make complex things more complicated while you make the above look simple. Your emails though just pointed me to other books. Why don’t you start to have your own video course or book?</p>
+<div class="reply">
+<a aria-label="Reply to Romeo" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=308606#respond" onclick='return addComment.moveForm( "comment-308606", "308606", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-314852">
+<div class="comment-container" id="li-comment-314852">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 12, 2015 at 8:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-314852" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m working on it Romeo, take a look at my training section of the website.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=314852#respond" onclick='return addComment.moveForm( "comment-314852", "314852", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-395717">
+<div class="comment-container" id="li-comment-395717">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d1361d77e6d2c8c0f714c295fa085e9?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d1361d77e6d2c8c0f714c295fa085e9?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">asad khan</span>
+<span class="date">April 9, 2017 at 3:02 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395717" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Respected sir, how to calculate the confusion matrix in caret for fold cross validation</p>
+<div class="reply">
+<a aria-label="Reply to asad khan" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395717#respond" onclick='return addComment.moveForm( "comment-395717", "395717", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-395825">
+<div class="comment-container" id="li-comment-395825">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:58 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395825" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You can see the caret doco on creating a confusion matrix here:<br/>
+<a href="https://topepo.github.io/caret/measuring-performance.html" rel="nofollow">https://topepo.github.io/caret/measuring-performance.html</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395825#respond" onclick='return addComment.moveForm( "comment-395825", "395825", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-313763">
+<div class="comment-container" id="li-comment-313763">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ad331191dfa8654619500b0b6708f62?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ad331191dfa8654619500b0b6708f62?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">pushpa</span>
+<span class="date">September 4, 2015 at 10:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-313763" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>very useful information , simplified</p>
+<div class="reply">
+<a aria-label="Reply to pushpa" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=313763#respond" onclick='return addComment.moveForm( "comment-313763", "313763", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-314853">
+<div class="comment-container" id="li-comment-314853">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 12, 2015 at 8:44 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-314853" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks pushpa.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=314853#respond" onclick='return addComment.moveForm( "comment-314853", "314853", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-314845">
+<div class="comment-container" id="li-comment-314845">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/684428d3153abfa2b6c2aa21d86b8016?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/684428d3153abfa2b6c2aa21d86b8016?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">take</span>
+<span class="date">September 12, 2015 at 7:49 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-314845" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, in the case of k-fold Cross Validation, which should be used as accuracy of a model, the one in the “model” variable or the one shown in the confusionMatrix? I assume it’s the former but wanted to confirm. Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to take" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=314845#respond" onclick='return addComment.moveForm( "comment-314845", "314845", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-314854">
+<div class="comment-container" id="li-comment-314854">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">September 12, 2015 at 8:46 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-314854" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The model is used to create predictions. </p>
+<p>We can only evaluate the accurate of predictions and the accuracy reflects the capability of the model.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=314854#respond" onclick='return addComment.moveForm( "comment-314854", "314854", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-315209">
+<div class="comment-container" id="li-comment-315209">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/684428d3153abfa2b6c2aa21d86b8016?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/684428d3153abfa2b6c2aa21d86b8016?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">take</span>
+<span class="date">September 14, 2015 at 9:02 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-315209" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks for your reply, Jason. When I run your code of Repeated k-fold Cross Validation, and look at the content of the “model” variable, I get the following result with accuracy indicated as 0.9533333. In contrast, when I look at the result of the confusionMatris() function, accuracy is 0.96 (see below). In my real data this difference is larger 0.931 vs. 0.998 for model and confusionMatrix, respectively. So my question is which result should be used as the capability of the model?</p>
+<p>&gt; model<br/>
+Naive Bayes </p>
+<p>150 samples<br/>
+  4 predictor<br/>
+  3 classes: ‘setosa’, ‘versicolor’, ‘virginica’ </p>
+<p>No pre-processing<br/>
+Resampling: Cross-Validated (10 fold, repeated 3 times)<br/>
+Summary of sample sizes: 135, 135, 135, 135, 135, 135, …<br/>
+Resampling results across tuning parameters:</p>
+<p>  usekernel  Accuracy   Kappa  Accuracy SD  Kappa SD<br/>
+  FALSE      0.9533333  0.93   0.05295845   0.07943768<br/>
+   TRUE      0.9533333  0.93   0.05577734   0.08366600</p>
+<p>Tuning parameter ‘fL’ was held constant at a value of 0<br/>
+Accuracy was used to select the optimal model using  the largest value.<br/>
+The final values used for the model were fL = 0 and usekernel = FALSE. </p>
+<p>&gt; confusionMatrix(predictions, iris$Species)<br/>
+Confusion Matrix and Statistics</p>
+<p>            Reference<br/>
+Prediction   setosa versicolor virginica<br/>
+  setosa         50          0         0<br/>
+  versicolor      0         47         3<br/>
+  virginica       0          3        47</p>
+<p>Overall Statistics</p>
+<p>               Accuracy : 0.96<br/>
+(e.d. truncated)</p>
+<div class="reply">
+<a aria-label="Reply to take" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=315209#respond" onclick='return addComment.moveForm( "comment-315209", "315209", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-315735">
+<div class="comment-container" id="li-comment-315735">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/5424be0de29e906dc5a5280f97518851?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/5424be0de29e906dc5a5280f97518851?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Henok</span>
+<span class="date">September 17, 2015 at 11:15 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-315735" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Very helpful material really!!!!!</p>
+<div class="reply">
+<a aria-label="Reply to Henok" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=315735#respond" onclick='return addComment.moveForm( "comment-315735", "315735", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-319973">
+<div class="comment-container" id="li-comment-319973">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/677b9c22ff2c3e739535770c4d1c34df?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/677b9c22ff2c3e739535770c4d1c34df?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://github.com/tobigithub" rel="external nofollow">Tobi</a></span>
+<span class="date">October 4, 2015 at 4:24 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-319973" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi,<br/>
+very useful thanks, I wonder what the license on your code is.<br/>
+Clarification would be nice, because you provide copy/paste capabilities.<br/>
+Maybe re-use with referencing your website, like CC-BY?<br/>
+Cheers<br/>
+Tobias</p>
+<div class="reply">
+<a aria-label="Reply to Tobi" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=319973#respond" onclick='return addComment.moveForm( "comment-319973", "319973", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-322169">
+<div class="comment-container" id="li-comment-322169">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/8d790da771e66bfeb6f86b4b232db4ac?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/8d790da771e66bfeb6f86b4b232db4ac?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Dev</span>
+<span class="date">October 10, 2015 at 2:01 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-322169" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi jason<br/>
+It  looks really helpful. I want to  bootstrap for a quadratic model. When I replace the  species~. when training the model with my model with  which is kind of lm(y~poly(x,2)+poly(z,2)).. I find errors as the regression method id not appropriate. Can xou please help</p>
+<p>model &lt;- train(Species~., data=iris, trControl=train_control, method="nb")<br/>
+regards<br/>
+Dev</p>
+<div class="reply">
+<a aria-label="Reply to Dev" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=322169#respond" onclick='return addComment.moveForm( "comment-322169", "322169", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-324765">
+<div class="comment-container" id="li-comment-324765">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/b9af4ed8b246b8c53711292ff59955a6?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/b9af4ed8b246b8c53711292ff59955a6?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Amir</span>
+<span class="date">October 17, 2015 at 10:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-324765" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Dear Jason</p>
+<p>I have a data set including 3 class (C1,C2 and C3) and 7 features (variables).<br/>
+I have classified my data by many methods on all variables.<br/>
+Now I want plot and illustrate for example a 2-D plot for every methods.<br/>
+But I have to use just 2 variables for a 2-D plot. Now I don’t know, How select tow variables that show best separation between class in plot. I can test classification accuracy for variable pairs (for example: V1-V2, V1-V3,….) but this work is very time consuming. Can you help me? is there a methods for select two best variables in classification models?</p>
+<p>Thank you so much<br/>
+Best regards,</p>
+<p>Amir</p>
+<div class="reply">
+<a aria-label="Reply to Amir" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=324765#respond" onclick='return addComment.moveForm( "comment-324765", "324765", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-327865">
+<div class="comment-container" id="li-comment-327865">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d6f45d66dc8d7361f1a31a4a20b6948c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d6f45d66dc8d7361f1a31a4a20b6948c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Petros</span>
+<span class="date">October 29, 2015 at 5:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-327865" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>great blog. However I am unsure how the kfold model is built. Does it run the 10 folds and then used the best model of the 10 or does it fit the model on all the data and you know how well it performs from the kfolds?</p>
+<div class="reply">
+<a aria-label="Reply to Petros" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=327865#respond" onclick='return addComment.moveForm( "comment-327865", "327865", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-333972">
+<div class="comment-container" id="li-comment-333972">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a199a4c428562fe4f88c0b954cccd7f7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a199a4c428562fe4f88c0b954cccd7f7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="https://www.linkedin.com/in/jamesbcallahan" rel="external nofollow">Jim Callahan</a></span>
+<span class="date">December 7, 2015 at 8:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-333972" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Finally! A clear post on how to do cross validation for machine learning in R!<br/>
+(and it even uses the Caret package). Congrats Jason Brownlee!</p>
+<p>BEYOND THE CONFUSION MATRIX<br/>
+Here is a wikipedia article that shows the formulas for calculating the relevant measures<br/>
+from the confusion matrix:<br/>
+<a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity" rel="nofollow">https://en.wikipedia.org/wiki/Sensitivity_and_specificity</a></p>
+<p>true positive (TP)<br/>
+eqv. with hit</p>
+<p>true negative (TN)<br/>
+eqv. with correct rejection</p>
+<p>false positive (FP)<br/>
+eqv. with false alarm, Type I error</p>
+<p>false negative (FN)<br/>
+eqv. with miss, Type II error</p>
+<p>sensitivity or true positive rate (TPR)<br/>
+eqv. with hit rate, recall<br/>
+TPR = TP / P = TP / (TP+FN)</p>
+<p>specificity (SPC) or true negative rate<br/>
+SPC = TN / N = TN / (TN+FP) </p>
+<p>precision or positive predictive value (PPV)<br/>
+PPV = TP / (TP + FP)</p>
+<p>negative predictive value (NPV)<br/>
+NPV = TN / (TN + FN)</p>
+<p>fall-out or false positive rate (FPR)<br/>
+FPR = FP / N = FP / (FP + TN) = 1-SPC</p>
+<p>false negative rate (FNR)<br/>
+FNR = FN / (TP + FN) = 1-TPR</p>
+<p>false discovery rate (FDR)<br/>
+FDR = FP / (TP + FP) = 1 – PPV </p>
+<p>accuracy (ACC)<br/>
+ACC = (TP + TN) / (TP + FP + FN + TN)</p>
+<p><a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity" rel="nofollow">https://en.wikipedia.org/wiki/Sensitivity_and_specificity</a></p>
+<div class="reply">
+<a aria-label="Reply to Jim Callahan" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=333972#respond" onclick='return addComment.moveForm( "comment-333972", "333972", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-347143">
+<div class="comment-container" id="li-comment-347143">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/635487e0c29b164f9808bb387bba457f?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/635487e0c29b164f9808bb387bba457f?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">DR Venugopala Rao Manneni</span>
+<span class="date">April 6, 2016 at 6:20 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-347143" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>A Clear post and very useful</p>
+<div class="reply">
+<a aria-label="Reply to DR Venugopala Rao Manneni" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=347143#respond" onclick='return addComment.moveForm( "comment-347143", "347143", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-347435">
+<div class="comment-container" id="li-comment-347435">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 8, 2016 at 1:36 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-347435" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thanks.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=347435#respond" onclick='return addComment.moveForm( "comment-347435", "347435", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-348319">
+<div class="comment-container" id="li-comment-348319">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3ac5ba33aad532e924e03fa062201f36?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3ac5ba33aad532e924e03fa062201f36?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Robert Feyerharm</span>
+<span class="date">April 15, 2016 at 5:12 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-348319" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Jason –</p>
+<p>I’m working on a project with the caret package where I first partition my data into 5 CV folds, then train competing models on each of the 5 training folds with 10-fold CV and score the remaining test folds to evaluate performance.</p>
+<p>How would you obtain the best fit model predictions on each of the 5 test fold partitions?</p>
+<p>For example, using the following dataset:</p>
+<p># Load data &amp; factor admit variable.<br/>
+mydata &lt;- read.csv("<a href="http://www.ats.ucla.edu/stat/data/binary.csv&amp;quot" rel="nofollow">http://www.ats.ucla.edu/stat/data/binary.csv&amp;quot</a>😉<br/>
+mydata$admit &lt;- as.factor(mydata$admit)</p>
+<p># Create levels yes/no to make sure the the classprobs get a correct name.<br/>
+levels(mydata$admit) = c("yes", "no")</p>
+<p># Partition data into 5 folds.<br/>
+set.seed(123)<br/>
+folds &lt;- createFolds(mydata$admit, k=5)</p>
+<p># Train elastic net logistic regression via 10-fold CV on each of 5 training folds using index argument.<br/>
+set.seed(123)<br/>
+train_control &lt;- trainControl(	method="cv",<br/>
+				number=10,<br/>
+				index=folds,<br/>
+				classProbs = TRUE,<br/>
+				savePredictions = TRUE)</p>
+<p>glmnetGrid &lt;- expand.grid(alpha=c(0, .5, 1), lambda=c(.1, 1, 10))<br/>
+model&lt;- train(admit ~ .,<br/>
+	      data=mydata,<br/>
+              trControl=train_control,<br/>
+              method="glmnet",<br/>
+              family="binomial",<br/>
+              tuneGrid=glmnetGrid,<br/>
+              metric="Accuracy",<br/>
+              preProcess=c("center","scale"))</p>
+<p>Can caret extract predictions on each of the 5 test fold partitions with the best fitting model w/ optimal alpha &amp; lambda values obtained via 10-fold CV?</p>
+<div class="reply">
+<a aria-label="Reply to Robert Feyerharm" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=348319#respond" onclick='return addComment.moveForm( "comment-348319", "348319", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-367346">
+<div class="comment-container" id="li-comment-367346">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/3ddbe95e91ef829ef11ebd067d5c05cc?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/3ddbe95e91ef829ef11ebd067d5c05cc?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Heba</span>
+<span class="date">October 17, 2016 at 10:40 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-367346" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Caret Train does not output the Accuracy SD</p>
+<p>I try to run the code below but the only metrics I get are the Accuracy and Kappa. I need to see the Accuracy SD and Kappa SD. Is that possible? </p>
+<p>The code I use is:<br/>
+library(“caret”, lib.loc=”~/R/win-library/3.3″)</p>
+<p>set.seed(42)<br/>
+mtry &lt;- sqrt(ncol(Train_2.4.16[,-which(names(Train_2.4.16) == "Label")]))<br/>
+control &lt;- trainControl(method="repeatedcv", number=10, repeats=5)<br/>
+tunegrid &lt;- expand.grid(.mtry=mtry)</p>
+<p>rfFit &lt;- train(Label ~., data = Train_2.4.16,<br/>
+                 method = "rf",<br/>
+                 preProc = c("center", "scale"),<br/>
+                 tuneLength = 10,<br/>
+                 metric = "Accuracy",<br/>
+                 trControl=control,<br/>
+                 allowParallel=TRUE)<br/>
+print(rfFit)</p>
+<p>The output is several lines for different mtry values and the accuracy and kappa measures but it does not show the Accuracy SD and Kappa SD which is quite important too. Are there any indicators that need to be set up for these two important measures to show on the output.</p>
+<div class="reply">
+<a aria-label="Reply to Heba" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=367346#respond" onclick='return addComment.moveForm( "comment-367346", "367346", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-367359">
+<div class="comment-container" id="li-comment-367359">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">October 18, 2016 at 5:54 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-367359" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Heba, perhaps the caret API has changed. I’m sorry about that.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=367359#respond" onclick='return addComment.moveForm( "comment-367359", "367359", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-381913">
+<div class="comment-container" id="li-comment-381913">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a4025cb7fc56790791223b273c62ec44?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a4025cb7fc56790791223b273c62ec44?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">pmpawmil</span>
+<span class="date">January 14, 2017 at 12:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-381913" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is it normal ?</p>
+<p> model &lt;- train(Species~., data=iris, trControl=train_control, method="nb", tuneGrid=grid)<br/>
+Error in command 'train.default(x, y, weights = w, …)':<br/>
+  The tuning parameter grid should have columns fL, usekernel, adjust</p>
+<div class="reply">
+<a aria-label="Reply to pmpawmil" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=381913#respond" onclick='return addComment.moveForm( "comment-381913", "381913", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-382139">
+<div class="comment-container" id="li-comment-382139">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 15, 2017 at 5:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-382139" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Perhaps the package has been updated. The error suggests you need to include “fL, usekernel, adjust” in the grid of parameters being optimized.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=382139#respond" onclick='return addComment.moveForm( "comment-382139", "382139", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-382571">
+<div class="comment-container" id="li-comment-382571">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/537555f27333feb7e7e30e6123235595?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/537555f27333feb7e7e30e6123235595?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Peter Lou</span>
+<span class="date">January 17, 2017 at 1:05 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-382571" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>After you evaluate the model accuracy, are you allowed to go back to revise the model? For example, you found your model was overfitting when comparing training and test results. I’m asking this question because in a machine learning course, the instructor said we should never use the test data to help with model construction. Test data is just there for reality check of the power of the model.</p>
+<div class="reply">
+<a aria-label="Reply to Peter Lou" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=382571#respond" onclick='return addComment.moveForm( "comment-382571", "382571", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-382583">
+<div class="comment-container" id="li-comment-382583">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">January 17, 2017 at 2:39 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-382583" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Peter,</p>
+<p>I agree with your instructor if the test or validation dataset is held back and you are using cross validation or similar with the training dataset.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=382583#respond" onclick='return addComment.moveForm( "comment-382583", "382583", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-394902">
+<div class="comment-container" id="li-comment-394902">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1cca44bb131de7908325c4bab320196a?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1cca44bb131de7908325c4bab320196a?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">young jae Seo</span>
+<span class="date">March 31, 2017 at 5:26 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-394902" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. Thanks you for your good posting.<br/>
+But I have a one question.<br/>
+To calculate the accuracy of mode, I use confusionMatrix in decision tree.<br/>
+Before doing this process, I split the data as createDataPartition() function.</p>
+<p>Now I want to calculate accuracy of gbm model.<br/>
+I think gbm model use full data because it is boost model.<br/>
+So… I can’t calculate accuracy of gbm model… </p>
+<p>Can you explain how to calculate accuracy of gbm() function?<br/>
+Do i have to split the data set as createDataPartition??</p>
+<p>Have a nice day!</p>
+<div class="reply">
+<a aria-label="Reply to young jae Seo" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=394902#respond" onclick='return addComment.moveForm( "comment-394902", "394902", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-394976">
+<div class="comment-container" id="li-comment-394976">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 1, 2017 at 5:53 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-394976" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, you can use resampling methods to evaluate the performance of any algorithm.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=394976#respond" onclick='return addComment.moveForm( "comment-394976", "394976", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-395056">
+<div class="comment-container" id="li-comment-395056">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Young jae Seo</span>
+<span class="date">April 2, 2017 at 3:08 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395056" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>You mean that use Data Split method?<br/>
+In gbm() modeling , Is it a problem that modeling as train data set??<br/>
+I think that I have to use full data set in gbm() modeling.<br/>
+have i wrong information?</p>
+<div class="reply">
+<a aria-label="Reply to Young jae Seo" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395056#respond" onclick='return addComment.moveForm( "comment-395056", "395056", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-395080">
+<div class="comment-container" id="li-comment-395080">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 2, 2017 at 6:32 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395080" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>We often split the data when evaluating models, even with gbm.</p>
+<p>Some implementations do have built-in cross validation for “automatic” tuning, maybe this is what is confusing you.</p>
+<p>Later, once we choose a model for use in operations, we can fit the model on all data:<br/>
+<a href="http://machinelearningmastery.com/train-final-machine-learning-model/" rel="nofollow">http://machinelearningmastery.com/train-final-machine-learning-model/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395080#respond" onclick='return addComment.moveForm( "comment-395080", "395080", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-395691">
+<div class="comment-container" id="li-comment-395691">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Seo young jae</span>
+<span class="date">April 8, 2017 at 9:17 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395691" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason. Thank you for good information!<br/>
+I have a question.</p>
+<p>You used tunegrid in k-fold cross validation<br/>
+But, why you didn’t use that in repeated k-fold cross validation method?<br/>
+what’s the difference??</p>
+<div class="reply">
+<a aria-label="Reply to Seo young jae" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395691#respond" onclick='return addComment.moveForm( "comment-395691", "395691", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-395824">
+<div class="comment-container" id="li-comment-395824">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 9, 2017 at 2:58 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395824" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It is a good idea to use a repeat for CV with stochastic algorithms.</p>
+<p>I didn’t in this case for simplicity of the example.</p>
+<p>See this post on stochastic machine learning algorithms:<br/>
+<a href="http://machinelearningmastery.com/randomness-in-machine-learning/" rel="nofollow">http://machinelearningmastery.com/randomness-in-machine-learning/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395824#respond" onclick='return addComment.moveForm( "comment-395824", "395824", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-395832">
+<div class="comment-container" id="li-comment-395832">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2c12f56298d9580728107b9bce7e2dab?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Seo young jae</span>
+<span class="date">April 9, 2017 at 3:24 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395832" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Thank you for reply.<br/>
+But I mean tunegrid parameter. not repeat for CV.</p>
+<p>I mean that you used tunegrid parameter in k-fold cross validation, but you didn’t use tunegrid parameter in repeated k-fold cross validation method.</p>
+<p>what’s the difference?</p>
+<div class="reply">
+<a aria-label="Reply to Seo young jae" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395832#respond" onclick='return addComment.moveForm( "comment-395832", "395832", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-395907">
+<div class="comment-container" id="li-comment-395907">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">April 10, 2017 at 7:36 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-395907" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>The tunegrid is for evaluating a grid of hyperparameters. </p>
+<p>This is not required for using CV with or without repeats.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=395907#respond" onclick='return addComment.moveForm( "comment-395907", "395907", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-398658">
+<div class="comment-container" id="li-comment-398658">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 5, 2017 at 8:23 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398658" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I’m a little bit confused.</p>
+<p>Is ‘Estimating Model Accuracy’ actually included in these tutorials without explicit<br/>
+coding?</p>
+<p><a href="http://machinelearningmastery.com/compare-models-and-select-the-best-using-the-caret-r-package/" rel="nofollow">http://machinelearningmastery.com/compare-models-and-select-the-best-using-the-caret-r-package/</a></p>
+<p><a href="http://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/" rel="nofollow">http://machinelearningmastery.com/evaluate-machine-learning-algorithms-with-r/</a></p>
+<p>What is the difference between the accuracy values of this example and the others?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398658#respond" onclick='return addComment.moveForm( "comment-398658", "398658", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-398663">
+<div class="comment-container" id="li-comment-398663">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 5, 2017 at 9:09 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398663" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What does this error mean?</p>
+<p>&gt; model &lt;- NaiveBayes(n2~., data=data_train)</p>
+<p>Error in NaiveBayes.default(X, Y, …) :<br/>
+  grouping/classes object must be a factor</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398663#respond" onclick='return addComment.moveForm( "comment-398663", "398663", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-398678">
+<div class="comment-container" id="li-comment-398678">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 5, 2017 at 10:47 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398678" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Do we need parameter colClasses for this example?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398678#respond" onclick='return addComment.moveForm( "comment-398678", "398678", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment even depth-3" id="comment-398698">
+<div class="comment-container" id="li-comment-398698">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 6, 2017 at 2:35 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398698" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Is this example only for classification problems?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398698#respond" onclick='return addComment.moveForm( "comment-398698", "398698", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-4" id="comment-398741">
+<div class="comment-container" id="li-comment-398741">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 6, 2017 at 7:47 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398741" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Yes, this example is for classification.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398741#respond" onclick='return addComment.moveForm( "comment-398741", "398741", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-398737">
+<div class="comment-container" id="li-comment-398737">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 6, 2017 at 7:42 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398737" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It means your output variable is not a factor (categorical).</p>
+<p>You can make it a factor using as.factor() (from memory).</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398737#respond" onclick='return addComment.moveForm( "comment-398737", "398737", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-398823">
+<div class="comment-container" id="li-comment-398823">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2ab114b86e9463e9ffc3431264b55beb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Hans</span>
+<span class="date">May 6, 2017 at 9:25 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398823" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Can Y be a Class for itself?</p>
+<div class="reply">
+<a aria-label="Reply to Hans" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398823#respond" onclick='return addComment.moveForm( "comment-398823", "398823", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-4" id="comment-398870">
+<div class="comment-container" id="li-comment-398870">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">May 7, 2017 at 5:40 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-398870" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I do not understand.</p>
+<p>Y is the output variable which may be a class (factor) or a real value depending on whether your problem is classification or regression.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=398870#respond" onclick='return addComment.moveForm( "comment-398870", "398870", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-400985">
+<div class="comment-container" id="li-comment-400985">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/6d08b690c05e3a8863704b5d3f3707ee?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/6d08b690c05e3a8863704b5d3f3707ee?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Noah</span>
+<span class="date">June 1, 2017 at 4:52 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-400985" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Should repeated CV give us a valid estimate of the out of sample (training) error? I seem to get much different error rates when I compare caret’s repeatedcv metrics with a manual hold out sample. Am I missing something about repeatedcv? Thanks! I enjoy your content!</p>
+<div class="reply">
+<a aria-label="Reply to Noah" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=400985#respond" onclick='return addComment.moveForm( "comment-400985", "400985", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-401226">
+<div class="comment-container" id="li-comment-401226">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 2, 2017 at 12:53 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-401226" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Repeated CV should be a less biased estimate. </p>
+<p>The hold-out score will probably be optimistic.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=401226#respond" onclick='return addComment.moveForm( "comment-401226", "401226", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-403051">
+<div class="comment-container" id="li-comment-403051">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/a1e7f21f9608decc9cd4f167aa75a590?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/a1e7f21f9608decc9cd4f167aa75a590?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Nainy</span>
+<span class="date">June 19, 2017 at 3:06 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-403051" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>hello<br/>
+when I run your code I am getting the following error<br/>
+Error in train(Species ~ ., data = iris, trControl = train_control, method = “nb”) :<br/>
+  unused arguments (data = iris, trControl = train_control, method = “nb”)</p>
+<p>can you please explain how to solve this</p>
+<div class="reply">
+<a aria-label="Reply to Nainy" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=403051#respond" onclick='return addComment.moveForm( "comment-403051", "403051", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor even depth-2" id="comment-403119">
+<div class="comment-container" id="li-comment-403119">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">June 20, 2017 at 6:34 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-403119" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Please confirm that you have copied all of the required code.</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=403119#respond" onclick='return addComment.moveForm( "comment-403119", "403119", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-404829">
+<div class="comment-container" id="li-comment-404829">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/269548f7bdfe74f357032ff536d1ca9c?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/269548f7bdfe74f357032ff536d1ca9c?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Yones</span>
+<span class="date">July 6, 2017 at 2:23 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-404829" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi,</p>
+<p>I gunna use leave one out cross validation for Cubist. But I don’t how to use it. The code that you published here is not working on my codes.<br/>
+Please would you help me about it?</p>
+<p>Best,</p>
+<div class="reply">
+<a aria-label="Reply to Yones" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=404829#respond" onclick='return addComment.moveForm( "comment-404829", "404829", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-404893">
+<div class="comment-container" id="li-comment-404893">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/d18e2daf9486fe591b9f5bd55bbb7a07?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/d18e2daf9486fe591b9f5bd55bbb7a07?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Cesar Yona</span>
+<span class="date">July 6, 2017 at 10:19 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-404893" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>How can I apply those techniques to time series prediction?</p>
+<div class="reply">
+<a aria-label="Reply to Cesar Yona" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=404893#respond" onclick='return addComment.moveForm( "comment-404893", "404893", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-404907">
+<div class="comment-container" id="li-comment-404907">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 6, 2017 at 10:28 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-404907" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Start here with time series:<br/>
+<a href="http://machinelearningmastery.com/start-here/#timeseries" rel="nofollow">http://machinelearningmastery.com/start-here/#timeseries</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=404907#respond" onclick='return addComment.moveForm( "comment-404907", "404907", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-406046">
+<div class="comment-container" id="li-comment-406046">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/03d8969d1a65d7da6300eb35596f2fe7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/03d8969d1a65d7da6300eb35596f2fe7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Sanskriti</span>
+<span class="date">July 15, 2017 at 10:44 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-406046" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>hi ,<br/>
+thank you for a great tutorial.<br/>
+Is there any other package we can use instead of caret because for the version 3.2.4 , caret is not available.</p>
+<p>Thank you</p>
+<div class="reply">
+<a aria-label="Reply to Sanskriti" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=406046#respond" onclick='return addComment.moveForm( "comment-406046", "406046", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-406083">
+<div class="comment-container" id="li-comment-406083">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">July 16, 2017 at 7:58 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-406083" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>What do you mean that it is not available?<br/>
+<a href="https://github.com/topepo/caret" rel="nofollow">https://github.com/topepo/caret</a><br/>
+<a href="https://cran.r-project.org/web/packages/caret/" rel="nofollow">https://cran.r-project.org/web/packages/caret/</a></p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=406083#respond" onclick='return addComment.moveForm( "comment-406083", "406083", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-413804">
+<div class="comment-container" id="li-comment-413804">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/67772433f7626e0aa1108bc793deb8c3?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/67772433f7626e0aa1108bc793deb8c3?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Ipong</span>
+<span class="date">September 14, 2017 at 8:50 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-413804" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Hi Jason, whether method=”cv” also applies to stratified kfold method as well ?</p>
+<div class="reply">
+<a aria-label="Reply to Ipong" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=413804#respond" onclick='return addComment.moveForm( "comment-413804", "413804", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-415343">
+<div class="comment-container" id="li-comment-415343">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f37138cc34b3d449bdd6b5d773ea6be7?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f37138cc34b3d449bdd6b5d773ea6be7?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">emanuele barca</span>
+<span class="date">October 2, 2017 at 5:56 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-415343" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Dear Jason,</p>
+<p>first of all thanks a lot for your effort in explaining a difficult topic.</p>
+<p>I am presently engaged with linear mixed model and I would like to subject my model to a </p>
+<p>LOOCV.</p>
+<p>fm2 &lt;- lme(X1 ~ X2 + X3, random= ~1|X4, method="REML", data = bb)</p>
+<p>fm4&lt;-update(fm2, correlation = corSpher(c(25, 0.5), nugget=TRUE,form = ~ X5 + X6|X4))</p>
+<p>how can I insert my model in your script?</p>
+<p>thanks in advance</p>
+<p>emanuele</p>
+<div class="reply">
+<a aria-label="Reply to emanuele barca" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=415343#respond" onclick='return addComment.moveForm( "comment-415343", "415343", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-421490">
+<div class="comment-container" id="li-comment-421490">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/2e51eb938553d0fa746c186f8e90adeb?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/2e51eb938553d0fa746c186f8e90adeb?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Duncan Williamson</span>
+<span class="date">November 28, 2017 at 9:34 pm</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-421490" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>I get this error message in the k-fold Cross Validation method</p>
+<p>&gt; model  </p>
+<p>I don’t know what this means so I would appreciate your solution here.</p>
+<p>Best wishes</p>
+<p>Duncan</p>
+<div class="reply">
+<a aria-label="Reply to Duncan Williamson" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=421490#respond" onclick='return addComment.moveForm( "comment-421490", "421490", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+<ul class="children">
+<li class="comment byuser comment-author-jasonb bypostauthor odd alt depth-2" id="comment-421545">
+<div class="comment-container" id="li-comment-421545">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name"><a class="url" href="http://MachineLearningMastery.com" rel="external nofollow">Jason Brownlee</a></span>
+<span class="date">November 29, 2017 at 8:22 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-421545" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>It looks like you might not have copied all of the relevant code into your example Duncan?</p>
+<div class="reply">
+<a aria-label="Reply to Jason Brownlee" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=421545#respond" onclick='return addComment.moveForm( "comment-421545", "421545", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-424644">
+<div class="comment-container" id="li-comment-424644">
+<div class="avatar"><img alt="" class="avatar avatar-40 photo" height="40" src="https://secure.gravatar.com/avatar/f411650831a6510a0c99b25ad09e4788?s=40&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/f411650831a6510a0c99b25ad09e4788?s=80&amp;d=mm&amp;r=g 2x" width="40"/></div>
+<div class="comment-head">
+<span class="name">Mansur Can</span>
+<span class="date">December 24, 2017 at 10:51 am</span>
+<span class="perma"><a href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#comment-424644" title="Direct link to this comment">#</a></span>
+<span class="edit"></span>
+</div><!-- /.comment-head -->
+<div class="comment-entry">
+<p>Error: The tuning parameter grid should have columns fL, usekernel, adjust</p>
+<p>How can I include fL, usekernel, adjust parameters in the grid?</p>
+<p>Many thanks,</p>
+<p>Mansur</p>
+<div class="reply">
+<a aria-label="Reply to Mansur Can" class="comment-reply-link" href="https://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/?replytocom=424644#respond" onclick='return addComment.moveForm( "comment-424644", "424644", "respond", "1729" )' rel="nofollow">Reply</a> </div><!-- /.reply -->
+</div><!-- /comment-entry -->
+</div><!-- /.comment-container -->
+</li><!-- #comment-## -->
+</ol>
+</div> <div class="comment-respond" id="respond">
+<h3 class="comment-reply-title" id="reply-title">Leave a Reply <small><a href="/how-to-estimate-model-accuracy-in-r-using-the-caret-package/#respond" id="cancel-comment-reply-link" rel="nofollow" style="display:none;">Click here to cancel reply.</a></small></h3> <form action="https://machinelearningmastery.com/wp-comments-post.php?wpe-comment-post=mlmastery" class="comment-form" id="commentform" method="post">
+<p class="comment-form-comment"><label class="hide" for="comment">Comment</label> <textarea aria-required="true" cols="50" id="comment" maxlength="65525" name="comment" required="required" rows="10" tabindex="4"></textarea></p><p class="comment-form-author"><input aria-required="true" class="txt" id="author" name="author" size="30" tabindex="1" type="text" value=""/><label for="author">Name <span class="required">(required)</span></label> </p>
+<p class="comment-form-email"><input aria-required="true" class="txt" id="email" name="email" size="30" tabindex="2" type="text" value=""/><label for="email">Email (will not be published) <span class="required">(required)</span></label> </p>
+<p class="comment-form-url"><input class="txt" id="url" name="url" size="30" tabindex="3" type="text" value=""/><label for="url">Website</label></p>
+<p class="form-submit"><input class="submit" id="submit" name="submit" type="submit" value="Submit Comment"/> <input id="comment_post_ID" name="comment_post_ID" type="hidden" value="1729"/>
+<input id="comment_parent" name="comment_parent" type="hidden" value="0"/>
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" type="hidden" value="d3b9302ca8"/></p><p style="display: none;"><input id="ak_js" name="ak_js" type="hidden" value="76"/></p> </form>
+</div><!-- #respond -->
+</section><!-- /#main -->
+<aside id="sidebar">
+<div class="widget widget_woo_blogauthorinfo" id="woo_blogauthorinfo-2"><h3>Welcome to Machine Learning Mastery</h3><span class="left"><img alt="" class="avatar avatar-100 photo" height="100" src="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=100&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1d75d46040c28497f0dee5d8e100db37?s=200&amp;d=mm&amp;r=g 2x" width="100"/></span>
+<p>Hi, I'm Dr. Jason Brownlee.
+<br/>
+My goal is to make practitioners like YOU awesome at applied machine learning.</p>
+<p><a href="/about">Read More</a></p>
+<div class="fix"></div>
+</div><div class="widget widget_text" id="text-8"><h3>Create Predictive Models With R</h3> <div class="textwidget"><center>
+Want to develop your own predictive models in R?<br/>
+Looking for step-by-step tutorials?<br/>
+Want end-to-end projects with templates?<br/>
+<br/>
+<a href="/machine-learning-with-r/">Get Started With R Machine Learning Today! </a>
+<a href="/machine-learning-with-r/"><img alt="Machine Learning Mastery With R" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/MachineLearningMasteryWithR-small.png"/></a>
+<br/>
+</center></div>
+</div>
+<div class="widget widget_woo_tabs" id="woo_tabs-2"> <div id="tabs">
+<ul class="wooTabs">
+<li class="popular"><a href="#tab-pop">Popular</a></li> </ul>
+<div class="clear"></div>
+<div class="boxes box inside">
+<ul class="list" id="tab-pop">
+<li>
+<a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step"><img alt="Your First Machine Learning Project in Python Step-By-Step" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Your-First-Machine-Learning-Project-in-Python-Step-By-Step-150x150.jpg" title="Your First Machine Learning Project in Python Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" title="Your First Machine Learning Project in Python Step-By-Step">Your First Machine Learning Project in Python Step-By-Step</a>
+<span class="meta">June 10, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Time-Series-Prediction-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/" title="Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras">Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 21, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras"><img alt="Line Plots of Air Pollution Time Series" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Line-Plots-of-Air-Pollution-Time-Series-150x150.png" title="Multivariate Time Series Forecasting with LSTMs in Keras" width="45"/></a> <a href="https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/" title="Multivariate Time Series Forecasting with LSTMs in Keras">Multivariate Time Series Forecasting with LSTMs in Keras</a>
+<span class="meta">August 14, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step"><img alt="Tour of Deep Learning Algorithms" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Tour-of-Deep-Learning-Algorithms-150x150.jpg" title="Develop Your First Neural Network in Python With Keras Step-By-Step" width="45"/></a> <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/" title="Develop Your First Neural Network in Python With Keras Step-By-Step">Develop Your First Neural Network in Python With Keras Step-By-Step</a>
+<span class="meta">May 24, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda"><img alt="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/How-to-Setup-a-Python-Environment-for-Machine-Learning-and-Deep-Learning-with-Anaconda-150x150.png" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda" width="45"/></a> <a href="https://machinelearningmastery.com/setup-python-environment-machine-learning-deep-learning-anaconda/" title="How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda">How to Setup a Python Environment for Machine Learning and Deep Learning with Anaconda</a>
+<span class="meta">March 13, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras"><img alt="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Sequence-Classification-with-LSTM-Recurrent-Neural-Networks-in-Python-with-Keras-150x150.jpg" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras" width="45"/></a> <a href="https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/" title="Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras">Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras</a>
+<span class="meta">July 26, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python"><img alt="Time Series Forecasting with the Long Short-Term Memory Network in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/Time-Series-Forecasting-with-the-Long-Short-Term-Memory-Network-in-Python-150x150.jpg" title="Time Series Forecasting with the Long Short-Term Memory Network in Python" width="45"/></a> <a href="https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/" title="Time Series Forecasting with the Long Short-Term Memory Network in Python">Time Series Forecasting with the Long Short-Term Memory Network in Python</a>
+<span class="meta">April 7, 2017</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library"><img alt="Multi-Class Classification Tutorial with the Keras Deep Learning Library" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Multi-Class-Classification-Tutorial-with-the-Keras-Deep-Learning-Library-150x150.jpg" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library" width="45"/></a> <a href="https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/" title="Multi-Class Classification Tutorial with the Keras Deep Learning Library">Multi-Class Classification Tutorial with the Keras Deep Learning Library</a>
+<span class="meta">June 2, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python"><img alt="Regression Tutorial with Keras Deep Learning Library in Python" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/Regression-Tutorial-with-Keras-Deep-Learning-Library-in-Python-150x150.jpg" title="Regression Tutorial with the Keras Deep Learning Library in Python" width="45"/></a> <a href="https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/" title="Regression Tutorial with the Keras Deep Learning Library in Python">Regression Tutorial with the Keras Deep Learning Library in Python</a>
+<span class="meta">June 9, 2016</span>
+<div class="fix"></div>
+</li>
+<li>
+<a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras"><img alt="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" class="thumbnail wp-post-image" height="45" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/How-to-Grid-Search-Hyperparameters-for-Deep-Learning-Models-in-Python-With-Keras-150x150.jpg" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras" width="45"/></a> <a href="https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/" title="How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras">How to Grid Search Hyperparameters for Deep Learning Models in Python With Keras</a>
+<span class="meta">August 9, 2016</span>
+<div class="fix"></div>
+</li>
+</ul>
+</div><!-- /.boxes -->
+</div><!-- /wooTabs -->
+</div> </aside><!-- /#sidebar -->
+</div><!-- /#main-sidebar-container -->
+</div><!-- /#content -->
+<footer class="col-full" id="footer">
+<div class="col-left" id="copyright">
+<p>© 2018 Machine Learning Mastery. All Rights Reserved. </p> </div>
+<div class="col-right" id="credit">
+<p></p><p>
+<a href="/privacy/">Privacy</a> | 
+<a href="/contact/">Contact</a> |
+<a href="/about/">About</a>
+</p> </div>
+</footer>
+</div><!-- /#inner-wrapper -->
+</div><!-- /#wrapper -->
+<div class="fix"></div><!--/.fix-->
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {}; 
+  _dcs.account = '9556588';
+  
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true; 
+    dc.src = '//tag.getdrip.com/9556588.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script><!-- Woo Tabs Widget -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// UL = .wooTabs
+	// Tab contents = .inside
+
+	var tag_cloud_class = '#tagcloud';
+
+	//Fix for tag clouds - unexpected height before .hide()
+	var tag_cloud_height = jQuery( '#tagcloud').height();
+
+	jQuery( '.inside ul li:last-child').css( 'border-bottom','0px' ); // remove last border-bottom from list in tab content
+	jQuery( '.wooTabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.inside > *').hide();
+	jQuery( '.inside > *:first-child').show();
+
+	jQuery( '.wooTabs li a').click(function(evt){ // Init Click funtion on Tabs
+
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.inside').children( '*').hide();
+
+		jQuery( '.inside ' + clicked_tab_ref).fadeIn(500);
+
+		 evt.preventDefault();
+
+	})
+})
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/comment-reply.min.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/machinelearningmastery.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.9.2" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"https:\/\/machinelearningmastery.com\/wp-admin\/admin-ajax.php","ajax_nonce":"555b70787c"};
+/* ]]> */
+</script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/seo-optimized-share-buttons/js/frontend.js?ver=4.2.2.0.iis7_supports_permalinks" type="text/javascript"></script>
+<script src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-includes/js/wp-embed.min.js?ver=4.9.2" type="text/javascript"></script>
+<script async="async" src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.2" type="text/javascript"></script>
+</body>
+</html>

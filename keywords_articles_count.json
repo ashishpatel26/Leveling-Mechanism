@@ -1,0 +1,11726 @@
+[
+    [
+        "learning",
+        547
+    ],
+    [
+        "email",
+        547
+    ],
+    [
+        "google",
+        547
+    ],
+    [
+        "machine",
+        547
+    ],
+    [
+        "prediction",
+        547
+    ],
+    [
+        "algorithm",
+        375
+    ],
+    [
+        "mean",
+        266
+    ],
+    [
+        "information",
+        259
+    ],
+    [
+        "accuracy",
+        227
+    ],
+    [
+        "linear",
+        217
+    ],
+    [
+        "understanding",
+        181
+    ],
+    [
+        "r",
+        172
+    ],
+    [
+        "knowledge",
+        163
+    ],
+    [
+        "gradient",
+        145
+    ],
+    [
+        "parameter",
+        137
+    ],
+    [
+        "scikit-learn",
+        130
+    ],
+    [
+        "numpy",
+        115
+    ],
+    [
+        "optimization",
+        112
+    ],
+    [
+        "thinking",
+        105
+    ],
+    [
+        "probability",
+        98
+    ],
+    [
+        "observation",
+        97
+    ],
+    [
+        "science",
+        95
+    ],
+    [
+        "image",
+        94
+    ],
+    [
+        "argument",
+        90
+    ],
+    [
+        "software",
+        90
+    ],
+    [
+        "logistic",
+        88
+    ],
+    [
+        "tensorflow",
+        88
+    ],
+    [
+        "integer",
+        85
+    ],
+    [
+        "increasing",
+        84
+    ],
+    [
+        "engineering",
+        82
+    ],
+    [
+        "complexity",
+        80
+    ],
+    [
+        "pattern",
+        79
+    ],
+    [
+        "kaggle",
+        77
+    ],
+    [
+        "scipy",
+        73
+    ],
+    [
+        "subset",
+        67
+    ],
+    [
+        "univariate",
+        65
+    ],
+    [
+        "translation",
+        65
+    ],
+    [
+        "variance",
+        63
+    ],
+    [
+        "document",
+        62
+    ],
+    [
+        "overfitting",
+        60
+    ],
+    [
+        "concept",
+        54
+    ],
+    [
+        "embedding",
+        51
+    ],
+    [
+        "video",
+        51
+    ],
+    [
+        "github",
+        50
+    ],
+    [
+        "database",
+        49
+    ],
+    [
+        "dimension",
+        47
+    ],
+    [
+        "perceptron",
+        47
+    ],
+    [
+        "distance",
+        41
+    ],
+    [
+        "cpu",
+        41
+    ],
+    [
+        "computing",
+        39
+    ],
+    [
+        "nonlinear",
+        39
+    ],
+    [
+        "gpu",
+        37
+    ],
+    [
+        "generalization",
+        36
+    ],
+    [
+        "real-valued",
+        34
+    ],
+    [
+        "backpropagation",
+        34
+    ],
+    [
+        "computation",
+        34
+    ],
+    [
+        "one-hot",
+        33
+    ],
+    [
+        "hyperparameter",
+        33
+    ],
+    [
+        "overfit",
+        30
+    ],
+    [
+        "internet",
+        28
+    ],
+    [
+        "likelihood",
+        28
+    ],
+    [
+        "wikipedia",
+        28
+    ],
+    [
+        "logic",
+        25
+    ],
+    [
+        "inference",
+        24
+    ],
+    [
+        "parsing",
+        24
+    ],
+    [
+        "youtube",
+        24
+    ],
+    [
+        "stanford",
+        24
+    ],
+    [
+        "linux",
+        22
+    ],
+    [
+        "microsoft",
+        22
+    ],
+    [
+        "matlab",
+        22
+    ],
+    [
+        "histogram",
+        22
+    ],
+    [
+        "outlier",
+        22
+    ],
+    [
+        "ranking",
+        21
+    ],
+    [
+        "iterative",
+        21
+    ],
+    [
+        "statistic",
+        21
+    ],
+    [
+        "heuristic",
+        20
+    ],
+    [
+        "tensor",
+        18
+    ],
+    [
+        "bayesian",
+        18
+    ],
+    [
+        "word2vec",
+        18
+    ],
+    [
+        "facebook",
+        18
+    ],
+    [
+        "entropy",
+        17
+    ],
+    [
+        "principle",
+        17
+    ],
+    [
+        "tuple",
+        17
+    ],
+    [
+        "estimator",
+        16
+    ],
+    [
+        "pixel",
+        16
+    ],
+    [
+        "theorem",
+        16
+    ],
+    [
+        "genetic",
+        16
+    ],
+    [
+        "prototype",
+        15
+    ],
+    [
+        "abstraction",
+        15
+    ],
+    [
+        "cancer",
+        15
+    ],
+    [
+        "utility",
+        14
+    ],
+    [
+        "semantic",
+        14
+    ],
+    [
+        "adaboost",
+        14
+    ],
+    [
+        "convolution",
+        14
+    ],
+    [
+        "reasoning",
+        13
+    ],
+    [
+        "c++",
+        13
+    ],
+    [
+        "consistency",
+        13
+    ],
+    [
+        "bag-of-words",
+        13
+    ],
+    [
+        "autoencoder",
+        12
+    ],
+    [
+        "analogy",
+        12
+    ],
+    [
+        "polynomial",
+        11
+    ],
+    [
+        "volume",
+        11
+    ],
+    [
+        "handwriting",
+        11
+    ],
+    [
+        "uncertainty",
+        11
+    ],
+    [
+        "linguistic",
+        11
+    ],
+    [
+        "reality",
+        11
+    ],
+    [
+        "imagenet",
+        10
+    ],
+    [
+        "cuda",
+        10
+    ],
+    [
+        "n-gram",
+        10
+    ],
+    [
+        "hadoop",
+        10
+    ],
+    [
+        "over-fitting",
+        10
+    ],
+    [
+        "philosophy",
+        10
+    ],
+    [
+        "economic",
+        9
+    ],
+    [
+        "marketing",
+        9
+    ],
+    [
+        "dna",
+        9
+    ],
+    [
+        "mit",
+        9
+    ],
+    [
+        "smoothing",
+        8
+    ],
+    [
+        "open-source",
+        8
+    ],
+    [
+        "biology",
+        8
+    ],
+    [
+        "high-dimensional",
+        8
+    ],
+    [
+        "manhattan",
+        8
+    ],
+    [
+        "nonparametric",
+        8
+    ],
+    [
+        "biological",
+        8
+    ],
+    [
+        "perception",
+        7
+    ],
+    [
+        "input/output",
+        7
+    ],
+    [
+        "universal",
+        7
+    ],
+    [
+        "netflix",
+        6
+    ],
+    [
+        "libsvm",
+        6
+    ],
+    [
+        "malware",
+        6
+    ],
+    [
+        "communication",
+        6
+    ],
+    [
+        "gensim",
+        6
+    ],
+    [
+        "hyperplane",
+        6
+    ],
+    [
+        "javascript",
+        5
+    ],
+    [
+        "back-propagation",
+        5
+    ],
+    [
+        "categorization",
+        5
+    ],
+    [
+        "strip",
+        5
+    ],
+    [
+        "robot",
+        5
+    ],
+    [
+        "u.s.",
+        5
+    ],
+    [
+        "prevalence",
+        5
+    ],
+    [
+        "medicine",
+        5
+    ],
+    [
+        "pc",
+        5
+    ],
+    [
+        "sydney",
+        4
+    ],
+    [
+        "imagination",
+        4
+    ],
+    [
+        "skip-gram",
+        4
+    ],
+    [
+        "cardinality",
+        4
+    ],
+    [
+        "protein",
+        4
+    ],
+    [
+        "tf-idf",
+        4
+    ],
+    [
+        "phoneme",
+        4
+    ],
+    [
+        "deepmind",
+        4
+    ],
+    [
+        "canada",
+        4
+    ],
+    [
+        "piecewise",
+        3
+    ],
+    [
+        "openai",
+        3
+    ],
+    [
+        "ceo",
+        3
+    ],
+    [
+        "manifold",
+        3
+    ],
+    [
+        "intel",
+        3
+    ],
+    [
+        "nasa",
+        3
+    ],
+    [
+        "discretization",
+        3
+    ],
+    [
+        "retail",
+        3
+    ],
+    [
+        "toronto",
+        3
+    ],
+    [
+        "multicollinearity",
+        3
+    ],
+    [
+        "ieee",
+        3
+    ],
+    [
+        "io",
+        3
+    ],
+    [
+        "atari",
+        3
+    ],
+    [
+        "conjunction",
+        3
+    ],
+    [
+        "jvm",
+        3
+    ],
+    [
+        "ambiguity",
+        3
+    ],
+    [
+        "wavelet",
+        3
+    ],
+    [
+        "rna",
+        3
+    ],
+    [
+        "ignorance",
+        2
+    ],
+    [
+        "readability",
+        2
+    ],
+    [
+        "london",
+        2
+    ],
+    [
+        "gitter",
+        2
+    ],
+    [
+        "i.i.d.",
+        2
+    ],
+    [
+        "sparsity",
+        2
+    ],
+    [
+        "biometric",
+        2
+    ],
+    [
+        "lisp",
+        2
+    ],
+    [
+        "advertising",
+        2
+    ],
+    [
+        "yahoo",
+        2
+    ],
+    [
+        "permutation",
+        2
+    ],
+    [
+        "brainstorming",
+        2
+    ],
+    [
+        "transliteration",
+        2
+    ],
+    [
+        "philip",
+        2
+    ],
+    [
+        "emotion",
+        2
+    ],
+    [
+        "crowdsourcing",
+        2
+    ],
+    [
+        "ontology",
+        2
+    ],
+    [
+        "deeplearning4j",
+        2
+    ],
+    [
+        "orthogonal",
+        2
+    ],
+    [
+        "gpl",
+        2
+    ],
+    [
+        "drug",
+        2
+    ],
+    [
+        "ibm",
+        2
+    ],
+    [
+        "mathematic",
+        2
+    ],
+    [
+        "divergence",
+        2
+    ],
+    [
+        "covariance",
+        2
+    ],
+    [
+        "l1-norm",
+        2
+    ],
+    [
+        "cython",
+        1
+    ],
+    [
+        "judgement",
+        1
+    ],
+    [
+        "ai-complete",
+        1
+    ],
+    [
+        "france",
+        1
+    ],
+    [
+        "meta-algorithm",
+        1
+    ],
+    [
+        "intension",
+        1
+    ],
+    [
+        "amazon.com",
+        1
+    ],
+    [
+        "analytic",
+        1
+    ],
+    [
+        "integral",
+        1
+    ],
+    [
+        "self-tuning",
+        1
+    ],
+    [
+        "metaheuristic",
+        1
+    ],
+    [
+        "virginia",
+        1
+    ],
+    [
+        "plato",
+        1
+    ],
+    [
+        "symmetry",
+        1
+    ],
+    [
+        "freebase",
+        1
+    ],
+    [
+        "bitmap",
+        1
+    ],
+    [
+        "enron",
+        1
+    ],
+    [
+        "k-mean",
+        1
+    ],
+    [
+        "mean-shift",
+        1
+    ],
+    [
+        "timit",
+        1
+    ],
+    [
+        "coreference",
+        1
+    ],
+    [
+        "amsterdam",
+        1
+    ],
+    [
+        "openmp",
+        1
+    ],
+    [
+        "alphago",
+        1
+    ],
+    [
+        "consequent",
+        1
+    ],
+    [
+        "isomap",
+        1
+    ],
+    [
+        "instinct",
+        1
+    ],
+    [
+        "logit",
+        1
+    ],
+    [
+        "cybersecurity",
+        1
+    ],
+    [
+        "spectroscopy",
+        1
+    ],
+    [
+        "icml",
+        1
+    ],
+    [
+        "asymptotic",
+        1
+    ],
+    [
+        "rapidminer",
+        1
+    ],
+    [
+        "parametrization",
+        1
+    ],
+    [
+        "extremum",
+        1
+    ],
+    [
+        "f-score",
+        1
+    ],
+    [
+        "citation",
+        1
+    ],
+    [
+        "skype",
+        1
+    ],
+    [
+        "biomedicine",
+        1
+    ],
+    [
+        "bioinformatic",
+        1
+    ],
+    [
+        "y-intercept",
+        1
+    ],
+    [
+        "bing",
+        1
+    ],
+    [
+        "non-negative",
+        1
+    ],
+    [
+        "econometric",
+        1
+    ],
+    [
+        "cross-platform",
+        1
+    ],
+    [
+        "algorithmically",
+        1
+    ],
+    [
+        "datum",
+        1
+    ],
+    [
+        "clojure",
+        1
+    ],
+    [
+        "opencl",
+        1
+    ],
+    [
+        "hypercube",
+        1
+    ],
+    [
+        "ransac",
+        1
+    ],
+    [
+        "visual programming language",
+        0
+    ],
+    [
+        "knowledge interchange format",
+        0
+    ],
+    [
+        "orthonormal",
+        0
+    ],
+    [
+        "range search",
+        0
+    ],
+    [
+        "aston martin",
+        0
+    ],
+    [
+        "oded goldreich",
+        0
+    ],
+    [
+        "cutoff (reference value)",
+        0
+    ],
+    [
+        "never-ending language learning",
+        0
+    ],
+    [
+        "semantic analysis (machine learning)",
+        0
+    ],
+    [
+        "alpha–beta pruning",
+        0
+    ],
+    [
+        "temporal-difference learning",
+        0
+    ],
+    [
+        "database marketing",
+        0
+    ],
+    [
+        "negative predictive value",
+        0
+    ],
+    [
+        "iowa state university",
+        0
+    ],
+    [
+        "end-user development",
+        0
+    ],
+    [
+        "minimum message length",
+        0
+    ],
+    [
+        "bayes's theorem",
+        0
+    ],
+    [
+        "regular expression",
+        0
+    ],
+    [
+        "gramian matrix",
+        0
+    ],
+    [
+        "university of california, berkeley",
+        0
+    ],
+    [
+        "term (logic)",
+        0
+    ],
+    [
+        "monoid homomorphism",
+        0
+    ],
+    [
+        "rprop",
+        0
+    ],
+    [
+        "interface (computing)",
+        0
+    ],
+    [
+        "data visualization",
+        0
+    ],
+    [
+        "the art of computer programming",
+        0
+    ],
+    [
+        "multivariate analysi",
+        0
+    ],
+    [
+        "loss function",
+        0
+    ],
+    [
+        "maximum likelihood",
+        0
+    ],
+    [
+        "short-term memory",
+        0
+    ],
+    [
+        "video surveillance",
+        0
+    ],
+    [
+        "relational dependency network",
+        0
+    ],
+    [
+        "hilbert space",
+        0
+    ],
+    [
+        "error tolerance (pac learning)",
+        0
+    ],
+    [
+        "physical space",
+        0
+    ],
+    [
+        "rule-based system",
+        0
+    ],
+    [
+        "moore–penrose pseudoinverse",
+        0
+    ],
+    [
+        "inauthentic text",
+        0
+    ],
+    [
+        "world wide web consortium",
+        0
+    ],
+    [
+        "abstraction (software engineering)",
+        0
+    ],
+    [
+        "image classification",
+        0
+    ],
+    [
+        "bilinear form",
+        0
+    ],
+    [
+        "predictive inference",
+        0
+    ],
+    [
+        "frequentist probability",
+        0
+    ],
+    [
+        "systems neuroscience",
+        0
+    ],
+    [
+        "behavioral psychology",
+        0
+    ],
+    [
+        "uniform distribution (continuous)",
+        0
+    ],
+    [
+        "list of mergers and acquisitions by google",
+        0
+    ],
+    [
+        "principal components analysi",
+        0
+    ],
+    [
+        "structured perceptron",
+        0
+    ],
+    [
+        "logarithmically concave function",
+        0
+    ],
+    [
+        "max flow min cut",
+        0
+    ],
+    [
+        "model error",
+        0
+    ],
+    [
+        "mixture density",
+        0
+    ],
+    [
+        "matthews correlation coefficient",
+        0
+    ],
+    [
+        "turing test",
+        0
+    ],
+    [
+        "markednes",
+        0
+    ],
+    [
+        "quantifier (logic)",
+        0
+    ],
+    [
+        "microsoft window",
+        0
+    ],
+    [
+        "principal component regression",
+        0
+    ],
+    [
+        "data quality",
+        0
+    ],
+    [
+        "true negative",
+        0
+    ],
+    [
+        "dynamic programming",
+        0
+    ],
+    [
+        "multivariate adaptive regression spline",
+        0
+    ],
+    [
+        "truenorth",
+        0
+    ],
+    [
+        "attributional calculu",
+        0
+    ],
+    [
+        "resource description framework",
+        0
+    ],
+    [
+        "knowledge engineer",
+        0
+    ],
+    [
+        "tensor processing unit",
+        0
+    ],
+    [
+        "hybrid intelligent system",
+        0
+    ],
+    [
+        "semantic folding",
+        0
+    ],
+    [
+        "max-sat",
+        0
+    ],
+    [
+        "vector space",
+        0
+    ],
+    [
+        "kernel smoothing",
+        0
+    ],
+    [
+        "exact learning",
+        0
+    ],
+    [
+        "accuracy paradox",
+        0
+    ],
+    [
+        "ulf grenander",
+        0
+    ],
+    [
+        "computational logic",
+        0
+    ],
+    [
+        "fourier transform",
+        0
+    ],
+    [
+        "formal concept analysi",
+        0
+    ],
+    [
+        "random error",
+        0
+    ],
+    [
+        "pareto optimality",
+        0
+    ],
+    [
+        "timeline of machine learning",
+        0
+    ],
+    [
+        "dichotomou",
+        0
+    ],
+    [
+        "transduction (machine learning)",
+        0
+    ],
+    [
+        "graphical model",
+        0
+    ],
+    [
+        "multidimensional analysi",
+        0
+    ],
+    [
+        "decision support system",
+        0
+    ],
+    [
+        "linear classifier",
+        0
+    ],
+    [
+        "least-angle regression",
+        0
+    ],
+    [
+        "catastrophic interference",
+        0
+    ],
+    [
+        "quantum information",
+        0
+    ],
+    [
+        "learning from demonstration",
+        0
+    ],
+    [
+        "matrix (mathematics)",
+        0
+    ],
+    [
+        "binary number",
+        0
+    ],
+    [
+        "pagerank",
+        0
+    ],
+    [
+        "machine learning (journal)",
+        0
+    ],
+    [
+        "file:portfolio correlation as.png",
+        0
+    ],
+    [
+        "composite number",
+        0
+    ],
+    [
+        "algorithmic probability",
+        0
+    ],
+    [
+        "mathematical optimization",
+        0
+    ],
+    [
+        "start state",
+        0
+    ],
+    [
+        "file:comparison of 1d bandwidth selectors.png",
+        0
+    ],
+    [
+        "finite model",
+        0
+    ],
+    [
+        "online machine learning",
+        0
+    ],
+    [
+        "seoul",
+        0
+    ],
+    [
+        "international journal of uncertainty, fuzziness and knowledge-based systems",
+        0
+    ],
+    [
+        "hierarchical mixture of experts",
+        0
+    ],
+    [
+        "concept mining",
+        0
+    ],
+    [
+        "cp decomposition",
+        0
+    ],
+    [
+        "cross-validation (statistics)",
+        0
+    ],
+    [
+        "technological singularity",
+        0
+    ],
+    [
+        "kernel random forest",
+        0
+    ],
+    [
+        "file:800px-cool kid of death off festival p 146-face selected.jpg",
+        0
+    ],
+    [
+        "netflix prize",
+        0
+    ],
+    [
+        "reinforcement learning",
+        0
+    ],
+    [
+        "jackknife resampling",
+        0
+    ],
+    [
+        "finite state automata",
+        0
+    ],
+    [
+        "tel aviv",
+        0
+    ],
+    [
+        "parse tree",
+        0
+    ],
+    [
+        "hiv/aid",
+        0
+    ],
+    [
+        "fraud detection",
+        0
+    ],
+    [
+        "spike-timing-dependent plasticity",
+        0
+    ],
+    [
+        "epicuru",
+        0
+    ],
+    [
+        "branch and bound",
+        0
+    ],
+    [
+        "vapnik's principle",
+        0
+    ],
+    [
+        "computational biology",
+        0
+    ],
+    [
+        "scale space",
+        0
+    ],
+    [
+        "adversarial machine learning",
+        0
+    ],
+    [
+        "trax image recognition",
+        0
+    ],
+    [
+        "neural information processing system",
+        0
+    ],
+    [
+        "mahalanobis metric",
+        0
+    ],
+    [
+        "microsoft excel",
+        0
+    ],
+    [
+        "contingency table",
+        0
+    ],
+    [
+        "software development",
+        0
+    ],
+    [
+        "matrix regularization",
+        0
+    ],
+    [
+        "bag-of-words model",
+        0
+    ],
+    [
+        "approximate inference",
+        0
+    ],
+    [
+        "gene expression",
+        0
+    ],
+    [
+        "semantic space",
+        0
+    ],
+    [
+        "planner (programming language)",
+        0
+    ],
+    [
+        "fluent (artificial intelligence)",
+        0
+    ],
+    [
+        "icub",
+        0
+    ],
+    [
+        "psychophysiological",
+        0
+    ],
+    [
+        "facial recognition system",
+        0
+    ],
+    [
+        "ohm's law",
+        0
+    ],
+    [
+        "multiple-instance learning",
+        0
+    ],
+    [
+        "euclidean distance",
+        0
+    ],
+    [
+        "vector space model",
+        0
+    ],
+    [
+        "contextual advertising",
+        0
+    ],
+    [
+        "machine teaching",
+        0
+    ],
+    [
+        "mnist database",
+        0
+    ],
+    [
+        "lotfi zadeh",
+        0
+    ],
+    [
+        "multilinear principal component analysi",
+        0
+    ],
+    [
+        "hidden layer",
+        0
+    ],
+    [
+        "asymptotic computational complexity",
+        0
+    ],
+    [
+        "binary space partitioning",
+        0
+    ],
+    [
+        "quadratic classifier",
+        0
+    ],
+    [
+        "best bin first",
+        0
+    ],
+    [
+        "numenta",
+        0
+    ],
+    [
+        "factor analysi",
+        0
+    ],
+    [
+        "halting problem",
+        0
+    ],
+    [
+        "rule of thumb",
+        0
+    ],
+    [
+        "positive semi-definite",
+        0
+    ],
+    [
+        "validation set",
+        0
+    ],
+    [
+        "deep belief network",
+        0
+    ],
+    [
+        "m-theory (learning framework)",
+        0
+    ],
+    [
+        "theoretical computer science",
+        0
+    ],
+    [
+        "native-language identification",
+        0
+    ],
+    [
+        "dummy variable (statistics)",
+        0
+    ],
+    [
+        "thomas m. cover",
+        0
+    ],
+    [
+        "hit rate",
+        0
+    ],
+    [
+        "short integer solution problem",
+        0
+    ],
+    [
+        "cosine similarity",
+        0
+    ],
+    [
+        "vliw",
+        0
+    ],
+    [
+        "structural risk minimization",
+        0
+    ],
+    [
+        "modal logic",
+        0
+    ],
+    [
+        "elon musk",
+        0
+    ],
+    [
+        "web search engine",
+        0
+    ],
+    [
+        "watson (computer)",
+        0
+    ],
+    [
+        "supervised learning",
+        0
+    ],
+    [
+        "frame problem",
+        0
+    ],
+    [
+        "maxcut",
+        0
+    ],
+    [
+        "situation calculu",
+        0
+    ],
+    [
+        "feelix growing project",
+        0
+    ],
+    [
+        "mtv",
+        0
+    ],
+    [
+        "hash table",
+        0
+    ],
+    [
+        "decision list",
+        0
+    ],
+    [
+        "training datum",
+        0
+    ],
+    [
+        "knowledge-based system",
+        0
+    ],
+    [
+        "lee changho",
+        0
+    ],
+    [
+        "distributed computing",
+        0
+    ],
+    [
+        "bias (statistics)",
+        0
+    ],
+    [
+        "estimation theory",
+        0
+    ],
+    [
+        "free parameter",
+        0
+    ],
+    [
+        "state space search",
+        0
+    ],
+    [
+        "orthogonal matrix",
+        0
+    ],
+    [
+        "boosting (meta-algorithm)",
+        0
+    ],
+    [
+        "autonomous car",
+        0
+    ],
+    [
+        "document classification",
+        0
+    ],
+    [
+        "public-key cryptosystem",
+        0
+    ],
+    [
+        "running time",
+        0
+    ],
+    [
+        "bayesian interpretation of kernel regularization",
+        0
+    ],
+    [
+        "wikidatum",
+        0
+    ],
+    [
+        "content-addressable memory",
+        0
+    ],
+    [
+        "mutually exclusive",
+        0
+    ],
+    [
+        "category utility",
+        0
+    ],
+    [
+        "subject indexing",
+        0
+    ],
+    [
+        "quantitative structure–activity relationship",
+        0
+    ],
+    [
+        "voronoi diagram",
+        0
+    ],
+    [
+        "international conference on machine learning",
+        0
+    ],
+    [
+        "andrew mccallum",
+        0
+    ],
+    [
+        "ranknet",
+        0
+    ],
+    [
+        "spectral theory",
+        0
+    ],
+    [
+        "domain expert",
+        0
+    ],
+    [
+        "dominique strauss-kahn",
+        0
+    ],
+    [
+        "vigilance parameter",
+        0
+    ],
+    [
+        "file:friedmans mars hinge functions.png",
+        0
+    ],
+    [
+        "software as a service",
+        0
+    ],
+    [
+        "pharmaceutical industry",
+        0
+    ],
+    [
+        "noise (signal processing)",
+        0
+    ],
+    [
+        "knowledge vault",
+        0
+    ],
+    [
+        "ensemble of classifiers",
+        0
+    ],
+    [
+        "regular language",
+        0
+    ],
+    [
+        "aerobatic",
+        0
+    ],
+    [
+        "haskell (programming language)",
+        0
+    ],
+    [
+        "evaluation of binary classifiers",
+        0
+    ],
+    [
+        "text retrieval conference",
+        0
+    ],
+    [
+        "np (complexity)",
+        0
+    ],
+    [
+        "backgammon",
+        0
+    ],
+    [
+        "glivenko–cantelli clas",
+        0
+    ],
+    [
+        "multinomial logistic regression",
+        0
+    ],
+    [
+        "semidefinite programming",
+        0
+    ],
+    [
+        "bias-variance dilemma",
+        0
+    ],
+    [
+        "neural computation (journal)",
+        0
+    ],
+    [
+        "naive baye",
+        0
+    ],
+    [
+        "matrix decomposition",
+        0
+    ],
+    [
+        "threat detection",
+        0
+    ],
+    [
+        "projection pursuit",
+        0
+    ],
+    [
+        "predicate (mathematical logic)",
+        0
+    ],
+    [
+        "basis (linear algebra)",
+        0
+    ],
+    [
+        "recommendation system",
+        0
+    ],
+    [
+        "euclidean geometry",
+        0
+    ],
+    [
+        "nonlinear dimensionality reduction",
+        0
+    ],
+    [
+        "confidence level",
+        0
+    ],
+    [
+        "order theory",
+        0
+    ],
+    [
+        "naive bayes classifier",
+        0
+    ],
+    [
+        "computer vision",
+        0
+    ],
+    [
+        "version space learning",
+        0
+    ],
+    [
+        "epistemologic",
+        0
+    ],
+    [
+        "type system",
+        0
+    ],
+    [
+        "identifiable",
+        0
+    ],
+    [
+        "lua (programming language)",
+        0
+    ],
+    [
+        "singular value decomposition",
+        0
+    ],
+    [
+        "johns hopkins university",
+        0
+    ],
+    [
+        "posterior probability",
+        0
+    ],
+    [
+        "deepface",
+        0
+    ],
+    [
+        "knowledge value chain",
+        0
+    ],
+    [
+        "charles s. peirce",
+        0
+    ],
+    [
+        "data snooping",
+        0
+    ],
+    [
+        "computational humor",
+        0
+    ],
+    [
+        "hypersphere",
+        0
+    ],
+    [
+        "european union",
+        0
+    ],
+    [
+        "test set",
+        0
+    ],
+    [
+        "naacl",
+        0
+    ],
+    [
+        "techstar",
+        0
+    ],
+    [
+        "file:kraskov tree.png",
+        0
+    ],
+    [
+        "san francisco",
+        0
+    ],
+    [
+        "friendly artificial intelligence",
+        0
+    ],
+    [
+        "knowledge organization system",
+        0
+    ],
+    [
+        "product of experts",
+        0
+    ],
+    [
+        "ben taskar",
+        0
+    ],
+    [
+        "medicines and healthcare products regulatory agency",
+        0
+    ],
+    [
+        "softmax function",
+        0
+    ],
+    [
+        "first language",
+        0
+    ],
+    [
+        "heat kernel",
+        0
+    ],
+    [
+        "inductive logic",
+        0
+    ],
+    [
+        "baseball",
+        0
+    ],
+    [
+        "learning to learn",
+        0
+    ],
+    [
+        "random matrix theory",
+        0
+    ],
+    [
+        "chemistry",
+        0
+    ],
+    [
+        "lipschitz continuity",
+        0
+    ],
+    [
+        "convolutional neural network",
+        0
+    ],
+    [
+        "ε-approximate nearest neighbor search",
+        0
+    ],
+    [
+        "constraint programming",
+        0
+    ],
+    [
+        "eigenvector",
+        0
+    ],
+    [
+        "machine perception",
+        0
+    ],
+    [
+        "image segmentation",
+        0
+    ],
+    [
+        "hippocampu",
+        0
+    ],
+    [
+        "grouplens research",
+        0
+    ],
+    [
+        "solomonoff's theory of inductive inference",
+        0
+    ],
+    [
+        "springer-verlag",
+        0
+    ],
+    [
+        "isaac newton",
+        0
+    ],
+    [
+        "flarf poetry",
+        0
+    ],
+    [
+        "bayesian spam filtering",
+        0
+    ],
+    [
+        "consistency (statistics)",
+        0
+    ],
+    [
+        "grover search algorithm",
+        0
+    ],
+    [
+        "press statistic",
+        0
+    ],
+    [
+        "consistent heuristic",
+        0
+    ],
+    [
+        "low-rank approximation",
+        0
+    ],
+    [
+        "particle filter",
+        0
+    ],
+    [
+        "multivariate regression",
+        0
+    ],
+    [
+        "gnu lesser general public license",
+        0
+    ],
+    [
+        "file:artificial neural network.svg",
+        0
+    ],
+    [
+        "c4.5 algorithm",
+        0
+    ],
+    [
+        "predictive power",
+        0
+    ],
+    [
+        "royal free london nhs foundation trust",
+        0
+    ],
+    [
+        "weka (machine learning)",
+        0
+    ],
+    [
+        "proximal gradient method",
+        0
+    ],
+    [
+        "founders fund",
+        0
+    ],
+    [
+        "satellite image",
+        0
+    ],
+    [
+        "square number",
+        0
+    ],
+    [
+        "progol",
+        0
+    ],
+    [
+        "row vector",
+        0
+    ],
+    [
+        "hyperspectral imaging",
+        0
+    ],
+    [
+        "frame language",
+        0
+    ],
+    [
+        "lattice problem",
+        0
+    ],
+    [
+        "latent learning",
+        0
+    ],
+    [
+        "instance-based learning",
+        0
+    ],
+    [
+        "generative adversarial network",
+        0
+    ],
+    [
+        "intelligent tutoring system",
+        0
+    ],
+    [
+        "tile coding",
+        0
+    ],
+    [
+        "zipf's law",
+        0
+    ],
+    [
+        "representer theorem",
+        0
+    ],
+    [
+        "multidimensional scaling",
+        0
+    ],
+    [
+        "jump-diffusion model",
+        0
+    ],
+    [
+        "multilinear algebra",
+        0
+    ],
+    [
+        "margin classifier",
+        0
+    ],
+    [
+        "pearson correlation",
+        0
+    ],
+    [
+        "community ecology",
+        0
+    ],
+    [
+        "dynamical system",
+        0
+    ],
+    [
+        "pyqt",
+        0
+    ],
+    [
+        "spam filtering",
+        0
+    ],
+    [
+        "bell system technical journal",
+        0
+    ],
+    [
+        "file:semantic fingerprint comparing the terms %22jaguar%22 and %22porsche%22.png",
+        0
+    ],
+    [
+        "glowworm swarm optimization",
+        0
+    ],
+    [
+        "data analysi",
+        0
+    ],
+    [
+        "incomplete cholesky factorization",
+        0
+    ],
+    [
+        "electrical engineering",
+        0
+    ],
+    [
+        "list of datasets for machine learning research",
+        0
+    ],
+    [
+        "solomonoff induction",
+        0
+    ],
+    [
+        "john koza",
+        0
+    ],
+    [
+        "dedekind–macneille completion",
+        0
+    ],
+    [
+        "disjunctive normal form",
+        0
+    ],
+    [
+        "operational intelligence",
+        0
+    ],
+    [
+        "go and mathematic",
+        0
+    ],
+    [
+        "leonid perlovsky",
+        0
+    ],
+    [
+        "letor",
+        0
+    ],
+    [
+        "location parameter",
+        0
+    ],
+    [
+        "perceptrons (book)",
+        0
+    ],
+    [
+        "yahoo!",
+        0
+    ],
+    [
+        "network motif",
+        0
+    ],
+    [
+        "matrix factorization",
+        0
+    ],
+    [
+        "central limit theorem",
+        0
+    ],
+    [
+        "selfridge",
+        0
+    ],
+    [
+        "bootstrapping (statistics)",
+        0
+    ],
+    [
+        "middle age",
+        0
+    ],
+    [
+        "conditional distribution",
+        0
+    ],
+    [
+        "pumping lemma for context-free languages",
+        0
+    ],
+    [
+        "wrapper function",
+        0
+    ],
+    [
+        "frequency probability",
+        0
+    ],
+    [
+        "similarity measure",
+        0
+    ],
+    [
+        "time sery",
+        0
+    ],
+    [
+        "generative topographic map",
+        0
+    ],
+    [
+        "journal of functional analysis",
+        0
+    ],
+    [
+        "natural language programming",
+        0
+    ],
+    [
+        "time series prediction",
+        0
+    ],
+    [
+        "reasoning system",
+        0
+    ],
+    [
+        "universal artificial intelligence",
+        0
+    ],
+    [
+        "formal language",
+        0
+    ],
+    [
+        "donald knuth",
+        0
+    ],
+    [
+        "datalog",
+        0
+    ],
+    [
+        "m. n. vaintsvaig",
+        0
+    ],
+    [
+        "knowledge organization",
+        0
+    ],
+    [
+        "kronecker delta",
+        0
+    ],
+    [
+        "programming language",
+        0
+    ],
+    [
+        "dynamic time warping",
+        0
+    ],
+    [
+        "perlovsky",
+        0
+    ],
+    [
+        "conjugate gradient method",
+        0
+    ],
+    [
+        "evolver (software)",
+        0
+    ],
+    [
+        "signal processing",
+        0
+    ],
+    [
+        "sauer–shelah lemma",
+        0
+    ],
+    [
+        "computational hardness assumption",
+        0
+    ],
+    [
+        "internet of things",
+        0
+    ],
+    [
+        "hamming distance",
+        0
+    ],
+    [
+        "project tango",
+        0
+    ],
+    [
+        "manifold learning",
+        0
+    ],
+    [
+        "transfer of learning",
+        0
+    ],
+    [
+        "ai takeover",
+        0
+    ],
+    [
+        "multivariate gaussian distribution",
+        0
+    ],
+    [
+        "fluid concepts and creative analogy",
+        0
+    ],
+    [
+        "history of video games",
+        0
+    ],
+    [
+        "united states census bureau",
+        0
+    ],
+    [
+        "functional programming",
+        0
+    ],
+    [
+        "join and meet",
+        0
+    ],
+    [
+        "heat equation",
+        0
+    ],
+    [
+        "stereology",
+        0
+    ],
+    [
+        "string (computer science)",
+        0
+    ],
+    [
+        "pattern theory",
+        0
+    ],
+    [
+        "business intelligence",
+        0
+    ],
+    [
+        "model (abstract)",
+        0
+    ],
+    [
+        "universities space research association",
+        0
+    ],
+    [
+        "ai winter",
+        0
+    ],
+    [
+        "mildly context-sensitive language",
+        0
+    ],
+    [
+        "learning classifier system",
+        0
+    ],
+    [
+        "nominal datum",
+        0
+    ],
+    [
+        "large margin nearest neighbor",
+        0
+    ],
+    [
+        "feature selection",
+        0
+    ],
+    [
+        "specificity (tests)",
+        0
+    ],
+    [
+        "computational intelligence",
+        0
+    ],
+    [
+        "locally compact group",
+        0
+    ],
+    [
+        "algorithm selection",
+        0
+    ],
+    [
+        "cloud application",
+        0
+    ],
+    [
+        "matching pursuit",
+        0
+    ],
+    [
+        "cuil",
+        0
+    ],
+    [
+        "density estimation",
+        0
+    ],
+    [
+        "cgal",
+        0
+    ],
+    [
+        "error function",
+        0
+    ],
+    [
+        "terminal symbol",
+        0
+    ],
+    [
+        "logic programming",
+        0
+    ],
+    [
+        "dynamic epistemic logic",
+        0
+    ],
+    [
+        "search engine",
+        0
+    ],
+    [
+        "least square",
+        0
+    ],
+    [
+        "knowledge representation",
+        0
+    ],
+    [
+        "superintelligence",
+        0
+    ],
+    [
+        "bk-tree",
+        0
+    ],
+    [
+        "adam gibson (computer scientist)",
+        0
+    ],
+    [
+        "manycore",
+        0
+    ],
+    [
+        "manfred k. warmuth",
+        0
+    ],
+    [
+        "statistically independent",
+        0
+    ],
+    [
+        "uniform convergence",
+        0
+    ],
+    [
+        "markov network",
+        0
+    ],
+    [
+        "polynomial delay",
+        0
+    ],
+    [
+        "fourier-related transform",
+        0
+    ],
+    [
+        "cambridge, ma",
+        0
+    ],
+    [
+        "movidius (company)",
+        0
+    ],
+    [
+        "market sentiment",
+        0
+    ],
+    [
+        "design matrix",
+        0
+    ],
+    [
+        "mental representation",
+        0
+    ],
+    [
+        "neighbor joining",
+        0
+    ],
+    [
+        "neocortex",
+        0
+    ],
+    [
+        "vldb",
+        0
+    ],
+    [
+        "quality control",
+        0
+    ],
+    [
+        "blood type",
+        0
+    ],
+    [
+        "likelihood function",
+        0
+    ],
+    [
+        "heterogeneous computing",
+        0
+    ],
+    [
+        "log-normal distribution",
+        0
+    ],
+    [
+        "subclass reachability",
+        0
+    ],
+    [
+        "afrl",
+        0
+    ],
+    [
+        "quantum computer",
+        0
+    ],
+    [
+        "rpd international (company)",
+        0
+    ],
+    [
+        "inductive probability",
+        0
+    ],
+    [
+        "independent component analysi",
+        0
+    ],
+    [
+        "on intelligence",
+        0
+    ],
+    [
+        "file:svm separating hyperplanes (svg).svg",
+        0
+    ],
+    [
+        "importance sampling",
+        0
+    ],
+    [
+        "confidence interval",
+        0
+    ],
+    [
+        "fan hui",
+        0
+    ],
+    [
+        "bloom filter",
+        0
+    ],
+    [
+        "kernel method for vector output",
+        0
+    ],
+    [
+        "compositional datum",
+        0
+    ],
+    [
+        "zen (software)",
+        0
+    ],
+    [
+        "function (mathematics)",
+        0
+    ],
+    [
+        "hidden markov model",
+        0
+    ],
+    [
+        "lzw",
+        0
+    ],
+    [
+        "google research",
+        0
+    ],
+    [
+        "minor premise",
+        0
+    ],
+    [
+        "statistical learning theory",
+        0
+    ],
+    [
+        "ontology (computer science)",
+        0
+    ],
+    [
+        "selection (genetic algorithm)",
+        0
+    ],
+    [
+        "approximation error",
+        0
+    ],
+    [
+        "similarity score",
+        0
+    ],
+    [
+        "pattern recognition (psychology)",
+        0
+    ],
+    [
+        "inductive programming",
+        0
+    ],
+    [
+        "turing completenes",
+        0
+    ],
+    [
+        "adaptive kernel density estimation",
+        0
+    ],
+    [
+        "experiment (probability theory)",
+        0
+    ],
+    [
+        "mechatronic",
+        0
+    ],
+    [
+        "fisher's linear discriminant",
+        0
+    ],
+    [
+        "hyperplane separation theorem",
+        0
+    ],
+    [
+        "linear least squares (mathematics)",
+        0
+    ],
+    [
+        "zone (information retrieval)",
+        0
+    ],
+    [
+        "gaussian process regression",
+        0
+    ],
+    [
+        "undecidable problem",
+        0
+    ],
+    [
+        "data transformation",
+        0
+    ],
+    [
+        "insurance fraud",
+        0
+    ],
+    [
+        "np-completenes",
+        0
+    ],
+    [
+        "recall (information retrieval)",
+        0
+    ],
+    [
+        "stochastic neural analog reinforcement calculator",
+        0
+    ],
+    [
+        "true positive rate",
+        0
+    ],
+    [
+        "spatial index",
+        0
+    ],
+    [
+        "markov decision proces",
+        0
+    ],
+    [
+        "neuromorphic computing",
+        0
+    ],
+    [
+        "soar (cognitive architecture)",
+        0
+    ],
+    [
+        "file:nmf hierarchy.jpg",
+        0
+    ],
+    [
+        "monotone class theorem",
+        0
+    ],
+    [
+        "lp space",
+        0
+    ],
+    [
+        "multiple instance learning",
+        0
+    ],
+    [
+        "file:mysteryvibe logo.png",
+        0
+    ],
+    [
+        "receiver operating characteristic",
+        0
+    ],
+    [
+        "bayesian information criterion",
+        0
+    ],
+    [
+        "subject (documents)",
+        0
+    ],
+    [
+        "peer-review",
+        0
+    ],
+    [
+        "type i error",
+        0
+    ],
+    [
+        "discounting",
+        0
+    ],
+    [
+        "c (programming language)",
+        0
+    ],
+    [
+        "uncertain datum",
+        0
+    ],
+    [
+        "file:reactive arms race.jpg",
+        0
+    ],
+    [
+        "united state",
+        0
+    ],
+    [
+        "thomas minka",
+        0
+    ],
+    [
+        "web search",
+        0
+    ],
+    [
+        "empirical risk minimization",
+        0
+    ],
+    [
+        "inductive transfer",
+        0
+    ],
+    [
+        "bayesian experimental design",
+        0
+    ],
+    [
+        "learning with errors",
+        0
+    ],
+    [
+        "fixed function unit",
+        0
+    ],
+    [
+        "social network analysi",
+        0
+    ],
+    [
+        "android (operating system)",
+        0
+    ],
+    [
+        "structural equation modeling",
+        0
+    ],
+    [
+        "negation",
+        0
+    ],
+    [
+        "dynamical consistency",
+        0
+    ],
+    [
+        "donald hebb",
+        0
+    ],
+    [
+        "exponential distribution",
+        0
+    ],
+    [
+        "expectation value",
+        0
+    ],
+    [
+        "markov chain monte carlo",
+        0
+    ],
+    [
+        "logistic function",
+        0
+    ],
+    [
+        "partial order reduction",
+        0
+    ],
+    [
+        "neural network",
+        0
+    ],
+    [
+        "recurrent neural network",
+        0
+    ],
+    [
+        "korea baduk association",
+        0
+    ],
+    [
+        "deep feature synthesi",
+        0
+    ],
+    [
+        "imperative language",
+        0
+    ],
+    [
+        "minimax estimator",
+        0
+    ],
+    [
+        "university of california at berkeley",
+        0
+    ],
+    [
+        "sørensen–dice coefficient",
+        0
+    ],
+    [
+        "secret escape",
+        0
+    ],
+    [
+        "random projection",
+        0
+    ],
+    [
+        "gene expression programming",
+        0
+    ],
+    [
+        "variety (cybernetics)",
+        0
+    ],
+    [
+        "probability measure",
+        0
+    ],
+    [
+        "jaccard index",
+        0
+    ],
+    [
+        "nello cristianini",
+        0
+    ],
+    [
+        "undergraduate degree",
+        0
+    ],
+    [
+        "interneuron",
+        0
+    ],
+    [
+        "continuous bag-of-words",
+        0
+    ],
+    [
+        "statistical significance",
+        0
+    ],
+    [
+        "indegree",
+        0
+    ],
+    [
+        "arm architecture",
+        0
+    ],
+    [
+        "k-d tree",
+        0
+    ],
+    [
+        "odd number",
+        0
+    ],
+    [
+        "intelligent control",
+        0
+    ],
+    [
+        "semisupervised learning",
+        0
+    ],
+    [
+        "separable space",
+        0
+    ],
+    [
+        "prolog",
+        0
+    ],
+    [
+        "complete lattice",
+        0
+    ],
+    [
+        "statistical distance",
+        0
+    ],
+    [
+        "flop",
+        0
+    ],
+    [
+        "yahoo! research",
+        0
+    ],
+    [
+        "manhattan distance",
+        0
+    ],
+    [
+        "algorithmic information theory",
+        0
+    ],
+    [
+        "connectionism",
+        0
+    ],
+    [
+        "pairwise comparison",
+        0
+    ],
+    [
+        "coordinate descent",
+        0
+    ],
+    [
+        "developmental biology",
+        0
+    ],
+    [
+        "m. alex o. vasilescu",
+        0
+    ],
+    [
+        "porto, portugal",
+        0
+    ],
+    [
+        "stochastic gradient descent",
+        0
+    ],
+    [
+        "leo breiman",
+        0
+    ],
+    [
+        "degree of freedom (statistics)",
+        0
+    ],
+    [
+        "gamma function",
+        0
+    ],
+    [
+        "seedcamp",
+        0
+    ],
+    [
+        "symbolic artificial intelligence",
+        0
+    ],
+    [
+        "formal grammar",
+        0
+    ],
+    [
+        "application programming interface",
+        0
+    ],
+    [
+        "text simplification",
+        0
+    ],
+    [
+        "predictive modeling",
+        0
+    ],
+    [
+        "case based reasoning",
+        0
+    ],
+    [
+        "computational complexity theory",
+        0
+    ],
+    [
+        "tsmar",
+        0
+    ],
+    [
+        "canonical correlation analysi",
+        0
+    ],
+    [
+        "file:shapley value on sat12-indu aslib scenario.png",
+        0
+    ],
+    [
+        "data cleansing",
+        0
+    ],
+    [
+        "virtual scientific community",
+        0
+    ],
+    [
+        "coefficient of determination",
+        0
+    ],
+    [
+        "chain rule (probability)",
+        0
+    ],
+    [
+        "heaviside step function",
+        0
+    ],
+    [
+        "file:catarina 26 mar 2004 1310z.jpg",
+        0
+    ],
+    [
+        "tripadvisor",
+        0
+    ],
+    [
+        "k-nearest neighbors algorithm",
+        0
+    ],
+    [
+        "locality-sensitive hashing",
+        0
+    ],
+    [
+        "scalar (mathematics)",
+        0
+    ],
+    [
+        "classifier (mathematics)",
+        0
+    ],
+    [
+        "cognitive psychology",
+        0
+    ],
+    [
+        "techniche",
+        0
+    ],
+    [
+        "spam blog",
+        0
+    ],
+    [
+        "promotion (marketing)",
+        0
+    ],
+    [
+        "hasse diagram",
+        0
+    ],
+    [
+        "categorical variable",
+        0
+    ],
+    [
+        "object detection",
+        0
+    ],
+    [
+        "frame (artificial intelligence)",
+        0
+    ],
+    [
+        "program synthesi",
+        0
+    ],
+    [
+        "sandia national laboratory",
+        0
+    ],
+    [
+        "file:example of unlabeled data in semisupervised learning.png",
+        0
+    ],
+    [
+        "neural designer",
+        0
+    ],
+    [
+        "feature space",
+        0
+    ],
+    [
+        "id3 algorithm",
+        0
+    ],
+    [
+        "moorfields eye hospital",
+        0
+    ],
+    [
+        "relevance (information retrieval)",
+        0
+    ],
+    [
+        "community structure",
+        0
+    ],
+    [
+        "variable kernel density estimation",
+        0
+    ],
+    [
+        "second language",
+        0
+    ],
+    [
+        "bellman equation",
+        0
+    ],
+    [
+        "subsidiary",
+        0
+    ],
+    [
+        "spiking neural network",
+        0
+    ],
+    [
+        "world amateur go championship",
+        0
+    ],
+    [
+        "security system",
+        0
+    ],
+    [
+        "long short term memory",
+        0
+    ],
+    [
+        "robot learning",
+        0
+    ],
+    [
+        "gödel, escher, bach",
+        0
+    ],
+    [
+        "euclidean norm",
+        0
+    ],
+    [
+        "domain adaptation",
+        0
+    ],
+    [
+        "semidefinite embedding",
+        0
+    ],
+    [
+        "sentiment analysi",
+        0
+    ],
+    [
+        "density matrix",
+        0
+    ],
+    [
+        "discrete choice",
+        0
+    ],
+    [
+        "decision theory",
+        0
+    ],
+    [
+        "cumulative distribution function",
+        0
+    ],
+    [
+        "conference on computer vision and pattern recognition",
+        0
+    ],
+    [
+        "evolving classification function",
+        0
+    ],
+    [
+        "file:k-fold cross validation en.jpg",
+        0
+    ],
+    [
+        "computational chemistry",
+        0
+    ],
+    [
+        "emotion recognition",
+        0
+    ],
+    [
+        "predictive learning",
+        0
+    ],
+    [
+        "penalty method",
+        0
+    ],
+    [
+        "sharp corporation",
+        0
+    ],
+    [
+        "sparse matrix",
+        0
+    ],
+    [
+        "richard e. bellman",
+        0
+    ],
+    [
+        "heuristic (computer science)",
+        0
+    ],
+    [
+        "td-gammon",
+        0
+    ],
+    [
+        "distributed artificial intelligence",
+        0
+    ],
+    [
+        "batch normalisation",
+        0
+    ],
+    [
+        "java (programming language)",
+        0
+    ],
+    [
+        "swan",
+        0
+    ],
+    [
+        "information theory",
+        0
+    ],
+    [
+        "file:nonbayesian-gaussian-mixture.svg",
+        0
+    ],
+    [
+        "correctness (computer science)",
+        0
+    ],
+    [
+        "oren etzioni",
+        0
+    ],
+    [
+        "spectral clustering",
+        0
+    ],
+    [
+        "self-organizing map",
+        0
+    ],
+    [
+        "list of go terms",
+        0
+    ],
+    [
+        "computer-automated design",
+        0
+    ],
+    [
+        "class membership probability",
+        0
+    ],
+    [
+        "dna sequencing",
+        0
+    ],
+    [
+        "behavioural pattern",
+        0
+    ],
+    [
+        "garry kasparov",
+        0
+    ],
+    [
+        "motion planning",
+        0
+    ],
+    [
+        "university of bonn",
+        0
+    ],
+    [
+        "likelihood ratio (disambiguation)",
+        0
+    ],
+    [
+        "medical ethic",
+        0
+    ],
+    [
+        "new york city taxi and limousine commission",
+        0
+    ],
+    [
+        "ill-posed",
+        0
+    ],
+    [
+        "united states department of defense",
+        0
+    ],
+    [
+        "herman ebbinghau",
+        0
+    ],
+    [
+        "conditional probability distribution",
+        0
+    ],
+    [
+        "popular science",
+        0
+    ],
+    [
+        "denumerable",
+        0
+    ],
+    [
+        "first-order logic",
+        0
+    ],
+    [
+        "public-key cryptography",
+        0
+    ],
+    [
+        "random indexing",
+        0
+    ],
+    [
+        "type i and type ii error",
+        0
+    ],
+    [
+        "proactive learning",
+        0
+    ],
+    [
+        "arithmetical operation",
+        0
+    ],
+    [
+        "ordinal regression",
+        0
+    ],
+    [
+        "indiana university",
+        0
+    ],
+    [
+        "search quality",
+        0
+    ],
+    [
+        "fink",
+        0
+    ],
+    [
+        "ice hockey stick",
+        0
+    ],
+    [
+        "binary relation",
+        0
+    ],
+    [
+        "semantic mapping (statistics)",
+        0
+    ],
+    [
+        "weighted average",
+        0
+    ],
+    [
+        "fuzzy logic",
+        0
+    ],
+    [
+        "classification (machine learning)",
+        0
+    ],
+    [
+        "modus ponen",
+        0
+    ],
+    [
+        "stability (learning theory)",
+        0
+    ],
+    [
+        "pseudometric space",
+        0
+    ],
+    [
+        "technische universität darmstadt",
+        0
+    ],
+    [
+        "british oceanographic data centre",
+        0
+    ],
+    [
+        "python (programming language)",
+        0
+    ],
+    [
+        "scratchpad memory",
+        0
+    ],
+    [
+        "knowledge acquisition",
+        0
+    ],
+    [
+        "ches",
+        0
+    ],
+    [
+        "common sense",
+        0
+    ],
+    [
+        "homogeneous function",
+        0
+    ],
+    [
+        "semantic web",
+        0
+    ],
+    [
+        "calmodulin",
+        0
+    ],
+    [
+        "rademacher distribution",
+        0
+    ],
+    [
+        "artificial intelligence",
+        0
+    ],
+    [
+        "problem of induction",
+        0
+    ],
+    [
+        "general-purpose computing on graphics processing units",
+        0
+    ],
+    [
+        "surrogate model",
+        0
+    ],
+    [
+        "sparse array",
+        0
+    ],
+    [
+        "t-distributed stochastic neighbor embedding",
+        0
+    ],
+    [
+        "syntactic pattern recognition",
+        0
+    ],
+    [
+        "aesthetic emotion",
+        0
+    ],
+    [
+        "parametric family",
+        0
+    ],
+    [
+        "file:value granulation.png",
+        0
+    ],
+    [
+        "vision processing unit",
+        0
+    ],
+    [
+        "concept clas",
+        0
+    ],
+    [
+        "induction (philosophy)",
+        0
+    ],
+    [
+        "mechanism design",
+        0
+    ],
+    [
+        "association for the advancement of artificial intelligence",
+        0
+    ],
+    [
+        "stanford university",
+        0
+    ],
+    [
+        "stock market prediction",
+        0
+    ],
+    [
+        "medical diagnosi",
+        0
+    ],
+    [
+        "three-dimensional space",
+        0
+    ],
+    [
+        "sensory neuron",
+        0
+    ],
+    [
+        "name binding",
+        0
+    ],
+    [
+        "cloud robotic",
+        0
+    ],
+    [
+        "logical disjunction",
+        0
+    ],
+    [
+        "graph database",
+        0
+    ],
+    [
+        "regret (decision theory)",
+        0
+    ],
+    [
+        "heaps' law",
+        0
+    ],
+    [
+        "qualification problem",
+        0
+    ],
+    [
+        "conditional random field",
+        0
+    ],
+    [
+        "neuroph",
+        0
+    ],
+    [
+        "computer scientist",
+        0
+    ],
+    [
+        "bryn mawr college",
+        0
+    ],
+    [
+        "richard price",
+        0
+    ],
+    [
+        "ethic of artificial intelligence",
+        0
+    ],
+    [
+        "kgs go server",
+        0
+    ],
+    [
+        "face recognition grand challenge",
+        0
+    ],
+    [
+        "embodied embedded cognition",
+        0
+    ],
+    [
+        "simulated annealing",
+        0
+    ],
+    [
+        "model selection",
+        0
+    ],
+    [
+        "artificial life",
+        0
+    ],
+    [
+        "zellig harri",
+        0
+    ],
+    [
+        "file:before fs.png",
+        0
+    ],
+    [
+        "dataiku",
+        0
+    ],
+    [
+        "hierarchical temporal memory",
+        0
+    ],
+    [
+        "interpretation (logic)",
+        0
+    ],
+    [
+        "dartmouth conference",
+        0
+    ],
+    [
+        "induction of regular languages",
+        0
+    ],
+    [
+        "mercer's theorem",
+        0
+    ],
+    [
+        "elastic net regularization",
+        0
+    ],
+    [
+        "geometric mean",
+        0
+    ],
+    [
+        "pontifical catholic university of rio de janeiro",
+        0
+    ],
+    [
+        "word embedding",
+        0
+    ],
+    [
+        "grammatical function",
+        0
+    ],
+    [
+        "collinear",
+        0
+    ],
+    [
+        "tf–idf",
+        0
+    ],
+    [
+        "classical conditioning",
+        0
+    ],
+    [
+        "categorical distribution",
+        0
+    ],
+    [
+        "surrogate endpoint",
+        0
+    ],
+    [
+        "propositional pattern",
+        0
+    ],
+    [
+        "anytime algorithm",
+        0
+    ],
+    [
+        "domain of a function",
+        0
+    ],
+    [
+        "compact space",
+        0
+    ],
+    [
+        "predictive value",
+        0
+    ],
+    [
+        "isotropic position",
+        0
+    ],
+    [
+        "information processing language",
+        0
+    ],
+    [
+        "expectation-maximization algorithm",
+        0
+    ],
+    [
+        "sebastian thrun",
+        0
+    ],
+    [
+        "altavista",
+        0
+    ],
+    [
+        "discrete cosine transform",
+        0
+    ],
+    [
+        "r (programming language)",
+        0
+    ],
+    [
+        "arcade game",
+        0
+    ],
+    [
+        "feature (pattern recognition)",
+        0
+    ],
+    [
+        "major depressive disorder",
+        0
+    ],
+    [
+        "belief-desire-intention software model",
+        0
+    ],
+    [
+        "matrixnet",
+        0
+    ],
+    [
+        "a priori and a posteriori",
+        0
+    ],
+    [
+        "algorithmic efficiency",
+        0
+    ],
+    [
+        "neocognitron",
+        0
+    ],
+    [
+        "vocabulary mismatch",
+        0
+    ],
+    [
+        "pareto efficiency",
+        0
+    ],
+    [
+        "discrete space",
+        0
+    ],
+    [
+        "hebbian theory",
+        0
+    ],
+    [
+        "space partitioning",
+        0
+    ],
+    [
+        "epilogism",
+        0
+    ],
+    [
+        "fuzzy set",
+        0
+    ],
+    [
+        "information visualization",
+        0
+    ],
+    [
+        "oracle (computer science)",
+        0
+    ],
+    [
+        "mean reciprocal rank",
+        0
+    ],
+    [
+        "inverse reinforcement learning",
+        0
+    ],
+    [
+        "discrete laplace operator",
+        0
+    ],
+    [
+        "extended backus–naur form",
+        0
+    ],
+    [
+        "optical character recognition",
+        0
+    ],
+    [
+        "complexity index",
+        0
+    ],
+    [
+        "developmental psychology",
+        0
+    ],
+    [
+        "file:mcar.png",
+        0
+    ],
+    [
+        "tensor network theory",
+        0
+    ],
+    [
+        "computer program",
+        0
+    ],
+    [
+        "cohen's kappa",
+        0
+    ],
+    [
+        "siem",
+        0
+    ],
+    [
+        "data editing",
+        0
+    ],
+    [
+        "structured sparsity regularization",
+        0
+    ],
+    [
+        "linear discriminant analysi",
+        0
+    ],
+    [
+        "san francisco, california",
+        0
+    ],
+    [
+        "kernel method",
+        0
+    ],
+    [
+        "chambéry, france",
+        0
+    ],
+    [
+        "imagenet large scale visual recognition challenge",
+        0
+    ],
+    [
+        "classification (disambiguation)",
+        0
+    ],
+    [
+        "forward-backward algorithm",
+        0
+    ],
+    [
+        "ray solomonoff",
+        0
+    ],
+    [
+        "e-mail filtering",
+        0
+    ],
+    [
+        "nonparametric regression",
+        0
+    ],
+    [
+        "string metric",
+        0
+    ],
+    [
+        "sample complexity",
+        0
+    ],
+    [
+        "commonsense reasoning",
+        0
+    ],
+    [
+        "lecture note in computer science",
+        0
+    ],
+    [
+        "probit regression",
+        0
+    ],
+    [
+        "karl lashley",
+        0
+    ],
+    [
+        "discriminative model",
+        0
+    ],
+    [
+        "feature learning",
+        0
+    ],
+    [
+        "psychophysiology",
+        0
+    ],
+    [
+        "super-recursive algorithm",
+        0
+    ],
+    [
+        "demosponge",
+        0
+    ],
+    [
+        "inference engine",
+        0
+    ],
+    [
+        "learnable function clas",
+        0
+    ],
+    [
+        "latent dirichlet allocation",
+        0
+    ],
+    [
+        "k-nearest neighbor algorithm",
+        0
+    ],
+    [
+        "die shrink",
+        0
+    ],
+    [
+        "class (philosophy)",
+        0
+    ],
+    [
+        "handwriting recognition",
+        0
+    ],
+    [
+        "axis-aligned object",
+        0
+    ],
+    [
+        "biological classification",
+        0
+    ],
+    [
+        "coupled pattern learner",
+        0
+    ],
+    [
+        "portfolio (finance)",
+        0
+    ],
+    [
+        "savi technology",
+        0
+    ],
+    [
+        "qbf",
+        0
+    ],
+    [
+        "subdifferential",
+        0
+    ],
+    [
+        "file:vc2.svg",
+        0
+    ],
+    [
+        "juergen schmidhuber",
+        0
+    ],
+    [
+        "deep blue versus garry kasparov",
+        0
+    ],
+    [
+        "stochastic block model",
+        0
+    ],
+    [
+        "jmp (statistical software)",
+        0
+    ],
+    [
+        "fuzzy control system",
+        0
+    ],
+    [
+        "measurement error",
+        0
+    ],
+    [
+        "autonomous robot",
+        0
+    ],
+    [
+        "keith devlin",
+        0
+    ],
+    [
+        "go/no go",
+        0
+    ],
+    [
+        "restricted boltzmann machine",
+        0
+    ],
+    [
+        "information extraction",
+        0
+    ],
+    [
+        "global optimization",
+        0
+    ],
+    [
+        "distance function",
+        0
+    ],
+    [
+        "hits algorithm",
+        0
+    ],
+    [
+        "file:parecdf.png",
+        0
+    ],
+    [
+        "grammar induction",
+        0
+    ],
+    [
+        "ke jie",
+        0
+    ],
+    [
+        "geostatistic",
+        0
+    ],
+    [
+        "file:cleverbot website.png",
+        0
+    ],
+    [
+        "physical law",
+        0
+    ],
+    [
+        "range error",
+        0
+    ],
+    [
+        "transhumanism",
+        0
+    ],
+    [
+        "file:vc4.svg",
+        0
+    ],
+    [
+        "subadditivity",
+        0
+    ],
+    [
+        "data cleaning",
+        0
+    ],
+    [
+        "deliveroo",
+        0
+    ],
+    [
+        "yoshio ishida",
+        0
+    ],
+    [
+        "alan turing",
+        0
+    ],
+    [
+        "k-nearest neighbour algorithm",
+        0
+    ],
+    [
+        "solved game",
+        0
+    ],
+    [
+        "walter frank raphael weldon",
+        0
+    ],
+    [
+        "ellipsoid",
+        0
+    ],
+    [
+        "e. mark gold",
+        0
+    ],
+    [
+        "weighted correlation network analysi",
+        0
+    ],
+    [
+        "hebbian learning",
+        0
+    ],
+    [
+        "indicator variable",
+        0
+    ],
+    [
+        "general setting of learning",
+        0
+    ],
+    [
+        "virgin group",
+        0
+    ],
+    [
+        "file:vc3.svg",
+        0
+    ],
+    [
+        "statistical independence",
+        0
+    ],
+    [
+        "accelerating change",
+        0
+    ],
+    [
+        "deterministic algorithm",
+        0
+    ],
+    [
+        "multinomial distribution",
+        0
+    ],
+    [
+        "exalead",
+        0
+    ],
+    [
+        "generalized linear model",
+        0
+    ],
+    [
+        "computational neuroscience",
+        0
+    ],
+    [
+        "genetic programming",
+        0
+    ],
+    [
+        "count–min sketch",
+        0
+    ],
+    [
+        "l-bfg",
+        0
+    ],
+    [
+        "volatility smile",
+        0
+    ],
+    [
+        "william gasarch",
+        0
+    ],
+    [
+        "empirical risk",
+        0
+    ],
+    [
+        "artificial intelligence (journal)",
+        0
+    ],
+    [
+        "sas (software)",
+        0
+    ],
+    [
+        "tensor product",
+        0
+    ],
+    [
+        "robotic",
+        0
+    ],
+    [
+        "maximum entropy classifier",
+        0
+    ],
+    [
+        "granular computing",
+        0
+    ],
+    [
+        "information retrieval",
+        0
+    ],
+    [
+        "kernel density estimation",
+        0
+    ],
+    [
+        "translation (geometry)",
+        0
+    ],
+    [
+        "np-hard",
+        0
+    ],
+    [
+        "nokia morph",
+        0
+    ],
+    [
+        "alphabet inc.",
+        0
+    ],
+    [
+        "peer review",
+        0
+    ],
+    [
+        "iterative algorithm",
+        0
+    ],
+    [
+        "tensorface",
+        0
+    ],
+    [
+        "entropy estimation",
+        0
+    ],
+    [
+        "risk function",
+        0
+    ],
+    [
+        "data fusion",
+        0
+    ],
+    [
+        "population impact measure",
+        0
+    ],
+    [
+        "machine vision",
+        0
+    ],
+    [
+        "closest pair of points problem",
+        0
+    ],
+    [
+        "probability theory",
+        0
+    ],
+    [
+        "cheminformatic",
+        0
+    ],
+    [
+        "non-negative matrix factorization",
+        0
+    ],
+    [
+        "column vector",
+        0
+    ],
+    [
+        "learning automata",
+        0
+    ],
+    [
+        "rule of go",
+        0
+    ],
+    [
+        "multiprocessing",
+        0
+    ],
+    [
+        "attribute efficient learning",
+        0
+    ],
+    [
+        "credit scoring",
+        0
+    ],
+    [
+        "characteristic function (probability theory)",
+        0
+    ],
+    [
+        "scraper site",
+        0
+    ],
+    [
+        "answer set programming",
+        0
+    ],
+    [
+        "crosslinguistic influence",
+        0
+    ],
+    [
+        "stochastic semantic analysi",
+        0
+    ],
+    [
+        "linear separability",
+        0
+    ],
+    [
+        "negative binomial distribution",
+        0
+    ],
+    [
+        "binary tree",
+        0
+    ],
+    [
+        "speech recognition",
+        0
+    ],
+    [
+        "type-2 fuzzy sets and system",
+        0
+    ],
+    [
+        "covariance matrix",
+        0
+    ],
+    [
+        "gittins index",
+        0
+    ],
+    [
+        "jean piaget",
+        0
+    ],
+    [
+        "automatic summarization",
+        0
+    ],
+    [
+        "bernoulli distribution",
+        0
+    ],
+    [
+        "byoyomi",
+        0
+    ],
+    [
+        "mathematical model",
+        0
+    ],
+    [
+        "declarative programming",
+        0
+    ],
+    [
+        "predictive modelling",
+        0
+    ],
+    [
+        "peter norvig",
+        0
+    ],
+    [
+        "augmented reality",
+        0
+    ],
+    [
+        "horizons venture",
+        0
+    ],
+    [
+        "dana ron",
+        0
+    ],
+    [
+        "multilinear independent component analysi",
+        0
+    ],
+    [
+        "verb phrase",
+        0
+    ],
+    [
+        "distributed representation",
+        0
+    ],
+    [
+        "file:lmnn.png",
+        0
+    ],
+    [
+        "scala (programming language)",
+        0
+    ],
+    [
+        "duality",
+        0
+    ],
+    [
+        "john d. lafferty",
+        0
+    ],
+    [
+        "bing predict",
+        0
+    ],
+    [
+        "constraint logic programming",
+        0
+    ],
+    [
+        "quantum computation",
+        0
+    ],
+    [
+        "joint distribution",
+        0
+    ],
+    [
+        "analytica (software)",
+        0
+    ],
+    [
+        "schema (psychology)",
+        0
+    ],
+    [
+        "generalization error",
+        0
+    ],
+    [
+        "epigenetic",
+        0
+    ],
+    [
+        "decision boundary",
+        0
+    ],
+    [
+        "burst error",
+        0
+    ],
+    [
+        "neighbourhood (graph theory)",
+        0
+    ],
+    [
+        "human-based genetic algorithm",
+        0
+    ],
+    [
+        "diagnosis (artificial intelligence)",
+        0
+    ],
+    [
+        "file:labels.png",
+        0
+    ],
+    [
+        "submodular set function",
+        0
+    ],
+    [
+        "file:bayesian-gaussian-mixture.svg",
+        0
+    ],
+    [
+        "neighbourhood components analysi",
+        0
+    ],
+    [
+        "harmony search",
+        0
+    ],
+    [
+        "aerobatic maneuver",
+        0
+    ],
+    [
+        "kleene plu",
+        0
+    ],
+    [
+        "convex conjugate",
+        0
+    ],
+    [
+        "committee machine",
+        0
+    ],
+    [
+        "bayesian programming",
+        0
+    ],
+    [
+        "crimestat",
+        0
+    ],
+    [
+        "theory of computation",
+        0
+    ],
+    [
+        "mathematical proof",
+        0
+    ],
+    [
+        "probability-theoretic",
+        0
+    ],
+    [
+        "sepp hochreiter",
+        0
+    ],
+    [
+        "summary statistic",
+        0
+    ],
+    [
+        "version space",
+        0
+    ],
+    [
+        "garrett birkhoff",
+        0
+    ],
+    [
+        "chris wallace (computer scientist)",
+        0
+    ],
+    [
+        "hinge los",
+        0
+    ],
+    [
+        "minhash",
+        0
+    ],
+    [
+        "coordinate vector",
+        0
+    ],
+    [
+        "robustness (computer science)",
+        0
+    ],
+    [
+        "perceptron algorithm",
+        0
+    ],
+    [
+        "maximal element",
+        0
+    ],
+    [
+        "contextual image classification",
+        0
+    ],
+    [
+        "soft computing",
+        0
+    ],
+    [
+        "euclidean plane",
+        0
+    ],
+    [
+        "frequentist inference",
+        0
+    ],
+    [
+        "elastic matching",
+        0
+    ],
+    [
+        "frobenius norm",
+        0
+    ],
+    [
+        "futures study",
+        0
+    ],
+    [
+        "text editor",
+        0
+    ],
+    [
+        "wuxi",
+        0
+    ],
+    [
+        "file:mucdf.png",
+        0
+    ],
+    [
+        "current population survey (us)",
+        0
+    ],
+    [
+        "parafac",
+        0
+    ],
+    [
+        "multilinear pca",
+        0
+    ],
+    [
+        "election",
+        0
+    ],
+    [
+        "corpus linguistic",
+        0
+    ],
+    [
+        "visual programming",
+        0
+    ],
+    [
+        "emanuel parzen",
+        0
+    ],
+    [
+        "probability distribution",
+        0
+    ],
+    [
+        "anti-spam technique",
+        0
+    ],
+    [
+        "file:fueled.jpg",
+        0
+    ],
+    [
+        "knowledge extraction",
+        0
+    ],
+    [
+        "dynamic optimization",
+        0
+    ],
+    [
+        "budget constraint",
+        0
+    ],
+    [
+        "cluster analysi",
+        0
+    ],
+    [
+        "bootstrapping population",
+        0
+    ],
+    [
+        "expression (mathematics)",
+        0
+    ],
+    [
+        "type–token distinction",
+        0
+    ],
+    [
+        "conceptual clustering",
+        0
+    ],
+    [
+        "galois connection",
+        0
+    ],
+    [
+        "nouvelle ai",
+        0
+    ],
+    [
+        "optimization (mathematics)",
+        0
+    ],
+    [
+        "universal prior",
+        0
+    ],
+    [
+        "tabu search",
+        0
+    ],
+    [
+        "base rate",
+        0
+    ],
+    [
+        "sqrrl",
+        0
+    ],
+    [
+        "yann lecun",
+        0
+    ],
+    [
+        "rollo carpenter",
+        0
+    ],
+    [
+        "blood pressure",
+        0
+    ],
+    [
+        "dual (mathematics)",
+        0
+    ],
+    [
+        "david rumelhart",
+        0
+    ],
+    [
+        "artificial intelligence, situated approach",
+        0
+    ],
+    [
+        "linear model",
+        0
+    ],
+    [
+        "history of artificial intelligence",
+        0
+    ],
+    [
+        "american census bureau",
+        0
+    ],
+    [
+        "massachusetts institute of technology",
+        0
+    ],
+    [
+        "principle of rationality",
+        0
+    ],
+    [
+        "exponential family",
+        0
+    ],
+    [
+        "k nearest neighbor",
+        0
+    ],
+    [
+        "universal quantification",
+        0
+    ],
+    [
+        "text mining",
+        0
+    ],
+    [
+        "spike-and-slab variable selection",
+        0
+    ],
+    [
+        "cornell university",
+        0
+    ],
+    [
+        "singapore",
+        0
+    ],
+    [
+        "automata theory",
+        0
+    ],
+    [
+        "ventral stream",
+        0
+    ],
+    [
+        "transition system",
+        0
+    ],
+    [
+        "subpopulation",
+        0
+    ],
+    [
+        "bag-of-words model in computer vision",
+        0
+    ],
+    [
+        "relation (mathematics)",
+        0
+    ],
+    [
+        "national institute of standards and technology",
+        0
+    ],
+    [
+        "long term memory",
+        0
+    ],
+    [
+        "interdisciplinary",
+        0
+    ],
+    [
+        "asset tracking",
+        0
+    ],
+    [
+        "covariate",
+        0
+    ],
+    [
+        "technical university of munich",
+        0
+    ],
+    [
+        "test bed",
+        0
+    ],
+    [
+        "time complexity",
+        0
+    ],
+    [
+        "binomial coefficient",
+        0
+    ],
+    [
+        "precision (information retrieval)",
+        0
+    ],
+    [
+        "buying pattern",
+        0
+    ],
+    [
+        "priming (psychology)",
+        0
+    ],
+    [
+        "moa (massive online analysis)",
+        0
+    ],
+    [
+        "expectation–maximization algorithm",
+        0
+    ],
+    [
+        "cyclone",
+        0
+    ],
+    [
+        "confusion matrix",
+        0
+    ],
+    [
+        "random sample",
+        0
+    ],
+    [
+        "radial basis function network",
+        0
+    ],
+    [
+        "real number",
+        0
+    ],
+    [
+        "whitening transformation",
+        0
+    ],
+    [
+        "hamming weight",
+        0
+    ],
+    [
+        "metric space",
+        0
+    ],
+    [
+        "downward causation",
+        0
+    ],
+    [
+        "errors and residual in statistics",
+        0
+    ],
+    [
+        "turing machine",
+        0
+    ],
+    [
+        "stepwise regression",
+        0
+    ],
+    [
+        "indexed grammar",
+        0
+    ],
+    [
+        "regularization (machine learning)",
+        0
+    ],
+    [
+        "karl pearson",
+        0
+    ],
+    [
+        "software library",
+        0
+    ],
+    [
+        "sensitivity (test)",
+        0
+    ],
+    [
+        "lean startup",
+        0
+    ],
+    [
+        "expected value",
+        0
+    ],
+    [
+        "ivan pavlov",
+        0
+    ],
+    [
+        "ball tree",
+        0
+    ],
+    [
+        "inverse document frequency",
+        0
+    ],
+    [
+        "classification in machine learning",
+        0
+    ],
+    [
+        "file:bayesian-categorical-mixture.svg",
+        0
+    ],
+    [
+        "frobenius inner product",
+        0
+    ],
+    [
+        "stata",
+        0
+    ],
+    [
+        "admissible heuristic",
+        0
+    ],
+    [
+        "instantaneously trained neural network",
+        0
+    ],
+    [
+        "go (game)",
+        0
+    ],
+    [
+        "academic journal",
+        0
+    ],
+    [
+        "knowledge discovery in databases",
+        0
+    ],
+    [
+        "belur v. dasarathy",
+        0
+    ],
+    [
+        "fisher discriminant analysi",
+        0
+    ],
+    [
+        "mixture model",
+        0
+    ],
+    [
+        "data fitting",
+        0
+    ],
+    [
+        "pruning (algorithm)",
+        0
+    ],
+    [
+        "inverse problem",
+        0
+    ],
+    [
+        "routing",
+        0
+    ],
+    [
+        "bia",
+        0
+    ],
+    [
+        "false negative",
+        0
+    ],
+    [
+        "probabilistic relevance model (bm25)",
+        0
+    ],
+    [
+        "embodied cognitive science",
+        0
+    ],
+    [
+        "richard s. sutton",
+        0
+    ],
+    [
+        "okapi bm25",
+        0
+    ],
+    [
+        "royal military academy (belgium)",
+        0
+    ],
+    [
+        "vladimir vapnik",
+        0
+    ],
+    [
+        "particle swarm optimization",
+        0
+    ],
+    [
+        "computational problem",
+        0
+    ],
+    [
+        "finite language",
+        0
+    ],
+    [
+        "semantic query",
+        0
+    ],
+    [
+        "pedro domingo",
+        0
+    ],
+    [
+        "claude shannon",
+        0
+    ],
+    [
+        "feature (machine learning)",
+        0
+    ],
+    [
+        "shallow parsing",
+        0
+    ],
+    [
+        "bayes error rate",
+        0
+    ],
+    [
+        "privately held company",
+        0
+    ],
+    [
+        "state (computer science)",
+        0
+    ],
+    [
+        "predictive analytic",
+        0
+    ],
+    [
+        "journal of chemical information and modeling",
+        0
+    ],
+    [
+        "leave-one-out error",
+        0
+    ],
+    [
+        "duality (optimization)",
+        0
+    ],
+    [
+        "pac learning",
+        0
+    ],
+    [
+        "apache mahout",
+        0
+    ],
+    [
+        "cognitive architecture",
+        0
+    ],
+    [
+        "probabilistic soft logic",
+        0
+    ],
+    [
+        "douglas hofstadter",
+        0
+    ],
+    [
+        "semantic matching",
+        0
+    ],
+    [
+        "ordinal classification",
+        0
+    ],
+    [
+        "part of speech tagging",
+        0
+    ],
+    [
+        "scale parameter",
+        0
+    ],
+    [
+        "conditional (computer programming)",
+        0
+    ],
+    [
+        "digital signal processing",
+        0
+    ],
+    [
+        "indicator notation",
+        0
+    ],
+    [
+        "national science foundation",
+        0
+    ],
+    [
+        "sparse dictionary learning",
+        0
+    ],
+    [
+        "decoding method",
+        0
+    ],
+    [
+        "local volatility",
+        0
+    ],
+    [
+        "communist party of china",
+        0
+    ],
+    [
+        "latent semantic indexing",
+        0
+    ],
+    [
+        "statistical inference",
+        0
+    ],
+    [
+        "intelligent personal assistant",
+        0
+    ],
+    [
+        "getty center",
+        0
+    ],
+    [
+        "agnostic learning",
+        0
+    ],
+    [
+        "decision tree",
+        0
+    ],
+    [
+        "simd",
+        0
+    ],
+    [
+        "elki",
+        0
+    ],
+    [
+        "venture capital",
+        0
+    ],
+    [
+        "belief propagation",
+        0
+    ],
+    [
+        "file:comparison of 1d histogram and kde.png",
+        0
+    ],
+    [
+        "directed acyclic graph",
+        0
+    ],
+    [
+        "institute of automation, chinese academy of sciences",
+        0
+    ],
+    [
+        "quantum physic",
+        0
+    ],
+    [
+        "act-r",
+        0
+    ],
+    [
+        "antidiagonal",
+        0
+    ],
+    [
+        "mit computer science and artificial intelligence laboratory",
+        0
+    ],
+    [
+        "functional analysi",
+        0
+    ],
+    [
+        "oblivious decision tree",
+        0
+    ],
+    [
+        "sparse distributed memory",
+        0
+    ],
+    [
+        "embarrassingly parallel",
+        0
+    ],
+    [
+        "knowledge integration",
+        0
+    ],
+    [
+        "data transformation (statistics)",
+        0
+    ],
+    [
+        "projection (linear algebra)",
+        0
+    ],
+    [
+        "computable function",
+        0
+    ],
+    [
+        "netherland",
+        0
+    ],
+    [
+        "sufficient dimension reduction",
+        0
+    ],
+    [
+        "content-based image retrieval",
+        0
+    ],
+    [
+        "programming by demonstration",
+        0
+    ],
+    [
+        "decision tree learning",
+        0
+    ],
+    [
+        "model regularization",
+        0
+    ],
+    [
+        "armstrong axiom",
+        0
+    ],
+    [
+        "jožef stefan institute",
+        0
+    ],
+    [
+        "true positive",
+        0
+    ],
+    [
+        "generative model",
+        0
+    ],
+    [
+        "john b. watson",
+        0
+    ],
+    [
+        "group (mathematics)",
+        0
+    ],
+    [
+        "mpeg-2",
+        0
+    ],
+    [
+        "local tangent space alignment",
+        0
+    ],
+    [
+        "chain rule of probability",
+        0
+    ],
+    [
+        "model validation",
+        0
+    ],
+    [
+        "directed graph",
+        0
+    ],
+    [
+        "rete algorithm",
+        0
+    ],
+    [
+        "radio-frequency identification",
+        0
+    ],
+    [
+        "mcgovern institute for brain research",
+        0
+    ],
+    [
+        "springer science+business media",
+        0
+    ],
+    [
+        "cambridge computer laboratory",
+        0
+    ],
+    [
+        "bernhard schölkopf",
+        0
+    ],
+    [
+        "lattice miner",
+        0
+    ],
+    [
+        "probability matching",
+        0
+    ],
+    [
+        "internet marketing",
+        0
+    ],
+    [
+        "sample mean and sample covariance",
+        0
+    ],
+    [
+        "bayesian model comparison",
+        0
+    ],
+    [
+        "dancing with the stars",
+        0
+    ],
+    [
+        "prior distribution",
+        0
+    ],
+    [
+        "qualitative property",
+        0
+    ],
+    [
+        "lattice (order)",
+        0
+    ],
+    [
+        "murray rosenblatt",
+        0
+    ],
+    [
+        "generalized additive model",
+        0
+    ],
+    [
+        "app store (ios)",
+        0
+    ],
+    [
+        "maxsat",
+        0
+    ],
+    [
+        "regression analysi",
+        0
+    ],
+    [
+        "inductive functional programming",
+        0
+    ],
+    [
+        "computer programming",
+        0
+    ],
+    [
+        "voting paradox",
+        0
+    ],
+    [
+        "audio signal processing",
+        0
+    ],
+    [
+        "quantum algorithm for linear systems of equations",
+        0
+    ],
+    [
+        "vowpal wabbit",
+        0
+    ],
+    [
+        "moment (mathematics)",
+        0
+    ],
+    [
+        "normal (geometry)",
+        0
+    ],
+    [
+        "linear regression",
+        0
+    ],
+    [
+        "list of chatterbots",
+        0
+    ],
+    [
+        "machine-learned ranking",
+        0
+    ],
+    [
+        "evolvability (computer science)",
+        0
+    ],
+    [
+        "condorcet winner",
+        0
+    ],
+    [
+        "stochastic proces",
+        0
+    ],
+    [
+        "probabilistic database",
+        0
+    ],
+    [
+        "automatic programming",
+        0
+    ],
+    [
+        "parity (mathematics)",
+        0
+    ],
+    [
+        "probability-matching",
+        0
+    ],
+    [
+        "knowledge representation and reasoning",
+        0
+    ],
+    [
+        "alphago versus lee sedol",
+        0
+    ],
+    [
+        "empirical proces",
+        0
+    ],
+    [
+        "inductive logic programming",
+        0
+    ],
+    [
+        "doubling constant",
+        0
+    ],
+    [
+        "frederick wilfrid lancaster",
+        0
+    ],
+    [
+        "big o notation",
+        0
+    ],
+    [
+        "genomic",
+        0
+    ],
+    [
+        "term-document matrix",
+        0
+    ],
+    [
+        "lattice-based cryptography",
+        0
+    ],
+    [
+        "china qiyuan",
+        0
+    ],
+    [
+        "file:srt shape recognition technology principles.png",
+        0
+    ],
+    [
+        "data compression",
+        0
+    ],
+    [
+        "maximum-margin hyperplane",
+        0
+    ],
+    [
+        "editorial board",
+        0
+    ],
+    [
+        "tenuki",
+        0
+    ],
+    [
+        "university of twente",
+        0
+    ],
+    [
+        "dublin",
+        0
+    ],
+    [
+        "interaction variable",
+        0
+    ],
+    [
+        "inductive inference",
+        0
+    ],
+    [
+        "conjugate prior",
+        0
+    ],
+    [
+        "financial economic",
+        0
+    ],
+    [
+        "file:alphago logo reversed.svg",
+        0
+    ],
+    [
+        "apache license",
+        0
+    ],
+    [
+        "nearest neighbor search",
+        0
+    ],
+    [
+        "bia of an estimator",
+        0
+    ],
+    [
+        "esri",
+        0
+    ],
+    [
+        "ai accelerator",
+        0
+    ],
+    [
+        "ensemble learning",
+        0
+    ],
+    [
+        "differential geometry",
+        0
+    ],
+    [
+        "fmm neural network",
+        0
+    ],
+    [
+        "sparse coding",
+        0
+    ],
+    [
+        "model theory",
+        0
+    ],
+    [
+        "event loop",
+        0
+    ],
+    [
+        "mahalanobis distance",
+        0
+    ],
+    [
+        "mel-frequency cepstrum",
+        0
+    ],
+    [
+        "partially ordered set",
+        0
+    ],
+    [
+        "markov logic network",
+        0
+    ],
+    [
+        "functional logic programming",
+        0
+    ],
+    [
+        "gold standard (test)",
+        0
+    ],
+    [
+        "independence (probability theory)",
+        0
+    ],
+    [
+        "marginal probability",
+        0
+    ],
+    [
+        "battery (electricity)",
+        0
+    ],
+    [
+        "nondeterministic algorithm",
+        0
+    ],
+    [
+        "united states gubernatorial elections, 2014",
+        0
+    ],
+    [
+        "mysteryvibe",
+        0
+    ],
+    [
+        "feature hashing",
+        0
+    ],
+    [
+        "analytical learning",
+        0
+    ],
+    [
+        "temporal difference learning",
+        0
+    ],
+    [
+        "information and control",
+        0
+    ],
+    [
+        "combinatorial explosion",
+        0
+    ],
+    [
+        "training set",
+        0
+    ],
+    [
+        "circular error probable",
+        0
+    ],
+    [
+        "np-complete",
+        0
+    ],
+    [
+        "f1 score",
+        0
+    ],
+    [
+        "no free lunch theorem",
+        0
+    ],
+    [
+        "file:overfitting on training set data.pdf",
+        0
+    ],
+    [
+        "germany",
+        0
+    ],
+    [
+        "terrence j. sejnowski",
+        0
+    ],
+    [
+        "neural net",
+        0
+    ],
+    [
+        "all things being equal",
+        0
+    ],
+    [
+        "orthogonality",
+        0
+    ],
+    [
+        "relational pattern",
+        0
+    ],
+    [
+        "discrete variable",
+        0
+    ],
+    [
+        "logical possibility",
+        0
+    ],
+    [
+        "inductive reasoning",
+        0
+    ],
+    [
+        "relational markov network",
+        0
+    ],
+    [
+        "google deepmind",
+        0
+    ],
+    [
+        "artificial neuron",
+        0
+    ],
+    [
+        "disjoint set",
+        0
+    ],
+    [
+        "edmunds.com",
+        0
+    ],
+    [
+        "expectation maximization",
+        0
+    ],
+    [
+        "eligibility trace",
+        0
+    ],
+    [
+        "real coordinate space",
+        0
+    ],
+    [
+        "exploding gradient problem",
+        0
+    ],
+    [
+        "social relation",
+        0
+    ],
+    [
+        "spectral method",
+        0
+    ],
+    [
+        "darktrace",
+        0
+    ],
+    [
+        "data dredging",
+        0
+    ],
+    [
+        "computational vision",
+        0
+    ],
+    [
+        "file:machine learning (journal).jpg",
+        0
+    ],
+    [
+        "file:lle hlle swissroll.png",
+        0
+    ],
+    [
+        "hashing trick",
+        0
+    ],
+    [
+        "semantic role labeling",
+        0
+    ],
+    [
+        "leslie valiant",
+        0
+    ],
+    [
+        "multi-task learning",
+        0
+    ],
+    [
+        "microsoft research asia",
+        0
+    ],
+    [
+        "chomsky hierarchy",
+        0
+    ],
+    [
+        "data warehouse",
+        0
+    ],
+    [
+        "law of total probability",
+        0
+    ],
+    [
+        "smartphone",
+        0
+    ],
+    [
+        "caltech 101",
+        0
+    ],
+    [
+        "synchronization (computer science)",
+        0
+    ],
+    [
+        "computational linguistic",
+        0
+    ],
+    [
+        "network science",
+        0
+    ],
+    [
+        "the voice (u.s. tv series)",
+        0
+    ],
+    [
+        "computer software",
+        0
+    ],
+    [
+        "apple inc.",
+        0
+    ],
+    [
+        "space invader",
+        0
+    ],
+    [
+        "user behavior analytic",
+        0
+    ],
+    [
+        "uniform convergence (combinatorics)",
+        0
+    ],
+    [
+        "statistical data type",
+        0
+    ],
+    [
+        "bayes' rule",
+        0
+    ],
+    [
+        "prior probability",
+        0
+    ],
+    [
+        "linear dynamical system",
+        0
+    ],
+    [
+        "financial derivative",
+        0
+    ],
+    [
+        "data clustering",
+        0
+    ],
+    [
+        "part of speech",
+        0
+    ],
+    [
+        "standard normal distribution",
+        0
+    ],
+    [
+        "bradley–terry model",
+        0
+    ],
+    [
+        "dependent variable",
+        0
+    ],
+    [
+        "finite state machine",
+        0
+    ],
+    [
+        "cco and co-founder",
+        0
+    ],
+    [
+        "if and only if",
+        0
+    ],
+    [
+        "k-nearest-neighbor",
+        0
+    ],
+    [
+        "principle of indifference",
+        0
+    ],
+    [
+        "unmanned aerial vehicle",
+        0
+    ],
+    [
+        "adaptive routing",
+        0
+    ],
+    [
+        "chatterbot",
+        0
+    ],
+    [
+        "swiftkey",
+        0
+    ],
+    [
+        "dana angluin",
+        0
+    ],
+    [
+        "unitary group",
+        0
+    ],
+    [
+        "handling imbalanced dataset",
+        0
+    ],
+    [
+        "maximum likelihood estimation",
+        0
+    ],
+    [
+        "file:proactive arms race.jpg",
+        0
+    ],
+    [
+        "streaming media",
+        0
+    ],
+    [
+        "curve fitting",
+        0
+    ],
+    [
+        "intelligence amplification",
+        0
+    ],
+    [
+        "parity learning",
+        0
+    ],
+    [
+        "structured svm",
+        0
+    ],
+    [
+        "multiple kernel learning",
+        0
+    ],
+    [
+        "tree (data structure)",
+        0
+    ],
+    [
+        "unsupervised learning",
+        0
+    ],
+    [
+        "description logic",
+        0
+    ],
+    [
+        "quantization (signal processing)",
+        0
+    ],
+    [
+        "federal court of australia",
+        0
+    ],
+    [
+        "file:paint data - example workflow.png",
+        0
+    ],
+    [
+        "cognitive science",
+        0
+    ],
+    [
+        "splunk",
+        0
+    ],
+    [
+        "hyper-heuristic",
+        0
+    ],
+    [
+        "cross-covariance",
+        0
+    ],
+    [
+        "institute of robotics in scandinavia ab",
+        0
+    ],
+    [
+        "opencog",
+        0
+    ],
+    [
+        "multilayer perceptron",
+        0
+    ],
+    [
+        "differentiable function",
+        0
+    ],
+    [
+        "local optimum",
+        0
+    ],
+    [
+        "prosecutor's fallacy",
+        0
+    ],
+    [
+        "bayesian network",
+        0
+    ],
+    [
+        "delta rule",
+        0
+    ],
+    [
+        "data modeling",
+        0
+    ],
+    [
+        "basis function",
+        0
+    ],
+    [
+        "expansivity constant",
+        0
+    ],
+    [
+        "mit pres",
+        0
+    ],
+    [
+        "regularization (mathematics)",
+        0
+    ],
+    [
+        "evaluation function",
+        0
+    ],
+    [
+        "united states department of health and human services",
+        0
+    ],
+    [
+        "predicate logic",
+        0
+    ],
+    [
+        "laplacian matrix",
+        0
+    ],
+    [
+        "l0 norm",
+        0
+    ],
+    [
+        "extension (semantics)",
+        0
+    ],
+    [
+        "mixture distribution",
+        0
+    ],
+    [
+        "chebyshev's inequality",
+        0
+    ],
+    [
+        "cleverbot",
+        0
+    ],
+    [
+        "radial basis function",
+        0
+    ],
+    [
+        "sampling (statistics)",
+        0
+    ],
+    [
+        "abstract data type",
+        0
+    ],
+    [
+        "lipschitz",
+        0
+    ],
+    [
+        "evolutionary biology",
+        0
+    ],
+    [
+        "journal of machine learning research",
+        0
+    ],
+    [
+        "university college london",
+        0
+    ],
+    [
+        "region connection calculu",
+        0
+    ],
+    [
+        "true negative rate",
+        0
+    ],
+    [
+        "explicit semantic analysi",
+        0
+    ],
+    [
+        "local case-control sampling",
+        0
+    ],
+    [
+        "multifactor dimensionality reduction",
+        0
+    ],
+    [
+        "quasi-newton method",
+        0
+    ],
+    [
+        "m-tree",
+        0
+    ],
+    [
+        "drug development",
+        0
+    ],
+    [
+        "programming by example",
+        0
+    ],
+    [
+        "bio-inspired computing",
+        0
+    ],
+    [
+        "knowledge base",
+        0
+    ],
+    [
+        "network theory",
+        0
+    ],
+    [
+        "hillsdale, new jersey",
+        0
+    ],
+    [
+        "clustering (machine learning)",
+        0
+    ],
+    [
+        "open access journal",
+        0
+    ],
+    [
+        "computer-assisted language learning",
+        0
+    ],
+    [
+        "ai safety",
+        0
+    ],
+    [
+        "tomaso poggio",
+        0
+    ],
+    [
+        "native language identification",
+        0
+    ],
+    [
+        "normal distribution",
+        0
+    ],
+    [
+        "andrew ng",
+        0
+    ],
+    [
+        "decision rule",
+        0
+    ],
+    [
+        "production rule representation",
+        0
+    ],
+    [
+        "empty string",
+        0
+    ],
+    [
+        "dialog system",
+        0
+    ],
+    [
+        "template matching",
+        0
+    ],
+    [
+        "result set",
+        0
+    ],
+    [
+        "latent variable",
+        0
+    ],
+    [
+        "dictionary learning",
+        0
+    ],
+    [
+        "concept-based image indexing",
+        0
+    ],
+    [
+        "san mateo, california",
+        0
+    ],
+    [
+        "anomaly detection",
+        0
+    ],
+    [
+        "web mining",
+        0
+    ],
+    [
+        "john c. gittin",
+        0
+    ],
+    [
+        "newton's law of universal gravitation",
+        0
+    ],
+    [
+        "tree search",
+        0
+    ],
+    [
+        "university of leicester",
+        0
+    ],
+    [
+        "markov property",
+        0
+    ],
+    [
+        "continuous optimization",
+        0
+    ],
+    [
+        "concept drift",
+        0
+    ],
+    [
+        "weak ai",
+        0
+    ],
+    [
+        "quantum neural network",
+        0
+    ],
+    [
+        "existential risk from artificial general intelligence",
+        0
+    ],
+    [
+        "method of least squares",
+        0
+    ],
+    [
+        "file:overfitted data.png",
+        0
+    ],
+    [
+        "list of numerical libraries",
+        0
+    ],
+    [
+        "sequence labeling",
+        0
+    ],
+    [
+        "search theory",
+        0
+    ],
+    [
+        "tracing (software)",
+        0
+    ],
+    [
+        "joint probability",
+        0
+    ],
+    [
+        "computer security",
+        0
+    ],
+    [
+        "go ranks and rating",
+        0
+    ],
+    [
+        "bayesian probability",
+        0
+    ],
+    [
+        "root mean squared error",
+        0
+    ],
+    [
+        "knowledge discovery",
+        0
+    ],
+    [
+        "data normalization",
+        0
+    ],
+    [
+        "expert system",
+        0
+    ],
+    [
+        "computable",
+        0
+    ],
+    [
+        "identity of indiscernibles",
+        0
+    ],
+    [
+        "affective computing",
+        0
+    ],
+    [
+        "bertrand russell",
+        0
+    ],
+    [
+        "independent and identically distributed random variable",
+        0
+    ],
+    [
+        "pooling (information retrieval)",
+        0
+    ],
+    [
+        "file:semantic fingerprint comparing the terms %22dog%22 and %22car%22.png",
+        0
+    ],
+    [
+        "boolean satisfiability problem",
+        0
+    ],
+    [
+        "michael katehaki",
+        0
+    ],
+    [
+        "architecture description language",
+        0
+    ],
+    [
+        "glove (machine learning)",
+        0
+    ],
+    [
+        "embryogenesi",
+        0
+    ],
+    [
+        "phi coefficient",
+        0
+    ],
+    [
+        "file:pseudorecurrentnetwork.jpg",
+        0
+    ],
+    [
+        "clark hull",
+        0
+    ],
+    [
+        "variational bayesian method",
+        0
+    ],
+    [
+        "theano (software)",
+        0
+    ],
+    [
+        "logistic regression",
+        0
+    ],
+    [
+        "false positive",
+        0
+    ],
+    [
+        "vapnik–chervonenkis dimension",
+        0
+    ],
+    [
+        "euclidean space",
+        0
+    ],
+    [
+        "randomized algorithm",
+        0
+    ],
+    [
+        "draught",
+        0
+    ],
+    [
+        "transformation (geometry)",
+        0
+    ],
+    [
+        "model checking",
+        0
+    ],
+    [
+        "michael n. katehaki",
+        0
+    ],
+    [
+        "galileo galilei",
+        0
+    ],
+    [
+        "algorithmic learning theory",
+        0
+    ],
+    [
+        "international center for numerical methods in engineering",
+        0
+    ],
+    [
+        "manifold regularization",
+        0
+    ],
+    [
+        "noisy text",
+        0
+    ],
+    [
+        "adrien-marie legendre",
+        0
+    ],
+    [
+        "intrusion detection system",
+        0
+    ],
+    [
+        "character recognition",
+        0
+    ],
+    [
+        "commonsense knowledge (artificial intelligence)",
+        0
+    ],
+    [
+        "topic model",
+        0
+    ],
+    [
+        "expected risk",
+        0
+    ],
+    [
+        "beamrider",
+        0
+    ],
+    [
+        "spectral graph theory",
+        0
+    ],
+    [
+        "greedy algorithm",
+        0
+    ],
+    [
+        "conflict (process)",
+        0
+    ],
+    [
+        "blindnes",
+        0
+    ],
+    [
+        "classification rule",
+        0
+    ],
+    [
+        "skymind",
+        0
+    ],
+    [
+        "cognitive computing",
+        0
+    ],
+    [
+        "medical test",
+        0
+    ],
+    [
+        "andrey kolmogorov",
+        0
+    ],
+    [
+        "identity matrix",
+        0
+    ],
+    [
+        "morpheme",
+        0
+    ],
+    [
+        "data set",
+        0
+    ],
+    [
+        "data wrangling",
+        0
+    ],
+    [
+        "language education",
+        0
+    ],
+    [
+        "linear subspace",
+        0
+    ],
+    [
+        "convex body",
+        0
+    ],
+    [
+        "v. v. maksimov",
+        0
+    ],
+    [
+        "bentley",
+        0
+    ],
+    [
+        "spline regression",
+        0
+    ],
+    [
+        "logical implication",
+        0
+    ],
+    [
+        "computational geometry",
+        0
+    ],
+    [
+        "zendo (game)",
+        0
+    ],
+    [
+        "priority queue",
+        0
+    ],
+    [
+        "feature scaling",
+        0
+    ],
+    [
+        "syntactic structure",
+        0
+    ],
+    [
+        "data pre-processing",
+        0
+    ],
+    [
+        "concept learning",
+        0
+    ],
+    [
+        "comparison of deep learning software",
+        0
+    ],
+    [
+        "quantitative structure-activity relationship",
+        0
+    ],
+    [
+        "boolean algebra",
+        0
+    ],
+    [
+        "semi-supervised learning",
+        0
+    ],
+    [
+        "arithmetic precision",
+        0
+    ],
+    [
+        "proaftn",
+        0
+    ],
+    [
+        "meta learning (computer science)",
+        0
+    ],
+    [
+        "concentration of measure",
+        0
+    ],
+    [
+        "calculu",
+        0
+    ],
+    [
+        "biological neural network",
+        0
+    ],
+    [
+        "action selection",
+        0
+    ],
+    [
+        "production system (computer science)",
+        0
+    ],
+    [
+        "stochastic convex optimization",
+        0
+    ],
+    [
+        "named graph",
+        0
+    ],
+    [
+        "cross entropy",
+        0
+    ],
+    [
+        "even number",
+        0
+    ],
+    [
+        "gesture recognition",
+        0
+    ],
+    [
+        "lasso (statistics)",
+        0
+    ],
+    [
+        "aixi",
+        0
+    ],
+    [
+        "snapdragon (system on chip)",
+        0
+    ],
+    [
+        "deep neural network",
+        0
+    ],
+    [
+        "separation logic",
+        0
+    ],
+    [
+        "plagiarism detection",
+        0
+    ],
+    [
+        "action language",
+        0
+    ],
+    [
+        "boosting (machine learning)",
+        0
+    ],
+    [
+        "swarthmore college",
+        0
+    ],
+    [
+        "risk (statistics)",
+        0
+    ],
+    [
+        "evolutionary programming",
+        0
+    ],
+    [
+        "software engineering",
+        0
+    ],
+    [
+        "gaussian process",
+        0
+    ],
+    [
+        "feature extraction",
+        0
+    ],
+    [
+        "thompson sampling",
+        0
+    ],
+    [
+        "johnson–lindenstrauss lemma",
+        0
+    ],
+    [
+        "set cover problem",
+        0
+    ],
+    [
+        "pareto distribution",
+        0
+    ],
+    [
+        "binary variable",
+        0
+    ],
+    [
+        "exemplar theory",
+        0
+    ],
+    [
+        "julia (programming language)",
+        0
+    ],
+    [
+        "adaptive neuro fuzzy inference system",
+        0
+    ],
+    [
+        "consistent estimator",
+        0
+    ],
+    [
+        "document-term matrix",
+        0
+    ],
+    [
+        "energy function",
+        0
+    ],
+    [
+        "statement (logic)",
+        0
+    ],
+    [
+        "branching factor",
+        0
+    ],
+    [
+        "bongard problem",
+        0
+    ],
+    [
+        "judea pearl",
+        0
+    ],
+    [
+        "windows phone",
+        0
+    ],
+    [
+        "model based recognition",
+        0
+    ],
+    [
+        "deloitte",
+        0
+    ],
+    [
+        "information gain in decision trees",
+        0
+    ],
+    [
+        "adaptive resonance theory",
+        0
+    ],
+    [
+        "learner corpu",
+        0
+    ],
+    [
+        "minimum description length",
+        0
+    ],
+    [
+        "grounded theory",
+        0
+    ],
+    [
+        "clustering high-dimensional datum",
+        0
+    ],
+    [
+        "cramér's v (statistics)",
+        0
+    ],
+    [
+        "greedy search",
+        0
+    ],
+    [
+        "hyperspace analogue to language",
+        0
+    ],
+    [
+        "gnu octave",
+        0
+    ],
+    [
+        "timeline of artificial intelligence",
+        0
+    ],
+    [
+        "kernel regression",
+        0
+    ],
+    [
+        "scientific model",
+        0
+    ],
+    [
+        "matrix (math)",
+        0
+    ],
+    [
+        "pierre-simon laplace",
+        0
+    ],
+    [
+        "mpsoc",
+        0
+    ],
+    [
+        "john shawe-taylor",
+        0
+    ],
+    [
+        "monte carlo method",
+        0
+    ],
+    [
+        "q-learning",
+        0
+    ],
+    [
+        "marginal total",
+        0
+    ],
+    [
+        "sat solver",
+        0
+    ],
+    [
+        "recommender system",
+        0
+    ],
+    [
+        "margin (machine learning)",
+        0
+    ],
+    [
+        "chalmers university of technology",
+        0
+    ],
+    [
+        "binary classification",
+        0
+    ],
+    [
+        "chosen-ciphertext attack",
+        0
+    ],
+    [
+        "case-based reasoning",
+        0
+    ],
+    [
+        "retrograde amnesia",
+        0
+    ],
+    [
+        "mixture of experts",
+        0
+    ],
+    [
+        "algorithmic inference",
+        0
+    ],
+    [
+        "rational function modeling",
+        0
+    ],
+    [
+        "inductive bia",
+        0
+    ],
+    [
+        "support vector machine",
+        0
+    ],
+    [
+        "one-way function",
+        0
+    ],
+    [
+        "adaptive control",
+        0
+    ],
+    [
+        "word vector",
+        0
+    ],
+    [
+        "orthocomplemented lattice",
+        0
+    ],
+    [
+        "peter nordin",
+        0
+    ],
+    [
+        "linear function",
+        0
+    ],
+    [
+        "socioeconomic",
+        0
+    ],
+    [
+        "natural language processing",
+        0
+    ],
+    [
+        "relational bayesian network",
+        0
+    ],
+    [
+        "matrix multiplication",
+        0
+    ],
+    [
+        "johnson-lindenstrauss lemma",
+        0
+    ],
+    [
+        "similarity function",
+        0
+    ],
+    [
+        "gerd gigerenzer",
+        0
+    ],
+    [
+        "signal-to-noise ratio",
+        0
+    ],
+    [
+        "uncertainty coefficient",
+        0
+    ],
+    [
+        "quantum mechanic",
+        0
+    ],
+    [
+        "multi-swarm optimization",
+        0
+    ],
+    [
+        "spamdexing",
+        0
+    ],
+    [
+        "image spam",
+        0
+    ],
+    [
+        "brute-force search",
+        0
+    ],
+    [
+        "international conference on acoustics, speech, and signal processing",
+        0
+    ],
+    [
+        "local regression",
+        0
+    ],
+    [
+        "vanishing gradient problem",
+        0
+    ],
+    [
+        "software agent",
+        0
+    ],
+    [
+        "sensor fusion",
+        0
+    ],
+    [
+        "cache language model",
+        0
+    ],
+    [
+        "soft set",
+        0
+    ],
+    [
+        "university of york",
+        0
+    ],
+    [
+        "alexey chervonenki",
+        0
+    ],
+    [
+        "multi-agent system",
+        0
+    ],
+    [
+        "matrix transpose",
+        0
+    ],
+    [
+        "minitab",
+        0
+    ],
+    [
+        "grand total",
+        0
+    ],
+    [
+        "jonas mocku",
+        0
+    ],
+    [
+        "stochastic optimization",
+        0
+    ],
+    [
+        "learning algorithm",
+        0
+    ],
+    [
+        "ucl faculty of life sciences",
+        0
+    ],
+    [
+        "olap",
+        0
+    ],
+    [
+        "hyperbolic tangent",
+        0
+    ],
+    [
+        "empiricist",
+        0
+    ],
+    [
+        "socr",
+        0
+    ],
+    [
+        "regression coefficient",
+        0
+    ],
+    [
+        "averaged one-dependence estimator",
+        0
+    ],
+    [
+        "angel investor",
+        0
+    ],
+    [
+        "cartesian coordinate system",
+        0
+    ],
+    [
+        "metabolic network modelling",
+        0
+    ],
+    [
+        "cn2 algorithm",
+        0
+    ],
+    [
+        "ultrasparc",
+        0
+    ],
+    [
+        "likelihood ratio in diagnostic testing",
+        0
+    ],
+    [
+        "multi-entity bayesian network",
+        0
+    ],
+    [
+        "file:video represented as a third-order tensor.jpg",
+        0
+    ],
+    [
+        "richard o. duda",
+        0
+    ],
+    [
+        "infobright",
+        0
+    ],
+    [
+        "file:friedmans mars ozone model.png",
+        0
+    ],
+    [
+        "data acquisition",
+        0
+    ],
+    [
+        "proximal gradient method for learning",
+        0
+    ],
+    [
+        "automatic target recognition",
+        0
+    ],
+    [
+        "semi-continuity",
+        0
+    ],
+    [
+        "compressed sensing",
+        0
+    ],
+    [
+        "spam e-mail",
+        0
+    ],
+    [
+        "web application",
+        0
+    ],
+    [
+        "nature (journal)",
+        0
+    ],
+    [
+        "constrained conditional model",
+        0
+    ],
+    [
+        "ensemble averaging",
+        0
+    ],
+    [
+        "activation function",
+        0
+    ],
+    [
+        "off-line algorithm",
+        0
+    ],
+    [
+        "toxicogenomic",
+        0
+    ],
+    [
+        "data structure",
+        0
+    ],
+    [
+        "file:nasa manhattan.jpg",
+        0
+    ],
+    [
+        "hierarchical clustering",
+        0
+    ],
+    [
+        "quantum artificial intelligence lab",
+        0
+    ],
+    [
+        "labeled datum",
+        0
+    ],
+    [
+        "yandex",
+        0
+    ],
+    [
+        "basic category",
+        0
+    ],
+    [
+        "posterior sampling",
+        0
+    ],
+    [
+        "marcus hutter",
+        0
+    ],
+    [
+        "file:os2 td-gammon screenshot.png",
+        0
+    ],
+    [
+        "video game",
+        0
+    ],
+    [
+        "heavy-tailed distribution",
+        0
+    ],
+    [
+        "apprenticeship learning",
+        0
+    ],
+    [
+        "ip addres",
+        0
+    ],
+    [
+        "apache hadoop",
+        0
+    ],
+    [
+        "associative array",
+        0
+    ],
+    [
+        "evolutionary robotic",
+        0
+    ],
+    [
+        "ugly duckling theorem",
+        0
+    ],
+    [
+        "semantic analysis (knowledge representation)",
+        0
+    ],
+    [
+        "gradient boosting",
+        0
+    ],
+    [
+        "radial basis function kernel",
+        0
+    ],
+    [
+        "email spam",
+        0
+    ],
+    [
+        "continuous variable",
+        0
+    ],
+    [
+        "the ugly duckling",
+        0
+    ],
+    [
+        "short term memory",
+        0
+    ],
+    [
+        "geoffrey hinton",
+        0
+    ],
+    [
+        "overhead imagery research data set",
+        0
+    ],
+    [
+        "englewood cliffs, nj",
+        0
+    ],
+    [
+        "nearest-neighbor interpolation",
+        0
+    ],
+    [
+        "second-language acquisition",
+        0
+    ],
+    [
+        "new scientist",
+        0
+    ],
+    [
+        "k-svd",
+        0
+    ],
+    [
+        "discrete system",
+        0
+    ],
+    [
+        "herbert robbin",
+        0
+    ],
+    [
+        "table of confusion",
+        0
+    ],
+    [
+        "special interest group on information retrieval",
+        0
+    ],
+    [
+        "spam filter",
+        0
+    ],
+    [
+        "bounded function",
+        0
+    ],
+    [
+        "maximum variance unfolding",
+        0
+    ],
+    [
+        "bit array",
+        0
+    ],
+    [
+        "bernard silverman",
+        0
+    ],
+    [
+        "bag of words",
+        0
+    ],
+    [
+        "pong",
+        0
+    ],
+    [
+        "false alarm",
+        0
+    ],
+    [
+        "optimal experimental design",
+        0
+    ],
+    [
+        "correlation clustering",
+        0
+    ],
+    [
+        "knowledge engineering",
+        0
+    ],
+    [
+        "deep blue (chess computer)",
+        0
+    ],
+    [
+        "sufficient statistic",
+        0
+    ],
+    [
+        "italian institute of technology",
+        0
+    ],
+    [
+        "labelme",
+        0
+    ],
+    [
+        "multivariate kernel density estimation",
+        0
+    ],
+    [
+        "opennn",
+        0
+    ],
+    [
+        "ripple down rule",
+        0
+    ],
+    [
+        "analogical modeling",
+        0
+    ],
+    [
+        "pddl",
+        0
+    ],
+    [
+        "berlin",
+        0
+    ],
+    [
+        "file:concept lattice.svg",
+        0
+    ],
+    [
+        "deep belief net",
+        0
+    ],
+    [
+        "closure operator",
+        0
+    ],
+    [
+        "central processing unit",
+        0
+    ],
+    [
+        "sequence alignment",
+        0
+    ],
+    [
+        "bing (search engine)",
+        0
+    ],
+    [
+        "argumentation framework",
+        0
+    ],
+    [
+        "reuven rubinstein",
+        0
+    ],
+    [
+        "dimensionality reduction",
+        0
+    ],
+    [
+        "blind signal separation",
+        0
+    ],
+    [
+        "computer hardware",
+        0
+    ],
+    [
+        "jabberwacky",
+        0
+    ],
+    [
+        "varonis system",
+        0
+    ],
+    [
+        "document retrieval",
+        0
+    ],
+    [
+        "nearest neighbor interpolation",
+        0
+    ],
+    [
+        "database mining",
+        0
+    ],
+    [
+        "blog model",
+        0
+    ],
+    [
+        "shane legg",
+        0
+    ],
+    [
+        "advanced persistent threat",
+        0
+    ],
+    [
+        "reward function",
+        0
+    ],
+    [
+        "statistical classification",
+        0
+    ],
+    [
+        "group method of data handling",
+        0
+    ],
+    [
+        "phaeaco",
+        0
+    ],
+    [
+        "language identification in the limit",
+        0
+    ],
+    [
+        "game theory",
+        0
+    ],
+    [
+        "mustafa suleyman",
+        0
+    ],
+    [
+        "field of reals",
+        0
+    ],
+    [
+        "computational mathematic",
+        0
+    ],
+    [
+        "sample exclusion dimension",
+        0
+    ],
+    [
+        "clinical trial",
+        0
+    ],
+    [
+        "mill's method",
+        0
+    ],
+    [
+        "occam learning",
+        0
+    ],
+    [
+        "doom (series)",
+        0
+    ],
+    [
+        "international monetary fund",
+        0
+    ],
+    [
+        "deductive classifier",
+        0
+    ],
+    [
+        "productions (computer science)",
+        0
+    ],
+    [
+        "fourier analysi",
+        0
+    ],
+    [
+        "journal of experimental and theoretical artificial intelligence",
+        0
+    ],
+    [
+        "optimization problem",
+        0
+    ],
+    [
+        "slack variable",
+        0
+    ],
+    [
+        "boolean data type",
+        0
+    ],
+    [
+        "false discovery rate",
+        0
+    ],
+    [
+        "gene set enrichment",
+        0
+    ],
+    [
+        "cross-entropy method",
+        0
+    ],
+    [
+        "boolean value",
+        0
+    ],
+    [
+        "link prediction",
+        0
+    ],
+    [
+        "corinna corte",
+        0
+    ],
+    [
+        "peter e. hart",
+        0
+    ],
+    [
+        "blood value",
+        0
+    ],
+    [
+        "graph (discrete mathematics)",
+        0
+    ],
+    [
+        "sequitur algorithm",
+        0
+    ],
+    [
+        "information science",
+        0
+    ],
+    [
+        "possible world",
+        0
+    ],
+    [
+        "data type",
+        0
+    ],
+    [
+        "annal of applied probability",
+        0
+    ],
+    [
+        "liu cixin",
+        0
+    ],
+    [
+        "cross tabulation",
+        0
+    ],
+    [
+        "machine listening",
+        0
+    ],
+    [
+        "synthetic intelligence",
+        0
+    ],
+    [
+        "euclidean vector",
+        0
+    ],
+    [
+        "university of waterloo",
+        0
+    ],
+    [
+        "bayesian inference",
+        0
+    ],
+    [
+        "flexible mixture model (fmm)",
+        0
+    ],
+    [
+        "linear mapping",
+        0
+    ],
+    [
+        "image analysi",
+        0
+    ],
+    [
+        "multi-armed bandit",
+        0
+    ],
+    [
+        "bees algorithm",
+        0
+    ],
+    [
+        "kolmogorov complexity",
+        0
+    ],
+    [
+        "complement (set theory)",
+        0
+    ],
+    [
+        "cobweb (clustering)",
+        0
+    ],
+    [
+        "random forest",
+        0
+    ],
+    [
+        "file:a simple neural network with two input units and one output unit.png",
+        0
+    ],
+    [
+        "binary classifier",
+        0
+    ],
+    [
+        "fmri",
+        0
+    ],
+    [
+        "motor cognition",
+        0
+    ],
+    [
+        "quasi-random",
+        0
+    ],
+    [
+        "issue tree",
+        0
+    ],
+    [
+        "new riddle of induction",
+        0
+    ],
+    [
+        "topological data analysi",
+        0
+    ],
+    [
+        "non-parametric statistic",
+        0
+    ],
+    [
+        "pregnancy test",
+        0
+    ],
+    [
+        "boolean algebra (structure)",
+        0
+    ],
+    [
+        "prior knowledge for pattern recognition",
+        0
+    ],
+    [
+        "co-training",
+        0
+    ],
+    [
+        "higher-order singular value decomposition",
+        0
+    ],
+    [
+        "lisp (programming language)",
+        0
+    ],
+    [
+        "universal computer",
+        0
+    ],
+    [
+        "locality sensitive hashing",
+        0
+    ],
+    [
+        "latent semantic analysi",
+        0
+    ],
+    [
+        "cue validity",
+        0
+    ],
+    [
+        "formalism (mathematics)",
+        0
+    ],
+    [
+        "rectifier (neural networks)",
+        0
+    ],
+    [
+        "machine translation",
+        0
+    ],
+    [
+        "propositional function",
+        0
+    ],
+    [
+        "statistical model",
+        0
+    ],
+    [
+        "gaussian elimination",
+        0
+    ],
+    [
+        "noam chomsky",
+        0
+    ],
+    [
+        "property (philosophy)",
+        0
+    ],
+    [
+        "shrinkage (statistics)",
+        0
+    ],
+    [
+        "carl herbert smith",
+        0
+    ],
+    [
+        "features (pattern recognition)",
+        0
+    ],
+    [
+        "supply chain",
+        0
+    ],
+    [
+        "lise getoor",
+        0
+    ],
+    [
+        "joshua tenenbaum",
+        0
+    ],
+    [
+        "kernel principal component analysi",
+        0
+    ],
+    [
+        "file:classification tree widget in orange 3.0.png",
+        0
+    ],
+    [
+        "cornell aeronautical laboratory",
+        0
+    ],
+    [
+        "nearest neighbor distance ratio",
+        0
+    ],
+    [
+        "quantum machine learning",
+        0
+    ],
+    [
+        "data stream mining",
+        0
+    ],
+    [
+        "unicef",
+        0
+    ],
+    [
+        "data processing",
+        0
+    ],
+    [
+        "swarm intelligence",
+        0
+    ],
+    [
+        "language model",
+        0
+    ],
+    [
+        "boolean function",
+        0
+    ],
+    [
+        "martin davi",
+        0
+    ],
+    [
+        "homogeneous linear",
+        0
+    ],
+    [
+        "continuous distribution",
+        0
+    ],
+    [
+        "king juan carlos university",
+        0
+    ],
+    [
+        "kl-one",
+        0
+    ],
+    [
+        "kannada alphabet",
+        0
+    ],
+    [
+        "abductive reasoning",
+        0
+    ],
+    [
+        "arithmetic mean",
+        0
+    ],
+    [
+        "noun phrase",
+        0
+    ],
+    [
+        "kullback–leibler divergence",
+        0
+    ],
+    [
+        "statistical sample",
+        0
+    ],
+    [
+        "rasch model",
+        0
+    ],
+    [
+        "philosophy of perception",
+        0
+    ],
+    [
+        "poset height",
+        0
+    ],
+    [
+        "frank rosenblatt",
+        0
+    ],
+    [
+        "scale (social sciences)",
+        0
+    ],
+    [
+        "gnuplot",
+        0
+    ],
+    [
+        "kolmogorov–smirnov",
+        0
+    ],
+    [
+        "pearson's chi-square test",
+        0
+    ],
+    [
+        "value-attribute system",
+        0
+    ],
+    [
+        "united states house of representatives elections, 2014",
+        0
+    ],
+    [
+        "bulletin of the american mathematical society",
+        0
+    ],
+    [
+        "learning to rank",
+        0
+    ],
+    [
+        "chi-squared distribution",
+        0
+    ],
+    [
+        "automated planning and scheduling",
+        0
+    ],
+    [
+        "backward chaining",
+        0
+    ],
+    [
+        "intelligence explosion",
+        0
+    ],
+    [
+        "nearest neighbor (pattern recognition)",
+        0
+    ],
+    [
+        "cambridge university pres",
+        0
+    ],
+    [
+        "named entity recognition",
+        0
+    ],
+    [
+        "mean squared error",
+        0
+    ],
+    [
+        "ithaca, ny",
+        0
+    ],
+    [
+        "node (computer science)",
+        0
+    ],
+    [
+        "database system",
+        0
+    ],
+    [
+        "cumulative learning",
+        0
+    ],
+    [
+        "face detection",
+        0
+    ],
+    [
+        "wordnet",
+        0
+    ],
+    [
+        "crossover (genetic algorithm)",
+        0
+    ],
+    [
+        "skewing",
+        0
+    ],
+    [
+        "harmonic mean",
+        0
+    ],
+    [
+        "home automation",
+        0
+    ],
+    [
+        "four seasons hotel",
+        0
+    ],
+    [
+        "glamour (magazine)",
+        0
+    ],
+    [
+        "gaussian proces",
+        0
+    ],
+    [
+        "quantum algorithm",
+        0
+    ],
+    [
+        "resampling (statistics)",
+        0
+    ],
+    [
+        "file:workflow-orange3.png",
+        0
+    ],
+    [
+        "weather forecast",
+        0
+    ],
+    [
+        "feature engineering",
+        0
+    ],
+    [
+        "eigenvalue, eigenvector and eigenspace",
+        0
+    ],
+    [
+        "file:muconfint.png",
+        0
+    ],
+    [
+        "computer data storage",
+        0
+    ],
+    [
+        "jerome h. friedman",
+        0
+    ],
+    [
+        "maximum entropy markov model",
+        0
+    ],
+    [
+        "curse of dimensionality",
+        0
+    ],
+    [
+        "preference (economics)",
+        0
+    ],
+    [
+        "quantum information theory",
+        0
+    ],
+    [
+        "masaki takemiya",
+        0
+    ],
+    [
+        "record linkage",
+        0
+    ],
+    [
+        "recursive random field",
+        0
+    ],
+    [
+        "minimum-variance unbiased estimator",
+        0
+    ],
+    [
+        "precision and recall",
+        0
+    ],
+    [
+        "query level feature",
+        0
+    ],
+    [
+        "university of mainz",
+        0
+    ],
+    [
+        "semantic network",
+        0
+    ],
+    [
+        "ring learning with errors key exchange",
+        0
+    ],
+    [
+        "glossary of artificial intelligence",
+        0
+    ],
+    [
+        "partially observable markov decision proces",
+        0
+    ],
+    [
+        "feature detection (nervous system)",
+        0
+    ],
+    [
+        "language modeling",
+        0
+    ],
+    [
+        "polynomial time",
+        0
+    ],
+    [
+        "informednes",
+        0
+    ],
+    [
+        "kernel trick",
+        0
+    ],
+    [
+        "mode (statistics)",
+        0
+    ],
+    [
+        "partition of a set",
+        0
+    ],
+    [
+        "sld resolution",
+        0
+    ],
+    [
+        "binary numeral system",
+        0
+    ],
+    [
+        "file:np-hardnes of pattern language membership svg.svg",
+        0
+    ],
+    [
+        "link-based clustering",
+        0
+    ],
+    [
+        "chinese remainder theorem",
+        0
+    ],
+    [
+        "context-free grammar",
+        0
+    ],
+    [
+        "sentence (logic)",
+        0
+    ],
+    [
+        "file:binary-classification-labeled.svg",
+        0
+    ],
+    [
+        "go professional",
+        0
+    ],
+    [
+        "university of massachusetts amherst",
+        0
+    ],
+    [
+        "convex function",
+        0
+    ],
+    [
+        "zeroth (software)",
+        0
+    ],
+    [
+        "linear programming",
+        0
+    ],
+    [
+        "belief network",
+        0
+    ],
+    [
+        "euclidean length",
+        0
+    ],
+    [
+        "graph traversal",
+        0
+    ],
+    [
+        "structured data mining",
+        0
+    ],
+    [
+        "lemmatisation",
+        0
+    ],
+    [
+        "hammersley–clifford theorem",
+        0
+    ],
+    [
+        "control group",
+        0
+    ],
+    [
+        "biological process",
+        0
+    ],
+    [
+        "peter burmeister",
+        0
+    ],
+    [
+        "idempotent",
+        0
+    ],
+    [
+        "library classification",
+        0
+    ],
+    [
+        "tree traversal",
+        0
+    ],
+    [
+        "list of the largest information technology companies",
+        0
+    ],
+    [
+        "vector quantization",
+        0
+    ],
+    [
+        "mathematical formalism",
+        0
+    ],
+    [
+        "jeff dean",
+        0
+    ],
+    [
+        "standard score",
+        0
+    ],
+    [
+        "mobile device",
+        0
+    ],
+    [
+        "scholarpedia",
+        0
+    ],
+    [
+        "bayesian inference using gibbs sampling",
+        0
+    ],
+    [
+        "computational number theory",
+        0
+    ],
+    [
+        "u.k.",
+        0
+    ],
+    [
+        "vanity fair (magazine)",
+        0
+    ],
+    [
+        "mountain car",
+        0
+    ],
+    [
+        "normalization (statistics)",
+        0
+    ],
+    [
+        "sensitivity and specificity",
+        0
+    ],
+    [
+        "bijective",
+        0
+    ],
+    [
+        "true quantified boolean formula",
+        0
+    ],
+    [
+        "association rule",
+        0
+    ],
+    [
+        "erdős–rényi model",
+        0
+    ],
+    [
+        "gaussian mixture model",
+        0
+    ],
+    [
+        "world war ii",
+        0
+    ],
+    [
+        "reuter",
+        0
+    ],
+    [
+        "arthur samuel",
+        0
+    ],
+    [
+        "type ii error",
+        0
+    ],
+    [
+        "estimation of distribution algorithm",
+        0
+    ],
+    [
+        "file:hazardconf.png",
+        0
+    ],
+    [
+        "file:exampleofapplicationofdynamiclogictonoisyimage.jpg",
+        0
+    ],
+    [
+        "john robert anderson (psychologist)",
+        0
+    ],
+    [
+        "tensor software",
+        0
+    ],
+    [
+        "context-free language",
+        0
+    ],
+    [
+        "glossary of areas of mathematics",
+        0
+    ],
+    [
+        "approximate string matching",
+        0
+    ],
+    [
+        "seaquest (video game)",
+        0
+    ],
+    [
+        "physical exercise",
+        0
+    ],
+    [
+        "satosi watanabe",
+        0
+    ],
+    [
+        "similarity search",
+        0
+    ],
+    [
+        "hyperparameter optimization",
+        0
+    ],
+    [
+        "embodied agent",
+        0
+    ],
+    [
+        "genetic operator",
+        0
+    ],
+    [
+        "breakout (video game)",
+        0
+    ],
+    [
+        "fast-moving consumer good",
+        0
+    ],
+    [
+        "conditional probability",
+        0
+    ],
+    [
+        "file:seymourpowelloffice.jpg",
+        0
+    ],
+    [
+        "subjective logic",
+        0
+    ],
+    [
+        "bayes theorem",
+        0
+    ],
+    [
+        "backwards induction",
+        0
+    ],
+    [
+        "remi el-ouazzane",
+        0
+    ],
+    [
+        "pacific marine environmental laboratory",
+        0
+    ],
+    [
+        "power set",
+        0
+    ],
+    [
+        "ranking function",
+        0
+    ],
+    [
+        "graph (abstract data type)",
+        0
+    ],
+    [
+        "semantics (computer science)",
+        0
+    ],
+    [
+        "norm (mathematics)",
+        0
+    ],
+    [
+        "cognitive bia",
+        0
+    ],
+    [
+        "straight-line grammar",
+        0
+    ],
+    [
+        "bayesian statistic",
+        0
+    ],
+    [
+        "divide and rule",
+        0
+    ],
+    [
+        "wavefunction",
+        0
+    ],
+    [
+        "noise and resistance",
+        0
+    ],
+    [
+        "zero-one loss function",
+        0
+    ],
+    [
+        "contrastive divergence",
+        0
+    ],
+    [
+        "mixture (probability)",
+        0
+    ],
+    [
+        "google brain",
+        0
+    ],
+    [
+        "forward chaining",
+        0
+    ],
+    [
+        "semantic reasoner",
+        0
+    ],
+    [
+        "cloud computing",
+        0
+    ],
+    [
+        "tom costello (businessman)",
+        0
+    ],
+    [
+        "linear combination",
+        0
+    ],
+    [
+        "heap (data structure)",
+        0
+    ],
+    [
+        "ambient intelligence",
+        0
+    ],
+    [
+        "demis hassabi",
+        0
+    ],
+    [
+        "deterministic noise",
+        0
+    ],
+    [
+        "information entropy",
+        0
+    ],
+    [
+        "huffman coding",
+        0
+    ],
+    [
+        "r-tree",
+        0
+    ],
+    [
+        "quadratic assignment problem",
+        0
+    ],
+    [
+        "gigo",
+        0
+    ],
+    [
+        "scale invariant",
+        0
+    ],
+    [
+        "pragmatic maxim",
+        0
+    ],
+    [
+        "kernel machine",
+        0
+    ],
+    [
+        "feature (computer vision)",
+        0
+    ],
+    [
+        "clinical decision support system",
+        0
+    ],
+    [
+        "funding circle",
+        0
+    ],
+    [
+        "meta-optimization",
+        0
+    ],
+    [
+        "semantic similarity",
+        0
+    ],
+    [
+        "pattern classification",
+        0
+    ],
+    [
+        "hierarchical bayes model",
+        0
+    ],
+    [
+        "random number generator",
+        0
+    ],
+    [
+        "bayes' theorem",
+        0
+    ],
+    [
+        "plsi",
+        0
+    ],
+    [
+        "file:friedmans mars simple model.png",
+        0
+    ],
+    [
+        "interval (mathematics)",
+        0
+    ],
+    [
+        "probability density function",
+        0
+    ],
+    [
+        "ronald j. william",
+        0
+    ],
+    [
+        "data reduction",
+        0
+    ],
+    [
+        "international go federation",
+        0
+    ],
+    [
+        "demetri terzopoulo",
+        0
+    ],
+    [
+        "space (mathematics)",
+        0
+    ],
+    [
+        "graph theory",
+        0
+    ],
+    [
+        "tensor decomposition",
+        0
+    ],
+    [
+        "logic learning machine",
+        0
+    ],
+    [
+        "thresholding (image processing)",
+        0
+    ],
+    [
+        "nokia",
+        0
+    ],
+    [
+        "normalized discounted cumulative gain",
+        0
+    ],
+    [
+        "early stopping",
+        0
+    ],
+    [
+        "ieee computational intelligence society",
+        0
+    ],
+    [
+        "dual (math)",
+        0
+    ],
+    [
+        "veriato",
+        0
+    ],
+    [
+        "probability density",
+        0
+    ],
+    [
+        "holdout method",
+        0
+    ],
+    [
+        "satisfiability",
+        0
+    ],
+    [
+        "knowledge model",
+        0
+    ],
+    [
+        "d-wave system",
+        0
+    ],
+    [
+        "mathematical logic",
+        0
+    ],
+    [
+        "test-driven development",
+        0
+    ],
+    [
+        "darkforest",
+        0
+    ],
+    [
+        "statistical population",
+        0
+    ],
+    [
+        "marvin minsky",
+        0
+    ],
+    [
+        "rademacher complexity",
+        0
+    ],
+    [
+        "neoplasm",
+        0
+    ],
+    [
+        "similarity learning",
+        0
+    ],
+    [
+        "christopher m. bishop",
+        0
+    ],
+    [
+        "jürgen schmidhuber",
+        0
+    ],
+    [
+        "sequence mining",
+        0
+    ],
+    [
+        "data mining",
+        0
+    ],
+    [
+        "twisting property",
+        0
+    ],
+    [
+        "lee sedol",
+        0
+    ],
+    [
+        "distance metric",
+        0
+    ],
+    [
+        "regression (machine learning)",
+        0
+    ],
+    [
+        "odds ratio",
+        0
+    ],
+    [
+        "positive predictive value",
+        0
+    ],
+    [
+        "lower bound",
+        0
+    ],
+    [
+        "pari",
+        0
+    ],
+    [
+        "principle of multiple explanations",
+        0
+    ],
+    [
+        "online advertising",
+        0
+    ],
+    [
+        "moore-penrose pseudoinverse",
+        0
+    ],
+    [
+        "pareto optimal",
+        0
+    ],
+    [
+        "preference learning",
+        0
+    ],
+    [
+        "markov proces",
+        0
+    ],
+    [
+        "active learning (machine learning)",
+        0
+    ],
+    [
+        "constructed language",
+        0
+    ],
+    [
+        "techcrunch",
+        0
+    ],
+    [
+        "deep learning",
+        0
+    ],
+    [
+        "non-parametric regression",
+        0
+    ],
+    [
+        "colorless green ideas sleep furiously",
+        0
+    ],
+    [
+        "server (computing)",
+        0
+    ],
+    [
+        "witty (computer worm)",
+        0
+    ],
+    [
+        "apache spark",
+        0
+    ],
+    [
+        "named-entity recognition",
+        0
+    ],
+    [
+        "sporting event",
+        0
+    ],
+    [
+        "free software",
+        0
+    ],
+    [
+        "loss functional",
+        0
+    ],
+    [
+        "wavelet transform",
+        0
+    ],
+    [
+        "leave one out error",
+        0
+    ],
+    [
+        "grace wahba",
+        0
+    ],
+    [
+        "dot product",
+        0
+    ],
+    [
+        "constraint (mathematics)",
+        0
+    ],
+    [
+        "interference theory",
+        0
+    ],
+    [
+        "standard deviation",
+        0
+    ],
+    [
+        "video tracking",
+        0
+    ],
+    [
+        "java virtual machine",
+        0
+    ],
+    [
+        "pac-man",
+        0
+    ],
+    [
+        "principal component analysi",
+        0
+    ],
+    [
+        "carnegie mellon university",
+        0
+    ],
+    [
+        "correlation does not imply causation",
+        0
+    ],
+    [
+        "file:overfitting svg.svg",
+        0
+    ],
+    [
+        "genetic algorithm",
+        0
+    ],
+    [
+        "alexandria, virginia",
+        0
+    ],
+    [
+        "expectation propagation",
+        0
+    ],
+    [
+        "False general public license",
+        0
+    ],
+    [
+        "tensortexture",
+        0
+    ],
+    [
+        "semicontinuous function",
+        0
+    ],
+    [
+        "open-source software",
+        0
+    ],
+    [
+        "lossless data compression",
+        0
+    ],
+    [
+        "daimler ag",
+        0
+    ],
+    [
+        "boltzmann machine",
+        0
+    ],
+    [
+        "jeopardy!",
+        0
+    ],
+    [
+        "combinatoric",
+        0
+    ],
+    [
+        "university of texas at austin",
+        0
+    ],
+    [
+        "maximum a posteriori",
+        0
+    ],
+    [
+        "symbolic machine learning",
+        0
+    ],
+    [
+        "nature journal",
+        0
+    ],
+    [
+        "library (computing)",
+        0
+    ],
+    [
+        "standard basi",
+        0
+    ],
+    [
+        "idsia",
+        0
+    ],
+    [
+        "file:mlr-search-engine-example.png",
+        0
+    ],
+    [
+        "data anonymization",
+        0
+    ],
+    [
+        "collective classification",
+        0
+    ],
+    [
+        "statistical natural language processing",
+        0
+    ],
+    [
+        "mikhail moiseevich bongard",
+        0
+    ],
+    [
+        "vc dimension",
+        0
+    ],
+    [
+        "joint information",
+        0
+    ],
+    [
+        "multi-label classification",
+        0
+    ],
+    [
+        "travelling salesman problem",
+        0
+    ],
+    [
+        "concentration parameter",
+        0
+    ],
+    [
+        "visual cortex",
+        0
+    ],
+    [
+        "unit hypercube",
+        0
+    ],
+    [
+        "feedforward neural network",
+        0
+    ],
+    [
+        "kernel function",
+        0
+    ],
+    [
+        "recursion",
+        0
+    ],
+    [
+        "adaptive algorithm",
+        0
+    ],
+    [
+        "the master algorithm",
+        0
+    ],
+    [
+        "starcraft",
+        0
+    ],
+    [
+        "concept hierarchy",
+        0
+    ],
+    [
+        "cbcl (mit)",
+        0
+    ],
+    [
+        "polynomial regression",
+        0
+    ],
+    [
+        "jacek zurada",
+        0
+    ],
+    [
+        "file:las vegas slot machines.jpg",
+        0
+    ],
+    [
+        "language transfer",
+        0
+    ],
+    [
+        "evolutionary algorithm",
+        0
+    ],
+    [
+        "united states senate elections, 2014",
+        0
+    ],
+    [
+        "thesauru",
+        0
+    ],
+    [
+        "unary coding",
+        0
+    ],
+    [
+        "one-class classification",
+        0
+    ],
+    [
+        "default logic",
+        0
+    ],
+    [
+        "jaan tallinn",
+        0
+    ],
+    [
+        "decision strategy",
+        0
+    ],
+    [
+        "file:compactness comparison of linear and multilinear projections.png",
+        0
+    ],
+    [
+        "lloyd's algorithm",
+        0
+    ],
+    [
+        "qualcomm",
+        0
+    ],
+    [
+        "c sharp (programming language)",
+        0
+    ],
+    [
+        "minimal mapping",
+        0
+    ],
+    [
+        "latent variable model",
+        0
+    ],
+    [
+        "function approximation",
+        0
+    ],
+    [
+        "hilbert–schmidt operator",
+        0
+    ],
+    [
+        "automatic differentiation",
+        0
+    ],
+    [
+        "ipum",
+        0
+    ],
+    [
+        "analysi of algorithms",
+        0
+    ],
+    [
+        "partial order",
+        0
+    ],
+    [
+        "document clustering",
+        0
+    ],
+    [
+        "skewnes",
+        0
+    ],
+    [
+        "stethoscope",
+        0
+    ],
+    [
+        "university of massachusetts",
+        0
+    ],
+    [
+        "learning vector quantization",
+        0
+    ],
+    [
+        "disjunction",
+        0
+    ],
+    [
+        "tikhonov regularization",
+        0
+    ],
+    [
+        "point (geometry)",
+        0
+    ],
+    [
+        "vapnik-chervonenkis dimension",
+        0
+    ],
+    [
+        "list of important publications in computer science",
+        0
+    ],
+    [
+        "student's t distribution",
+        0
+    ],
+    [
+        "beijing, china",
+        0
+    ],
+    [
+        "rulex",
+        0
+    ],
+    [
+        "accuracy and precision",
+        0
+    ],
+    [
+        "continuous function",
+        0
+    ],
+    [
+        "file:version space.png",
+        0
+    ],
+    [
+        "probabilistic graphical model",
+        0
+    ],
+    [
+        "false omission rate",
+        0
+    ],
+    [
+        "vp-tree",
+        0
+    ],
+    [
+        "microsoft research",
+        0
+    ],
+    [
+        "enterprise resource planning",
+        0
+    ],
+    [
+        "gradient descent",
+        0
+    ],
+    [
+        "linear correlation",
+        0
+    ],
+    [
+        "joint probability distribution",
+        0
+    ],
+    [
+        "0-1 loss function",
+        0
+    ],
+    [
+        "file:friedmans mars linear model.png",
+        0
+    ],
+    [
+        "beta distribution",
+        0
+    ],
+    [
+        "domain theory",
+        0
+    ],
+    [
+        "levenshtein distance",
+        0
+    ],
+    [
+        "john hopfield",
+        0
+    ],
+    [
+        "outcome (probability)",
+        0
+    ],
+    [
+        "subject-matter expert",
+        0
+    ],
+    [
+        "file:vc1.svg",
+        0
+    ],
+    [
+        "multiclass classification",
+        0
+    ],
+    [
+        "relational kalman filtering",
+        0
+    ],
+    [
+        "two-streams hypothesi",
+        0
+    ],
+    [
+        "vc theory",
+        0
+    ],
+    [
+        "hans christian andersen",
+        0
+    ],
+    [
+        "seppo linnainmaa",
+        0
+    ],
+    [
+        "no free lunch in search and optimization",
+        0
+    ],
+    [
+        "measure (mathematics)",
+        0
+    ],
+    [
+        "rule induction",
+        0
+    ],
+    [
+        "little o notation",
+        0
+    ],
+    [
+        "harry foundali",
+        0
+    ],
+    [
+        "multilinear ica",
+        0
+    ],
+    [
+        "knowledge management",
+        0
+    ],
+    [
+        "comparison of deep learning frameworks",
+        0
+    ],
+    [
+        "viterbi algorithm",
+        0
+    ],
+    [
+        "stereoscopy",
+        0
+    ],
+    [
+        "feature vector",
+        0
+    ],
+    [
+        "cover tree",
+        0
+    ],
+    [
+        "bootstrap aggregating",
+        0
+    ],
+    [
+        "target variable",
+        0
+    ],
+    [
+        "symmetry in mathematics",
+        0
+    ],
+    [
+        "qt (software)",
+        0
+    ],
+    [
+        "startup company",
+        0
+    ],
+    [
+        "motor neuron",
+        0
+    ],
+    [
+        "evo-devo",
+        0
+    ],
+    [
+        "tucker decomposition",
+        0
+    ],
+    [
+        "elo rating system",
+        0
+    ],
+    [
+        "peter lee (computer scientist)",
+        0
+    ],
+    [
+        "gabor function",
+        0
+    ],
+    [
+        "convex optimization",
+        0
+    ],
+    [
+        "norbert fuhr",
+        0
+    ],
+    [
+        "neural modeling field",
+        0
+    ],
+    [
+        "universal portfolio algorithm",
+        0
+    ],
+    [
+        "saa",
+        0
+    ],
+    [
+        "constraint satisfaction problem",
+        0
+    ],
+    [
+        "linear algebra",
+        0
+    ],
+    [
+        "human chorionic gonadotropin",
+        0
+    ],
+    [
+        "probably approximately correct learning",
+        0
+    ],
+    [
+        "independent variable",
+        0
+    ],
+    [
+        "vector (geometric)",
+        0
+    ],
+    [
+        "log-likelihood",
+        0
+    ],
+    [
+        "software widget",
+        0
+    ],
+    [
+        "dissociated pres",
+        0
+    ],
+    [
+        "test method",
+        0
+    ],
+    [
+        "lazy learning",
+        0
+    ],
+    [
+        "monotonic",
+        0
+    ],
+    [
+        "michigan state university",
+        0
+    ],
+    [
+        "regression model validation",
+        0
+    ],
+    [
+        "false positives and false negative",
+        0
+    ],
+    [
+        "binary datum",
+        0
+    ],
+    [
+        "visual perception",
+        0
+    ],
+    [
+        "universal turing machine",
+        0
+    ],
+    [
+        "bayesian committee machine",
+        0
+    ],
+    [
+        "brain-computer interface",
+        0
+    ],
+    [
+        "computer go",
+        0
+    ],
+    [
+        "correlation and dependence",
+        0
+    ],
+    [
+        "hypothesis testing",
+        0
+    ],
+    [
+        "numerical analysi",
+        0
+    ],
+    [
+        "well-behaved statistic",
+        0
+    ],
+    [
+        "email filtering",
+        0
+    ],
+    [
+        "control theory",
+        0
+    ],
+    [
+        "action model learning",
+        0
+    ],
+    [
+        "correspondence analysi",
+        0
+    ],
+    [
+        "machine learning algorithm",
+        0
+    ],
+    [
+        "array data structure",
+        0
+    ],
+    [
+        "trie",
+        0
+    ],
+    [
+        "andrey markov",
+        0
+    ],
+    [
+        "linear predictor function",
+        0
+    ],
+    [
+        "torch (machine learning)",
+        0
+    ],
+    [
+        "fixed-radiu near neighbors",
+        0
+    ],
+    [
+        "information commissioner's office",
+        0
+    ],
+    [
+        "gestalt psychology",
+        0
+    ],
+    [
+        "eager learning",
+        0
+    ],
+    [
+        "magnetic resonance imaging",
+        0
+    ],
+    [
+        "abductive logic programming",
+        0
+    ],
+    [
+        "linear map",
+        0
+    ],
+    [
+        "mutual information",
+        0
+    ],
+    [
+        "go handicap",
+        0
+    ],
+    [
+        "convex analysi",
+        0
+    ],
+    [
+        "foreign language writing aid",
+        0
+    ],
+    [
+        "structure mining",
+        0
+    ],
+    [
+        "kernel (statistics)",
+        0
+    ],
+    [
+        "offline learning",
+        0
+    ],
+    [
+        "balanced box-decomposition tree",
+        0
+    ],
+    [
+        "prime number",
+        0
+    ],
+    [
+        "biclustering",
+        0
+    ],
+    [
+        "homogeneous quadratic",
+        0
+    ],
+    [
+        "stochastic context-free grammar",
+        0
+    ],
+    [
+        "e-mail spam",
+        0
+    ],
+    [
+        "university of ljubljana",
+        0
+    ],
+    [
+        "weather prediction",
+        0
+    ],
+    [
+        "kunihiko fukushima",
+        0
+    ],
+    [
+        "developmental robotic",
+        0
+    ],
+    [
+        "multilinear singular value decomposition",
+        0
+    ],
+    [
+        ".net framework",
+        0
+    ],
+    [
+        "parity function",
+        0
+    ],
+    [
+        "nominalist",
+        0
+    ],
+    [
+        "q*bert",
+        0
+    ],
+    [
+        "explanation-based learning",
+        0
+    ],
+    [
+        "independent identically distributed",
+        0
+    ],
+    [
+        "hardware acceleration",
+        0
+    ],
+    [
+        "neural turing machine",
+        0
+    ],
+    [
+        "query language",
+        0
+    ],
+    [
+        "bipartite graph",
+        0
+    ],
+    [
+        "spell checking",
+        0
+    ],
+    [
+        "joint entropy",
+        0
+    ],
+    [
+        "probabilistic programming language",
+        0
+    ],
+    [
+        "drug discovery",
+        0
+    ],
+    [
+        "random variable",
+        0
+    ],
+    [
+        "josef kittler",
+        0
+    ],
+    [
+        "online shop",
+        0
+    ],
+    [
+        "byte pair encoding",
+        0
+    ],
+    [
+        "explanatory variable",
+        0
+    ],
+    [
+        "ciml community portal",
+        0
+    ],
+    [
+        "inferential theory of learning",
+        0
+    ],
+    [
+        "multiset",
+        0
+    ],
+    [
+        "fmllr",
+        0
+    ],
+    [
+        "autonomic computing",
+        0
+    ],
+    [
+        "stuart j. russell",
+        0
+    ],
+    [
+        "overfitting (machine learning)",
+        0
+    ],
+    [
+        "file:1966-herbertrobbins.jpg",
+        0
+    ],
+    [
+        "ridge regression",
+        0
+    ],
+    [
+        "aristotle",
+        0
+    ],
+    [
+        "numerical digit",
+        0
+    ],
+    [
+        "file:the jet propulsion laboratory (9416811752).jpg",
+        0
+    ],
+    [
+        "gene prediction",
+        0
+    ],
+    [
+        "markov random field",
+        0
+    ],
+    [
+        "unit interval",
+        0
+    ],
+    [
+        "scott banister",
+        0
+    ],
+    [
+        "locally linear embedding",
+        0
+    ],
+    [
+        "log likelihood",
+        0
+    ],
+    [
+        "standard boolean model",
+        0
+    ],
+    [
+        "binghamton university",
+        0
+    ],
+    [
+        "language identification",
+        0
+    ],
+    [
+        "regularization by spectral filtering",
+        0
+    ],
+    [
+        "schatten norm",
+        0
+    ],
+    [
+        "shogi",
+        0
+    ],
+    [
+        "exponential growth",
+        0
+    ],
+    [
+        "social media",
+        0
+    ],
+    [
+        "spatial-temporal reasoning",
+        0
+    ],
+    [
+        "poisson distribution",
+        0
+    ],
+    [
+        "cybernetic",
+        0
+    ],
+    [
+        "list of numerical analysis software",
+        0
+    ],
+    [
+        "posterior distribution",
+        0
+    ],
+    [
+        "copula (statistics)",
+        0
+    ],
+    [
+        "spline interpolation",
+        0
+    ],
+    [
+        "computational statistic",
+        0
+    ],
+    [
+        "aiml",
+        0
+    ],
+    [
+        "diffusion map",
+        0
+    ],
+    [
+        "spam (electronic)",
+        0
+    ],
+    [
+        "pwm (window manager)",
+        0
+    ],
+    [
+        "kendall's tau",
+        0
+    ],
+    [
+        "sensitivity (tests)",
+        0
+    ],
+    [
+        "dropout (neural networks)",
+        0
+    ],
+    [
+        "limit (math)",
+        0
+    ],
+    [
+        "web search query",
+        0
+    ],
+    [
+        "file:kernel density.svg",
+        0
+    ],
+    [
+        "data integration",
+        0
+    ],
+    [
+        "artificial neural network",
+        0
+    ],
+    [
+        "false positive rate",
+        0
+    ],
+    [
+        "clojure (programming language)",
+        0
+    ],
+    [
+        "validity (statistics)",
+        0
+    ],
+    [
+        "maximally informative dimension",
+        0
+    ],
+    [
+        "sociolinguistic",
+        0
+    ],
+    [
+        "forensic linguistic",
+        0
+    ],
+    [
+        "data science",
+        0
+    ],
+    [
+        "neuroscience",
+        0
+    ],
+    [
+        "segmented regression",
+        0
+    ],
+    [
+        "petabyte",
+        0
+    ],
+    [
+        "point estimation",
+        0
+    ],
+    [
+        "neuro-fuzzy",
+        0
+    ],
+    [
+        "artificial grammar learning",
+        0
+    ],
+    [
+        "gibbs sampling",
+        0
+    ],
+    [
+        "distributional semantic",
+        0
+    ],
+    [
+        "hash function",
+        0
+    ],
+    [
+        "video processing",
+        0
+    ],
+    [
+        "subsymbolic machine learning",
+        0
+    ],
+    [
+        "difference in differences",
+        0
+    ],
+    [
+        "scigen",
+        0
+    ],
+    [
+        "matrix completion",
+        0
+    ],
+    [
+        "computer-aided diagnosi",
+        0
+    ],
+    [
+        "ernst zermelo",
+        0
+    ],
+    [
+        "support (mathematics)",
+        0
+    ],
+    [
+        "median absolute deviation",
+        0
+    ],
+    [
+        "j.s. mill",
+        0
+    ],
+    [
+        "behavior tree (artificial intelligence, robotics and control)",
+        0
+    ],
+    [
+        "gauss–markov theorem",
+        0
+    ],
+    [
+        "canon inc.",
+        0
+    ],
+    [
+        "spearman's rank correlation coefficient",
+        0
+    ],
+    [
+        "threshold effect (disambiguation)",
+        0
+    ],
+    [
+        "discounted cumulative gain",
+        0
+    ],
+    [
+        "occam’s razor",
+        0
+    ],
+    [
+        "p versus np problem",
+        0
+    ],
+    [
+        "sparse pca",
+        0
+    ],
+    [
+        "hypothesi",
+        0
+    ],
+    [
+        "tahoe city, ca",
+        0
+    ],
+    [
+        "powerset",
+        0
+    ],
+    [
+        "horn clause",
+        0
+    ],
+    [
+        "thought vector",
+        0
+    ],
+    [
+        "motor babbling",
+        0
+    ],
+    [
+        "file:mildiag.jpg",
+        0
+    ],
+    [
+        "conjunctive normal form",
+        0
+    ],
+    [
+        "file:framework of ucb-alp for constrained contextual bandits.jpg",
+        0
+    ],
+    [
+        "plug-in estimate",
+        0
+    ],
+    [
+        "machine learning",
+        0
+    ],
+    [
+        "modus tollen",
+        0
+    ],
+    [
+        "basis pursuit",
+        0
+    ],
+    [
+        "detection theory",
+        0
+    ],
+    [
+        "glivenko-cantelli clas",
+        0
+    ],
+    [
+        "evolutionary computation",
+        0
+    ],
+    [
+        "new york city",
+        0
+    ],
+    [
+        "peter whittle",
+        0
+    ],
+    [
+        "ensemble averaging (machine learning)",
+        0
+    ],
+    [
+        "meta-datum",
+        0
+    ],
+    [
+        "gravid",
+        0
+    ],
+    [
+        "convex hull",
+        0
+    ],
+    [
+        "fort lauderdale, fl",
+        0
+    ],
+    [
+        "time series analysi",
+        0
+    ],
+    [
+        "andrey nikolayevich tikhonov",
+        0
+    ],
+    [
+        "university of california, riverside",
+        0
+    ],
+    [
+        "formal specification",
+        0
+    ],
+    [
+        "coprocessor",
+        0
+    ],
+    [
+        "probabilistic model",
+        0
+    ],
+    [
+        "chinook (draughts player)",
+        0
+    ],
+    [
+        "gaussian function",
+        0
+    ],
+    [
+        "k-nearest neighbor",
+        0
+    ],
+    [
+        "dependent and independent variable",
+        0
+    ],
+    [
+        "w-shingling",
+        0
+    ],
+    [
+        "perl",
+        0
+    ],
+    [
+        "derivative-free optimization",
+        0
+    ],
+    [
+        "traveling salesman problem",
+        0
+    ],
+    [
+        "dual norm",
+        0
+    ],
+    [
+        "linearly separable",
+        0
+    ],
+    [
+        "sparql",
+        0
+    ],
+    [
+        "seymour papert",
+        0
+    ],
+    [
+        "number theory",
+        0
+    ],
+    [
+        "bayes rule",
+        0
+    ],
+    [
+        "domain model",
+        0
+    ],
+    [
+        "pattern language (formal languages)",
+        0
+    ],
+    [
+        "insider threat",
+        0
+    ],
+    [
+        "system log",
+        0
+    ],
+    [
+        "vector (mathematics and physics)",
+        0
+    ],
+    [
+        "pel-c",
+        0
+    ],
+    [
+        "vapnik–chervonenkis theory",
+        0
+    ],
+    [
+        "combinatorial optimization",
+        0
+    ],
+    [
+        "mind candy",
+        0
+    ],
+    [
+        "crazy stone (software)",
+        0
+    ],
+    [
+        "self-management (computer science)",
+        0
+    ],
+    [
+        "linear program",
+        0
+    ],
+    [
+        "sparse approximation",
+        0
+    ],
+    [
+        "percolation threshold",
+        0
+    ],
+    [
+        "wav",
+        0
+    ],
+    [
+        "coding theory",
+        0
+    ],
+    [
+        "model order reduction",
+        0
+    ],
+    [
+        "hopfield network",
+        0
+    ],
+    [
+        "anheuser-busch inbev",
+        0
+    ],
+    [
+        "spamming",
+        0
+    ],
+    [
+        "categorical datum",
+        0
+    ],
+    [
+        "cryptography",
+        0
+    ],
+    [
+        "reproducing kernel hilbert space",
+        0
+    ],
+    [
+        "utility function",
+        0
+    ],
+    [
+        "behavioral targeting",
+        0
+    ],
+    [
+        "akaike information criterion",
+        0
+    ],
+    [
+        "active learning",
+        0
+    ],
+    [
+        "taxicab geometry",
+        0
+    ],
+    [
+        "overture services, inc.",
+        0
+    ],
+    [
+        "ecml pkdd",
+        0
+    ],
+    [
+        "scientific journal",
+        0
+    ],
+    [
+        "thermodynamic",
+        0
+    ],
+    [
+        "brain technology",
+        0
+    ],
+    [
+        "basic book",
+        0
+    ],
+    [
+        "event (probability theory)",
+        0
+    ],
+    [
+        "compact group",
+        0
+    ],
+    [
+        "gaussian distribution",
+        0
+    ],
+    [
+        "optimal stopping",
+        0
+    ],
+    [
+        "intelligent agent",
+        0
+    ],
+    [
+        "line (geometry)",
+        0
+    ],
+    [
+        "data storage device",
+        0
+    ],
+    [
+        "bayesian logic program",
+        0
+    ],
+    [
+        "ontology learning",
+        0
+    ],
+    [
+        "pattern matching",
+        0
+    ],
+    [
+        "information integration",
+        0
+    ],
+    [
+        "the dark forest",
+        0
+    ],
+    [
+        "k-means clustering",
+        0
+    ],
+    [
+        "irobi",
+        0
+    ],
+    [
+        "injective function",
+        0
+    ],
+    [
+        "ball (mathematics)",
+        0
+    ],
+    [
+        "memory-prediction framework",
+        0
+    ],
+    [
+        "heidelberg",
+        0
+    ],
+    [
+        "file:nonbayesian-categorical-mixture.svg",
+        0
+    ],
+    [
+        "residual sum of squares",
+        0
+    ],
+    [
+        "open source",
+        0
+    ],
+    [
+        "parallel computing",
+        0
+    ],
+    [
+        "graphics processing unit",
+        0
+    ],
+    [
+        "lookup table",
+        0
+    ],
+    [
+        "murray campbell",
+        0
+    ],
+    [
+        "automated reasoning",
+        0
+    ],
+    [
+        "reality show",
+        0
+    ],
+    [
+        "controlled vocabulary",
+        0
+    ],
+    [
+        "relational data mining",
+        0
+    ],
+    [
+        "information processing",
+        0
+    ],
+    [
+        "thomas baye",
+        0
+    ],
+    [
+        "youden's j statistic",
+        0
+    ],
+    [
+        "dense set",
+        0
+    ],
+    [
+        "ontology engineering",
+        0
+    ],
+    [
+        "canonical correlation",
+        0
+    ],
+    [
+        "enduro (video game)",
+        0
+    ],
+    [
+        "bayesian decision theory",
+        0
+    ],
+    [
+        "positive or negative test",
+        0
+    ],
+    [
+        "file:svmconf.png",
+        0
+    ],
+    [
+        "association rule learning",
+        0
+    ],
+    [
+        "mean integrated squared error",
+        0
+    ],
+    [
+        "m. s. smirnov",
+        0
+    ],
+    [
+        "propositional calculu",
+        0
+    ],
+    [
+        "jeff hawkin",
+        0
+    ],
+    [
+        "predictive state representation",
+        0
+    ],
+    [
+        "bit vector",
+        0
+    ],
+    [
+        "np-hardnes",
+        0
+    ],
+    [
+        "medical imaging",
+        0
+    ],
+    [
+        "hoeffding's inequality",
+        0
+    ],
+    [
+        "linked datum",
+        0
+    ],
+    [
+        "anti-unification (computer science)",
+        0
+    ],
+    [
+        "specification (regression)",
+        0
+    ],
+    [
+        "natural language",
+        0
+    ],
+    [
+        "set (mathematics)",
+        0
+    ],
+    [
+        "mutation (genetic algorithm)",
+        0
+    ],
+    [
+        "linear transformation",
+        0
+    ],
+    [
+        "triangle inequality",
+        0
+    ],
+    [
+        "positive-definite function",
+        0
+    ],
+    [
+        "slot machine",
+        0
+    ],
+    [
+        "closed-form expression",
+        0
+    ],
+    [
+        "sherman–morrison formula",
+        0
+    ],
+    [
+        "feature detection (computer vision)",
+        0
+    ],
+    [
+        "conjugate prior distribution",
+        0
+    ],
+    [
+        "dirichlet distribution",
+        0
+    ],
+    [
+        "big datum",
+        0
+    ],
+    [
+        "nowcasting (economics)",
+        0
+    ],
+    [
+        "black box",
+        0
+    ],
+    [
+        "predicate (logic)",
+        0
+    ],
+    [
+        "pathfinding",
+        0
+    ],
+    [
+        "laplace-beltrami operator",
+        0
+    ],
+    [
+        "pu learning",
+        0
+    ],
+    [
+        "hartmut von hentig",
+        0
+    ],
+    [
+        "well-posed problem",
+        0
+    ],
+    [
+        "base rate fallacy",
+        0
+    ],
+    [
+        "nonlinear regression",
+        0
+    ],
+    [
+        "error variable",
+        0
+    ],
+    [
+        "multivariate normal distribution",
+        0
+    ],
+    [
+        "gartner",
+        0
+    ],
+    [
+        "indian institute of technology guwahati",
+        0
+    ],
+    [
+        "bayesian structural time sery",
+        0
+    ],
+    [
+        "geoff hinton",
+        0
+    ],
+    [
+        "american idol",
+        0
+    ],
+    [
+        "computer performance",
+        0
+    ],
+    [
+        "monte carlo tree search",
+        0
+    ],
+    [
+        "missing value",
+        0
+    ],
+    [
+        "independent and identically-distributed random variable",
+        0
+    ],
+    [
+        "lyon, france",
+        0
+    ],
+    [
+        "newton's method in optimization",
+        0
+    ],
+    [
+        "rudolf wille",
+        0
+    ],
+    [
+        "rotation (mathematics)",
+        0
+    ],
+    [
+        "file:normal distribution pdf.png",
+        0
+    ],
+    [
+        "attributable risk",
+        0
+    ],
+    [
+        "determiner (linguistics)",
+        0
+    ],
+    [
+        "nemertes research",
+        0
+    ],
+    [
+        "topic modeling",
+        0
+    ],
+    [
+        "informed consent",
+        0
+    ],
+    [
+        "kernel pca",
+        0
+    ],
+    [
+        "pattern recognition",
+        0
+    ],
+    [
+        "orthogonal basi",
+        0
+    ],
+    [
+        "mauna loa observatory",
+        0
+    ],
+    [
+        "stephen hawking",
+        0
+    ],
+    [
+        "word processor",
+        0
+    ],
+    [
+        "entropy (information theory)",
+        0
+    ],
+    [
+        "distribution learning theory",
+        0
+    ],
+    [
+        "nag numerical library",
+        0
+    ],
+    [
+        "binomial distribution",
+        0
+    ],
+    [
+        "string operation",
+        0
+    ],
+    [
+        "reliability (statistics)",
+        0
+    ],
+    [
+        "file:soho works.jpg",
+        0
+    ],
+    [
+        "unified parkinson's disease rating scale",
+        0
+    ],
+    [
+        "timeline of machine translation",
+        0
+    ],
+    [
+        "attributable risk percent",
+        0
+    ],
+    [
+        "william of ockham",
+        0
+    ],
+    [
+        "neurocybernetic",
+        0
+    ],
+    [
+        "high-dimensional space",
+        0
+    ],
+    [
+        "markov chain",
+        0
+    ],
+    [
+        "mathematical object",
+        0
+    ],
+    [
+        "orange (software)",
+        0
+    ],
+    [
+        "mycin",
+        0
+    ],
+    [
+        "pentti kanerva",
+        0
+    ],
+    [
+        "low-power processor",
+        0
+    ],
+    [
+        "lattice theory",
+        0
+    ],
+    [
+        "file:virginvoom2016.png",
+        0
+    ],
+    [
+        "bias-variance tradeoff",
+        0
+    ],
+    [
+        "information-theoretic",
+        0
+    ],
+    [
+        "computational learning theory",
+        0
+    ],
+    [
+        "search algorithm",
+        0
+    ],
+    [
+        "additive smoothing",
+        0
+    ],
+    [
+        "conditional independence",
+        0
+    ],
+    [
+        "order-reversing",
+        0
+    ],
+    [
+        "newton's law of motion",
+        0
+    ],
+    [
+        "rough set",
+        0
+    ],
+    [
+        "recursive partitioning",
+        0
+    ],
+    [
+        "komidashi",
+        0
+    ],
+    [
+        "spline (mathematics)",
+        0
+    ],
+    [
+        "cognitive robotic",
+        0
+    ],
+    [
+        "human memory",
+        0
+    ],
+    [
+        "statistical relational learning",
+        0
+    ],
+    [
+        "sensor network",
+        0
+    ],
+    [
+        "formal logic",
+        0
+    ],
+    [
+        "spectral regularization",
+        0
+    ],
+    [
+        "carpet plot",
+        0
+    ],
+    [
+        "kernel(statistics)",
+        0
+    ],
+    [
+        "computer science",
+        0
+    ],
+    [
+        "least squares support vector machine",
+        0
+    ],
+    [
+        "kernel embedding of distributions",
+        0
+    ],
+    [
+        "file:traintest.svg",
+        0
+    ],
+    [
+        "representation learning",
+        0
+    ],
+    [
+        "dimension reduction",
+        0
+    ],
+    [
+        "standard normal",
+        0
+    ],
+    [
+        "behavior informatic",
+        0
+    ],
+    [
+        "occam's razor",
+        0
+    ],
+    [
+        "r* tree",
+        0
+    ],
+    [
+        "times higher education",
+        0
+    ],
+    [
+        "combinatoric explosion",
+        0
+    ],
+    [
+        "syndrome",
+        0
+    ],
+    [
+        "recursive neural network",
+        0
+    ],
+    [
+        "jerome bruner",
+        0
+    ],
+    [
+        "polynomial transformation",
+        0
+    ],
+    [
+        "compound term processing",
+        0
+    ],
+    [
+        "blackboard system",
+        0
+    ],
+    [
+        "backward induction",
+        0
+    ],
+    [
+        "method of moments (statistics)",
+        0
+    ],
+    [
+        "scaling (geometry)",
+        0
+    ],
+    [
+        "fiducial distribution",
+        0
+    ],
+    [
+        "false negative rate",
+        0
+    ],
+    [
+        "expected reciprocal rank",
+        0
+    ],
+    [
+        "contact searching algorithm in fea",
+        0
+    ],
+    [
+        "carl linnaeu",
+        0
+    ],
+    [
+        "text corpu",
+        0
+    ],
+    [
+        "hans rademacher",
+        0
+    ],
+    [
+        "metric tree",
+        0
+    ],
+    [
+        "abortion",
+        0
+    ],
+    [
+        "diagnostic odds ratio",
+        0
+    ],
+    [
+        "constraint satisfaction",
+        0
+    ],
+    [
+        "sensitivity analysi",
+        0
+    ],
+    [
+        "bregman divergence",
+        0
+    ],
+    [
+        "bias–variance tradeoff",
+        0
+    ],
+    [
+        "gary drescher",
+        0
+    ],
+    [
+        "jorma rissanen",
+        0
+    ],
+    [
+        "string (formal languages)",
+        0
+    ],
+    [
+        "agent architecture",
+        0
+    ],
+    [
+        "causal relation",
+        0
+    ],
+    [
+        "probabilistic classification",
+        0
+    ],
+    [
+        "indicator function",
+        0
+    ],
+    [
+        "bayesian optimization",
+        0
+    ],
+    [
+        "brown clustering",
+        0
+    ],
+    [
+        "zero probability",
+        0
+    ],
+    [
+        "porphyry (philosopher)",
+        0
+    ],
+    [
+        "coca-cola",
+        0
+    ],
+    [
+        "structured prediction",
+        0
+    ],
+    [
+        "go board",
+        0
+    ],
+    [
+        "partially observable system",
+        0
+    ],
+    [
+        "library science",
+        0
+    ],
+    [
+        "automated planning",
+        0
+    ],
+    [
+        "collaborative filtering",
+        0
+    ],
+    [
+        "an essay towards solving a problem in the doctrine of chances",
+        0
+    ],
+    [
+        "working set",
+        0
+    ],
+    [
+        "social network",
+        0
+    ],
+    [
+        "multilinear subspace learning",
+        0
+    ],
+    [
+        "kalman filter",
+        0
+    ],
+    [
+        "os x",
+        0
+    ],
+    [
+        "chemical similarity",
+        0
+    ],
+    [
+        "random self-reducibility",
+        0
+    ],
+    [
+        "keyword research",
+        0
+    ],
+    [
+        "file:wikipedia kde.png",
+        0
+    ],
+    [
+        "metric (mathematics)",
+        0
+    ],
+    [
+        "delft university of technology",
+        0
+    ],
+    [
+        "perceptual learning",
+        0
+    ],
+    [
+        "origin (software)",
+        0
+    ],
+    [
+        "population (statistics)",
+        0
+    ],
+    [
+        "nd4j (software)",
+        0
+    ],
+    [
+        "computational creativity",
+        0
+    ],
+    [
+        "all-or-none law",
+        0
+    ],
+    [
+        "google searchwiki",
+        0
+    ],
+    [
+        "george armitage miller",
+        0
+    ],
+    [
+        "positive-definite matrix",
+        0
+    ],
+    [
+        "inner product",
+        0
+    ],
+    [
+        "artificial immune system",
+        0
+    ],
+    [
+        "d3j",
+        0
+    ],
+    [
+        "universal approximation theorem",
+        0
+    ],
+    [
+        "full rank",
+        0
+    ],
+    [
+        "cartesian product",
+        0
+    ],
+    [
+        "brian matthews (biochemist)",
+        0
+    ],
+    [
+        "mathematica",
+        0
+    ],
+    [
+        "False general intelligence",
+        0
+    ],
+    [
+        "ordinal datum",
+        0
+    ],
+    [
+        "noise reduction",
+        0
+    ]
+]
